@@ -5,6 +5,11 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [
+
+  ],
+  exports: [
+    //Components that should be exported for other modules
+  ]
 })
 export class SharedModule { }

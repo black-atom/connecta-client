@@ -16,8 +16,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
-    ]
-  }
+      { path: 'home', loadChildren: './home/home.module.ts#HomeModule' },
+    ],
+  },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

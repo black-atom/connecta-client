@@ -8,7 +8,7 @@ export const PAGES_MENU = [
           selected: false,
           expanded: false,
           order: 200,
-        }
+        },
       },
       children: [
         {
@@ -16,9 +16,21 @@ export const PAGES_MENU = [
           data: {
             menu: {
               title: 'general.menu.chartist_js',
-            }
-          }
-        }
-      ]
+            },
+          },
+        },
+      ],
+    },
+    {
+      path: 'home',
+      data: {
+        menu: {
+          title: 'Home',
+          icon: 'ion-home',
+          selected: false,
+          expanded: false,
+          order: 250,
+        },
+      },
     },
 ];

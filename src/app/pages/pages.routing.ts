@@ -11,10 +11,6 @@ export const routes: Routes = [
     loadChildren: 'app/pages/login/login.module#LoginModule'
   },
   {
-    path: 'register',
-    loadChildren: 'app/pages/register/register.module#RegisterModule'
-  },
-  {
     path: 'pages',
     component: Pages,
     children: [

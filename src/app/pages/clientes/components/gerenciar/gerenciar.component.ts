@@ -14,16 +14,13 @@ export class GerenciarComponent implements OnInit {
         title: 'CNPJ/CPF',     
         type: 'number'  
       },
-
       nome_fantasia: { 
         title: 'Nome', 
         type: 'string' },
-
       email: { 
         title: 'E-mail',      
         type: 'string' 
       },
-
       telefone: { 
         title: 'Telefone',     
         type: 'string' 

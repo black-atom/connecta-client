@@ -21,7 +21,6 @@ import { PAGES_MENU } from './pages.menu';
         <div class="al-copy">&copy; <a href="http://akveo.com" translate>{{'general.akveo'}}</a> 2016</div>
         <ul class="al-share clearfix">
           <li><i class="socicon socicon-facebook"></i></li>
-          <li><i class="socicon socicon-twitter"></i></li>
           <li><i class="socicon socicon-google"></i></li>
           <li><i class="socicon socicon-github"></i></li>
         </ul>
@@ -32,7 +31,7 @@ import { PAGES_MENU } from './pages.menu';
 })
 export class Pages {
 
-  constructor(private _menuService: BaMenuService,) {
+  constructor(private _menuService: BaMenuService) {
   }
 
   ngOnInit() {

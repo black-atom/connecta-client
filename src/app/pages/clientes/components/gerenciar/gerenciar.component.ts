@@ -9,19 +9,21 @@ export class GerenciarComponent implements OnInit {
 
   settings = {
     actions: false,
-    columns: 
-    {
-      cpf_cnpj: { 
-        title: 'CPF/CNPJ',     
+    columns: {
+      cnpj_cpf: { 
+        title: 'CNPJ/CPF',     
         type: 'number'  
       },
-      razao_social: { 
-        title: 'Razão social', 
+
+      nome_fantasia: { 
+        title: 'Nome', 
         type: 'string' },
+
       email: { 
         title: 'E-mail',      
         type: 'string' 
       },
+
       telefone: { 
         title: 'Telefone',     
         type: 'string' 

@@ -1,3 +1,101 @@
-<p>
-  novo-atendimento works!
-</p>
+<!-- Card com os inputs de dados principais do funcionário -->
+<div class="row">
+  <div class="col-12">
+    <ba-card cardTitle="Dados principais">
+
+      <div class="row">
+        <div class="form-group col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="CNPJ ou CPF">
+        </div>
+
+      
+        <div class="form-group col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Razão Social ou Nome">
+        </div>
+        </div>
+
+    </ba-card>
+  </div>
+</div>
+
+<!-- Card com os inputs das informações de contato do cliente -->
+<div class="row">
+  <div class="col-12">
+    <ba-card cardTitle="Contato">
+
+      <div class="row">
+        <div class="form-group col-md-4 col-sm-12">
+          <input type="text" class="form-control" placeholder="E-mail">
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12">
+          <input type="text" class="form-control" placeholder="Telefone">
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12">
+          <input type="text" class="form-control" placeholder="Celular">
+        </div>
+
+        <div class="form-group col-md-12 col-sm-12">
+          <input type="text" class="form-control" placeholder="Observação">
+        </div>
+      </div>
+
+    </ba-card>
+  </div>
+</div>
+
+<!-- Card com os inputs das informações de contato do cliente -->
+<div class="row">
+  <div class="col-12">
+    <ba-card cardTitle="Atendimento">
+
+      <div class="row">
+        <div class="form-group col-md-2 col-sm-12">
+          <input type="text" class="form-control" placeholder="Data">
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12">
+              <div class="form-group">
+             <select class="form-control">
+                <option value="" disabled selected>Selecione o Tipo do Atendimento</option>
+                <option>Entrega</option>
+                <option>Instalação</option>
+                <option>Encaixe</option>
+                <option>Reparo</option>
+              </select>
+        </div>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group">
+             <select class="form-control">
+                <option value="" disabled selected>Selecione o Técnico</option>
+                <option>Técnico 1</option>
+                <option>Técnico 2</option>
+                <option>Técnico 3</option>
+                <option>Técnico 4</option>
+              </select>
+        </div>
+        </div>
+
+      </div>
+    </ba-card>
+  </div>
+</div>
+
+<!-- Botões de cadastro e de limpeza de dados -->
+<div class="row">
+
+  <div class="col-md-6 col-sm-12">
+    <button type="submit" class="btn btn-primary btn-with-icon">
+      <i class="ion-android-checkmark-circle"></i>Cadastrar Atendimento</button>
+  </div>
+
+  <div class="col-md-6 col-sm-12">
+    <button type="reset" class="btn btn-danger btn-with-icon">
+      <i class="ion-trash-a"></i>Limpar Dados</button>
+  </div>
+
+</div>
+

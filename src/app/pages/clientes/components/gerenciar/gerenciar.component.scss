@@ -43,7 +43,7 @@
       color: $default-text;
       font-weight: $font-bolder;
       &.sort {
-        font-weight: $font-bolder !important;
+        font-weight: bold !important;
 
         &::after {
           border-bottom-color: $default-text !important;

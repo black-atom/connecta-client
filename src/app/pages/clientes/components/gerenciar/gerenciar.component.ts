@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html',
@@ -24,6 +25,11 @@ export class GerenciarComponent implements OnInit {
       telefone: { 
         title: 'Telefone',     
         type: 'string' 
+      },
+      _id: {
+        title: 'Detalhes',
+        type: 'custom',
+        // renderComponent: ButtonViewComponent 
       },
     },
   };

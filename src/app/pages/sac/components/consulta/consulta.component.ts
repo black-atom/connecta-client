@@ -30,6 +30,10 @@ export class ConsultaComponent implements OnInit {
         title: 'Técnico',
         type: 'string'
       },
+      _id: {
+        title: 'Detalhes',
+        type: 'custom'
+      },
     },
   };
 

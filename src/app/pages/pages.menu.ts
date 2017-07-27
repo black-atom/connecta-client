@@ -8,7 +8,7 @@ export const PAGES_MENU = [{
           icon: 'ion-home',
           selected: false,
           expanded: false,
-          order: 250,
+          order: 250
         },
       },
     },
@@ -20,7 +20,7 @@ export const PAGES_MENU = [{
           icon: 'ion-person',
           selected: false,
           expanded: false,
-          order: 300,
+          order: 300
         },
       },
       children: [{
@@ -28,7 +28,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Novo',
-              icon: 'ion-person-add',
+              icon: 'ion-person-add'
             },
           },
         },
@@ -37,7 +37,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Gerenciar',
-              icon: 'ion-clipboard',
+              icon: 'ion-clipboard'
             },
           },
         },
@@ -51,7 +51,7 @@ export const PAGES_MENU = [{
           icon: 'ion-model-s',
           selected: false,
           expanded: false,
-          order: 300,
+          order: 300
         },
       },
       children: [{
@@ -59,7 +59,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Novo',
-              icon: 'ion-person-add',
+              icon: 'ion-person-add'
             },
           },
         },
@@ -68,7 +68,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Gerenciar',
-              icon: 'ion-clipboard',
+              icon: 'ion-clipboard'
             },
           },
         },
@@ -82,7 +82,7 @@ export const PAGES_MENU = [{
           icon: 'ion-settings',
           selected: false,
           expanded: false,
-          order: 300,
+          order: 300
         },
       },
       children: [{
@@ -90,7 +90,16 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Novo',
-              icon: 'ion-person-add',
+              icon: 'ion-person-add'
+            },
+          },
+        },
+        {
+          path: 'associar',
+          data: {
+            menu: {
+              title: 'Associar',
+              icon: 'ion-person-stalker'
             },
           },
         },
@@ -99,7 +108,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Gerenciar',
-              icon: 'ion-clipboard',
+              icon: 'ion-clipboard'
             },
           },
         },
@@ -113,7 +122,7 @@ export const PAGES_MENU = [{
           icon: 'ion-ios-chatboxes',
           selected: false,
           expanded: false,
-          order: 250,
+          order: 250
         },
       },
       children: [{
@@ -121,7 +130,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Consulta',
-            icon: 'ion-android-search',
+            icon: 'ion-android-search'
           },
         },
       }],

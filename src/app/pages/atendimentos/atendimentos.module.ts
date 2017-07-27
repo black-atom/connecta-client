@@ -13,7 +13,7 @@ import { routing } from './atendimentos.routing';
   imports: [
     CommonModule, 
     NgaModule,
-     routing
+    routing
     ],
   declarations: [
     AtendimentosComponent, 

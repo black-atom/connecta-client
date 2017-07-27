@@ -28,15 +28,14 @@ $angle-right: '\f101';
       height: auto;
       line-height: 29px;
       &:hover {
-        color: grey;
+        color: $primary;
       }
     }
     &.selected:not(.with-sub-menu) > a {
       border: none;
-      background-color: white;
-      color: black;
+      background-color: $primary;
       &:hover {
-        color: black;
+        color: $sidebar-text;
       }
     }
 
@@ -79,9 +78,9 @@ $angle-right: '\f101';
     float: none;
     padding: 0;
     &.selected:not(.with-sub-menu) {
-      background-color: white;
+      background-color: $primary;
       a.al-sidebar-list-link {
-        color: black;
+        color: $sidebar-text;
         b {
           color: $sidebar-text;
         }
@@ -115,7 +114,7 @@ $angle-right: '\f101';
     height: 42px;
     padding-left: 18px;
     text-shadow: none;
-    font-size: 15px;
+    font-size: 13px;
     text-decoration: none;
     color: $sidebar-text;
     line-height: 42px;
@@ -123,9 +122,9 @@ $angle-right: '\f101';
     overflow: hidden;
     cursor: pointer;
     &:hover {
-      color: grey;
+      color: $primary;
       b {
-        color: black;
+        color: $primary;
       }
     }
     i {
@@ -163,7 +162,7 @@ $angle-right: '\f101';
 
   .sidebar-hover-elem {
     width: $sidebar-scroll-width;
-    background: white;
+    background: $primary;
     position: absolute;
     top: -150px;
     left: $sidebar-width - $sidebar-scroll-width;

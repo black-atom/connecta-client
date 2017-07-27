@@ -3,8 +3,20 @@
     <ba-card cardTitle="Dados principais">
 
       <div class="row">
-        <div class="form-group col-md-12 col-sm-12">
-          <input type="text" class="form-control" placeholder="Nome do grupo - Ex: Perguntas de atendimentos do tipo: Entrega">
+        <div class="form-group col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Identificador do grupo">
+        </div>
+
+          <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <select class="form-control">
+                <option value="" disabled selected>Selecione o tipo do grupo</option>
+                <option>Perguntas - Atendimento tipo ENTREGA</option>
+                <option>Perguntas - Atendimento tipo REPARO</option>
+                <option>Perguntas - Atendimento tipo INSTALAÇÃO</option>
+                <option>Perguntas - Atendimento tipo ENCAIXE</option>
+              </select>
+          </div>
         </div>
       </div>
 

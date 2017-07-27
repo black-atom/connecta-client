@@ -86,15 +86,6 @@ export const PAGES_MENU = [{
         },
       },
       children: [{
-          path: 'perguntas',
-          data: {
-            menu: {
-              title: 'Perguntas',
-              icon: 'ion-help',
-            },
-          },
-        },
-        {
           path: 'novo',
           data: {
             menu: {

@@ -9,7 +9,10 @@ import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento'
 import { routing } from './atendimentos.routing';
 import { InformacoesAtendimentoComponent } from './components/novo-atendimento/informacoes-atendimento';
 import { ContatoClienteAtendimentoComponent } from './components/novo-atendimento/contato-cliente-atendimento';
-import { DadosClienteAtendimentoComponent } from './components/novo-atendimento/dados-cliente-atendimento/dados-cliente-atendimento.component';
+import { DadosClienteAtendimentoComponent } from './components/novo-atendimento/dados-cliente-atendimento';
+import { AssociarComponent } from './components/associar/';
+import { TecnicosComponent } from './components/associar/tecnicos/tecnicos.component';
+import { AtendimentosCadastradosComponent } from './components/associar/atendimentos-cadastrados';
 
 @NgModule({
   imports: [
@@ -24,7 +27,10 @@ import { DadosClienteAtendimentoComponent } from './components/novo-atendimento/
     DetalhesAtendimentoComponent, 
     InformacoesAtendimentoComponent,
     ContatoClienteAtendimentoComponent,
-    DadosClienteAtendimentoComponent
+    DadosClienteAtendimentoComponent,
+    AssociarComponent,
+    TecnicosComponent,
+    AtendimentosCadastradosComponent
   ],
 })
 export class AtendimentosModule { }

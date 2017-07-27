@@ -12,9 +12,14 @@ import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { routing } from './clientes.routing';
 
 @NgModule({
-  imports: [CommonModule, Ng2SmartTableModule, NgaModule, routing],
+  imports: [
+    CommonModule,
+    Ng2SmartTableModule, 
+    NgaModule, 
+    routing
+  ],
   declarations: [
-    ClientesComponent, 
+    ClientesComponent,
     NovoClienteComponent, 
     GerenciarComponent, 
     EnderecoComponent, 

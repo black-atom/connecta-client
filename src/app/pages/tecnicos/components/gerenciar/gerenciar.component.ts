@@ -26,6 +26,10 @@ export class GerenciarComponent implements OnInit {
         title: 'N° Habilitação',      
         type: 'string' 
       },
+      _id: {
+        title: 'Detalhes',
+        type: 'custom'
+      },
     },
   };
 

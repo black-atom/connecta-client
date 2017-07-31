@@ -7,9 +7,9 @@
         <div class="col-md-6 col-sm-12 col-xs-12" *ngFor="let tecnico of tecnicos">
           <ba-card cardTitle="{{tecnico.nome}}">
             <p [dragula]='"associar"'><strong>Atendimentos</strong></p>
-            <button type="button" class="btn btn-outline-success pull-right" 
+            <button type="button" class="btn btn-outline-primary pull-right" 
             data-toggle="modal" data-target="#exampleModal">
-            +
+            <strong>+</strong>
           </button>
 
           </ba-card>

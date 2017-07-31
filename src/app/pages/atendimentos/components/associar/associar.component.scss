@@ -1,3 +1,10 @@
+@import '../../../../theme/sass/conf/conf';
+
 button {
     margin-top: -2.3em;
+    &:hover {
+        background-color: $primary;
+        border: none;
+    }
 }
+

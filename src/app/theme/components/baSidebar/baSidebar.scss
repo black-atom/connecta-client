@@ -33,9 +33,10 @@ $angle-right: '\f101';
     }
     &.selected:not(.with-sub-menu) > a {
       border: none;
-      background-color: $primary;
+      color: #fff;
+      background-color: #152740;
       &:hover {
-        color: $sidebar-text;
+        color: #fff;
       }
     }
 
@@ -78,9 +79,10 @@ $angle-right: '\f101';
     float: none;
     padding: 0;
     &.selected:not(.with-sub-menu) {
-      background-color: $primary;
+      color: #fff;
+      background-color: #152740;
       a.al-sidebar-list-link {
-        color: $sidebar-text;
+        color: white;
         b {
           color: $sidebar-text;
         }

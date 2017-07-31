@@ -14,11 +14,11 @@
       <div class="modal-body">
 
         <div class="row">
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-6 col-sm-12" *ngFor="let atendimento of atendimentos">
             <ba-card>
               <div class="card-body">
-                <p><strong> ALAN TEIXEIRA LIMA</strong></p>
-                <p class="local"><i class="ion-location"></i> Planalto, São Bernardo do Campo - 09725180</p>
+                <p><strong>{{ atendimento.razao_social }}</strong></p>
+                <p class="local"><i class="ion-location"></i> {{ atendimento.bairro +", "+ atendimento.cidade +" - "+ atendimento.cep}}</p>
               </div>
             </ba-card>
           </div>
@@ -31,4 +31,3 @@
     </div>
   </div>
 </div>
-

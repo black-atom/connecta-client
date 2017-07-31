@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssociarComponent implements OnInit {
 
-  constructor() { }
+  tecnicos: any[] = [
+    { nome: 'Alexandre' },
+    { nome: 'Rafael' },
+    { nome: 'Vitor' },
+    { nome: 'Adelaide' },
+    { nome: 'João' },
+    { nome: 'Alan' },
+    { nome: 'José' },
+    { nome: 'Caio' },
+    { nome: 'Juricléia' },
+    { nome: 'Thalita' },
+  ];
 
-  ngOnInit() {
-  }
+  constructor() {}
 
+  ngOnInit() {}
+
+  
 }

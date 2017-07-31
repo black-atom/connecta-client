@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
+import { DragulaModule } from '../../../../node_modules/ng2-dragula/ng2-dragula';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
@@ -11,14 +12,15 @@ import { InformacoesAtendimentoComponent } from './components/novo-atendimento/i
 import { ContatoClienteAtendimentoComponent } from './components/novo-atendimento/contato-cliente-atendimento';
 import { DadosClienteAtendimentoComponent } from './components/novo-atendimento/dados-cliente-atendimento';
 import { AssociarComponent } from './components/associar/';
-import { TecnicosComponent } from './components/associar/tecnicos/tecnicos.component';
-import { AtendimentosCadastradosComponent } from './components/associar/atendimentos-cadastrados';
+import { EnderecoClienteAtendimentoComponent } from './components/novo-atendimento/endereco-cliente-atendimento';
+import { AtendimentosDisponiveisComponent } from './components/associar/atendimentos-disponiveis';
 
 @NgModule({
   imports: [
     CommonModule, 
     NgaModule,
-    routing
+    routing,
+    DragulaModule
     ],
   declarations: [
     AtendimentosComponent, 
@@ -29,8 +31,8 @@ import { AtendimentosCadastradosComponent } from './components/associar/atendime
     ContatoClienteAtendimentoComponent,
     DadosClienteAtendimentoComponent,
     AssociarComponent,
-    TecnicosComponent,
-    AtendimentosCadastradosComponent
+    EnderecoClienteAtendimentoComponent,
+    AtendimentosDisponiveisComponent
   ],
 })
 export class AtendimentosModule { }

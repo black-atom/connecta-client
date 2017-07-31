@@ -1,4 +1,4 @@
-export interface Atendimento {
+export interface AtendimentoModel {
     cnpj_cpf: string;
     razao_social: string;
     email: string;
@@ -14,5 +14,6 @@ export interface Atendimento {
     ponto_referencia: string;
     data_atendimento: string;
     tipo_atendimento: string;
+    tecnico: string;
     descricao_atendimento: string;
 }

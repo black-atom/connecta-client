@@ -11,12 +11,15 @@ import { TECNICOSMOCK } from './../../../../utils/mocks/tecnicos.mock';
 
 export class AssociarComponent implements OnInit {
 
-
   tecnicos: TecnicoModel[] = TECNICOSMOCK;
 
   constructor() {}
 
   ngOnInit() {}
+
+  add(tecnico) {
+    console.log(tecnico)
+  }
 
 
 }

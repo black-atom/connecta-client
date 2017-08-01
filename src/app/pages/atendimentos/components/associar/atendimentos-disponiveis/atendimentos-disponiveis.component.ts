@@ -11,10 +11,20 @@ import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock
 export class AtendimentosDisponiveisComponent implements OnInit {
 
   atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
-
+  selecionados: AtendimentoModel[] = [];
+  
+  
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getAtendimento(atendimento) {
+    const isIgual = this.selecionados.find(elemento => elemento === atendimento);
+
+    if (isIgual === undefined) {
+      this.selecionados.push(atendimento);
+    }
   }
 
 }

@@ -12,7 +12,7 @@ export class AtendimentosDisponiveisComponent implements OnInit {
 
   atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
   selecionados: AtendimentoModel[] = [];
-  
+  atendimentoVinculado: AtendimentoModel[] = [];
   
   constructor() { }
 
@@ -25,6 +25,15 @@ export class AtendimentosDisponiveisComponent implements OnInit {
     if (isIgual === undefined) {
       this.selecionados.push(atendimento);
     }
+  }
+
+  associarAtendimento() {
+    this.atendimentoVinculado = this.selecionados.map((item) => {
+      item.tecnico = 'teste';
+      return item;
+    });
+
+    console.log(this.atendimentoVinculado);
   }
 
 }

@@ -1,33 +1,26 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-header">
+  <h4 class="modal-title">Atendimentos disponíveis para {{tecnicoSelecionado}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
 
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <h5 class="modal-title" id="exampleModalLabel">Atendimentos disponíveis</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-
-        <div class="row">
-          <div class="col-md-6 col-sm-12" *ngFor="let atendimento of atendimentos">
-            <ba-card (click)="getAtendimento(atendimento)">
-              <div class="card-body">
-                <p><strong>{{ atendimento.razao_social }}</strong></p>
-                <p class="local"><i class="ion-location"></i> {{ atendimento.bairro +", "+ atendimento.cidade +" - "+ atendimento.cep}}</p>
-              </div>
-            </ba-card>
-          </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
-            <i class="ion-android-checkmark-circle"></i> Associar ({{ selecionados.length}})</button>
-      </div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-6 col-sm-12" *ngFor="let atendimento of atendimentos">
+      <ba-card (click)="getAtendimento(atendimento)">
+        <div class="card-body">
+          <p><strong>{{ atendimento.razao_social }}</strong></p>
+          <p class="local"><i class="ion-location"></i> {{ atendimento.bairro +", "+ atendimento.cidade +" - "+ atendimento.cep}}</p>
+        </div>
+      </ba-card>
     </div>
   </div>
 </div>
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
+<i class="ion-android-checkmark-circle"></i> Associar ({{ selecionados.length}})</button>
+</div>
+

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { TecnicoModel } from './../../../../../models/tecnico/tecnico.interface';
 import { AtendimentoModel } from './../../../../../models/atendimento/atendimento.interface';
 import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock';
 
@@ -10,11 +12,12 @@ import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock
 })
 export class AtendimentosDisponiveisComponent implements OnInit {
 
+  @Input() tecnicoSelecionado: TecnicoModel;
   atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
   selecionados: AtendimentoModel[] = [];
   atendimentoVinculado: AtendimentoModel[] = [];
-  
-  constructor() { }
+ 
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
@@ -32,8 +35,10 @@ export class AtendimentosDisponiveisComponent implements OnInit {
       item.tecnico = 'teste';
       return item;
     });
-
-    console.log(this.atendimentoVinculado);
+    this.activeModal.close(this.atendimentoVinculado);
   }
-
+  
+  closeModal() {
+    this.activeModal.dismiss();
+  }
 }

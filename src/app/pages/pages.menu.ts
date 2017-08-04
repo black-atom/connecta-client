@@ -4,8 +4,8 @@ export const PAGES_MENU = [{
       path: 'home',
       data: {
         menu: {
-          title: 'Home',
-          icon: 'ion-home',
+          title: 'Monitoramento',
+          icon: 'ion-arrow-graph-up-right',
           selected: false,
           expanded: false,
           order: 250

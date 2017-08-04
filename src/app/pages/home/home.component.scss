@@ -1,0 +1,41 @@
+@import './../../theme/sass/conf/conf.scss';
+
+img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: 1.8px solid #fff;
+}
+
+
+table > tbody > tr > td, th {
+    border-top: none;
+    text-align: center;
+}
+
+td {
+    font-size: 22px;
+    color: $primary;
+}
+
+h4, th {
+    color: #878787;
+}
+
+.list-group-item {
+  border: none;
+  background: none;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+  background-color: $primary;
+  color: white;
+}
+

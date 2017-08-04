@@ -7,11 +7,11 @@
 
 <div class="modal-body">
   <div class="row">
-    <div class="col-md-6 col-sm-12" *ngFor="let atendimento of atendimentos">
+    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos">
       <ba-card (click)="getAtendimento(atendimento)">
         <div class="card-body">
           <p><strong>{{ atendimento.razao_social }}</strong></p>
-          <p class="local"><i class="ion-location"></i> {{ atendimento.bairro +", "+ atendimento.cidade +" - "+ atendimento.cep}}</p>
+          <p class="local"><i class="ion-location"></i> {{ atendimento.rua + " - " +  atendimento.bairro +", "+ atendimento.cidade +" - "+ atendimento.cep}}</p>
         </div>
       </ba-card>
     </div>

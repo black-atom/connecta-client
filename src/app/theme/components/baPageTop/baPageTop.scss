@@ -4,15 +4,15 @@
 :host /deep/ {
 
   .page-top {
-    background-color: #152740;
+    background-color: #0187D0;
     position: fixed;
     z-index: 904;
-    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.9);
+    box-shadow: 1.5px 1.5px 1.5px #888888;
     height: 66px;
     width: 100%;
     min-width: $resMin;
     padding: 0 32px 0 40px;
-
+     
     .dropdown-toggle::after {
       display: none;
     }
@@ -33,6 +33,7 @@
     float: left;
     outline: none !important;
     line-height: 60px;
+    font-weight: bold;
 
     span {
       color: $primary;
@@ -110,7 +111,7 @@
 
     &:hover {
       text-decoration: none;
-      color: $primary;
+      color: #02A8F3;
     }
   }
 

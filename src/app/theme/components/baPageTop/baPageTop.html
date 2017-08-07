@@ -1,8 +1,10 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)"
      [ngClass]="{scrolled: isScrolled}">
-  <a routerLink="/pages/dashboard" class="al-logo clearfix">
-    RealPonto</a>
+
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
+  
+    <a routerLink="/pages/dashboard" class="al-logo clearfix">
+    RealPonto</a>
 
   <!-- <div class="search">
     <i class="ion-ios-search-strong" ng-click="startSearch()"></i>

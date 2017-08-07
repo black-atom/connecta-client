@@ -12,8 +12,8 @@
 
             <p *ngIf="atendimentos.length"><strong>Atendimentos selecionados</strong></p>
 
-            <div class="card-body" *ngFor="let atendimento of atendimentos">
-              <p>{{atendimento.razao_social}}</p>
+            <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos; let i = index">
+              <p> {{atendimento.razao_social }}</p>
             </div>
 
 

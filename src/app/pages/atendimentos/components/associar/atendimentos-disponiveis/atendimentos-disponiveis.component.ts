@@ -14,7 +14,7 @@ export class AtendimentosDisponiveisComponent implements OnInit {
 
   @Input() tecnicoSelecionado: TecnicoModel;
   atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
-  selecionados: AtendimentoModel[] = [];
+  selecionados: any[] = [];
   atendimentoVinculado: AtendimentoModel[] = [];
  
   constructor(public activeModal: NgbActiveModal) { }
@@ -28,14 +28,23 @@ export class AtendimentosDisponiveisComponent implements OnInit {
     if (isIgual === undefined) {
       this.selecionados.push(atendimento);
     }
+
   }
 
   associarAtendimento() {
     this.atendimentoVinculado = this.selecionados.map((item) => {
-      item.tecnico = 'teste';
+      item.tecnico = this.tecnicoSelecionado;
       return item;
     });
     this.activeModal.close(this.atendimentoVinculado);
+ 
+    for(let i = 0 ; i < this.atendimentoVinculado.length; i++) {
+        const index = this.atendimentos.indexOf(this.atendimentoVinculado[i]);
+
+        if (index > -1) {
+          this.atendimentos.splice(index, 1);
+        }
+    }
   }
   
   closeModal() {

@@ -13,6 +13,7 @@ export const TECNICOSMOCK: TecnicoModel[] = [
       observacao: 'Técnico em treinamento',
       cnh: '434.34.21.3-9',
       validade_carteira: '12/09/2020',
+      atendimentos: []
      },
      {
       nome: 'Rafael Neves',
@@ -25,6 +26,7 @@ export const TECNICOSMOCK: TecnicoModel[] = [
       observacao: 'Técnico com conhecimentos em flextime, secullum e outros sistemas',
       cnh: '434.34.21.3-9',
       validade_carteira: '31/09/2025',
+      atendimentos: []
     },
      {
       nome: 'Vitor Silva Lima',
@@ -37,5 +39,6 @@ export const TECNICOSMOCK: TecnicoModel[] = [
       observacao: 'Técnico com conhecimentos em flextime, secullum e outros sistemas',
       cnh: '434.34.21.3-9',
       validade_carteira: '31/09/2025',
+      atendimentos: []
     },
 ];

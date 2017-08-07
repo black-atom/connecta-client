@@ -1,3 +1,5 @@
+import { AtendimentoModel } from './../atendimento/atendimento.interface';
+
 export interface TecnicoModel {
     nome: string;
     rg: string;
@@ -9,4 +11,5 @@ export interface TecnicoModel {
     observacao: string;
     cnh: string;
     validade_carteira: string;
+    atendimentos: AtendimentoModel[];
 }

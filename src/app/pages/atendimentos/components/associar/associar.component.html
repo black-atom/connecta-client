@@ -13,7 +13,10 @@
             <p *ngIf="atendimentos.length"><strong>Atendimentos selecionados</strong></p>
 
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos; let i = index">
-              <p> {{atendimento.razao_social }}</p>
+              <p> {{atendimento.razao_social }}   <button type="reset" class="btn btn-danger btn-with-icon" (click)="removerAtendimento(atendimento)">
+        <i class="ion-trash-a" ></i></button></p>
+               
+          
             </div>
 
 

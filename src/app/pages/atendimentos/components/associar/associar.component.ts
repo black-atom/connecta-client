@@ -14,7 +14,7 @@ import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/ate
 export class AssociarComponent implements OnInit {
   tecnicos: TecnicoModel[] = TECNICOSMOCK;
   atendimentos: AtendimentoModel[] = [];
-  tecnico;
+  tecnico: any;
 
   options: NgbModalOptions = {
     size: 'lg',
@@ -39,5 +39,10 @@ export class AssociarComponent implements OnInit {
       .catch(error => {
         console.error(error);
       });
+  }
+
+  removerAtendimento(atendimento) {
+     const remover = this.tecnicos.map(elemento => elemento.atendimentos.splice(atendimento, 1));
+     console.log(remover);
   }
 }

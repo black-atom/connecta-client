@@ -16,37 +16,41 @@ export class AtendimentosDisponiveisComponent implements OnInit {
   atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
   selecionados: any[] = [];
   atendimentoVinculado: AtendimentoModel[] = [];
+
  
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
+  /*
+     Percorre cada item do array "selecionados" verificando se o elemento 
+     que o usuário clicou já existe. Se não existir o elemento é adicionado
+  */
   getAtendimento(atendimento) {
     const isIgual = this.selecionados.find(elemento => elemento === atendimento);
 
     if (isIgual === undefined) {
       this.selecionados.push(atendimento);
     }
-
   }
 
+   /*
+     Percorre cada item do vetor de "selecionados" e alterando o nome do técnico para o técnico
+     de interesse e por fim adiciona todo o objeto em um novo array.
+     
+  */
   associarAtendimento() {
     this.atendimentoVinculado = this.selecionados.map((item) => {
-      item.tecnico = this.tecnicoSelecionado;
+      item.tecnico.push(this.tecnicoSelecionado);
       return item;
     });
     this.activeModal.close(this.atendimentoVinculado);
- 
-    for(let i = 0 ; i < this.atendimentoVinculado.length; i++) {
-        const index = this.atendimentos.indexOf(this.atendimentoVinculado[i]);
-
-        if (index > -1) {
-          this.atendimentos.splice(index, 1);
-        }
-    }
   }
   
+   /*
+     Método para apenas fechar a modal sem nenhum interesse de manipulação de dados
+  */
   closeModal() {
     this.activeModal.dismiss();
   }

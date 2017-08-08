@@ -24,21 +24,26 @@ export class AssociarComponent implements OnInit {
 
   ngOnInit() {}
 
-  openModal(tecnico) {
-    this.tecnico = tecnico;
+  abrirModal(tecnicoSelecionado) {
+
     const modalRef = this.modalService.open(AtendimentosDisponiveisComponent, this.options);
-    modalRef.componentInstance.tecnicoSelecionado = tecnico;
+    modalRef.componentInstance.tecnicoSelecionado = tecnicoSelecionado;
 
-    modalRef.result.then(result => {
-        const achou = this.tecnicos.find(elemento => elemento.nome === tecnico);
+    modalRef.result.then(resultadoDaModal => {
 
-        for (let i = 0; i < result.length; i++) {
-          achou.atendimentos.push(result[i]);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+        const procuraPeloTecnico = this.tecnicos
+          .find(tecnico => tecnico.nome === tecnicoSelecionado);
+
+        resultadoDaModal.forEach(atendimento => {
+
+          const verificaAtendimentoExiste = procuraPeloTecnico.atendimentos
+          .find((atendimentoTecnico) => atendimentoTecnico  === atendimento);
+
+          if ( verificaAtendimentoExiste === undefined ) {
+              procuraPeloTecnico.atendimentos.push(atendimento);
+          }
+        });
+    });
   }
 
   removerAtendimento(atendimento) {

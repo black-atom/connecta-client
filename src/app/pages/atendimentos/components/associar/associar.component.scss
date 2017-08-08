@@ -1,19 +1,14 @@
 @import '../../../../theme/sass/conf/conf';
 
-button {
-    // margin-top: -3.5em;
+a {
+    padding: 10px;
     &:hover {
-        background-color: $primary;
-        border: none;
-    }
-    &:active {
-        border: none !important;
-        outline: none !important;
-    }
-    &:focus {
-        text-decoration: none !important;
-        outline: none !important;
-        box-shadow: none !important;
+        cursor: pointer;
     }
 }
 
+i {
+    &:hover {
+        color: $danger;
+    }
+}

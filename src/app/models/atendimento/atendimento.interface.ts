@@ -1,3 +1,5 @@
+import { TecnicoModel } from './../tecnico/tecnico.interface';
+
 export interface AtendimentoModel {
     cnpj_cpf: string;
     razao_social: string;
@@ -14,6 +16,6 @@ export interface AtendimentoModel {
     ponto_referencia: string;
     data_atendimento: string;
     tipo_atendimento: string;
-    tecnico: string;
+    tecnico: TecnicoModel[];
     descricao_atendimento: string;
 }

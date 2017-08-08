@@ -17,7 +17,7 @@ export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
     ponto_referencia: 'Proximo ao supermercado denize',
     data_atendimento: '25/08/2017',
     tipo_atendimento: 'Avulso',
-    tecnico: '',
+    tecnico: [],
     descricao_atendimento: 'Verificar relógio de ponto Prisma',
 },
   {
@@ -36,7 +36,7 @@ export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
     ponto_referencia: 'Proximo a padaria tranza',
     data_atendimento: '12/08/2018',
     tipo_atendimento: 'Contrato',
-    tecnico: 'f',
+    tecnico: [],
     descricao_atendimento: 'Instalação e treinamento do sistema ponto secullum 4',
 }, {
      cnpj_cpf: '11.432.111/0021-33',
@@ -54,7 +54,7 @@ export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
     ponto_referencia: '',
     data_atendimento: '08/08/2017',
     tipo_atendimento: 'Avulso',
-    tecnico: 'f',
+    tecnico: [],
     descricao_atendimento: 'Relógio Orion 6 reinicializando',
 }, {
      cnpj_cpf: '00.112.333/0001-21',
@@ -72,7 +72,7 @@ export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
     ponto_referencia: 'Proximo do Banco bradesco',
     data_atendimento: '12/07/2018',
     tipo_atendimento: 'Contrato',
-    tecnico: 'f',
+    tecnico: [],
     descricao_atendimento: 'Instalar relógio de conserto + teste + comunicação na rede',
 },
 ];

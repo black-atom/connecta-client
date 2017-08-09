@@ -4,7 +4,7 @@
     <ba-card>
       <div class="row">
 
-        <div class="col-md-6 col-sm-12 col-xs-12" *ngFor="let tecnico of tecnicos">
+        <div class="col-md-6 col-sm-12 col-xs-12" *ngFor="let tecnico of tecnicos; let i = index">
           <ba-card cardTitle="{{tecnico.nome}}">
             <button type="button" class="btn btn-primary pull-right" (click)="abrirModal(tecnico.nome)">
             <strong>+</strong>
@@ -12,9 +12,9 @@
 
             <p *ngIf="tecnico.atendimentos.length"><strong>Atendimentos selecionados</strong></p>
 
-            <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos; let i = index">
-              <p> <a (click)="removerAtendimento(atendimento[i])">
-              <i class="ion-trash-a" ></i></a>{{atendimento.razao_social }}</p>
+            <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
+              <p> <a (click)="removerAtendimento(atendimento, tecnico.nome)">
+              <i class="ion-trash-a" ></i></a>{{atendimento.razao_social}}</p>
 
             </div>
           </ba-card>

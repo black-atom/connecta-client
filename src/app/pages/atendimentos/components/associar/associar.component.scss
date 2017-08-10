@@ -12,3 +12,11 @@ i {
         color: $danger;
     }
 }
+
+p {
+    &:hover {
+        color: $primary;
+        cursor: pointer; 
+    }
+}
+

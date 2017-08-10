@@ -23,34 +23,48 @@ export class AtendimentosDisponiveisComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*
-     Percorre cada item do array "selecionados" verificando se o elemento 
-     que o usuário clicou já existe. Se não existir o elemento é adicionado
-  */
+  /**
+   *   Percorre cada item do array "selecionados" verificando se o elemento 
+   *   que o usuário clicou já existe. Se não existir o elemento é adicionado
+   */
+   
   getAtendimento(atendimento) {
     const isIgual = this.selecionados.find(elemento => elemento === atendimento);
 
-    if (isIgual === undefined) {
+    if (!isIgual) {
       this.selecionados.push(atendimento);
     }
   }
 
-   /*
-     Percorre cada item do vetor de "selecionados" e alterando o nome do técnico para o técnico
-     de interesse e por fim adiciona todo o objeto em um novo array.
-     
-  */
+  /**
+   * Percorre cada item do vetor de "selecionados" e alterando o nome do técnico para o técnico
+   * de interesse e por fim adiciona todo o objeto em um novo array.
+   */
+  
+    
   associarAtendimento() {
-    this.atendimentoVinculado = this.selecionados.map((item) => {
-      item.tecnico.push(this.tecnicoSelecionado);
-      return item;
+    this.atendimentoVinculado = this.selecionados
+                                .map((item) => {
+
+      const tecnicoComparado = item.tecnico
+                                .find((tecnicoProcurado) => 
+                                tecnicoProcurado === this.tecnicoSelecionado);
+      
+      if (!tecnicoComparado) {
+        item.tecnico.push(this.tecnicoSelecionado); 
+
+          if (item.tecnico.length > 0) {
+              this.atendimentos
+                        .splice(this.atendimentos
+                        .indexOf(item), 1);
+          }
+      } 
+        return item;     
     });
     this.activeModal.close(this.atendimentoVinculado);
   }
   
-   /*
-     Método para apenas fechar a modal sem nenhum interesse de manipulação de dados
-  */
+  // Método para apenas fechar a modal sem nenhum interesse de manipulação de dados
   closeModal() {
     this.activeModal.dismiss();
   }

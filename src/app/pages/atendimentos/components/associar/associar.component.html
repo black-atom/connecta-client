@@ -1,25 +1,25 @@
 <div class="row">
 
   <div class="col-md-12 col-sm-12">
-    <ba-card>
+ 
       <div class="row">
 
         <div class="col-md-6 col-sm-12 col-xs-12" *ngFor="let tecnico of tecnicos; let i = index">
           <ba-card cardTitle="{{tecnico.nome}}">
-            <button type="button" class="btn btn-primary pull-right" (click)="abrirModal(tecnico.nome)">
+            <button type="button" class="btn btn-primary animated rollIn pull-right" (click)="abrirModal(tecnico.nome)">
             <strong>+</strong>
             </button>
 
             <p *ngIf="tecnico.atendimentos.length"><strong>Atendimentos selecionados</strong></p>
 
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
-              <p> <a (click)="removerAtendimento(atendimento, tecnico.nome)">
+              <p class="animated flipInX"> <a (click)="removerAtendimento(atendimento, tecnico.nome); criarNotificacao()">
               <i class="ion-trash-a" ></i></a>{{atendimento.razao_social}}</p>
-
             </div>
           </ba-card>
 
         </div>
       </div>
-    </ba-card>
   </div>
+
+  <simple-notifications [options]="optionsNg2Notifications"></simple-notifications>

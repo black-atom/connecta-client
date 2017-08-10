@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
@@ -20,6 +21,7 @@ import { AtendimentosDisponiveisComponent } from './components/associar/atendime
     CommonModule, 
     NgaModule,
     NgbModule,
+    SimpleNotificationsModule.forRoot(),
     routing
   ],
   entryComponents: [

@@ -7,3 +7,9 @@ input {
 .local {
     color: $primary;
 }
+
+ba-card {
+    &:hover {
+        cursor: pointer;
+    }
+}

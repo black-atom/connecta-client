@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TECNICOSMOCK } from './../../../../utils/mocks/tecnicos.mock';
+import { TecnicoModel } from './../../../../models/tecnico/tecnico.interface';
+
 @Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html',
@@ -7,31 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerenciarComponent implements OnInit {
 
-  settings = {
-    actions: false,
-    columns: {
-      nome: { 
-        title: 'Nome do técnico',     
-        type: 'string'  
-      },
-      telefone: {
-        title: 'Telefone',
-        type: 'number',
-      },
-      celular: { 
-        title: 'Celular', 
-        type: 'number' 
-      },
-      habilitacao: { 
-        title: 'N° Habilitação',      
-        type: 'string' 
-      },
-      _id: {
-        title: 'Detalhes',
-        type: 'custom'
-      },
-    },
-  };
+  tecnicos: TecnicoModel[] = TECNICOSMOCK;
 
   constructor() { }
 

@@ -1,9 +1,10 @@
-<div class="widgets">
+<div class="row">
+  <div class="col-md-6" *ngFor="let tec of tecnicos">
+    <ba-card cardTitle="{{tec.nome}}">
+      <div class="card-body">
+          
 
-  <div class="row">
-    <ba-card  baCardClass="with-scroll" class="smart-table-container">
-      <ng2-smart-table [settings]="settings"></ng2-smart-table>
+      </div>
     </ba-card>
   </div>
-
 </div>

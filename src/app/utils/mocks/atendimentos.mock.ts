@@ -21,7 +21,7 @@ export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
     descricao_atendimento: 'Verificar relógio de ponto Prisma',
 },
   {
-     cnpj_cpf: '00.112.333/0001-21',
+    cnpj_cpf: '00.112.333/0001-21',
     razao_social: 'RealPonto Comercio e Serviço de Relógio de Ponto',
     email: 'realponto@realponto.com.br',
     telefone: '(11) 4330-4040',

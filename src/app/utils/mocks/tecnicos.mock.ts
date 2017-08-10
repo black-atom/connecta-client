@@ -41,4 +41,17 @@ export const TECNICOSMOCK: TecnicoModel[] = [
       validade_carteira: '31/09/2025',
       atendimentos: []
     },
+    {
+      nome: 'Geraldo Antunes',
+      rg: '66.245.123-89',
+      cpf: '987.456.123-12',
+      data_nasc: '19/04/1990',
+      email: 'geraldo@antunes.com.br',
+      telefone: '2122-1233',
+      celular: '9 9876-4421',
+      observacao: 'Técnico com conhecimentos em flextime, secullum e outros sistemas',
+      cnh: '434.34.21.3-9',
+      validade_carteira: '31/09/2025',
+      atendimentos: []
+    },
 ];

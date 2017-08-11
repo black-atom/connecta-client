@@ -9,25 +9,27 @@ import { NovoTecnicoComponent } from './components/novo-tecnico';
 import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
 import { CepService } from './../../shared/services/cep-service/cep.service';
+import { TecnicoService } from './../../shared/services/tecnico-service/tecnico.service';
 import { routing } from './tecnicos.routing';
 
 @NgModule({
   imports: [
     CommonModule,
-     NgaModule, 
+     NgaModule,
      Ng2SmartTableModule,
      ReactiveFormsModule,
      FormsModule,
     routing
     ],
   declarations: [
-    TecnicosComponent, 
-    NovoTecnicoComponent, 
-    GerenciarComponent, 
+    TecnicosComponent,
+    NovoTecnicoComponent,
+    GerenciarComponent,
     DetalhesTecnicoComponent
   ],
   providers: [
-    CepService
+    CepService,
+    TecnicoService
   ]
 })
 export class TecnicosModule { }

@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JasperoAlertsModule } from '@jaspero/ng2-alerts';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 /*
@@ -52,7 +51,6 @@ export type StoreType = {
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
-    JasperoAlertsModule,
     PagesModule,
     routing
   ],

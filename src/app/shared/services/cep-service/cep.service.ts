@@ -9,9 +9,9 @@ export class CepService {
 
   constructor(private http: Http) { }
 
-  getAddressInfo(cep: string): Observable<AddressInfo> {
+  obterInfoEndereco(cep: string): Observable<AddressInfo> {
 
-    const url = `${this.url}/${this.removeSpecialChars(cep)}/json`;
+    const url = `${this.url}/${this.removerCaracteresEspeciais(cep)}/json`;
     return this.http.get(url).map((response) => response.json() as AddressInfo);
 
   }
@@ -22,14 +22,14 @@ export class CepService {
    */
   isValid(cep: string): boolean {
 
-    const cepClean = this.removeSpecialChars(cep);
+    const cepClean = this.removerCaracteresEspeciais(cep);
     const validacep = new RegExp(/^[0-9]{8}$/);
 
     return validacep.test(cepClean);
 
   }
 
-  private removeSpecialChars (cep: string): string {
+  private removerCaracteresEspeciais (cep: string): string {
     return cep.replace(/\D/g, '');
   }
 }

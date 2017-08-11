@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { TecnicosComponent } from './tecnicos.component';
 import { NovoTecnicoComponent } from './components/novo-tecnico';
 import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
+import { CepService } from './../../shared/services/cep-service/cep.service';
 import { routing } from './tecnicos.routing';
 
 @NgModule({
@@ -14,7 +16,9 @@ import { routing } from './tecnicos.routing';
     CommonModule,
      NgaModule, 
      Ng2SmartTableModule,
-      routing
+     ReactiveFormsModule,
+     FormsModule,
+    routing
     ],
   declarations: [
     TecnicosComponent, 
@@ -22,5 +26,8 @@ import { routing } from './tecnicos.routing';
     GerenciarComponent, 
     DetalhesTecnicoComponent
   ],
+  providers: [
+    CepService
+  ]
 })
 export class TecnicosModule { }

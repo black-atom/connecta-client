@@ -1,7 +1,5 @@
 <div class="row">
-
   <div class="col-md-12 col-sm-12">
- 
       <div class="row">
 
         <div class="col-md-6 col-sm-12 col-xs-12" *ngFor="let tecnico of tecnicos; let i = index">
@@ -10,16 +8,37 @@
             <strong>+</strong>
             </button>
 
-            <p *ngIf="tecnico.atendimentos.length"><strong>Atendimentos selecionados</strong></p>
+            <p *ngIf="tecnico.atendimentos.length"><strong>Atendimentos associados : {{tecnico.atendimentos.length}}</strong></p>
 
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
-              <p class="animated flipInX"> <a (click)="removerAtendimento(atendimento, tecnico.nome); criarNotificacao()">
-              <i class="ion-trash-a" ></i></a>{{atendimento.razao_social}}</p>
+              <p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero + 
+              ' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"  
+              placement="top"> <a (click)="openConfirmacaoModal(conteudo, atendimento, tecnico.nome )">
+              <i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
             </div>
-          </ba-card>
 
+          </ba-card>
         </div>
       </div>
   </div>
 
-  <simple-notifications [options]="optionsNg2Notifications"></simple-notifications>
+  <!-- Abrir modal de confirmação de exclusão de atendimento -->
+  <ng-template #conteudo let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title animated flipInX">Confirmar remoção de atendimento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d()">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Deseja realmente remover o atendimento 
+        <strong>{{atendimentoASerRemovido.razao_social}}</strong> do técnico <strong>{{tecSelecionado}}?</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-close-circled"></i> Cancelar</button>
+      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c(); openNotificacaoModal()"><i class="ion-trash-a"></i> Remover</button>
+    </div>
+  </ng-template>  
+  <hr>
+
+  <simple-notifications [options]="opcoesModalNotificao"></simple-notifications>'

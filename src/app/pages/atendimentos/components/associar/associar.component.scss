@@ -13,10 +13,9 @@ i {
     }
 }
 
-p {
+.atendimento {
     &:hover {
         color: $primary;
         cursor: pointer; 
     }
 }
-

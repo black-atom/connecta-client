@@ -15,40 +15,47 @@ import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/ate
 export class AssociarComponent implements OnInit {
   tecnicos: TecnicoModel[] = TECNICOSMOCK;
   atendimentos: AtendimentoModel[] = [];
-  atendimentoRemovido;
+  atendimentoASerRemovido;
+  tecSelecionado: string;
 
-  optionsModal: NgbModalOptions = {
+  opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg',
   };
 
-  optionsNg2Notifications = {
+  opcoesModalNotificao = {
     position: ['top', 'right'],
-    timeOut: 5000,
-    lastOnBottom: true,
+    timeOut: 1500,
+    lastOnBottom: true
   };
 
-  constructor(private modalService: NgbModal, private _notify: NotificationsService) {}
+  constructor(private _servicoModal: NgbModal, private _servicoNotificacao: NotificationsService ) {}
 
   ngOnInit() {}
 
-  criarNotificacao() {
-    this._notify.info (
-       'Atendimento removido:',
-       `Cliente: ${this.atendimentoRemovido.razao_social}`,
+  openNotificacaoModal() {
+    this._servicoNotificacao.success(
+      'Removido com sucesso!',
+      '',
       {
-        showProgressBar: true,
+        timeOut: 1500,
+        showProgressBar: false,
         pauseOnHover: false,
-        clickToClose: true,
-        maxLength: 70,
-        animate: 'fromLeft',
+        clickToClose: false,
+        maxLength: 10
       }
     );
   }
 
+  openConfirmacaoModal(conteudo, atendimento, tecnico) {
+    this.tecSelecionado = tecnico;
+    this.atendimentoASerRemovido = atendimento;
+      this._servicoModal.open(conteudo);
+  }
+
   abrirModal(tecnicoSelecionado) {
 
-    const modalRef = this.modalService
-                    .open(AtendimentosDisponiveisComponent, this.optionsModal);
+    const modalRef = this._servicoModal
+                    .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.tecnicoSelecionado = tecnicoSelecionado;
     
@@ -92,11 +99,6 @@ export class AssociarComponent implements OnInit {
                           .splice(atendimento.tecnico
                           .indexOf(tecnico), 1);
 
-      /**
-        * Gravando o nome do cliente removido em uma variável
-        * a fim de ser utilizado no ng2-notification
-      */
-      this.atendimentoRemovido = atendimento;
       }
   }
 

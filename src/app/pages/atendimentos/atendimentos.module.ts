@@ -1,9 +1,7 @@
-import { JasperoConfirmationsModule } from '@jaspero/ng2-confirmations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { JasperoAlertsModule } from '@jaspero/ng2-alerts';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -26,8 +24,6 @@ import { routing } from './atendimentos.routing';
     CommonModule, 
     NgaModule,
     NgbModule,
-    JasperoAlertsModule,
-    JasperoConfirmationsModule,
     SimpleNotificationsModule,
     ReactiveFormsModule,
     FormsModule,

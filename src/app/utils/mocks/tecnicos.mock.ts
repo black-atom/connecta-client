@@ -1,7 +1,6 @@
-import { TecnicoModel } from './../../models/tecnico/tecnico.interface';
 
 
-export const TECNICOSMOCK: TecnicoModel[] = [
+export const TECNICOSMOCK: any[] = [
     {
       nome: 'Alan Teixeira Lima',
       rg: '53.899.221.1',

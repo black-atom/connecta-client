@@ -1,3 +1,4 @@
+import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,8 +13,13 @@ import { CepService } from './../../../../shared/services/cep-service/cep.servic
 export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
+  data = new Date();
+    // tslint:disable-next-line:max-line-length
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-   constructor(private _cepService: CepService, private _fb: FormBuilder) {}
+   constructor(private _cepService: CepService,
+               private _fb: FormBuilder,
+               private _tecnicoService: TecnicoService) {}
 
    ngOnInit() {
      this.formTecnico = this._fb.group({
@@ -21,7 +27,7 @@ export class NovoTecnicoComponent implements OnInit {
           rg: ['', [Validators.required]],
           cpf: ['', [Validators.required]],
           data_nasc: ['', [Validators.required]],
-          email: ['', [Validators.required]],
+          email: ['', [Validators.pattern(this.emailPattern)]],
           telefone: ['', [Validators.required]],
           celular: ['', [Validators.required]],
           observacao: [''],
@@ -29,13 +35,13 @@ export class NovoTecnicoComponent implements OnInit {
           validade_carteira: ['', [Validators.required]],
           rua: ['', [Validators.required]],
           numero: ['', [Validators.required]],
-          completmento: ['', [Validators.required]],
+          complemento: [''],
           bairro: ['', [Validators.required]],
           cidade: ['', [Validators.required]],
           estado: ['', [Validators.required]],
           cep: ['', [Validators.required]],
-          createdAt: ['', [Validators.required]],
-          updatedAt: ['', [Validators.required]],
+          createdAt: [''],
+          updatedAt: [''],
           atendimentos: this._fb.array([])
      });
    }
@@ -48,6 +54,17 @@ export class NovoTecnicoComponent implements OnInit {
          this.formTecnico.get('estado').patchValue(data.uf);
 
      });
-  }
+   }
+
+   novoTecnico(tecnico) {
+     tecnico.value.createdAt = this.data;
+
+     this._tecnicoService.novoTecnico(tecnico.value)
+                         .subscribe(res => res);
+   }
+
+   limpar() {
+     this.formTecnico.reset();
+   }
 }
 

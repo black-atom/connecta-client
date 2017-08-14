@@ -1,6 +1,7 @@
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
+import { formEnderecoControls } from './form-endereco-controls';
 import { AddressInfo } from './../../../../../models/addressInfo';
 import { CepService } from './../../../../../shared/services/cep-service/cep.service';
 
@@ -12,18 +13,12 @@ export class EnderecoComponent implements OnInit {
 
   formEndereco: FormGroup;
  
-  constructor(private _cepService: CepService, private _fb: FormBuilder) {}
+  constructor(
+    private _cepService: CepService, 
+    private _fb: FormBuilder) {}
 
   ngOnInit() {
-    this.formEndereco = this._fb.group({
-      cep: ['', [Validators.required]],
-        rua: ['', [Validators.required]],
-        bairro: ['', [Validators.required]],
-        numero: ['', [Validators.required]],
-        cidade: ['', [Validators.required]],
-        complemento: ['', [Validators.required]],
-        uf: ['', [Validators.required]],
-    });
+    this.formEndereco = this._fb.group(formEnderecoControls);
   }
 
   buscaPorCep(cep: string) {

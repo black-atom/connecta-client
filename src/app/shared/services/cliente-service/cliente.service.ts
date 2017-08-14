@@ -18,9 +18,9 @@ export class ClienteService {
       .map(res => res.json() as Cliente[]);
   }
 
-  // cadastrarCliente(cliente: Cliente): Observable<Cliente> {
-  //   return this._http
-  //   .post(`${this.url}`, `${cliente}`)
-  //   .map(res => res.json() as Cliente);
-  // }
+  cadastrarCliente(cliente: Cliente): Observable<Cliente> {
+    return this._http
+    .post(`${this.url}/clientes/`, `${cliente}`)
+    .map(res => res.json() as Cliente);
+  }
 }

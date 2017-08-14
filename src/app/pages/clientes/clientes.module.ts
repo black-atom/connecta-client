@@ -13,6 +13,7 @@ import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
 import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
 import { routing } from './clientes.routing';
+import { PrincipaisInformacoesComponent } from './components/novo-cliente/principais-informacoes/';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { routing } from './clientes.routing';
     GerenciarComponent, 
     EnderecoComponent, 
     ContatoComponent, 
-    DetalhesClienteComponent
+    DetalhesClienteComponent, 
+    PrincipaisInformacoesComponent
   ],
 })
 export class ClientesModule { }

@@ -1,33 +1,52 @@
- <div class="row" [formGroup]="formEndereco">
+<form [formGroup]="formEndereco">
+
+<div class="row">
   
   <div class="form-group col-md-12 col-sm-12">
-    <input style="width: 15em" type="text" class="form-control" placeholder="Insira o CEP" 
-    formControlName="cep" (blur)="buscaPorCep($event.target.value)">
+    <input style="width: 15em" type="text" class="form-control" 
+    placeholder="Insira o CEP" formControlName="cep" 
+    (blur)="buscaPorCep($event.target.value)">
   </div>
 
   <div class="form-group col-md-6 col-sm-12">
-    <input type="text" class="form-control" formControlName="rua" placeholder="Rua">
+    <input type="text" class="form-control" 
+    placeholder="Rua" formControlName="rua">
   </div>
 
   <div class="form-group col-md-2 col-sm-12">
-    <input type="text" class="form-control" formControlName="numero" placeholder="Número">
+    <input type="text" class="form-control" 
+    placeholder="Número" formControlName="numero">
   </div>
 
   <div class="form-group col-md-4 col-sm-12">
-    <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro">
+    <input type="text" class="form-control" 
+    placeholder="Bairro" formControlName="bairro">
+  </div>
+
+  <div class="form-group col-md-3 col-sm-12">
+    <input type="text" class="form-control" 
+    placeholder="Estado" formControlName="estado">
+  </div>
+
+  <div class="form-group col-md-3 col-sm-12">
+    <input type="text" class="form-control" 
+    placeholder="Cidade" formControlName="cidade">
   </div>
 
   <div class="form-group col-md-6 col-sm-12">
-    <input type="text" class="form-control" formControlName="complemento" placeholder="Complemento">
+    <input type="text" class="form-control"
+    placeholder="Complemento" formControlName="complemento">
   </div>
 
-  <div class="form-group col-md-2 col-sm-12">
-    <input type="text" class="form-control" formControlName="uf" placeholder="Estado">
+  <div class="col-md-6">
+    
   </div>
 
-  <div class="form-group col-md-4 col-sm-12">
-    <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade">
-   
+  <div class="form-group col-md-6 col-sm-12">
+    <input type="text" class="form-control" 
+    placeholder="Ponto de Referência" formControlName="ponto_referencia">
   </div>
 
-</div> 
+</div>
+
+</form>

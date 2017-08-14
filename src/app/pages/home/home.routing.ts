@@ -1,14 +1,14 @@
-import { Routes, RouterModule }  from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-import { Home } from './home.component';
+import { HomeComponent } from './home.component';
 import { ModuleWithProviders } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [
   {
     path: '',
-    component: Home,
-  },
+    component: HomeComponent
+  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

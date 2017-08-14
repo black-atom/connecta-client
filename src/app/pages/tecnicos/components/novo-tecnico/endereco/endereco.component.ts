@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { formEnderecoControls } from './form-endereco-controls';
 
@@ -10,7 +10,7 @@ import { formEnderecoControls } from './form-endereco-controls';
 })
 export class EnderecoComponent implements OnInit {
 
-  formEndereco: FormGroup;
+  @Input() formEndereco: FormGroup;
 
   constructor(private _fb: FormBuilder) { }
 

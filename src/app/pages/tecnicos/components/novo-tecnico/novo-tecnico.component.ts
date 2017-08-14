@@ -1,9 +1,12 @@
-import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { formPrincipaisControls } from './principais-informacoes/';
+import { formEnderecoControls } from './endereco/';
 
 import { AddressInfo } from './../../../../models/addressInfo';
 import { CepService } from './../../../../shared/services/cep-service/cep.service';
+import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
 
 @Component({
   selector: 'app-novo-tecnico',
@@ -14,15 +17,16 @@ export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
   data = new Date();
-    // tslint:disable-next-line:max-line-length
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
    constructor(private _cepService: CepService,
                private _fb: FormBuilder,
                private _tecnicoService: TecnicoService) {}
 
    ngOnInit() {
-     this.formInit();
+        this.formTecnico = this._fb.group({
+          dados: this._fb.group(formPrincipaisControls),
+
+        });
    }
 
    buscaPorCep(cep: string) {
@@ -36,38 +40,16 @@ export class NovoTecnicoComponent implements OnInit {
    }
 
    novoTecnico(tecnico) {
-     tecnico.value.createdAt = this.data;
+     console.log(tecnico)
+    //  tecnico.value.createdAt = this.data;
 
-     this._tecnicoService.novoTecnico(tecnico.value)
-                         .subscribe(res => res);
+    //  this._tecnicoService.novoTecnico(tecnico.value)
+    //                      .subscribe(res => res);
    }
 
    limpar() {
      this.formTecnico.reset();
    }
 
-   formInit() {
-      this.formTecnico = this._fb.group({
-          nome: ['', [Validators.required]],
-          rg: ['', [Validators.required]],
-          cpf: ['', [Validators.required]],
-          data_nasc: ['', [Validators.required]],
-          email: ['', [Validators.pattern(this.emailPattern)]],
-          telefone: ['', [Validators.required]],
-          celular: ['', [Validators.required]],
-          observacao: [''],
-          cnh: ['', [Validators.required]],
-          validade_carteira: ['', [Validators.required]],
-          rua: ['', [Validators.required]],
-          numero: ['', [Validators.required]],
-          complemento: [''],
-          bairro: ['', [Validators.required]],
-          cidade: ['', [Validators.required]],
-          estado: ['', [Validators.required]],
-          cep: ['', [Validators.required]],
-          createdAt: [''],
-          updatedAt: [''],
-          atendimentos: this._fb.array([])
-     });
-  }
+
 }

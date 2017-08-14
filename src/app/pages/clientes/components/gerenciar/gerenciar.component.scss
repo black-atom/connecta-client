@@ -22,7 +22,7 @@
 
     input {
       line-height: 1.5 !important;
-      border: none;
+      border: 1px solid $border-light !important;
     }
 
     ng2-smart-table-cell {

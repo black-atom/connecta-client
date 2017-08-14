@@ -5,5 +5,5 @@ export let formContatoControls = {
     email: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
     celular: ['', [Validators.required]],
-    observacao: ['', [Validators.required]]
+    observacao: [''],
 };

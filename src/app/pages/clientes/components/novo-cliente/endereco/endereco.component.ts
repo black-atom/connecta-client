@@ -1,9 +1,9 @@
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { formEnderecoControls } from './form-endereco-controls';
 import { AddressInfo } from './../../../../../models/addressInfo';
 import { CepService } from './../../../../../shared/services/cep-service/cep.service';
+
 
 @Component({
   selector: 'app-endereco-cliente',
@@ -11,14 +11,13 @@ import { CepService } from './../../../../../shared/services/cep-service/cep.ser
 })
 export class EnderecoComponent implements OnInit {
 
-  formEndereco: FormGroup;
+  @Input() formEndereco: FormGroup;
  
   constructor(
     private _cepService: CepService, 
     private _fb: FormBuilder) {}
 
   ngOnInit() {
-    this.formEndereco = this._fb.group(formEnderecoControls);
   }
 
   buscaPorCep(cep: string) {

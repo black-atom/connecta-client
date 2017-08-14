@@ -1,7 +1,7 @@
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
-import { Component, OnInit } from '@angular/core';
-import { formContatoControls } from './form-contato-controls';
+import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-contato-cliente',
@@ -9,12 +9,11 @@ import { formContatoControls } from './form-contato-controls';
 })
 export class ContatoComponent implements OnInit {
 
-  formContato: FormGroup;
+  @Input() formContato: FormGroup;
 
   constructor(
     private _fb: FormBuilder) { }
 
   ngOnInit() {
-    this.formContato = this._fb.group(formContatoControls);
     }
   }

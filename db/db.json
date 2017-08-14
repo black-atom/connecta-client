@@ -1,0 +1,54 @@
+{
+    "atendimentos": [],
+    "tecnicos": [],
+    "clientes": [{
+        "id": 1,
+        "razao_social": "Realponto Com. Serv. Ponto",
+        "cnpj_cpf": "123.456.789-11",
+        "email": "realponto@real.com.br",
+        "nome_fantasia": "Realponto",
+        "inscricao_estadual": "323123213",
+        "enderecos": [{
+            "id": 1,
+            "rua": "Rua Dr.Cincinato Braga",
+            "complemento": "Perto da Padaria Tranza",
+            "bairro": "Planalto",
+            "cidade": "São Bernardo do Campo",
+            "estado": "São Paulo",
+            "ponto_refencia": "Rua sem saída",
+            "cep": "123456-78"
+        }],
+        "contatos": [{
+            "id": 1,
+            "telefone": "1234-5678",
+            "nome": "Jose Januario",
+            "email": "jose@realponto.com.br",
+            "obervacao": "Só atende em dias da semana"
+        }]
+    },
+    {
+        "id": 2,
+        "razao_social": "Realponto Com. Serv. Ponto",
+        "cnpj_cpf": "123.456.789-11",
+        "email": "realponto@real.com.br",
+        "nome_fantasia": "Digaspi",
+        "inscricao_estadual": "323123213",
+        "enderecos": [{
+            "id": 1,
+            "rua": "Rua Dr.Cincinato Braga",
+            "complemento": "Perto da Padaria Tranza",
+            "bairro": "Planalto",
+            "cidade": "São Bernardo do Campo",
+            "estado": "São Paulo",
+            "ponto_refencia": "Rua sem saída",
+            "cep": "123456-78"
+        }],
+        "contatos": [{
+            "id": 1,
+            "telefone": "1234-5678",
+            "nome": "Jose Januario",
+            "email": "jose@realponto.com.br",
+            "obervacao": "Só atende em dias da semana"
+        }]
+    }]
+}

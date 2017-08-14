@@ -21,6 +21,18 @@ private api = ' http://localhost:3000';
                      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+
+    editarTecnico(body) {
+    const bodyString = JSON.stringify(body);
+    const url = `${this.api}/tecnicos/${body.id}/`;
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this._http.put(url, body, options)
+                     .map((res) => res.json() as TecnicoModel)
+                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   retornarUm(idTecnico: Number): Observable<TecnicoModel> {
     const url = `${this.api}/tecnicos/${idTecnico}`;
 

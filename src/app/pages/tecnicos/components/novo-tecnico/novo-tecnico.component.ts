@@ -22,28 +22,7 @@ export class NovoTecnicoComponent implements OnInit {
                private _tecnicoService: TecnicoService) {}
 
    ngOnInit() {
-     this.formTecnico = this._fb.group({
-          nome: ['', [Validators.required]],
-          rg: ['', [Validators.required]],
-          cpf: ['', [Validators.required]],
-          data_nasc: ['', [Validators.required]],
-          email: ['', [Validators.pattern(this.emailPattern)]],
-          telefone: ['', [Validators.required]],
-          celular: ['', [Validators.required]],
-          observacao: [''],
-          cnh: ['', [Validators.required]],
-          validade_carteira: ['', [Validators.required]],
-          rua: ['', [Validators.required]],
-          numero: ['', [Validators.required]],
-          complemento: [''],
-          bairro: ['', [Validators.required]],
-          cidade: ['', [Validators.required]],
-          estado: ['', [Validators.required]],
-          cep: ['', [Validators.required]],
-          createdAt: [''],
-          updatedAt: [''],
-          atendimentos: this._fb.array([])
-     });
+     this.formInit();
    }
 
    buscaPorCep(cep: string) {
@@ -66,5 +45,29 @@ export class NovoTecnicoComponent implements OnInit {
    limpar() {
      this.formTecnico.reset();
    }
-}
 
+   formInit() {
+      this.formTecnico = this._fb.group({
+          nome: ['', [Validators.required]],
+          rg: ['', [Validators.required]],
+          cpf: ['', [Validators.required]],
+          data_nasc: ['', [Validators.required]],
+          email: ['', [Validators.pattern(this.emailPattern)]],
+          telefone: ['', [Validators.required]],
+          celular: ['', [Validators.required]],
+          observacao: [''],
+          cnh: ['', [Validators.required]],
+          validade_carteira: ['', [Validators.required]],
+          rua: ['', [Validators.required]],
+          numero: ['', [Validators.required]],
+          complemento: [''],
+          bairro: ['', [Validators.required]],
+          cidade: ['', [Validators.required]],
+          estado: ['', [Validators.required]],
+          cep: ['', [Validators.required]],
+          createdAt: [''],
+          updatedAt: [''],
+          atendimentos: this._fb.array([])
+     });
+  }
+}

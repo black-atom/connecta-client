@@ -1,8 +1,9 @@
-<!-- Card com os inputs de dados principais do funcionário -->
+<form [formGroup]="formTecnico">
+  <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Dados principais">
-      <app-principais-informacoes></app-principais-informacoes>
+      <app-principais-informacoes [dadosPrincipaisTecnico]="formTecnico.controls.dados"></app-principais-informacoes>
     </ba-card>
   </div>
 </div>
@@ -11,20 +12,20 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Endereço">
-      <app-endereco></app-endereco>
+      <app-endereco [formEndereco]="formTecnico"></app-endereco>
     </ba-card>
   </div>
 </div>
 
 <!-- Card com os inputs de informações da
 carteira de habilitação do funcionário -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Habilitação">
       <app-habilitacao></app-habilitacao>
     </ba-card>
   </div>
-</div>
+</div> -->
 
 <!-- Botões de cadastro e de limpeza de dados -->
 <div class="row">
@@ -33,7 +34,7 @@ carteira de habilitação do funcionário -->
       <div class="row">
 
         <div class="col-md-6 col-sm-12">
-          <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico)" [disabled]="!formTecnico.valid">
+          <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico.value)" >
           <i class="ion-android-checkmark-circle" ></i>Cadastrar</button>
         </div>
 
@@ -47,5 +48,6 @@ carteira de habilitação do funcionário -->
   </div>
 </div>
 
+</form>
 
 

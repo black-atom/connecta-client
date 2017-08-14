@@ -1,144 +1,51 @@
 <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
   <div class="col-12">
-   <form [formGroup]="formTecnico">
-      <ba-card cardTitle="Dados principais">
-        <div class="row">
-
-         <div class="col-md-8">
-          <div class="row">
-
-         <div class="form-group col-md-12 col-sm-12">
-          <input type="text" class="form-control" formControlName="nome" placeholder="Nome completo">
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="rg" placeholder="RG">
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="cpf" placeholder="CPF">
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="data_nasc" placeholder="Data de Nasc.">
-        </div>
-          <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="email" placeholder="E-mail">
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone">
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <input type="text" class="form-control" formControlName="celular" placeholder="Celular">
-        </div>
-
-        <div class="form-group col-md-12 col-sm-12">
-          <input type="text" class="form-control" formControlName="observacao" placeholder="Observação">
-        </div>
-      </div>
-     </div>
-
-     <!-- imagem do funcionario -->
-       <div class="col-md-4 col-sm-12">
-        <ba-picture-uploader>
-          <div _ngcontent-c7 class="picture-group">
-            <div _ngcontent-c7 class="picture-wrapper">
-              <img _ngcontent-c7 src="../../../../../assets/img/theme/no-photo.png" >
-              <input _ngcontent-c7 hidden="true" ngfileselect="" type="file">
-            </div>
-          </div>
-        </ba-picture-uploader>
-        </div>
-        <!-- fim da foto -->
-
-        </div>
-
+    <ba-card cardTitle="Dados principais">
+      <app-principais-informacoes></app-principais-informacoes>
     </ba-card>
+  </div>
+</div>
 
 
-<div class="row" >
+<div class="row">
   <div class="col-12">
     <ba-card cardTitle="Endereço">
-
-      <div class="row">
-      <div class="form-group col-md-12 col-sm-12">
-      <input style="width: 15em" type="text" class="form-control" placeholder="Insira o CEP"
-      formControlName="cep" (blur)="buscaPorCep($event.target.value)">
-      </div>
-
-      <div class="form-group col-md-6 col-sm-12">
-      <input type="text" class="form-control" formControlName="rua" placeholder="Rua">
-      </div>
-
-      <div class="form-group col-md-2 col-sm-12">
-      <input type="text" class="form-control" formControlName="numero" placeholder="Número">
-      </div>
-
-      <div class="form-group col-md-4 col-sm-12">
-      <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro">
-      </div>
-
-      <div class="form-group col-md-6 col-sm-12">
-      <input type="text" class="form-control" formControlName="complemento" placeholder="Complemento">
-      </div>
-
-       <div class="form-group col-md-4 col-sm-12">
-      <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade">
-      </div>
-
-      <div class="form-group col-md-2 col-sm-12">
-      <input type="text" class="form-control" formControlName="estado" placeholder="Estado">
-      </div>
-
-      </div>
-
+      <app-endereco></app-endereco>
     </ba-card>
   </div>
 </div>
 
 <!-- Card com os inputs de informações da
-  carteira de habilitação do funcionário -->
-  <div class="row">
-      <div class="col-12">
-        <ba-card cardTitle="Habilitação">
+carteira de habilitação do funcionário -->
+<div class="row">
+  <div class="col-12">
+    <ba-card cardTitle="Habilitação">
+      <app-habilitacao></app-habilitacao>
+    </ba-card>
+  </div>
+</div>
 
-          <div class="row">
-            <div class="form-group col-md-6 col-sm-12">
-              <input type="text" class="form-control" formControlName="cnh" placeholder="N° do Registro (CNH)">
-            </div>
+<!-- Botões de cadastro e de limpeza de dados -->
+<div class="row">
+  <div class="col-12">
+    <ba-card>
+      <div class="row">
 
-            <div class="form-group col-md-6 col-sm-12">
-              <input type="text" class="form-control" formControlName="validade_carteira" placeholder="Validade da Carteira">
-            </div>
-          </div>
+        <div class="col-md-6 col-sm-12">
+          <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico)" [disabled]="!formTecnico.valid">
+          <i class="ion-android-checkmark-circle" ></i>Cadastrar</button>
+        </div>
 
-        </ba-card>
+        <div class="col-md-6 col-sm-12">
+          <button type="reset" class="btn btn-danger btn-with-icon" (click)="limpar()" [disabled]="formTecnico.pristine">
+          <i class="ion-trash-a"></i>Limpar dados</button>
+        </div>
+
       </div>
-    </div>
-   </form>
-
-    <!-- Botões de cadastro e de limpeza de dados -->
-    <div class="row">
-      <div class="col-12">
-        <ba-card>
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-
-              <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico)" [disabled]="!formTecnico.valid">
-              <i class="ion-android-checkmark-circle" ></i>Cadastrar</button>
-            </div>
-
-            <div class="col-md-6 col-sm-12">
-              <button type="reset" class="btn btn-danger btn-with-icon" (click)="limpar()" [disabled]="formTecnico.pristine">
-              <i class="ion-trash-a"></i>Limpar dados</button>
-            </div>
-          </div>
-        </ba-card>
-      </div>
-    </div>
+    </ba-card>
+  </div>
+</div>
 
 
 

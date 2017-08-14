@@ -3,6 +3,10 @@
     <ba-card cardTitle="{{tec?.nome}}">
       <div class="card-body">
 
+        <button class="btn btn-primary"
+        [routerLink]="['/pages/tecnicos/detalhes', tec?.id]">
+          Editar
+        </button>
 
 
       </div>

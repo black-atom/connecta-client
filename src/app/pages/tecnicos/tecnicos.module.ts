@@ -14,12 +14,12 @@ import { routing } from './tecnicos.routing';
 
 @NgModule({
   imports: [
-    CommonModule,
+     CommonModule,
      NgaModule,
      Ng2SmartTableModule,
      ReactiveFormsModule,
      FormsModule,
-    routing
+     routing
     ],
   declarations: [
     TecnicosComponent,

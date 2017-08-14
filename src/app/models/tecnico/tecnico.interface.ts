@@ -13,6 +13,7 @@ export interface TecnicoModel {
     cnh: string;
     validade_carteira: string;
     rua: string;
+    numero: string;
     complemento: string;
     bairro: string;
     cidade: string;

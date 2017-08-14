@@ -11,6 +11,7 @@ import { EnderecoComponent } from './components/novo-cliente/endereco';
 import { ContatoComponent } from './components/novo-cliente/contato';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
+import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
 import { routing } from './clientes.routing';
 
 
@@ -24,7 +25,8 @@ import { routing } from './clientes.routing';
     FormsModule
   ],
   providers: [
-    CepService
+    CepService,
+    ClienteService
   ],
   declarations: [
     ClientesComponent,

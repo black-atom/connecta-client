@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
+import { LocalDataSource } from 'ng2-smart-table';
+
 
 @Component({
   selector: 'app-gerenciar',
@@ -26,17 +29,21 @@ export class GerenciarComponent implements OnInit {
         title: 'Telefone',     
         type: 'string' 
       },
-      _id: {
-        title: 'Detalhes',
-        type: 'custom',
-        // renderComponent: ButtonViewComponent 
-      },
     },
   };
 
-  constructor() { }
+  source: LocalDataSource;
+
+  constructor(private clienteService: ClienteService) { 
+    this.source = new LocalDataSource();
+  }
 
   ngOnInit() {
+    this.clienteService.retornarTodos().subscribe(clientes => {
+      this.source.load(clientes);
+      console.log(this.source);
+    });
   }
+
 
 }

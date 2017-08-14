@@ -2,7 +2,7 @@ export interface Cliente {
   id: number;
   razao_social: string;
   cnpj_cpf: string;
-  nome: string;
+  email: string;
   nome_fantasia: string;
   inscricao_estadual: string;
   createdAt: string;

@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
 import { GerenciarComponent } from './components/gerenciar';
@@ -16,12 +17,16 @@ import { AssociarComponent } from './components/associar/';
 import { EnderecoClienteAtendimentoComponent } from './components/novo-atendimento/endereco-cliente-atendimento';
 import { AtendimentosDisponiveisComponent } from './components/associar/atendimentos-disponiveis/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
+import { TecnicoService } from './../../shared/services/tecnico-service/';
+import { AtendimentoServiceService } from './../../shared/services/atendimento-service/atendimento-service.service';
+import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
+
 import { routing } from './atendimentos.routing';
 
 
 @NgModule({
   imports: [
-    CommonModule, 
+    CommonModule,
     NgaModule,
     NgbModule,
     SimpleNotificationsModule,
@@ -33,10 +38,10 @@ import { routing } from './atendimentos.routing';
     AtendimentosDisponiveisComponent
   ],
   declarations: [
-    AtendimentosComponent, 
-    NovoAtendimentoComponent, 
-    GerenciarComponent, 
-    DetalhesAtendimentoComponent, 
+    AtendimentosComponent,
+    NovoAtendimentoComponent,
+    GerenciarComponent,
+    DetalhesAtendimentoComponent,
     InformacoesAtendimentoComponent,
     ContatoClienteAtendimentoComponent,
     DadosClienteAtendimentoComponent,
@@ -45,7 +50,10 @@ import { routing } from './atendimentos.routing';
     AtendimentosDisponiveisComponent
   ],
   providers: [
-    CepService
+    CepService,
+    TecnicoService,
+    AtendimentoServiceService,
+    ClienteService
   ]
 })
 export class AtendimentosModule { }

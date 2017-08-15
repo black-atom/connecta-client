@@ -1,12 +1,12 @@
-<div class="row">
-  
+<div class="row" [formGroup]="formDadosPrincipaisAtendimento">
+
   <div class="form-group col-md-6 col-sm-12">
-    <input type="text" class="form-control" placeholder="CNPJ ou CPF">
+    <input type="text" class="form-control" formControlName="cnpj_cpf" placeholder="CNPJ ou CPF" (blur)="buscarCliente($event.target.value)">
   </div>
 
 
   <div class="form-group col-md-6 col-sm-12">
-    <input type="text" class="form-control" placeholder="Razão Social ou Nome">
+    <input type="text" class="form-control" formControlName="razao_social" placeholder="Razão Social ou Nome">
   </div>
 
 </div>

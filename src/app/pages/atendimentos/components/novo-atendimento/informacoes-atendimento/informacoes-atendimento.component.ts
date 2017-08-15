@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-informacoes-atendimento',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformacoesAtendimentoComponent implements OnInit {
 
+  @Input() formDescricaoAtendimento: FormGroup;
   constructor() { }
 
   ngOnInit() {

@@ -9,13 +9,13 @@ import { Cliente } from './../../../models/cliente/cliente.interface';
 export class ClienteService {
 
   private url: string = 'http://localhost:3000';
-  
-  
+
+
   constructor(private _http: Http) { }
- 
-  retornarTodos(): Observable <Cliente[]> {
+
+  retornarTodos(cnpjCpf?: any ): Observable <Cliente[]> {
     return this._http
-      .get(`${this.url}/clientes/`)
+      .get(`${this.url}/clientes/`, { params: { cnpj_cpf: cnpjCpf } })
       .map(res => res.json() as Cliente[]);
   }
 
@@ -28,7 +28,7 @@ export class ClienteService {
   cadastrarCliente(cliente: Cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
-  
+
     return this._http
     .post(`${this.url}/clientes/`, cliente, options)
     .map(res => res.json() as Cliente);

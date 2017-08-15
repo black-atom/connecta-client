@@ -4,8 +4,9 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { AtendimentoModel } from './../../../../models/atendimento/atendimento.interface';
 import { TecnicoModel } from '../../../../models/tecnico/tecnico.interface';
-import { TECNICOSMOCK } from './../../../../utils/mocks/tecnicos.mock';
 import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/atendimentos-disponiveis.component';
+import { TecnicoService } from './../../../../shared/services/tecnico-service/';
+
 
 @Component({
   selector: 'app-associar',
@@ -13,10 +14,12 @@ import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/ate
   styleUrls: ['./associar.component.scss'],
 })
 export class AssociarComponent implements OnInit {
-  tecnicos: TecnicoModel[] = TECNICOSMOCK;
+
   atendimentos: AtendimentoModel[] = [];
   atendimentoASerRemovido;
+
   tecSelecionado: string;
+  tecnicos: TecnicoModel[];
 
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg',
@@ -28,9 +31,14 @@ export class AssociarComponent implements OnInit {
     lastOnBottom: true
   };
 
-  constructor(private _servicoModal: NgbModal, private _servicoNotificacao: NotificationsService ) {}
+  constructor(private _tecnicoService: TecnicoService,
+              private _servicoModal: NgbModal,
+              private _servicoNotificacao: NotificationsService ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+      this._tecnicoService.retornarTodos()
+                          .subscribe(res => this.tecnicos = res);
+  }
 
   openNotificacaoModal() {
     this._servicoNotificacao.success(
@@ -58,7 +66,7 @@ export class AssociarComponent implements OnInit {
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.tecnicoSelecionado = tecnicoSelecionado;
-    
+
     modalRef.result.then((resultadoDaModal) => {
 
         const tecnicoProcurado = this.tecnicos
@@ -77,23 +85,23 @@ export class AssociarComponent implements OnInit {
         return e;
     });
   }
-  
-  removerAtendimento(atendimento, tecnico) { 
-    
+
+  removerAtendimento(atendimento, tecnico) {
+
     // Verificando se nome técnico é = técnico do atendimento
     const tecnicoAtendimentoClicado = atendimento.tecnico
                             .find((nome) => nome === tecnico);
-        
+
     // Verificando se técnico armazenado é o mesmo do atd clicado
      const tecnicoArmazenado = this.tecnicos
-                            .find((tecnicoProcurado) => 
+                            .find((tecnicoProcurado) =>
                             tecnicoProcurado.nome === tecnicoAtendimentoClicado);
-  
+
     // Removendo o atendimento do técnico
       tecnicoArmazenado.atendimentos
                            .splice(tecnicoArmazenado.atendimentos
                            .indexOf(atendimento), 1);
-                           
+
      // Removendo o técnico do atendimento
       atendimento.tecnico
                           .splice(atendimento.tecnico

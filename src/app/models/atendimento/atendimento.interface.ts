@@ -12,10 +12,12 @@ export interface AtendimentoModel {
     numero: string;
     bairro: string;
     cidade: string;
-    uf: string;
+    estado: string;
     ponto_referencia: string;
     data_atendimento: string;
-    tipo_atendimento: string;
+    // tipo_atendimento: string;
     tecnico: TecnicoModel[];
     descricao_atendimento: string;
+    createdAt: string;
+    updatedAt: string;
 }

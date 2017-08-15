@@ -16,7 +16,7 @@
 
   <div class="col-12">
     <ba-card cardTitle="Contato">
-      <app-contato-cliente-atendimento [formContatoAtendimento]="formAtendimento"></app-contato-cliente-atendimento>
+      <app-contato [formContato]="formAtendimento"></app-contato>
     </ba-card>
   </div>
 
@@ -24,13 +24,21 @@
 
 <!-- Card com os inputs das informações de endereço do cliente -->
 <div class="row">
-
   <div class="col-12">
     <ba-card cardTitle="Endereço">
-      <app-endereco-cliente-atendimento [formEnderecoAtendimento]="formAtendimento"></app-endereco-cliente-atendimento>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="form-group">
+            <select class="form-control">
+            <option value="" disabled selected>Selecione o endereço</option>
+            <option>Endereço 1</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <app-endereco [formEndereco]="formAtendimento"></app-endereco>
     </ba-card>
   </div>
-
 </div>
 
 <!-- Card com os inputs das informações do atendimento -->

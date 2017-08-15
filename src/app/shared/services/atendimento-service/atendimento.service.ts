@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { AtendimentoModel } from './../../../models/atendimento/atendimento.interface';
 
 @Injectable()
-export class AtendimentoServiceService {
+export class AtendimentoService {
 
   private api = ' http://localhost:3000';
 

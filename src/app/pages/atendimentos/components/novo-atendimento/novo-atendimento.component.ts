@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { AtendimentoServiceService } from './../../../../shared/services/atendimento-service/atendimento-service.service';
+import { AtendimentoService } from './../../../../shared/services/atendimento-service/atendimento.service';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -11,12 +11,12 @@ import { AtendimentoServiceService } from './../../../../shared/services/atendim
 export class NovoAtendimentoComponent implements OnInit {
 
   formAtendimento: FormGroup;
+
    data = new Date();
-  // tslint:disable-next-line:max-line-length
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
-              private _atendimentoServiceService: AtendimentoServiceService) { }
+              private _atendimentoServiceService: AtendimentoService) { }
 
   ngOnInit() {
     this.formInit();
@@ -27,6 +27,7 @@ export class NovoAtendimentoComponent implements OnInit {
       razao_social: ['', Validators.required],
       cnpj_cpf: ['', [Validators.required]],
       email: ['', [Validators.pattern(this.emailPattern)]],
+      nome: ['', Validators.required],
       telefone: ['', [Validators.required]],
       celular: ['', [Validators.required]],
       observacao: [''],

@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row" [formGroup]="formDescricaoAtendimento">
 
   <div class="col-md-2 col-sm-12">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Data">
+      <input type="text" class="form-control" formControlName="data_atendimento" placeholder="Data">
     </div>
   </div>
 
@@ -32,7 +32,7 @@
 
   <div class="col-md-12 col-sm-12">
     <div class="form-group">
-      <textarea class="form-control" rows="3" placeholder="Descrição do atendimento"></textarea>
+      <textarea class="form-control" rows="3" formControlName="decricao_atendimento" placeholder="Descrição do atendimento"></textarea>
     </div>
   </div>
 

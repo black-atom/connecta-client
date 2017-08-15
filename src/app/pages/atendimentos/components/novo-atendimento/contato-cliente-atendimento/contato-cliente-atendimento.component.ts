@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-contato-cliente-atendimento',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContatoClienteAtendimentoComponent implements OnInit {
 
+  @Input() formContatoAtendimento: FormGroup;
   constructor() { }
 
   ngOnInit() {

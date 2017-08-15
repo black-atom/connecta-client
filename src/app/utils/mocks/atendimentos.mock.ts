@@ -1,6 +1,6 @@
 import { AtendimentoModel } from './../../models/atendimento/atendimento.interface';
 
-export const ATENDIMENTOSMOCK: AtendimentoModel[] = [
+export const ATENDIMENTOSMOCK: any[] = [
   {
     cnpj_cpf: '439.432.111.21',
     razao_social: 'Alexandre dos Santos Soares',

@@ -44,6 +44,7 @@ export class NovoTecnicoComponent implements OnInit {
         complemento: ['', [Validators.required]],
         cidade: ['', [Validators.required]],
         estado: ['', [Validators.required]],
+        ponto_referencia: [''],
         createdAt: [''],
         updatedAt: ['']
     });

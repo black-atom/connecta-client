@@ -12,9 +12,9 @@ const routes: Routes = [
     children: [
       { path: 'novo', component: NovoAtendimentoComponent },
       { path: 'associar', component: AssociarComponent },
-      { path: 'gerenciar', component: GerenciarComponent },
-    ],
-  },
+      { path: 'gerenciar', component: GerenciarComponent }
+    ]
+  }
 ];
 
 export const routing = RouterModule.forChild(routes);

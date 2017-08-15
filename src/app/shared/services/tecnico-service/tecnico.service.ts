@@ -18,7 +18,8 @@ private api = ' http://localhost:3000';
 
     return this._http.post(url, body, options)
                      .map((res) => res.json() as TecnicoModel)
-                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                     .catch((error: any) => Observable
+                     .throw(error.json().error || 'Server error'));
   }
 
 
@@ -30,7 +31,8 @@ private api = ' http://localhost:3000';
 
     return this._http.put(url, body, options)
                      .map((res) => res.json() as TecnicoModel)
-                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                     .catch((error: any) => Observable
+                     .throw(error.json().error || 'Server error'));
   }
 
   retornarUm(idTecnico: Number): Observable<TecnicoModel> {
@@ -38,7 +40,8 @@ private api = ' http://localhost:3000';
 
      return this._http.get(url)
                       .map((res) => res.json() )
-                      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                      .catch((error: any) => Observable
+                      .throw(error.json().error || 'Server error'));
   }
 
    retornarTodos(): Observable<TecnicoModel[]> {
@@ -46,7 +49,8 @@ private api = ' http://localhost:3000';
 
     return this._http.get(url)
                      .map((res) => res.json() as TecnicoModel[] )
-                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                     .catch((error: any) => Observable
+                     .throw(error.json().error || 'Server error'));
   }
 
 }

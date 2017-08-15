@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { ClientesComponent } from './clientes.component';
 import { NovoClienteComponent } from './components/novo-cliente';
-import { GerenciarComponent } from './components/gerenciar';
+import { GerenciarComponent, BotaoDetalhesComponent } from './components/gerenciar';
 import { EnderecoComponent } from './components/novo-cliente/endereco';
 import { ContatoComponent } from './components/novo-cliente/contato';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
@@ -29,6 +29,9 @@ import { PrincipaisInformacoesComponent } from './components/novo-cliente/princi
     CepService,
     ClienteService
   ],
+  entryComponents: [
+    BotaoDetalhesComponent
+  ],
   declarations: [
     ClientesComponent,
     NovoClienteComponent, 
@@ -36,7 +39,8 @@ import { PrincipaisInformacoesComponent } from './components/novo-cliente/princi
     EnderecoComponent, 
     ContatoComponent, 
     DetalhesClienteComponent, 
-    PrincipaisInformacoesComponent
-  ],
+    PrincipaisInformacoesComponent,
+    BotaoDetalhesComponent
+  ]
 })
 export class ClientesModule { }

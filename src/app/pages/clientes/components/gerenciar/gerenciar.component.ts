@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 
 @Component({
@@ -29,7 +29,12 @@ export class GerenciarComponent implements OnInit {
         title: 'Telefone',     
         type: 'string' 
       },
-    },
+      _id: {
+        type: 'custom',
+        filter: false,
+        renderComponent: BotaoDetalhesComponent
+      }
+    }
   };
 
   source: LocalDataSource;
@@ -45,5 +50,27 @@ export class GerenciarComponent implements OnInit {
     });
   }
 
+
+}
+
+@Component({
+  selector: 'button-view',
+  template: `
+  <button type="button" class="btn btn-info btn-block" 
+  routerLink="/pages/clientes/detalhes/{{ renderizarValor }}"><i class="ion-ios-redo"></i> Detalhes</button>
+  `,
+  styleUrls: ['./gerenciar.component.scss']
+})
+export class BotaoDetalhesComponent implements ViewCell, OnInit {
+
+  renderizarValor: string;
+  
+  @Input() value: string | number;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.renderizarValor = this.value.toString().toUpperCase();
+  }
 
 }

@@ -13,13 +13,19 @@ export class ClienteService {
   
   constructor(private _http: Http) { }
  
-  retornarTodos(): Observable<Cliente[]> {
+  retornarTodos(): Observable <Cliente[]> {
     return this._http
       .get(`${this.url}/clientes/`)
       .map(res => res.json() as Cliente[]);
   }
 
-  cadastrarCliente(cliente: Cliente): Observable<Cliente> {
+  retornarUm(id): Observable <Cliente> {
+    return this._http
+      .get(`${this.url}/clientes/${id}`)
+      .map(res => res.json() as Cliente);
+  }
+
+  cadastrarCliente(cliente: Cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
   

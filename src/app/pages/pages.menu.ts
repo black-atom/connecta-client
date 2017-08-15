@@ -9,8 +9,8 @@ export const PAGES_MENU = [{
           selected: false,
           expanded: false,
           order: 250
-        },
-      },
+        }
+      }
     },
     {
       path: 'clientes',
@@ -21,7 +21,7 @@ export const PAGES_MENU = [{
           selected: false,
           expanded: false,
           order: 300
-        },
+        }
       },
       children: [{
           path: 'novo',
@@ -29,8 +29,8 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Novo',
               icon: 'ion-person-add'
-            },
-          },
+            }
+          }
         },
         {
           path: 'gerenciar',
@@ -38,10 +38,10 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Gerenciar',
               icon: 'ion-clipboard'
-            },
-          },
-        },
-      ],
+            }
+          }
+        }
+      ]
     },
     {
       path: 'tecnicos',
@@ -52,7 +52,7 @@ export const PAGES_MENU = [{
           selected: false,
           expanded: false,
           order: 300
-        },
+        }
       },
       children: [{
           path: 'novo',
@@ -60,8 +60,8 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Novo',
               icon: 'ion-person-add'
-            },
-          },
+            }
+          }
         },
         {
           path: 'gerenciar',
@@ -69,10 +69,10 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Gerenciar',
               icon: 'ion-clipboard'
-            },
-          },
-        },
-      ],
+            }
+          }
+        }
+      ]
     },
     {
       path: 'atendimentos',
@@ -83,7 +83,7 @@ export const PAGES_MENU = [{
           selected: false,
           expanded: false,
           order: 300
-        },
+        }
       },
       children: [{
           path: 'novo',
@@ -91,8 +91,8 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Novo',
               icon: 'ion-person-add'
-            },
-          },
+            }
+          }
         },
         {
           path: 'associar',
@@ -100,8 +100,8 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Associar',
               icon: 'ion-person-stalker'
-            },
-          },
+            }
+          }
         },
         {
           path: 'gerenciar',
@@ -109,10 +109,10 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Gerenciar',
               icon: 'ion-clipboard'
-            },
-          },
-        },
-      ],
+            }
+          }
+        }
+      ]
     },
     {
       path: 'sac',
@@ -123,7 +123,7 @@ export const PAGES_MENU = [{
           selected: false,
           expanded: false,
           order: 250
-        },
+        }
       },
       children: [{
         path: 'consulta',
@@ -131,11 +131,11 @@ export const PAGES_MENU = [{
           menu: {
             title: 'Consulta',
             icon: 'ion-android-search'
-          },
-        },
-      }],
-    },
-  ],
- }, 
+          }
+        }
+      }]
+    }
+  ]
+ }
 ];
 

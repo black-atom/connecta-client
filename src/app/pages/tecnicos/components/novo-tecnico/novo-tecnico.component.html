@@ -1,53 +1,52 @@
 <form [formGroup]="formTecnico">
+
   <!-- Card com os inputs de dados principais do funcionário -->
-<div class="row">
-  <div class="col-12">
-    <ba-card cardTitle="Dados principais">
-      <app-principais-informacoes [dadosPrincipaisTecnico]="formTecnico.controls.dados"></app-principais-informacoes>
-    </ba-card>
+  <div class="row">
+    <div class="col-12">
+      <ba-card cardTitle="Dados principais">
+        <app-principais-informacoes [dadosPrincipaisTecnico]="formTecnico"></app-principais-informacoes>
+      </ba-card>
+    </div>
   </div>
-</div>
 
 
-<div class="row">
-  <div class="col-12">
-    <ba-card cardTitle="Endereço">
-      <app-endereco [formEndereco]="formTecnico"></app-endereco>
-    </ba-card>
+  <div class="row">
+    <div class="col-12">
+      <ba-card cardTitle="Endereço">
+        <app-endereco [formEndereco]="formTecnico"></app-endereco>
+      </ba-card>
+    </div>
   </div>
-</div>
 
-<!-- Card com os inputs de informações da
+  <!-- Card com os inputs de informações da
 carteira de habilitação do funcionário -->
-<!-- <div class="row">
-  <div class="col-12">
-    <ba-card cardTitle="Habilitação">
-      <app-habilitacao></app-habilitacao>
-    </ba-card>
+  <div class="row">
+    <div class="col-12">
+      <ba-card cardTitle="Habilitação">
+        <app-habilitacao [formHabilitacao]="formTecnico"></app-habilitacao>
+      </ba-card>
+    </div>
   </div>
-</div> -->
 
-<!-- Botões de cadastro e de limpeza de dados -->
-<div class="row">
-  <div class="col-12">
-    <ba-card>
-      <div class="row">
+  <!-- Botões de cadastro e de limpeza de dados -->
+  <div class="row">
+    <div class="col-12">
+      <ba-card>
+        <div class="row">
 
-        <div class="col-md-6 col-sm-12">
-          <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico.value)" >
-          <i class="ion-android-checkmark-circle" ></i>Cadastrar</button>
+          <div class="col-md-6 col-sm-12">
+            <button type="submit" class="btn btn-primary btn-with-icon" (click)="novoTecnico(formTecnico.value)" [disabled]="formTecnico.invalid">
+            <i class="ion-android-checkmark-circle" ></i>Cadastrar</button>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <button type="reset" class="btn btn-danger btn-with-icon" (click)="limpar()" [disabled]="formTecnico.pristine">
+            <i class="ion-trash-a"></i>Limpar dados</button>
+          </div>
+
         </div>
-
-        <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon" (click)="limpar()" [disabled]="formTecnico.pristine">
-          <i class="ion-trash-a"></i>Limpar dados</button>
-        </div>
-
-      </div>
-    </ba-card>
+      </ba-card>
+    </div>
   </div>
-</div>
 
 </form>
-
-

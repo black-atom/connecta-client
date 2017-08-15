@@ -1,7 +1,5 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-
-import { formHabilitacaoControls } from './form-habilitacao-controls';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-habilitacao',
@@ -10,12 +8,11 @@ import { formHabilitacaoControls } from './form-habilitacao-controls';
 })
 export class HabilitacaoComponent implements OnInit {
 
-  formHabilitacao: FormGroup;
+  @Input() formHabilitacao: FormGroup;
 
   constructor(private _fb: FormBuilder) { }
 
   ngOnInit() {
-    this.formHabilitacao = this._fb.group(formHabilitacaoControls);
   }
 
 }

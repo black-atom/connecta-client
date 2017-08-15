@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { formPrincipaisControls } from './principais-informacoes/';
-import { formEnderecoControls } from './endereco/';
-
 import { AddressInfo } from './../../../../models/addressInfo';
 import { CepService } from './../../../../shared/services/cep-service/cep.service';
 import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
@@ -17,34 +14,50 @@ export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
   data = new Date();
+  // tslint:disable-next-line:max-line-length
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-   constructor(private _cepService: CepService,
-               private _fb: FormBuilder,
+
+   constructor(private _fb: FormBuilder,
                private _tecnicoService: TecnicoService) {}
 
    ngOnInit() {
-        this.formTecnico = this._fb.group({
-          dados: this._fb.group(formPrincipaisControls),
-
-        });
+    this.formInit();
    }
 
-   buscaPorCep(cep: string) {
-     this._cepService.obterInfoEndereco(cep).subscribe((data: AddressInfo) => {
-         this.formTecnico.get('rua').patchValue(data.logradouro);
-         this.formTecnico.get('bairro').patchValue(data.bairro);
-         this.formTecnico.get('cidade').patchValue(data.localidade);
-         this.formTecnico.get('estado').patchValue(data.uf);
-
-     });
+   formInit() {
+      this.formTecnico = this._fb.group({
+        nome: ['', [Validators.required]],
+        rg: ['', [Validators.required]],
+        cpf: ['', [Validators.required]],
+        data_nasc: ['', [Validators.required]],
+        email: ['', [Validators.pattern(this.emailPattern)]],
+        telefone: ['', [Validators.required]],
+        celular: ['', [Validators.required]],
+        observacao: [''],
+        cnh: [''],
+        validade_carteira: [''],
+        cep: ['', [Validators.required]],
+        rua: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        bairro: ['', [Validators.required]],
+        complemento: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        estado: ['', [Validators.required]],
+        createdAt: [''],
+        updatedAt: ['']
+    });
    }
 
    novoTecnico(tecnico) {
-     console.log(tecnico)
-    //  tecnico.value.createdAt = this.data;
+    tecnico.createdAt = this.data;
 
-    //  this._tecnicoService.novoTecnico(tecnico.value)
-    //                      .subscribe(res => res);
+    this._tecnicoService.novoTecnico(tecnico)
+                        .subscribe((res) => {
+                          alert(`Técnico ${res.nome} cadastrado com sucesso!`);
+                        });
+
+    this.limpar();
    }
 
    limpar() {

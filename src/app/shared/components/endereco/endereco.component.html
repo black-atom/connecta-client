@@ -1,0 +1,52 @@
+<form [formGroup]="formEndereco">
+  
+  <div class="row">
+    
+    <div class="form-group col-md-12 col-sm-12">
+      <input style="width: 15em" type="text" class="form-control" 
+      placeholder="Insira o CEP" formControlName="cep" 
+      (blur)="buscaPorCep($event.target.value)">
+    </div>
+  
+    <div class="form-group col-md-6 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Rua" formControlName="rua">
+    </div>
+  
+    <div class="form-group col-md-2 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Número" formControlName="numero">
+    </div>
+  
+    <div class="form-group col-md-4 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Bairro" formControlName="bairro">
+    </div>
+  
+    <div class="form-group col-md-3 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Estado" formControlName="uf">
+    </div>
+  
+    <div class="form-group col-md-3 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Cidade" formControlName="cidade">
+    </div>
+  
+    <div class="form-group col-md-6 col-sm-12">
+      <input type="text" class="form-control"
+      placeholder="Complemento" formControlName="complemento">
+    </div>
+  
+    <div class="col-md-6">
+      
+    </div>
+  
+    <div class="form-group col-md-6 col-sm-12">
+      <input type="text" class="form-control" 
+      placeholder="Ponto de referência" formControlName="ponto_referencia">
+    </div>
+  
+  </div>
+  
+  </form>

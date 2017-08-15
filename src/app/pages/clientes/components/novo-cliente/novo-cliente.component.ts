@@ -1,10 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
 import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
-import { formEnderecoControls } from './endereco/';
-import { formContatoControls } from './contato/';
-
+import { formContatoControls } from './../../../../shared/components/contato/';
+import { formEnderecoControls } from './../../../../shared/components/endereco/';
 
 @Component({
   selector: 'app-novo-cliente',

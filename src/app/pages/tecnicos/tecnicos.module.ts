@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SharedModule } from './../../shared/shared.module';
 
 import { TecnicosComponent } from './tecnicos.component';
 import { NovoTecnicoComponent } from './components/novo-tecnico';
@@ -10,10 +11,9 @@ import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
 import { CepService } from './../../shared/services/cep-service/';
 import { TecnicoService } from './../../shared/services/tecnico-service/';
+import { HabilitacaoComponent } from './components/shared-components/habilitacao/';
+import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes/';
 import { routing } from './tecnicos.routing';
-import { PrincipaisInformacoesComponent } from './components/novo-tecnico/principais-informacoes/';
-import { EnderecoComponent } from './components/novo-tecnico/endereco/';
-import { HabilitacaoComponent } from './components/novo-tecnico/habilitacao/';
 
 @NgModule({
   imports: [
@@ -22,6 +22,7 @@ import { HabilitacaoComponent } from './components/novo-tecnico/habilitacao/';
      Ng2SmartTableModule,
      ReactiveFormsModule,
      FormsModule,
+     SharedModule,
      routing
     ],
   declarations: [
@@ -30,7 +31,6 @@ import { HabilitacaoComponent } from './components/novo-tecnico/habilitacao/';
     GerenciarComponent,
     DetalhesTecnicoComponent,
     PrincipaisInformacoesComponent,
-    EnderecoComponent,
     HabilitacaoComponent
   ],
   providers: [

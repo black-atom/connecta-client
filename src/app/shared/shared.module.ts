@@ -1,21 +1,28 @@
-import { CepService } from './services/cep-service/cep.service';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { EnderecoComponent } from './components/endereco/endereco.component';
+import { ContatoComponent } from './components/contato/contato.component';
+import { CepService } from './services/cep-service/cep.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
-
-  ],
+    EnderecoComponent,
+    ContatoComponent
+],
   providers: [
-    CepService,
+    CepService
   ],
   exports: [
-    //Components that should be exported for other modules
+    EnderecoComponent,
+    ContatoComponent
   ]
 })
 export class SharedModule { }

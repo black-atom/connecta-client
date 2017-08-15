@@ -33,4 +33,13 @@ export class ClienteService {
     .post(`${this.url}/clientes/`, cliente, options)
     .map(res => res.json() as Cliente);
   }
+
+  atualizar(cliente): Observable <Cliente> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+  
+    return this._http
+    .put(`${this.url}/clientes/${cliente.id}`, cliente, options)
+    .map(res => res.json() as Cliente);
+  }
 }

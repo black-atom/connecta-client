@@ -46,7 +46,6 @@ export class GerenciarComponent implements OnInit {
   ngOnInit() {
     this.clienteService.retornarTodos().subscribe(clientes => {
       this.source.load(clientes);
-      console.log(this.source);
     });
   }
 

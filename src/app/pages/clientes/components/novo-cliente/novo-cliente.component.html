@@ -9,14 +9,14 @@
   <!-- Card com os inputs das informações de contato do cliente -->
   <div class="col-md-12">
     <ba-card cardTitle="Contato" *ngFor="let contato of dadosClienteForm.controls['contatos'].controls; let i=index">
-      <app-contato-cliente [formContato]="dadosClienteForm.controls['contatos'].controls[i]"></app-contato-cliente>
+      <app-contato [formContato]="dadosClienteForm.controls['contatos'].controls[i]"></app-contato>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de endereço do cliente -->
   <div class="col-md-12" *ngFor="let endereco of dadosClienteForm.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
-      <app-endereco-cliente [formEndereco]="dadosClienteForm.controls['enderecos'].controls[i]"></app-endereco-cliente>
+      <app-endereco [formEndereco]="dadosClienteForm.controls['enderecos'].controls[i]"></app-endereco>
     </ba-card>
   </div>
 

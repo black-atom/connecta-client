@@ -43,7 +43,7 @@ export class NovoTecnicoComponent implements OnInit {
         bairro: ['', [Validators.required]],
         complemento: ['', [Validators.required]],
         cidade: ['', [Validators.required]],
-        estado: ['', [Validators.required]],
+        uf: ['', [Validators.required]],
         ponto_referencia: [''],
         createdAt: [''],
         updatedAt: ['']

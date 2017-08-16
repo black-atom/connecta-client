@@ -11,7 +11,6 @@ import { GerenciarComponent, BotaoDetalhesComponent } from './components/gerenci
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
 import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
-import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes';
 import { routing } from './clientes.routing';
 
 @NgModule({
@@ -35,8 +34,7 @@ import { routing } from './clientes.routing';
     ClientesComponent,
     NovoClienteComponent, 
     GerenciarComponent,  
-    DetalhesClienteComponent, 
-    PrincipaisInformacoesComponent,
+    DetalhesClienteComponent,
     BotaoDetalhesComponent
   ]
 })

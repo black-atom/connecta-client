@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { AtendimentoService } from './../../../../shared/services/atendimento-service/atendimento.service';
 
@@ -9,9 +9,8 @@ import { AtendimentoService } from './../../../../shared/services/atendimento-se
   styleUrls: ['./novo-atendimento.scss']
 })
 export class NovoAtendimentoComponent implements OnInit {
-
+ 
   formAtendimento: FormGroup;
-
   data = new Date();
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -22,6 +21,8 @@ export class NovoAtendimentoComponent implements OnInit {
     this.formAtendimento = this._fb.group({
       razao_social: ['', Validators.required],
       cnpj_cpf: ['', [Validators.required]],
+      inscricao_estadual: ['', [Validators.required]],
+      nome_fantasia: ['', [Validators.required]],
       email: ['', [Validators.pattern(this.emailPattern)]],
       nome: ['', Validators.required],
       telefone: ['', [Validators.required]],

@@ -3,39 +3,46 @@
   <div class="row">
     
     <div class="form-group col-md-12 col-sm-12">
+      <label for="input01">CEP</label>
       <input style="width: 15em" type="text" class="form-control" 
-      placeholder="Insira o CEP" formControlName="cep" 
+      placeholder="Insira um CEP" formControlName="cep" 
       (blur)="buscaPorCep($event.target.value)">
     </div>
   
     <div class="form-group col-md-6 col-sm-12">
+      <label for="input02">Rua</label>
       <input type="text" class="form-control" 
-      placeholder="Rua" formControlName="rua">
+       formControlName="rua">
     </div>
   
     <div class="form-group col-md-2 col-sm-12">
+      <label for="input03">Número</label>
       <input type="text" class="form-control" 
-      placeholder="Número" formControlName="numero">
+      formControlName="numero">
     </div>
   
     <div class="form-group col-md-4 col-sm-12">
+      <label for="input04">Bairro</label>        
       <input type="text" class="form-control" 
-      placeholder="Bairro" formControlName="bairro">
+      formControlName="bairro">
     </div>
   
     <div class="form-group col-md-3 col-sm-12">
+      <label for="input05">Estado</label>                
       <input type="text" class="form-control" 
-      placeholder="Estado" formControlName="uf">
+      formControlName="uf">
     </div>
   
     <div class="form-group col-md-3 col-sm-12">
+      <label for="input06">Cidade</label>                        
       <input type="text" class="form-control" 
-      placeholder="Cidade" formControlName="cidade">
+      formControlName="cidade">
     </div>
   
     <div class="form-group col-md-6 col-sm-12">
+      <label for="input07">Complemento</label>                                
       <input type="text" class="form-control"
-      placeholder="Complemento" formControlName="complemento">
+      formControlName="complemento">
     </div>
   
     <div class="col-md-6">
@@ -43,8 +50,9 @@
     </div>
   
     <div class="form-group col-md-6 col-sm-12">
+      <label for="input08">Ponto de referência</label>                                        
       <input type="text" class="form-control" 
-      placeholder="Ponto de referência" formControlName="ponto_referencia">
+      formControlName="ponto_referencia">
     </div>
   
   </div>

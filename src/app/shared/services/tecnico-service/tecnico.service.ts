@@ -6,8 +6,8 @@ import { Tecnico } from './../../../models';
 
 @Injectable()
 export class TecnicoService {
-  
-  private url = ' http://localhost:3000/tecnicos';
+
+  private url = ' http://localhost:3000/tecnicos/';
 
   constructor( private _http: Http) { }
 

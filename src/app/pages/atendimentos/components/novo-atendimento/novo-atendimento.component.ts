@@ -9,9 +9,8 @@ import { AtendimentoService } from './../../../../shared/services/atendimento-se
   styleUrls: ['./novo-atendimento.scss']
 })
 export class NovoAtendimentoComponent implements OnInit {
- 
+  
   formAtendimento: FormGroup;
-  data = new Date();
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,

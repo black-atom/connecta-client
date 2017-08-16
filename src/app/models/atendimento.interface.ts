@@ -1,6 +1,6 @@
-import { TecnicoModel } from './../tecnico/tecnico.interface';
+import { Tecnico } from './tecnico.interface';
 
-export interface AtendimentoModel {
+export interface Atendimento {
     cnpj_cpf: string;
     razao_social: string;
     email: string;
@@ -16,7 +16,7 @@ export interface AtendimentoModel {
     ponto_referencia: string;
     data_atendimento: string;
     // tipo_atendimento: string;
-    tecnico: TecnicoModel[];
+    tecnico: Tecnico[];
     descricao_atendimento: string;
     createdAt: string;
     updatedAt: string;

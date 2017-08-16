@@ -1,6 +1,6 @@
-import { AtendimentoModel } from './../atendimento/atendimento.interface';
+import { Atendimento } from './atendimento.interface';
 
-export interface TecnicoModel {
+export interface Tecnico {
     id: number;
     nome: string;
     rg: string;
@@ -21,5 +21,5 @@ export interface TecnicoModel {
     cep: string;
     createdAt: string;
     updatedAt: string;
-    atendimentos: AtendimentoModel[];
+    atendimentos: Atendimento[];
 }

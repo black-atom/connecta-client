@@ -1,5 +1,3 @@
-import { AtendimentoModel } from './../../models/atendimento/atendimento.interface';
-
 export const ATENDIMENTOSMOCK: any[] = [
   {
     cnpj_cpf: '439.432.111.21',
@@ -74,5 +72,5 @@ export const ATENDIMENTOSMOCK: any[] = [
     tipo_atendimento: 'Contrato',
     tecnico: [],
     descricao_atendimento: 'Instalar relógio de conserto + teste + comunicação na rede',
-},
+}
 ];

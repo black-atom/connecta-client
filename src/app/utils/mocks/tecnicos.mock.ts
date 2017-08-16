@@ -1,5 +1,3 @@
-
-
 export const TECNICOSMOCK: any[] = [
     {
       nome: 'Alan Teixeira Lima',
@@ -52,5 +50,5 @@ export const TECNICOSMOCK: any[] = [
       cnh: '434.34.21.3-9',
       validade_carteira: '31/09/2025',
       atendimentos: []
-    },
+    }
 ];

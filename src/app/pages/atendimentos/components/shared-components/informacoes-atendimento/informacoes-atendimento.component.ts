@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { FormGroup } from '@angular/forms';
+import { TIPOATENDIMENTOMOCK } from './../../../../../utils/mocks';
 
 @Component({
   selector: 'app-informacoes-atendimento',
@@ -9,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class InformacoesAtendimentoComponent implements OnInit {
 
+  tipoAtendimento = TIPOATENDIMENTOMOCK;
   @Input() formDescricaoAtendimento: FormGroup;
   
   constructor() { }

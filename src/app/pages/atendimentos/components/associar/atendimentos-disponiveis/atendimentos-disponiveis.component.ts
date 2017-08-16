@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { TecnicoModel } from './../../../../../models/tecnico/tecnico.interface';
-import { AtendimentoModel } from './../../../../../models/atendimento/atendimento.interface';
+import { Tecnico } from './../../../../../models';
+import { Atendimento } from './../../../../../models';
 import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock';
 
 @Component({
@@ -12,10 +12,10 @@ import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock
 })
 export class AtendimentosDisponiveisComponent implements OnInit {
 
-  @Input() tecnicoSelecionado: TecnicoModel;
-  atendimentos: AtendimentoModel[] = ATENDIMENTOSMOCK;
+  @Input() tecnicoSelecionado: Tecnico;
+  atendimentos: Atendimento[] = ATENDIMENTOSMOCK;
   selecionados: any[] = [];
-  atendimentoVinculado: AtendimentoModel[] = [];
+  atendimentoVinculado: Atendimento[] = [];
 
  
   constructor(public activeModal: NgbActiveModal) { }

@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { CepService } from './../../services/cep-service/cep.service';
-import { AddressInfo } from './../../../models/addressInfo';
+import { Endereco } from './../../../models/endereco.interface';
 
 @Component({
   selector: 'app-endereco',
@@ -20,12 +20,12 @@ export class EnderecoComponent implements OnInit {
   }
 
   buscaPorCep(cep: string) {
-    this._cepService.obterInfoEndereco(cep).subscribe((data: AddressInfo) => {
-        this.formEndereco.get('cidade').patchValue(data.localidade);
-        this.formEndereco.get('complemento').patchValue(data.complemento);
-        this.formEndereco.get('uf').patchValue(data.uf);
-        this.formEndereco.get('rua').patchValue(data.logradouro);
-        this.formEndereco.get('bairro').patchValue(data.bairro);
+    this._cepService.obterInfoEndereco(cep).subscribe((dados: Endereco) => {
+        this.formEndereco.get('cidade').patchValue(dados.localidade);
+        this.formEndereco.get('complemento').patchValue(dados.complemento);
+        this.formEndereco.get('uf').patchValue(dados.uf);
+        this.formEndereco.get('rua').patchValue(dados.logradouro);
+        this.formEndereco.get('bairro').patchValue(dados.bairro);
     });
 
 

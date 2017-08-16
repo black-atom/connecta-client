@@ -12,17 +12,13 @@ export class NovoAtendimentoComponent implements OnInit {
 
   formAtendimento: FormGroup;
 
-   data = new Date();
+  data = new Date();
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService) { }
 
   ngOnInit() {
-    this.formInit();
-  }
-
-  formInit() {
     this.formAtendimento = this._fb.group({
       razao_social: ['', Validators.required],
       cnpj_cpf: ['', [Validators.required]],
@@ -47,9 +43,9 @@ export class NovoAtendimentoComponent implements OnInit {
 
     });
   }
-  cadastrarAtendimento(dados) {
-    console.log(dados);
-    this._atendimentoServiceService.novoAtendimento(dados)
+
+  novoAtendimento(atendimento) {
+    this._atendimentoServiceService.novo(atendimento)
                                    .subscribe(res => alert(res.razao_social));
   }
 }

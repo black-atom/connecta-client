@@ -1,7 +1,8 @@
-import { AddressInfo } from './../../../models/addressInfo';
 import { Observable } from 'rxjs/Rx';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { DadosEndereco } from './../../../models';
+
 
 @Injectable()
 export class CepService {
@@ -9,10 +10,13 @@ export class CepService {
 
   constructor(private http: Http) { }
 
-  obterInfoEndereco(cep: string): Observable<AddressInfo> {
+  obterInfoEndereco(cep: string): Observable<DadosEndereco> {
 
     const url = `${this.url}/${this.removerCaracteresEspeciais(cep)}/json`;
-    return this.http.get(url).map((response) => response.json() as AddressInfo);
+    return this.http
+                .get(url)
+                .map((response) => response
+                .json() as DadosEndereco);
 
   }
 

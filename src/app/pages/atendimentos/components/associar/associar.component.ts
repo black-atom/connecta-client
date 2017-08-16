@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 
-import { AtendimentoModel } from './../../../../models/atendimento/atendimento.interface';
-import { TecnicoModel } from '../../../../models/tecnico/tecnico.interface';
+import { Atendimento } from './../../../../models';
+import { Tecnico } from '../../../../models';
 import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/atendimentos-disponiveis.component';
 import { TecnicoService } from './../../../../shared/services/tecnico-service/';
 
@@ -11,18 +11,17 @@ import { TecnicoService } from './../../../../shared/services/tecnico-service/';
 @Component({
   selector: 'app-associar',
   templateUrl: './associar.component.html',
-  styleUrls: ['./associar.component.scss'],
+  styleUrls: ['./associar.component.scss']
 })
 export class AssociarComponent implements OnInit {
 
-  atendimentos: AtendimentoModel[] = [];
+  atendimentos: Atendimento[] = [];
   atendimentoASerRemovido;
-
   tecSelecionado: string;
-  tecnicos: TecnicoModel[];
+  tecnicos: Tecnico[];
 
   opcoesModalAtendimentos: NgbModalOptions = {
-    size: 'lg',
+    size: 'lg'
   };
 
   opcoesModalNotificao = {

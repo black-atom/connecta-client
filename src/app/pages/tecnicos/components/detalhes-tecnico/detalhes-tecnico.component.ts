@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { AddressInfo } from './../../../../models/addressInfo';
-import { TecnicoModel } from './../../../../models/tecnico/tecnico.interface';
-
-import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
-import { CepService } from './../../../../shared/services/cep-service/cep.service';
+import { DadosEndereco } from './../../../../models';
+import { Tecnico } from './../../../../models';
+import { TecnicoService } from './../../../../shared/services/tecnico-service';
+import { CepService } from './../../../../shared/services/cep-service';
 
 
 @Component({
@@ -19,8 +18,7 @@ export class DetalhesTecnicoComponent implements OnInit {
   formEditarTec: FormGroup;
   data = new Date();
   id: Number;
-  tecnicoRecebido: TecnicoModel;
-    // tslint:disable-next-line:max-line-length
+  tecnicoRecebido: Tecnico;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 
@@ -64,15 +62,15 @@ export class DetalhesTecnicoComponent implements OnInit {
           cep: ['', [Validators.required]],
           createdAt: [''],
           updatedAt: [''],
-          atendimentos: this._fb.array([]),
+          atendimentos: this._fb.array([])
      });
   }
     buscaPorCep(cep: string) {
-     this._cepService.obterInfoEndereco(cep).subscribe((data: AddressInfo) => {
-         this.formEditarTec.get('rua').patchValue(data.logradouro);
-         this.formEditarTec.get('bairro').patchValue(data.bairro);
-         this.formEditarTec.get('cidade').patchValue(data.localidade);
-         this.formEditarTec.get('estado').patchValue(data.uf);
+     this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+         this.formEditarTec.get('rua').patchValue(dados.logradouro);
+         this.formEditarTec.get('bairro').patchValue(dados.bairro);
+         this.formEditarTec.get('cidade').patchValue(dados.localidade);
+         this.formEditarTec.get('estado').patchValue(dados.uf);
 
      });
    }
@@ -101,20 +99,14 @@ export class DetalhesTecnicoComponent implements OnInit {
       });
     }
 
-    editar(tecnico) {
+    atualizar(tecnico) {
      tecnico.value.updatedAt = this.data;
      tecnico.value.id = this.tecnicoRecebido.id;
      tecnico.value.createdAt = this.tecnicoRecebido.createdAt;
 
-    this._tecnicoService.editarTecnico(tecnico.value)
+    this._tecnicoService.atualizar(tecnico.value)
                         .subscribe(res => alert(res.nome));
 
     this.formEditarTec.reset();
    }
-
-    limpar() {
-     this.formEditarTec.reset();
-   }
-
-
 }

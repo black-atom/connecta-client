@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TecnicoService } from './../../../../shared/services/tecnico-service/tecnico.service';
-
+import { TecnicoService } from './../../../../shared/services/tecnico-service';
 import { TECNICOSMOCK } from './../../../../utils/mocks/tecnicos.mock';
-import { TecnicoModel } from './../../../../models/tecnico/tecnico.interface';
+import { Tecnico } from './../../../../models';
 
 @Component({
   selector: 'app-gerenciar',
@@ -12,8 +11,9 @@ import { TecnicoModel } from './../../../../models/tecnico/tecnico.interface';
 })
 export class GerenciarComponent implements OnInit {
 
-  tecnicos: TecnicoModel[];
+  tecnicos: Tecnico[];
   tecnicoSelecionado;
+  
   constructor(private _tecnicoService: TecnicoService) {}
 
   ngOnInit() {

@@ -31,9 +31,10 @@ export class NovoClienteComponent implements OnInit {
 }
 
   cadastrar(cliente) {
-    this._clienteService.cadastrarCliente(cliente)
+    this._clienteService.novo(cliente)
                         .subscribe(res => res);
-                        this.dadosClienteForm.reset();
+    
+    this.dadosClienteForm.reset();
   }
 
 }

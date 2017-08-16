@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class InformacoesAtendimentoComponent implements OnInit {
 
   @Input() formDescricaoAtendimento: FormGroup;
+  
   constructor() { }
 
   ngOnInit() {

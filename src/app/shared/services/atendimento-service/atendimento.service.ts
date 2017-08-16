@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { AtendimentoModel } from './../../../models/atendimento/atendimento.interface';
+
+import { Atendimento } from './../../../models';
 
 @Injectable()
 export class AtendimentoService {
 
-  private api = ' http://localhost:3000';
+  private url = ' http://localhost:3000/atendimentos';
 
   constructor(private _http: Http) { }
 
-  novoAtendimento(body) {
-    const bodyString = JSON.stringify(body);
-    const url = `${this.api}/atendimentos/`;
+  novo(atendimento) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(url, body, options)
-                     .map((res) => res.json() as AtendimentoModel)
+    return this._http.post(this.url, atendimento, options)
+                     .map((res) => res.json() as Atendimento)
                      .catch((error: any) => Observable
-                     .throw(error.json().error || 'Server error'));
+                     .throw(error.json().error || 'Ocorreu um erro'));
   }
 
 }

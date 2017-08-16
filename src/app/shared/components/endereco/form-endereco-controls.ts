@@ -8,5 +8,5 @@ export let formEnderecoControls = {
     cidade: ['', [Validators.required]],
     complemento: ['', [Validators.required]],
     ponto_referencia: ['', [Validators.required]],
-    uf: ['', [Validators.required]],
+    uf: ['', [Validators.required]]
 };

@@ -15,9 +15,10 @@ export interface Tecnico {
     rua: string;
     numero: string;
     complemento: string;
+    ponto_referencia: string;
     bairro: string;
     cidade: string;
-    estado: string;
+    uf: string;
     cep: string;
     createdAt: string;
     updatedAt: string;

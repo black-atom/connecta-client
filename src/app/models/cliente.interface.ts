@@ -28,7 +28,7 @@ export interface Endereco {
   complemento: string;
   bairro: string;
   cidade: string;
-  estado: string;
+  uf: string;
   ponto_refencia?: any;
   cep: string;
   createdAt: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { DadosEndereco } from './../../../../models';
 import { Tecnico } from './../../../../models';
@@ -25,7 +25,8 @@ export class DetalhesTecnicoComponent implements OnInit {
   constructor(private _tecnicoService: TecnicoService,
               private _router: ActivatedRoute,
               private _cepService: CepService,
-              private _fb: FormBuilder ) { }
+              private _fb: FormBuilder,
+              private _navRouter: Router ) { }
 
 
   ngOnInit() {
@@ -106,7 +107,14 @@ export class DetalhesTecnicoComponent implements OnInit {
 
     this._tecnicoService.atualizar(tecnico.value)
                         .subscribe(res => alert(res.nome));
-
     this.formEditarTec.reset();
+
+    this.irParaGerenciar();
+   }
+
+   irParaGerenciar() {
+     setTimeout(() => {
+       this._navRouter.navigate(['/pages/tecnicos/gerenciar']);
+     }, 2000);
    }
 }

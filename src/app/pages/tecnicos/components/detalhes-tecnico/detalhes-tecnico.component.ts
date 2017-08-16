@@ -57,9 +57,10 @@ export class DetalhesTecnicoComponent implements OnInit {
           rua: ['', [Validators.required]],
           numero: ['', [Validators.required]],
           complemento: [''],
+          ponto_referencia: [''],
           bairro: ['', [Validators.required]],
           cidade: ['', [Validators.required]],
-          estado: ['', [Validators.required]],
+          uf: ['', [Validators.required]],
           cep: ['', [Validators.required]],
           createdAt: [''],
           updatedAt: [''],
@@ -71,7 +72,7 @@ export class DetalhesTecnicoComponent implements OnInit {
          this.formEditarTec.get('rua').patchValue(dados.logradouro);
          this.formEditarTec.get('bairro').patchValue(dados.bairro);
          this.formEditarTec.get('cidade').patchValue(dados.localidade);
-         this.formEditarTec.get('estado').patchValue(dados.uf);
+         this.formEditarTec.get('uf').patchValue(dados.uf);
 
      });
    }
@@ -91,9 +92,10 @@ export class DetalhesTecnicoComponent implements OnInit {
         this.formEditarTec.get('rua').patchValue(res.rua);
         this.formEditarTec.get('numero').patchValue(res.numero);
         this.formEditarTec.get('complemento').patchValue(res.complemento);
+        this.formEditarTec.get('ponto_referencia').patchValue(res.ponto_referencia);
         this.formEditarTec.get('bairro').patchValue(res.bairro);
         this.formEditarTec.get('cidade').patchValue(res.cidade);
-        this.formEditarTec.get('estado').patchValue(res.estado);
+        this.formEditarTec.get('uf').patchValue(res.uf);
         this.formEditarTec.get('cep').patchValue(res.cep);
 
         this.tecnicoRecebido = res;

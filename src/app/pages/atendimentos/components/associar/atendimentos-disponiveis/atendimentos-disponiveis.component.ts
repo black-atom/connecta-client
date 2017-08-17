@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Tecnico } from './../../../../../models';
 import { Atendimento } from './../../../../../models';
-import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock';
+import { AtendimentoService } from './../../../../../shared/services/atendimento-service/';
 
 @Component({
   selector: 'app-atendimentos-disponiveis',
@@ -13,14 +13,17 @@ import { ATENDIMENTOSMOCK } from './../../../../../utils/mocks/atendimentos.mock
 export class AtendimentosDisponiveisComponent implements OnInit {
 
   @Input() tecnicoSelecionado: Tecnico;
-  atendimentos: Atendimento[] = ATENDIMENTOSMOCK;
+  atendimentos: Atendimento[];
   selecionados: any[] = [];
   atendimentoVinculado: Atendimento[] = [];
 
  
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal,
+              private _atendimentoService: AtendimentoService ) { }
 
   ngOnInit() {
+   this._atendimentoService.retornarTodos()
+                            .subscribe(res => this.atendimentos = res);
   }
 
   /**

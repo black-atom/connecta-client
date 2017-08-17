@@ -35,8 +35,8 @@ export class AssociarComponent implements OnInit {
               private _servicoNotificacao: NotificationsService ) {}
 
   ngOnInit() {
-      this._tecnicoService.retornarTodos()
-                          .subscribe(res => this.tecnicos = res);
+      // this._tecnicoService.retornarTodos()
+      //                     .subscribe(res => this.tecnicos = res);
   }
 
   openNotificacaoModal() {

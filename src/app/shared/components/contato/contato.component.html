@@ -1,8 +1,8 @@
 <form [formGroup]="formContato">
-  
+
   <div class="row">
 
-  <div class="col-md-12 col-sm-12" *ngIf="!desabilitaCampo">
+  <div class="col-md-12 col-sm-12" *ngIf="!desabilitaSelecionarContato">
       <div class="form-group">
          <select class="form-control">
            <option value="" disabled selected>Selecione o contato</option>
@@ -10,37 +10,37 @@
          </select>
        </div>
      </div>
- 
-    <div class="form-group col-md-12 col-sm-12" *ngIf="!desabilitaCampo">
+
+    <div class="form-group col-md-12 col-sm-12" *ngIf="!desabilitaNome">
       <label for="input01">Nome</label>
-      <input type="text" class="form-control" 
+      <input type="text" class="form-control"
       formControlName="nome">
     </div>
-  
+
     <div class="form-group col-md-4 col-sm-12">
       <label for="input02">E-mail</label>
-      <input type="text" class="form-control" 
+      <input type="text" class="form-control"
       formControlName="email">
     </div>
-  
+
     <div class="form-group col-md-4 col-sm-12">
       <label for="input03">Telefone</label>
-      <input type="text" class="form-control" 
+      <input type="text" class="form-control"
       formControlName="telefone">
     </div>
-  
+
     <div class="form-group col-md-4 col-sm-12">
       <label for="input04">Celular</label>
-      <input type="text" class="form-control" 
+      <input type="text" class="form-control"
       formControlName="celular">
     </div>
-  
+
     <div class="form-group col-md-12 col-sm-12">
       <label for="input05">Observação</label>
-      <input type="text" class="form-control" 
+      <input type="text" class="form-control"
       formControlName="observacao">
     </div>
-  
+
   </div>
-  
+
   </form>

@@ -1,5 +1,5 @@
 export interface Cliente {
-  id: number;
+  _id: string;
   razao_social: string;
   cnpj_cpf: string;
   email: string;
@@ -12,7 +12,7 @@ export interface Cliente {
 }
 
 export interface Contato {
-  id: number;
+  _id: string;
   telefone: string;
   nome: string;
   email?: any;
@@ -23,7 +23,7 @@ export interface Contato {
 }
 
 export interface Endereco {
-  id: number;
+  _id: string;
   rua: string;
   complemento: string;
   bairro: string;

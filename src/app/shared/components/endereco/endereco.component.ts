@@ -11,7 +11,7 @@ import { DadosEndereco } from './../../../models';
 export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
-  @Input() desabilitaCampo: Boolean;
+  @Input() desabilitaSelecionarEndereco: Boolean;
 
   constructor(
     private _cepService: CepService,

@@ -15,8 +15,7 @@ import { Tecnico } from './../../../../models';
 export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
-  desabilitaSelecionarEndereco = true;
-  desabilitaSelecionarContato = true;
+  desabilita = true;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
    constructor(private _fb: FormBuilder,
@@ -96,4 +95,4 @@ falhaNoCadastro() {
     this.formTecnico.reset();
   }
 }
-  
+

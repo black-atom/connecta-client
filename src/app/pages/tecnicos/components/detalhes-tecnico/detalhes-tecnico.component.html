@@ -3,7 +3,9 @@
   <div class="col-12">
     <form [formGroup]="formEditarTec">
       <ba-card cardTitle="Dados principais">
-        <app-principais-informacoes [dadosPrincipaisTecnico]="formEditarTec"></app-principais-informacoes>
+        <app-principais-informacoes
+        [dadosPrincipaisTecnico]="formEditarTec">
+      </app-principais-informacoes>
       </ba-card>
 
 
@@ -12,7 +14,11 @@
       <div class="row">
         <div class="col-12">
           <ba-card cardTitle="Contato">
-            <app-contato [desabilitaCampo]="desabilitaContato" [formContato]="formEditarTec"></app-contato>
+            <app-contato
+            [desabilitaNome]="!desabilita"
+             [desabilitaSelecionarContato]="desabilita"
+             [formContato]="formEditarTec">
+            </app-contato>
           </ba-card>
         </div>
       </div>
@@ -22,7 +28,10 @@
       <div class="row">
         <div class="col-12">
           <ba-card cardTitle="Endereço">
-            <app-endereco [desabilitaCampo]="desabilitaSelect" [formEndereco]="formEditarTec"></app-endereco>
+            <app-endereco
+            [desabilitaSelecionarEndereco]="desabilita"
+            [formEndereco]="formEditarTec">
+          </app-endereco>
           </ba-card>
         </div>
       </div>
@@ -32,7 +41,9 @@
       <div class="row">
         <div class="col-12">
           <ba-card cardTitle="Habilitação">
-            <app-habilitacao [formHabilitacao]="formEditarTec"></app-habilitacao>
+            <app-habilitacao
+            [formHabilitacao]="formEditarTec">
+          </app-habilitacao>
           </ba-card>
         </div>
       </div>

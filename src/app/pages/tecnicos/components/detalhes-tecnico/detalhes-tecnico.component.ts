@@ -18,10 +18,9 @@ export class DetalhesTecnicoComponent implements OnInit {
   formEditarTec: FormGroup;
   id: Number;
   tecnicoRecebido: Tecnico;
-  desabilitaSelect = true;
-  desabilitaContato = true;
+  desabilita = true;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  
+
 
   constructor(private _tecnicoService: TecnicoService,
               private _activatedRoute: ActivatedRoute,
@@ -118,7 +117,7 @@ export class DetalhesTecnicoComponent implements OnInit {
       }
     );
   }
-  
+
    sucessoNaAtualizacao() {
     this._notificacaoService.success(
       'Cadastro efetuado com sucesso!',
@@ -134,7 +133,7 @@ export class DetalhesTecnicoComponent implements OnInit {
     this.formEditarTec.reset();
     this.irParaGerenciar();
   }
-  
+
   falhaNaAtualizacao() {
     this._notificacaoService.error(
       'Não foi possível efetuar o cadastro',
@@ -154,5 +153,5 @@ export class DetalhesTecnicoComponent implements OnInit {
         this._router.navigate(['/pages/tecnicos/gerenciar']);
       }, 1500);
     }
- 
+
 }

@@ -19,7 +19,7 @@ export class DetalhesClienteComponent implements OnInit {
   private sub: any;
   cliente: Cliente;
   clienteRecebido: Cliente;
-  desabilitaSelect = false;
+  desabilita = false;
 
   constructor(private route: ActivatedRoute,
               private _clientService: ClienteService,

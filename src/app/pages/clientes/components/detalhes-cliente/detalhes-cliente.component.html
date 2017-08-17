@@ -2,21 +2,30 @@
 <div class="row" [formGroup]="formEditarCliente">
   <div class="col-md-12">
     <ba-card cardTitle="Dados principais">
-      <app-principais-info-cliente  [formDadosPrincipais]="formEditarCliente"></app-principais-info-cliente>
+      <app-principais-info-cliente
+       [formDadosPrincipais]="formEditarCliente">
+      </app-principais-info-cliente>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de contato do cliente -->
   <div class="col-md-12">
-    <ba-card cardTitle="Contato" *ngFor="let contato of formEditarCliente.controls['contatos'].controls; let i=index">
-      <app-contato [formContato]="formEditarCliente.controls['contatos'].controls[i]"></app-contato>
+    <ba-card cardTitle="Contato"
+    *ngFor="let contato of formEditarCliente.controls['contatos'].controls; let i=index">
+      <app-contato
+      [formContato]="formEditarCliente.controls['contatos'].controls[i]">
+    </app-contato>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de endereço do cliente -->
-  <div class="col-md-12" *ngFor="let endereco of formEditarCliente.controls['enderecos'].controls; let i=index">
+  <div class="col-md-12"
+  *ngFor="let endereco of formEditarCliente.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
-      <app-endereco [desabilitaCampo]="desabilitaSelect" [formEndereco]="formEditarCliente.controls['enderecos'].controls[i]"></app-endereco>
+      <app-endereco
+      [desabilitaSelecionarEndereco]="desabilita"
+      [formEndereco]="formEditarCliente.controls['enderecos'].controls[i]">
+    </app-endereco>
     </ba-card>
   </div>
 
@@ -26,15 +35,15 @@
       <div class="row">
 
         <div class="col-md-6 col-sm-12">
-          <button type="submit" class="btn btn-primary btn-with-icon" (click)="atualizarCliente(formEditarCliente.value)" [disabled]="formEditarCliente.pristine">
-          <i class="ion-android-checkmark-circle">
-          </i>Editar</button>
+          <button type="submit" class="btn btn-primary btn-with-icon"
+          (click)="atualizarCliente(formEditarCliente.value)"
+          [disabled]="formEditarCliente.pristine">
+          <i class="ion-android-checkmark-circle"></i>Editar</button>
         </div>
 
         <div class="col-md-6 col-sm-12">
           <button type="reset" class="btn btn-danger btn-with-icon">
-          <i class="ion-close">
-          </i>Cancelar</button>
+          <i class="ion-close"></i>Cancelar</button>
         </div>
       </div>
 

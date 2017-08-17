@@ -4,8 +4,8 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { Atendimento } from './../../../../models';
 import { Tecnico } from '../../../../models';
-import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis/atendimentos-disponiveis.component';
-import { TecnicoService } from './../../../../shared/services/tecnico-service/';
+import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
+import { TecnicoService } from './../../../../shared/services';
 
 
 @Component({
@@ -24,40 +24,15 @@ export class AssociarComponent implements OnInit {
     size: 'lg'
   };
 
-  opcoesModalNotificao = {
-    position: ['top', 'right'],
-    timeOut: 1500,
-    lastOnBottom: true
-  };
-
+  
   constructor(private _tecnicoService: TecnicoService,
-              private _servicoModal: NgbModal,
-              private _servicoNotificacao: NotificationsService ) {}
+              private _servicoModal: NgbModal) {}
 
   ngOnInit() {
       // this._tecnicoService.retornarTodos()
       //                     .subscribe(res => this.tecnicos = res);
   }
 
-  openNotificacaoModal() {
-    this._servicoNotificacao.success(
-      'Removido com sucesso!',
-      '',
-      {
-        timeOut: 1500,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
-    );
-  }
-
-  openConfirmacaoModal(conteudo, atendimento, tecnico) {
-    this.tecSelecionado = tecnico;
-    this.atendimentoASerRemovido = atendimento;
-      this._servicoModal.open(conteudo);
-  }
 
   abrirModal(tecnicoSelecionado) {
 

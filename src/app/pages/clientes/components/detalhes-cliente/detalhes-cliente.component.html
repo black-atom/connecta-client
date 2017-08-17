@@ -1,3 +1,44 @@
-<p>
-  detalhes-cliente works!
-</p>
+<!-- Card com os inputs de dados principais do cliente -->
+<div class="row" [formGroup]="dadosClienteEdicaoForm">
+  <div class="col-md-12">
+    <ba-card cardTitle="Dados principais">
+      <app-principais-info-cliente  [formDadosPrincipais]="dadosClienteEdicaoForm"></app-principais-info-cliente>
+    </ba-card>
+  </div>
+
+  <!-- Card com os inputs das informações de contato do cliente -->
+  <div class="col-md-12">
+    <ba-card cardTitle="Contato" *ngFor="let contato of dadosClienteEdicaoForm.controls['contatos'].controls; let i=index">
+      <app-contato [formContato]="dadosClienteEdicaoForm.controls['contatos'].controls[i]"></app-contato>
+    </ba-card>
+  </div>
+
+  <!-- Card com os inputs das informações de endereço do cliente -->
+  <div class="col-md-12" *ngFor="let endereco of dadosClienteEdicaoForm.controls['enderecos'].controls; let i=index">
+    <ba-card cardTitle="Endereço" >
+      <app-endereco [formEndereco]="dadosClienteEdicaoForm.controls['enderecos'].controls[i]"></app-endereco>
+    </ba-card>
+  </div>
+
+  <!-- Botões de cadastro e de limpeza de dados -->
+  <div class="col-md-12">
+    <ba-card>
+      <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+          <button type="submit" class="btn btn-primary btn-with-icon" (click)="atualizar(dadosClienteEdicaoForm.value)">
+          <i class="ion-android-checkmark-circle">
+          </i>Editar</button>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <button type="reset" class="btn btn-danger btn-with-icon"> 
+          <i class="ion-trash-a">
+          </i>Cancelar</button>
+        </div>
+      </div>
+      
+    </ba-card>
+  </div>
+</div>
+

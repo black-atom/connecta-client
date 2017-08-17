@@ -25,11 +25,13 @@ export class GerenciarComponent implements OnInit {
         title: 'E-mail',      
         type: 'string' 
       },
-      telefone: { 
+      contatos: { 
         title: 'Telefone',     
-        type: 'string' 
+        valuePrepareFunction: (contatos) => {
+          return contatos[0].telefone;
+        }
       },
-      _id: {
+      id: {
         type: 'custom',
         filter: false,
         renderComponent: BotaoDetalhesComponent
@@ -45,7 +47,7 @@ export class GerenciarComponent implements OnInit {
 
   ngOnInit() {
     this.clienteService.retornarTodos().subscribe(clientes => {
-      this.source.load(clientes);
+        this.source.load(clientes);
     });
   }
 
@@ -56,20 +58,20 @@ export class GerenciarComponent implements OnInit {
   selector: 'button-view',
   template: `
   <button type="button" class="btn btn-info btn-block" 
-  routerLink="/pages/clientes/detalhes/{{ renderizarValor }}"><i class="ion-ios-redo"></i> Detalhes</button>
+  routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-ios-redo"></i> Detalhes</button>
   `,
   styleUrls: ['./gerenciar.component.scss']
 })
 export class BotaoDetalhesComponent implements ViewCell, OnInit {
 
-  renderizarValor: string;
+  idCliente: string;
   
   @Input() value: string | number;
 
   constructor() {}
 
   ngOnInit() {
-    this.renderizarValor = this.value.toString().toUpperCase();
+    this.idCliente = this.value.toString().toUpperCase();
   }
 
 }

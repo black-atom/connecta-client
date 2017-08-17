@@ -3,9 +3,9 @@
   <div class="row">
 
 
-  <div class="col-md-12 col-sm-12">
+  <div class="col-md-12 col-sm-12" *ngIf="!desabilitaCampo">
      <div class="form-group">
-        <select class="form-control" *ngIf="!desabilitaCampo">
+        <select class="form-control">
           <option value="" disabled selected>Selecione o endereço</option>
           <option >Enderecos </option>
         </select>

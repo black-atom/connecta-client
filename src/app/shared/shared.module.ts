@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { EnderecoComponent } from './components/endereco/endereco.component';
 import { ContatoComponent } from './components/contato/contato.component';
@@ -14,7 +15,8 @@ import { CepService } from './services/cep-service/cep.service';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgaModule
+    NgaModule,
+    SimpleNotificationsModule
   ],
   declarations: [
     EnderecoComponent,
@@ -27,7 +29,7 @@ import { CepService } from './services/cep-service/cep.service';
   exports: [
     EnderecoComponent,
     ContatoComponent,
-    PrincipaisInfoComponent   
+    PrincipaisInfoComponent
   ]
 })
 export class SharedModule { }

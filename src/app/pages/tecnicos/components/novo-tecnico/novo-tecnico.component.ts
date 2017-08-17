@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { NotificationsService } from 'angular2-notifications';
 import { DadosEndereco } from './../../../../models';
-import { CepService } from './../../../../shared/services/cep-service';
-import { TecnicoService } from './../../../../shared/services/tecnico-service';
+import { CepService } from './../../../../shared/services';
+import { TecnicoService } from './../../../../shared/services';
+import { Tecnico } from './../../../../models';
 
 @Component({
   selector: 'app-novo-tecnico',
@@ -13,12 +15,12 @@ import { TecnicoService } from './../../../../shared/services/tecnico-service';
 export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
-  verificaCampoInput = true;
+  desabilitaSelect = true;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-
    constructor(private _fb: FormBuilder,
-               private _tecnicoService: TecnicoService) {}
+               private _tecnicoService: TecnicoService,
+               private _notificacaoService: NotificationsService) {}
 
    ngOnInit() {
     this.formTecnico = this._fb.group({
@@ -45,18 +47,52 @@ export class NovoTecnicoComponent implements OnInit {
     });
    }
 
-   novoTecnico(tecnico) {
-    tecnico.createdAt = new Date();
-
-    this._tecnicoService.novo(tecnico)
-                        .subscribe((res) => {
-                         alert(`Técnico ${res.nome} cadastrado com sucesso!`);
-    });
-
-    this.formTecnico.reset();
-   }
-
-   limpar() {
-    this.formTecnico.reset();
-   }
+   cadastrarTecnico(tecnico: Tecnico) {
+    this._tecnicoService.novoTecnico(tecnico)
+    .subscribe(
+      dados => {
+    },
+      erro => {
+      this.falhaNoCadastro();
+    },
+      () => {
+      this.sucessoNoCadastro();
+    }
+  );
 }
+
+
+sucessoNoCadastro() {
+  this._notificacaoService.success(
+    'Cadastro efetuado com sucesso!',
+    '',
+    {
+      timeOut: 1000,
+      showProgressBar: false,
+      pauseOnHover: false,
+      clickToClose: false,
+      maxLength: 10
+    }
+  );
+    this.limpar();
+}
+
+falhaNoCadastro() {
+  this._notificacaoService.error(
+    'Não foi possível efetuar o cadastro',
+    '',
+    {
+      timeOut: 1000,
+      showProgressBar: false,
+      pauseOnHover: false,
+      clickToClose: false,
+      maxLength: 10
+    }
+    );
+  }
+
+  limpar() {
+    this.formTecnico.reset();
+  }
+}
+  

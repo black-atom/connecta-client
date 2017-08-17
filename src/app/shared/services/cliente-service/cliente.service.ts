@@ -8,7 +8,7 @@ import { Cliente } from './../../../models';
 @Injectable()
 export class ClienteService {
 
-  private url: string = 'http://localhost:3000/clientes';
+  private url: string = 'http://localhost:3000/clientes/';
 
 
   constructor(private _http: Http) { }

@@ -1,4 +1,4 @@
-import { ViewCell } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { TecnicoService } from './../../../../shared/services/tecnico-service';
@@ -41,17 +41,21 @@ export class GerenciarComponent implements OnInit {
       id: {
         type: 'custom',
         filter: false,
-        renderComponent: BotaoDetalhesComponent
+        renderComponent: BtnDetalhesTecComponent
       }
     }
   };
-  
-  constructor(private _tecnicoService: TecnicoService) {}
+
+  source: LocalDataSource;
+    
+  constructor(private _tecnicoService: TecnicoService) {
+    this.source = new LocalDataSource();
+  }
 
   ngOnInit() {
-    this._tecnicoService
-      .retornarTodos()
-      .subscribe(resultadoTecnico => (this.tecnicos = resultadoTecnico));
+    this._tecnicoService.retornarTodos().subscribe(tecnicos => {
+        this.source.load(tecnicos);
+    });
   }
 
 }
@@ -64,7 +68,7 @@ export class GerenciarComponent implements OnInit {
   `,
   styleUrls: ['./gerenciar.component.scss']
 })
-export class BotaoDetalhesComponent implements ViewCell, OnInit {
+export class BtnDetalhesTecComponent implements ViewCell, OnInit {
 
   idTecnico: string;
   

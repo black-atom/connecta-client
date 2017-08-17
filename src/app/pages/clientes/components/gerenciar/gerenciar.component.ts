@@ -34,7 +34,7 @@ export class GerenciarComponent implements OnInit {
       id: {
         type: 'custom',
         filter: false,
-        renderComponent: BotaoDetalhesComponent
+        renderComponent: BtnDetalhesCliComponent
       }
     }
   };
@@ -62,7 +62,7 @@ export class GerenciarComponent implements OnInit {
   `,
   styleUrls: ['./gerenciar.component.scss']
 })
-export class BotaoDetalhesComponent implements ViewCell, OnInit {
+export class BtnDetalhesCliComponent implements ViewCell, OnInit {
 
   idCliente: string;
   

@@ -6,9 +6,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from './../../shared/shared.module';
 
 import { TecnicosComponent } from './tecnicos.component';
-import { BotaoDetalhesComponent } from './../clientes/components/gerenciar';
+import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar/';
 import { NovoTecnicoComponent } from './components/novo-tecnico';
-import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
 import { CepService } from './../../shared/services/cep-service/';
 import { TecnicoService } from './../../shared/services/tecnico-service/';
@@ -33,15 +32,14 @@ import { routing } from './tecnicos.routing';
     DetalhesTecnicoComponent,
     PrincipaisInformacoesComponent,
     HabilitacaoComponent,
-    BotaoDetalhesComponent
+    BtnDetalhesTecComponent
   ],
   entryComponents: [
-    BotaoDetalhesComponent
+    BtnDetalhesTecComponent
   ],
   providers: [
     CepService,
-    TecnicoService,
-    BotaoDetalhesComponent
-  ]
+    TecnicoService
+   ]
 })
 export class TecnicosModule { }

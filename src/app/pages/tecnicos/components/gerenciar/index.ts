@@ -1,1 +1,2 @@
-export * from './gerenciar.component'
+export * from './gerenciar.component';
+

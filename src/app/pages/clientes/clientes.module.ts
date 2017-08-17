@@ -7,7 +7,7 @@ import { SharedModule } from './../../shared/shared.module';
 
 import { ClientesComponent } from './clientes.component';
 import { NovoClienteComponent } from './components/novo-cliente';
-import { GerenciarComponent, BotaoDetalhesComponent } from './components/gerenciar';
+import { GerenciarComponent, BtnDetalhesCliComponent } from './components/gerenciar';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
 import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
@@ -28,14 +28,14 @@ import { routing } from './clientes.routing';
     ClienteService
   ],
   entryComponents: [
-    BotaoDetalhesComponent
+    BtnDetalhesCliComponent
   ],
   declarations: [
     ClientesComponent,
     NovoClienteComponent, 
     GerenciarComponent,  
     DetalhesClienteComponent,
-    BotaoDetalhesComponent
+    BtnDetalhesCliComponent
   ]
 })
 export class ClientesModule { }

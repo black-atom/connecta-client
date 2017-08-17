@@ -16,6 +16,7 @@ export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
   desabilitaSelect = true;
+  desabilitaContato = true;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
    constructor(private _fb: FormBuilder,

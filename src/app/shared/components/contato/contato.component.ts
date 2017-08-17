@@ -10,7 +10,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ContatoComponent implements OnInit {
 
   @Input() formContato: FormGroup;
-
+  @Input() desabilitaCampo: Boolean;
+  
   constructor(
     private _fb: FormBuilder) { }
 

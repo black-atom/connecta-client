@@ -1,30 +1,42 @@
 <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
   <div class="col-12">
-   <form [formGroup]="formEditarTec">
+    <form [formGroup]="formEditarTec">
       <ba-card cardTitle="Dados principais">
         <app-principais-informacoes [dadosPrincipaisTecnico]="formEditarTec"></app-principais-informacoes>
-       </ba-card>
-
-
-<div class="row" >
-  <div class="col-12">
-    <ba-card cardTitle="Endereço">
-        <app-endereco [desabilitaCampo]="desabilitaSelect" [formEndereco]="formEditarTec"></app-endereco>
-    </ba-card>
-  </div>
-</div>
-
-<!-- Card com os inputs de informações da
-  carteira de habilitação do funcionário -->
-  <div class="row">
-    <div class="col-12">
-      <ba-card cardTitle="Habilitação">
-          <app-habilitacao [formHabilitacao]="formEditarTec"></app-habilitacao>
       </ba-card>
-    </div>
-  </div>
-  </form>
+
+
+      <!-- Card com os inputs de contato
+          do funcionário -->
+      <div class="row">
+        <div class="col-12">
+          <ba-card cardTitle="Contato">
+            <app-contato [desabilitaCampo]="desabilitaContato" [formContato]="formEditarTec"></app-contato>
+          </ba-card>
+        </div>
+      </div>
+
+        <!-- Card com os inputs de endereço
+          do funcionário -->
+      <div class="row">
+        <div class="col-12">
+          <ba-card cardTitle="Endereço">
+            <app-endereco [desabilitaCampo]="desabilitaSelect" [formEndereco]="formEditarTec"></app-endereco>
+          </ba-card>
+        </div>
+      </div>
+
+      <!-- Card com os inputs de informações da
+        carteira de habilitação do funcionário -->
+      <div class="row">
+        <div class="col-12">
+          <ba-card cardTitle="Habilitação">
+            <app-habilitacao [formHabilitacao]="formEditarTec"></app-habilitacao>
+          </ba-card>
+        </div>
+      </div>
+    </form>
 
     <!-- Botões de cadastro e de limpeza de dados -->
     <div class="row">
@@ -37,14 +49,10 @@
               <i class="ion-android-checkmark-circle"></i>Editar</button>
             </div>
 
-        <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon" [routerLink]="['/pages/tecnicos/gerenciar']"
-          [disabled]="formEditarTec.pristine"> <i class="ion-close"></i>Cancelar</button>
-        </div>
+            <div class="col-md-6 col-sm-12">
+              <button type="reset" class="btn btn-danger btn-with-icon" [routerLink]="['/pages/tecnicos/gerenciar']" [disabled]="formEditarTec.pristine"> <i class="ion-close"></i>Cancelar</button>
+            </div>
+          </div>
+        </ba-card>
       </div>
-    </ba-card>
-  </div>
-</div>
-
-
-
+    </div>

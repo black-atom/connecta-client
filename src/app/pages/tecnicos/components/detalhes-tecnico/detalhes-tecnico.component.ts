@@ -18,8 +18,10 @@ export class DetalhesTecnicoComponent implements OnInit {
   formEditarTec: FormGroup;
   id: Number;
   tecnicoRecebido: Tecnico;
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   desabilitaSelect = true;
+  desabilitaContato = true;
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  
 
   constructor(private _tecnicoService: TecnicoService,
               private _activatedRoute: ActivatedRoute,

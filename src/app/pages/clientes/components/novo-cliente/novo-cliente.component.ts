@@ -19,10 +19,10 @@ export class NovoClienteComponent implements OnInit {
 
   ngOnInit() {
     this.dadosClienteForm = this._fb.group({
-      cnpj_cpf: [''],
-      razao_social: [''],
-      inscricao_estadual: [''],
-      nome_fantasia: [''],
+      cnpj_cpf: ['', [Validators.required]],
+      razao_social: ['', [Validators.required]],
+      inscricao_estadual: ['', [Validators.required]],
+      nome_fantasia: ['', [Validators.required]],
       createdAt: [''],
       updatedAt: [''],
       contatos: this._fb.array([this._fb.group(formContatoControls)]),

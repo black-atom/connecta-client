@@ -2,7 +2,6 @@ import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { TecnicoService } from './../../../../shared/services/tecnico-service';
-import { TECNICOSMOCK } from './../../../../utils/mocks/tecnicos.mock';
 import { Tecnico } from './../../../../models';
 
 @Component({
@@ -31,7 +30,7 @@ export class GerenciarComponent implements OnInit {
         type: 'string'
       },
       telefone: {
-        title: 'Celular',
+        title: 'Telefone',
         type: 'string'
       },
       celular: {

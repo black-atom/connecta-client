@@ -1,22 +1,22 @@
 <!-- Card com os inputs de dados principais do cliente -->
-<div class="row" [formGroup]="dadosClienteForm">
+<div class="row" [formGroup]="formCliente">
   <div class="col-md-12">
     <ba-card cardTitle="Dados principais">
-      <app-principais-info-cliente  [formDadosPrincipais]="dadosClienteForm"></app-principais-info-cliente>
+      <app-principais-info-cliente  [formDadosPrincipais]="formCliente"></app-principais-info-cliente>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de contato do cliente -->
   <div class="col-md-12">
-    <ba-card cardTitle="Contato" *ngFor="let contato of dadosClienteForm.controls['contatos'].controls; let i=index">
-      <app-contato [formContato]="dadosClienteForm.controls['contatos'].controls[i]"></app-contato>
+    <ba-card cardTitle="Contato" *ngFor="let contato of formCliente.controls['contatos'].controls; let i=index">
+      <app-contato [formContato]="formCliente.controls['contatos'].controls[i]"></app-contato>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de endereço do cliente -->
-  <div class="col-md-12" *ngFor="let endereco of dadosClienteForm.controls['enderecos'].controls; let i=index">
+  <div class="col-md-12" *ngFor="let endereco of formCliente.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
-      <app-endereco [verificarCampo]="verificaCampoInput" [formEndereco]="dadosClienteForm.controls['enderecos'].controls[i]"></app-endereco>
+      <app-endereco [desabilitaCampo]="desabilitaSelect" [formEndereco]="formCliente.controls['enderecos'].controls[i]"></app-endereco>
     </ba-card>
   </div>
 
@@ -26,7 +26,7 @@
       <div class="row">
 
         <div class="col-md-6 col-sm-12">
-          <button type="submit" class="btn btn-primary btn-with-icon" (click)="cadastrar(dadosClienteForm.value)">
+          <button type="submit" class="btn btn-primary btn-with-icon" (click)="cadastrarCliente(formCliente.value)" [disabled]="formCliente.invalid">
           <i class="ion-android-checkmark-circle">
           </i>Cadastrar cliente</button>
         </div>
@@ -41,3 +41,4 @@
     </ba-card>
   </div>
 </div>
+

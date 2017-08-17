@@ -1,10 +1,11 @@
-import { formEnderecoControls } from './../../../../shared/components/endereco/form-endereco-controls';
-import { formContatoControls } from './../../../../shared/components/contato/form-contato-controls';
-import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+
+import { formEnderecoControls } from './../../../../shared/components/endereco';
+import { formContatoControls } from './../../../../shared/components/contato';
+import { ClienteService } from './../../../../shared/services/cliente-service';
 import { Cliente } from './../../../../models/cliente.interface';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-detalhes-cliente',
@@ -13,13 +14,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalhesClienteComponent implements OnInit {
 
-  dadosClienteEdicaoForm: FormGroup;
+  formEditarCliente: FormGroup;
   id: string;
   private sub: any;
   cliente: Cliente;
   clienteRecebido: Cliente;
-  enderecos;
-  verificaCampoInput = false;
+  desabilitaSelect = false;
 
   constructor(private route: ActivatedRoute,
               private _clientService: ClienteService,
@@ -33,7 +33,7 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   iniciarForm() {
-    this.dadosClienteEdicaoForm = this._fb.group({
+    this.formEditarCliente = this._fb.group({
       cnpj_cpf: [''],
       razao_social: [''],
       inscricao_estadual: [''],
@@ -53,19 +53,19 @@ export class DetalhesClienteComponent implements OnInit {
 }
 
 
-  atualizar(cliente) {
-    this._clientService.atualizar(cliente)
+  atualizarCliente(cliente) {
+    this._clientService.atualizarCliente(cliente)
                         .subscribe(res => res);
 
-    this.dadosClienteEdicaoForm.reset();
+    this.formEditarCliente.reset();
   }
 
   recuperarCliente() {
     this._clientService.retornarUm(this.id).subscribe((res) => {
-      this.dadosClienteEdicaoForm.get('cnpj_cpf').patchValue(res.cnpj_cpf);
-      this.dadosClienteEdicaoForm.get('razao_social').patchValue(res.razao_social);
-      this.dadosClienteEdicaoForm.get('inscricao_estadual').patchValue(res.inscricao_estadual);
-      this.dadosClienteEdicaoForm.get('nome_fantasia').patchValue(res.nome_fantasia);
+      this.formEditarCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
+      this.formEditarCliente.get('razao_social').patchValue(res.razao_social);
+      this.formEditarCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
+      this.formEditarCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
       this.clienteRecebido = res;
     });
 

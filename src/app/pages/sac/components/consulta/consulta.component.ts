@@ -16,7 +16,7 @@ export class ConsultaComponent implements OnInit {
       },
       nome: {
         title: 'Nome',
-        type: 'number',
+        type: 'number'
       },
       tipo_atendimento: { 
         title: 'Tipo',      
@@ -33,8 +33,8 @@ export class ConsultaComponent implements OnInit {
       _id: {
         title: 'Detalhes',
         type: 'custom'
-      },
-    },
+      }
+    }
   };
 
   constructor() { }

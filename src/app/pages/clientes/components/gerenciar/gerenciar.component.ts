@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+
+import { ClienteService } from './../../../../shared/services';
 
 
 @Component({

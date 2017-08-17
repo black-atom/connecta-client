@@ -33,6 +33,13 @@ export class AssociarComponent implements OnInit {
       //                     .subscribe(res => this.tecnicos = res);
   }
 
+  abrirModalDeConfirmacao(conteudo, atendimento, tecnico) {
+    this.tecSelecionado = tecnico;
+    this.atendimentoASerRemovido = atendimento;
+    this._servicoModal.open(conteudo);
+ }
+   
+
 
   abrirModal(tecnicoSelecionado) {
 

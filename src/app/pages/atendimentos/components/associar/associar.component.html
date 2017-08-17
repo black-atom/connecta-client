@@ -13,7 +13,7 @@
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
               <p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero + 
               ' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"  
-              placement="top"> <a (click)="openConfirmacaoModal(conteudo, atendimento, tecnico.nome )">
+              placement="top"> <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, tecnico.nome )">
               <i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
             </div>
 
@@ -36,7 +36,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-close-circled"></i> Cancelar</button>
-      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c(); abrirNotificacaoModal()"><i class="ion-trash-a"></i> Remover</button>
+      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c()"><i class="ion-trash-a"></i> Remover</button>
     </div>
   </ng-template>  
   <hr>

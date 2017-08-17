@@ -15,8 +15,8 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class NovoClienteComponent implements OnInit {
 
-  formCliente: FormGroup;
-  desabilita = true;
+  public formCliente: FormGroup;
+  public desabilita: boolean = true;
 
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService,

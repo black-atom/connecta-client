@@ -1,9 +1,9 @@
 <!-- Card com os inputs de dados principais do cliente -->
-<div class="row" [formGroup]="formEditarCliente">
+<div class="row" [formGroup]="formEdicaoCliente">
   <div class="col-md-12">
     <ba-card cardTitle="Dados principais">
       <app-principais-info-cliente
-       [formDadosPrincipais]="formEditarCliente">
+       [formDadosPrincipais]="formEdicaoCliente">
       </app-principais-info-cliente>
     </ba-card>
   </div>
@@ -11,20 +11,20 @@
   <!-- Card com os inputs das informações de contato do cliente -->
   <div class="col-md-12">
     <ba-card cardTitle="Contato"
-    *ngFor="let contato of formEditarCliente.controls['contatos'].controls; let i=index">
+    *ngFor="let contato of formEdicaoCliente.controls['contatos'].controls; let i=index">
       <app-contato
-      [formContato]="formEditarCliente.controls['contatos'].controls[i]">
+      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]">
     </app-contato>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de endereço do cliente -->
   <div class="col-md-12"
-  *ngFor="let endereco of formEditarCliente.controls['enderecos'].controls; let i=index">
+  *ngFor="let endereco of formEdicaoCliente.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
       <app-endereco
       [desabilitaSelecionarEndereco]="desabilita"
-      [formEndereco]="formEditarCliente.controls['enderecos'].controls[i]">
+      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]">
     </app-endereco>
     </ba-card>
   </div>
@@ -36,13 +36,15 @@
 
         <div class="col-md-6 col-sm-12">
           <button type="submit" class="btn btn-primary btn-with-icon"
-          (click)="atualizarCliente(formEditarCliente.value)"
-          [disabled]="formEditarCliente.pristine">
+          (click)="atualizarCliente(formEdicaoCliente.value)"
+          [disabled]="formEdicaoCliente.pristine">
           <i class="ion-android-checkmark-circle"></i>Editar</button>
         </div>
 
         <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon">
+          <button type="reset" class="btn btn-danger btn-with-icon"
+            [routerLink]="['/pages/clientes/gerenciar']"
+            [disabled]="formEdicaoCliente.pristine"> 
           <i class="ion-close"></i>Cancelar</button>
         </div>
       </div>

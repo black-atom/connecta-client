@@ -2,24 +2,22 @@
 
 <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
-
   <div class="col-12">
     <ba-card cardTitle="Dados principais">          
-      <app-principais-info-cliente [formDadosPrincipais]="formAtendimento" ></app-principais-info-cliente>
+      <app-principais-info-cliente 
+      [formDadosPrincipais]="formAtendimento">
+    </app-principais-info-cliente>
     </ba-card>
   </div>
-
 </div>
 
 <!-- Card com os inputs das informações de contato do cliente -->
 <div class="row">
-
   <div class="col-12">
     <ba-card cardTitle="Contato">
       <app-contato [formContato]="formAtendimento"></app-contato>
     </ba-card>
   </div>
-
 </div>
 
 <!-- Card com os inputs das informações de endereço do cliente -->
@@ -35,20 +33,22 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Atendimento">
-      <app-informacoes-atendimento [formDescricaoAtendimento]="formAtendimento"></app-informacoes-atendimento>
+      <app-informacoes-atendimento 
+      [formDescricaoAtendimento]="formAtendimento">
+    </app-informacoes-atendimento>
     </ba-card>
   </div>
   </div>
 
 <!-- Botões de cadastro e de limpeza de dados -->
 <div class="row">
-
   <div class="col-12">
     <ba-card>
       <div class="row">
         <div class="col-md-6 col-sm-12">
 
-          <button type="submit" class="btn btn-primary btn-with-icon" (click)="cadastrarAtendimento(formAtendimento.value)">
+          <button type="submit" class="btn btn-primary btn-with-icon" 
+          (click)="cadastrarAtendimento(formAtendimento.value)">
           <i class="ion-android-checkmark-circle"></i>Cadastrar atendimento</button>
         </div>
 
@@ -56,10 +56,9 @@
           <button type="reset" class="btn btn-danger btn-with-icon">
           <i class="ion-trash-a"></i>Limpar dados</button>
         </div>
-      </div>
+
+       </div>
     </ba-card>
-  </div>
-
-</div>
-
+   </div>
+ </div>
 </form>

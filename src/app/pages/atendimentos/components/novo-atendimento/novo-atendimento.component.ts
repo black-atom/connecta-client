@@ -12,8 +12,8 @@ import { AtendimentoService } from './../../../../shared/services';
 })
 export class NovoAtendimentoComponent implements OnInit {
   
-  formAtendimento: FormGroup;
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  public formAtendimento: FormGroup;
+  public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,

@@ -15,10 +15,10 @@ import { TecnicoService } from './../../../../shared/services';
 })
 export class AssociarComponent implements OnInit {
 
-  atendimentos: Atendimento[] = [];
-  atendimentoASerRemovido;
-  tecSelecionado: string;
-  tecnicos: Tecnico[];
+  public atendimentos: Atendimento[] = [];
+  public atendimentoASerRemovido;
+  public tecnicoSelecionado: string;
+  public tecnicos: Tecnico[];
 
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg'
@@ -34,7 +34,7 @@ export class AssociarComponent implements OnInit {
   }
 
   abrirModalDeConfirmacao(conteudo, atendimento, tecnico) {
-    this.tecSelecionado = tecnico;
+    this.tecnicoSelecionado = tecnico;
     this.atendimentoASerRemovido = atendimento;
     this._servicoModal.open(conteudo);
  }

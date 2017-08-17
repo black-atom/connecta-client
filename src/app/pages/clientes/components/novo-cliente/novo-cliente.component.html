@@ -44,7 +44,9 @@
         </div>
 
         <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon">
+          <button type="reset" class="btn btn-danger btn-with-icon"
+            (click)="formCliente.reset()"
+            [disabled]="formCliente.pristine">
           <i class="ion-trash-a"></i>Limpar</button>
         </div>
       </div>

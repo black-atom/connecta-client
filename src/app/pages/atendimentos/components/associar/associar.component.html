@@ -32,11 +32,11 @@
     </div>
     <div class="modal-body">
       <p>Deseja realmente remover o atendimento 
-        <strong>{{atendimentoASerRemovido.razao_social}}</strong> do técnico <strong>{{tecSelecionado}}?</strong></p>
+        <strong>{{atendimentoASerRemovido.razao_social}}</strong> do técnico <strong>{{tecnicoSelecionado}}?</strong></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-close-circled"></i> Cancelar</button>
-      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c()"><i class="ion-trash-a"></i> Remover</button>
+      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecnicoSelecionado); c()"><i class="ion-trash-a"></i> Remover</button>
     </div>
   </ng-template>  
   <hr>

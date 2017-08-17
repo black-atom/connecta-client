@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { NotificationsService } from 'angular2-notifications';
 import { formEnderecoControls } from './../../../../shared/components/endereco';
 import { formContatoControls } from './../../../../shared/components/contato';
 import { ClienteService } from './../../../../shared/services/cliente-service';
@@ -14,26 +15,33 @@ import { Cliente } from './../../../../models/cliente.interface';
 })
 export class DetalhesClienteComponent implements OnInit {
 
-  formEditarCliente: FormGroup;
-  id: string;
+  public formEdicaoCliente: FormGroup;
+  private id: string;
   private sub: any;
-  cliente: Cliente;
-  clienteRecebido: Cliente;
-  desabilita = false;
+  private cliente: Cliente;
+  private clienteRecebido: Cliente;
+  public desabilita = false;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private _activatedRoute: ActivatedRoute,
               private _clientService: ClienteService,
-              private _fb: FormBuilder) { }
+              private _fb: FormBuilder,
+              private _notificacaoService: NotificationsService,
+              private _router: Router) { }
 
   ngOnInit() {
     this.iniciarForm();
-    this.obterId();
-
-    // this.dadosDoCliente();
+    this.obterIdCliente();
   }
 
+  obterIdCliente() {
+    this.sub = this._activatedRoute.params.subscribe(params => {
+      this.id = params['id'];
+      this.recuperarCliente();
+  });
+}
+
   iniciarForm() {
-    this.formEditarCliente = this._fb.group({
+    this.formEdicaoCliente = this._fb.group({
       cnpj_cpf: [''],
       razao_social: [''],
       inscricao_estadual: [''],
@@ -45,31 +53,70 @@ export class DetalhesClienteComponent implements OnInit {
   });
   }
 
-  obterId() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.recuperarCliente();
-  });
-}
-
-
-  atualizarCliente(cliente) {
-    this._clientService.atualizarCliente(cliente)
-                        .subscribe(res => res);
-
-    this.formEditarCliente.reset();
-  }
-
   recuperarCliente() {
     this._clientService.retornarUm(this.id).subscribe((res) => {
-      this.formEditarCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
-      this.formEditarCliente.get('razao_social').patchValue(res.razao_social);
-      this.formEditarCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
-      this.formEditarCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
+      this.formEdicaoCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
+      this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
+      this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
+      this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
       this.clienteRecebido = res;
     });
+  }
 
+  atualizarCliente(cliente) {
+    cliente.value.updatedAt = new Date();
+    cliente.value.id = this.clienteRecebido._id;
+    cliente.value.createdAt = this.clienteRecebido.createdAt;
+
+    this._clientService.atualizarCliente(cliente)
+    .subscribe(dados => {
+    },
+    erro => {
+      this.falhaNaEdicao();
+    },
+    () => {
+      this.sucessoNaEdicao();
+    });
+  }
+
+
+  sucessoNaEdicao() {
+    this._notificacaoService.success(
+      'Edição efetuada com sucesso!',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+    this.formEdicaoCliente.reset();
+    this.irParaGerenciar();
+  }
+
+  falhaNaEdicao() {
+    this._notificacaoService.error(
+      'Não foi possível efetuar a edição',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+  }
+
+  irParaGerenciar() {
+    setTimeout(() => {
+      this._router.navigate(['/pages/tecnicos/gerenciar']);
+    }, 1500);
   }
 
 }
+
+
 

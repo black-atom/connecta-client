@@ -14,9 +14,9 @@ import { Tecnico } from './../../../../models';
 })
 export class NovoTecnicoComponent implements OnInit {
 
-  formTecnico: FormGroup;
-  desabilita = true;
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  public formTecnico: FormGroup;
+  public desabilita = true;
+  public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
    constructor(private _fb: FormBuilder,
                private _tecnicoService: TecnicoService,
@@ -61,7 +61,6 @@ export class NovoTecnicoComponent implements OnInit {
   );
 }
 
-
 sucessoNoCadastro() {
   this._notificacaoService.success(
     'Cadastro efetuado com sucesso!',
@@ -74,7 +73,7 @@ sucessoNoCadastro() {
       maxLength: 10
     }
   );
-    this.limpar();
+    this.formTecnico.reset();
 }
 
 falhaNoCadastro() {
@@ -89,10 +88,6 @@ falhaNoCadastro() {
       maxLength: 10
     }
     );
-  }
-
-  limpar() {
-    this.formTecnico.reset();
   }
 }
 

@@ -15,12 +15,11 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class DetalhesTecnicoComponent implements OnInit {
 
-  formEditarTec: FormGroup;
-  id: Number;
-  tecnicoRecebido: Tecnico;
-  desabilita = true;
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
+  public formEdicaoTecnico: FormGroup;
+  private id: Number;
+  private tecnicoRecebido: Tecnico;
+  public desabilita = true;
+  public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _tecnicoService: TecnicoService,
               private _activatedRoute: ActivatedRoute,
@@ -37,11 +36,11 @@ export class DetalhesTecnicoComponent implements OnInit {
 
   obterIdTecnico() {
      this._activatedRoute.params.subscribe(params => this.id = +params['id']);
-     this.buscarTecnico();
+     this.recuperarTecnico();
    }
 
    iniciarFormulario() {
-      this.formEditarTec = this._fb.group({
+      this.formEdicaoTecnico = this._fb.group({
           nome: ['', [Validators.required]],
           rg: ['', [Validators.required]],
           cpf: ['', [Validators.required]],
@@ -65,36 +64,37 @@ export class DetalhesTecnicoComponent implements OnInit {
           atendimentos: this._fb.array([])
      });
   }
+
     buscaPorCep(cep: string) {
      this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-         this.formEditarTec.get('rua').patchValue(dados.logradouro);
-         this.formEditarTec.get('bairro').patchValue(dados.bairro);
-         this.formEditarTec.get('cidade').patchValue(dados.localidade);
-         this.formEditarTec.get('uf').patchValue(dados.uf);
+         this.formEdicaoTecnico.get('rua').patchValue(dados.logradouro);
+         this.formEdicaoTecnico.get('bairro').patchValue(dados.bairro);
+         this.formEdicaoTecnico.get('cidade').patchValue(dados.localidade);
+         this.formEdicaoTecnico.get('uf').patchValue(dados.uf);
 
      });
    }
 
-    buscarTecnico() {
+    recuperarTecnico() {
       this._tecnicoService.retornarUm(this.id).subscribe((res) => {
-        this.formEditarTec.get('nome').patchValue(res.nome);
-        this.formEditarTec.get('rg').patchValue(res.rg);
-        this.formEditarTec.get('cpf').patchValue(res.cpf);
-        this.formEditarTec.get('data_nasc').patchValue(res.data_nasc);
-        this.formEditarTec.get('email').patchValue(res.email);
-        this.formEditarTec.get('telefone').patchValue(res.telefone);
-        this.formEditarTec.get('celular').patchValue(res.celular);
-        this.formEditarTec.get('observacao').patchValue(res.observacao);
-        this.formEditarTec.get('cnh').patchValue(res.cnh);
-        this.formEditarTec.get('validade_carteira').patchValue(res.validade_carteira);
-        this.formEditarTec.get('rua').patchValue(res.rua);
-        this.formEditarTec.get('numero').patchValue(res.numero);
-        this.formEditarTec.get('complemento').patchValue(res.complemento);
-        this.formEditarTec.get('ponto_referencia').patchValue(res.ponto_referencia);
-        this.formEditarTec.get('bairro').patchValue(res.bairro);
-        this.formEditarTec.get('cidade').patchValue(res.cidade);
-        this.formEditarTec.get('uf').patchValue(res.uf);
-        this.formEditarTec.get('cep').patchValue(res.cep);
+        this.formEdicaoTecnico.get('nome').patchValue(res.nome);
+        this.formEdicaoTecnico.get('rg').patchValue(res.rg);
+        this.formEdicaoTecnico.get('cpf').patchValue(res.cpf);
+        this.formEdicaoTecnico.get('data_nasc').patchValue(res.data_nasc);
+        this.formEdicaoTecnico.get('email').patchValue(res.email);
+        this.formEdicaoTecnico.get('telefone').patchValue(res.telefone);
+        this.formEdicaoTecnico.get('celular').patchValue(res.celular);
+        this.formEdicaoTecnico.get('observacao').patchValue(res.observacao);
+        this.formEdicaoTecnico.get('cnh').patchValue(res.cnh);
+        this.formEdicaoTecnico.get('validade_carteira').patchValue(res.validade_carteira);
+        this.formEdicaoTecnico.get('rua').patchValue(res.rua);
+        this.formEdicaoTecnico.get('numero').patchValue(res.numero);
+        this.formEdicaoTecnico.get('complemento').patchValue(res.complemento);
+        this.formEdicaoTecnico.get('ponto_referencia').patchValue(res.ponto_referencia);
+        this.formEdicaoTecnico.get('bairro').patchValue(res.bairro);
+        this.formEdicaoTecnico.get('cidade').patchValue(res.cidade);
+        this.formEdicaoTecnico.get('uf').patchValue(res.uf);
+        this.formEdicaoTecnico.get('cep').patchValue(res.cep);
 
         this.tecnicoRecebido = res;
       });
@@ -110,17 +110,17 @@ export class DetalhesTecnicoComponent implements OnInit {
         dados => {
       },
         erro => {
-        this.falhaNaAtualizacao();
+        this.falhaNaEdicao();
       },
         () => {
-        this.sucessoNaAtualizacao();
+        this.sucessoNaEdicao();
       }
     );
   }
 
-   sucessoNaAtualizacao() {
+   sucessoNaEdicao() {
     this._notificacaoService.success(
-      'Cadastro efetuado com sucesso!',
+      'Edição efetuada com sucesso!',
       '',
       {
         timeOut: 1000,
@@ -130,13 +130,13 @@ export class DetalhesTecnicoComponent implements OnInit {
         maxLength: 10
       }
     );
-    this.formEditarTec.reset();
+    this.formEdicaoTecnico.reset();
     this.irParaGerenciar();
   }
 
-  falhaNaAtualizacao() {
+  falhaNaEdicao() {
     this._notificacaoService.error(
-      'Não foi possível efetuar o cadastro',
+      'Não foi possível efetuar a edição',
       '',
       {
         timeOut: 1000,

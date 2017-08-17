@@ -13,9 +13,9 @@ import { AtendimentoService } from './../../../../../shared/services/atendimento
 export class AtendimentosDisponiveisComponent implements OnInit {
 
   @Input() tecnicoSelecionado: Tecnico;
-  atendimentos: Atendimento[];
-  selecionados: any[] = [];
-  atendimentoVinculado: Atendimento[] = [];
+  public atendimentos: Atendimento[];
+  public selecionados: any[] = [];
+  public atendimentoVinculado: Atendimento[] = [];
 
  
   constructor(public activeModal: NgbActiveModal,

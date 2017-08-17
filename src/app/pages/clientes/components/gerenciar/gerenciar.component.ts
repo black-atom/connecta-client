@@ -3,6 +3,26 @@ import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 import { ClienteService } from './../../../../shared/services';
 
+@Component({
+  selector: 'button-view',
+  template: `
+<button type="button" class="btn btn-info btn-block" 
+routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-ios-redo"></i> Detalhes</button>
+`,
+  styleUrls: ['./gerenciar.component.scss']
+})
+export class BtnDetalhesCliComponent implements ViewCell, OnInit {
+  
+  public idCliente: string;
+
+  @Input() value: string | number;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.idCliente = this.value.toString().toUpperCase();
+  }
+}
 
 @Component({
   selector: 'app-gerenciar',
@@ -11,23 +31,24 @@ import { ClienteService } from './../../../../shared/services';
 })
 export class GerenciarComponent implements OnInit {
 
-  settings = {
+  public settings = {
     actions: false,
     columns: {
-      cnpj_cpf: { 
-        title: 'CNPJ/CPF',     
-        type: 'number'  
+      cnpj_cpf: {
+        title: 'CNPJ/CPF',
+        type: 'number'
       },
-      nome_fantasia: { 
-        title: 'Nome', 
-        type: 'string' },
-      email: { 
-        title: 'E-mail',      
-        type: 'string' 
+      nome_fantasia: {
+        title: 'Nome',
+        type: 'string'
       },
-      contatos: { 
-        title: 'Telefone',     
-        valuePrepareFunction: (contatos) => {
+      email: {
+        title: 'E-mail',
+        type: 'string'
+      },
+      contatos: {
+        title: 'Telefone',
+        valuePrepareFunction: contatos => {
           return contatos[0].telefone;
         }
       },
@@ -41,37 +62,13 @@ export class GerenciarComponent implements OnInit {
 
   source: LocalDataSource;
 
-  constructor(private clienteService: ClienteService) { 
+  constructor(private clienteService: ClienteService) {
     this.source = new LocalDataSource();
   }
 
   ngOnInit() {
     this.clienteService.retornarTodos().subscribe(clientes => {
-        this.source.load(clientes);
+      this.source.load(clientes);
     });
   }
-
-
-}
-
-@Component({
-  selector: 'button-view',
-  template: `
-  <button type="button" class="btn btn-info btn-block" 
-  routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-ios-redo"></i> Detalhes</button>
-  `,
-  styleUrls: ['./gerenciar.component.scss']
-})
-export class BtnDetalhesCliComponent implements ViewCell, OnInit {
-
-  idCliente: string;
-  
-  @Input() value: string | number;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.idCliente = this.value.toString().toUpperCase();
-  }
-
 }

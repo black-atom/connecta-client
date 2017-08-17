@@ -18,19 +18,19 @@ export class GerenciarComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
-      nome: { 
-        title: 'Nome',     
-        type: 'number'  
+      nome: {
+        title: 'Nome',
+        type: 'number'
       },
-      cpf: { 
-        title: 'CPF', 
-        type: 'string' 
+      cpf: {
+        title: 'CPF',
+        type: 'string'
       },
-      rg: { 
-        title: 'RG',      
-        type: 'string' 
+      rg: {
+        title: 'RG',
+        type: 'string'
       },
-      telefone: { 
+      telefone: {
         title: 'Celular',
         type: 'string'
       },
@@ -47,7 +47,7 @@ export class GerenciarComponent implements OnInit {
   };
 
   source: LocalDataSource;
-    
+
   constructor(private _tecnicoService: TecnicoService) {
     this.source = new LocalDataSource();
   }
@@ -63,15 +63,15 @@ export class GerenciarComponent implements OnInit {
 @Component({
   selector: 'button-view',
   template: `
-  <button type="button" class="btn btn-info btn-block" 
-  routerLink="/pages/clientes/detalhes/{{ idTecnico }}"><i class="ion-ios-redo"></i> Detalhes</button>
+  <button type="button" class="btn btn-info btn-block"
+  routerLink="/pages/tecnicos/detalhes/{{ idTecnico }}"><i class="ion-ios-redo"></i> Detalhes</button>
   `,
   styleUrls: ['./gerenciar.component.scss']
 })
 export class BtnDetalhesTecComponent implements ViewCell, OnInit {
 
   idTecnico: string;
-  
+
   @Input() value: string | number;
 
   constructor() {}

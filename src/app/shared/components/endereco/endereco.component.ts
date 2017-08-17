@@ -11,9 +11,10 @@ import { DadosEndereco } from './../../../models';
 export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
- 
+  @Input() verificarCampo: Boolean;
+
   constructor(
-    private _cepService: CepService, 
+    private _cepService: CepService,
     private _fb: FormBuilder) {}
 
   ngOnInit() {

@@ -14,6 +14,7 @@ import { formEnderecoControls } from './../../../../shared/components/endereco/'
 export class NovoClienteComponent implements OnInit {
 
   dadosClienteForm: FormGroup;
+  verificaCampoInput = true;
 
   constructor(private _fb: FormBuilder, private _clienteService: ClienteService) {}
 
@@ -33,7 +34,7 @@ export class NovoClienteComponent implements OnInit {
   cadastrar(cliente) {
     this._clienteService.novo(cliente)
                         .subscribe(res => res);
-    
+
     this.dadosClienteForm.reset();
   }
 

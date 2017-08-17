@@ -10,7 +10,7 @@
 <div class="row" >
   <div class="col-12">
     <ba-card cardTitle="Endereço">
-        <app-endereco [formEndereco]="formEditarTec"></app-endereco>
+        <app-endereco [verificarCampo]="verificaCampoInput" [formEndereco]="formEditarTec"></app-endereco>
     </ba-card>
   </div>
 </div>
@@ -38,7 +38,7 @@
             </div>
 
         <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon" [routerLink]="['/pages/tecnicos/gerenciar']" 
+          <button type="reset" class="btn btn-danger btn-with-icon" [routerLink]="['/pages/tecnicos/gerenciar']"
           [disabled]="formEditarTec.pristine"> <i class="ion-close"></i>Cancelar</button>
         </div>
       </div>

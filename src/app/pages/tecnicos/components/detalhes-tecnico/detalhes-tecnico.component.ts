@@ -20,7 +20,7 @@ export class DetalhesTecnicoComponent implements OnInit {
   id: Number;
   tecnicoRecebido: Tecnico;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
+  verificaCampoInput = true;
 
   constructor(private _tecnicoService: TecnicoService,
               private _router: ActivatedRoute,
@@ -32,14 +32,11 @@ export class DetalhesTecnicoComponent implements OnInit {
   ngOnInit() {
     this.formInit();
     this.pegarId();
-
-    if (this.id) {
-      this.buscarTecnico();
-    }
   }
 
    pegarId() {
      this._router.params.subscribe(params => this.id = +params['id']);
+     this.buscarTecnico();
    }
 
    formInit() {

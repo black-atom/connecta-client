@@ -26,16 +26,6 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Endereço">
-      <div class="row">
-        <div class="col-md-12 col-sm-12">
-          <div class="form-group">
-            <select class="form-control">
-            <option value="" disabled selected>Selecione o endereço</option>
-            <option>Endereço 1</option>
-            </select>
-          </div>
-        </div>
-      </div>
       <app-endereco [formEndereco]="formAtendimento"></app-endereco>
     </ba-card>
   </div>
@@ -43,14 +33,12 @@
 
 <!-- Card com os inputs das informações do atendimento -->
 <div class="row">
-
   <div class="col-12">
     <ba-card cardTitle="Atendimento">
       <app-informacoes-atendimento [formDescricaoAtendimento]="formAtendimento"></app-informacoes-atendimento>
     </ba-card>
   </div>
-
-</div>
+  </div>
 
 <!-- Botões de cadastro e de limpeza de dados -->
 <div class="row">

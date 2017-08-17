@@ -1,7 +1,16 @@
 <form [formGroup]="formContato">
   
   <div class="row">
-  
+
+  <div class="col-md-12 col-sm-12" *ngIf="!desabilitaCampo">
+      <div class="form-group">
+         <select class="form-control">
+           <option value="" disabled selected>Selecione o contato</option>
+           <option>Contato</option>
+         </select>
+       </div>
+     </div>
+ 
     <div class="form-group col-md-12 col-sm-12" *ngIf="!desabilitaCampo">
       <label for="input01">Nome</label>
       <input type="text" class="form-control" 
@@ -29,7 +38,7 @@
     <div class="form-group col-md-12 col-sm-12">
       <label for="input05">Observação</label>
       <input type="text" class="form-control" 
-      formControlName="observacao" placeholder="Ex: atende somente em horário comercial">
+      formControlName="observacao">
     </div>
   
   </div>

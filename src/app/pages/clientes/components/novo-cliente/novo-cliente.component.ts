@@ -16,7 +16,8 @@ import { NotificationsService } from 'angular2-notifications';
 export class NovoClienteComponent implements OnInit {
 
   formCliente: FormGroup;
-  desabilitaSelect = true;
+  desabilitaSelecionarEndereco = true;
+  desabilitaSelecionarContato = true;
 
   constructor(private _fb: FormBuilder, 
               private _clienteService: ClienteService,

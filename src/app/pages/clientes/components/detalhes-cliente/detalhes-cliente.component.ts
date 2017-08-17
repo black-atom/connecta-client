@@ -19,15 +19,16 @@ export class DetalhesClienteComponent implements OnInit {
   cliente: Cliente;
   clienteRecebido: Cliente;
   enderecos;
+  verificaCampoInput = false;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private _clientService: ClienteService,
               private _fb: FormBuilder) { }
 
   ngOnInit() {
     this.iniciarForm();
     this.obterId();
- 
+
     // this.dadosDoCliente();
   }
 
@@ -55,7 +56,7 @@ export class DetalhesClienteComponent implements OnInit {
   atualizar(cliente) {
     this._clientService.atualizar(cliente)
                         .subscribe(res => res);
-    
+
     this.dadosClienteEdicaoForm.reset();
   }
 
@@ -67,7 +68,7 @@ export class DetalhesClienteComponent implements OnInit {
       this.dadosClienteEdicaoForm.get('nome_fantasia').patchValue(res.nome_fantasia);
       this.clienteRecebido = res;
     });
-    
+
   }
 
 }

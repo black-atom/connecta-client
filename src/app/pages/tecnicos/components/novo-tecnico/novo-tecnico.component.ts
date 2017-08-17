@@ -13,6 +13,7 @@ import { TecnicoService } from './../../../../shared/services/tecnico-service';
 export class NovoTecnicoComponent implements OnInit {
 
   formTecnico: FormGroup;
+  verificaCampoInput = true;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 
@@ -29,8 +30,8 @@ export class NovoTecnicoComponent implements OnInit {
       telefone: ['', [Validators.required]],
       celular: ['', [Validators.required]],
       observacao: [''],
-      cnh: [''],
-      validade_carteira: [''],
+      cnh: ['', [Validators.required]],
+      validade_carteira: ['', [Validators.required]],
       cep: ['', [Validators.required]],
       rua: ['', [Validators.required]],
       numero: ['', [Validators.required]],
@@ -48,10 +49,14 @@ export class NovoTecnicoComponent implements OnInit {
     tecnico.createdAt = new Date();
 
     this._tecnicoService.novo(tecnico)
-                        .subscribe((res) => { 
-                        alert(`Técnico ${res.nome} cadastrado com sucesso!`);
+                        .subscribe((res) => {
+                         alert(`Técnico ${res.nome} cadastrado com sucesso!`);
     });
 
+    this.formTecnico.reset();
+   }
+
+   limpar() {
     this.formTecnico.reset();
    }
 }

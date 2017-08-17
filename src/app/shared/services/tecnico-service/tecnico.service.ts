@@ -25,7 +25,7 @@ export class TecnicoService {
                      .throw(error.json().error || 'Ocorreu um erro'));
  }
 
-  novo(tecnico: Tecnico) {
+  novoTecnico(tecnico: Tecnico) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
@@ -35,7 +35,7 @@ export class TecnicoService {
                      .throw(error.json().error || 'Ocorreu um erro'));
   }
 
-  atualizar(tecnico: Tecnico) {
+  atualizarTecnico(tecnico: Tecnico) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 

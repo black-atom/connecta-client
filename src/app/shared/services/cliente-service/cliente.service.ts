@@ -30,7 +30,7 @@ export class ClienteService {
       .throw(error.json().error || 'Ocorreu um erro'));
   }
 
-  novo(cliente: Cliente): Observable <Cliente> {
+  novoCliente(cliente: Cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
@@ -41,7 +41,7 @@ export class ClienteService {
     .throw(error.json().error || 'Ocorreu um erro'));
   }
 
-  atualizar(cliente): Observable <Cliente> {
+  atualizarCliente(cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
   

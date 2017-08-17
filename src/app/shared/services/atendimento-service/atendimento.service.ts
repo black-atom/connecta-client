@@ -11,7 +11,7 @@ export class AtendimentoService {
 
   constructor(private _http: Http) { }
 
-  novo(atendimento) {
+  novoAtendimento(atendimento) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 

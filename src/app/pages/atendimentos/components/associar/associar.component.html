@@ -36,9 +36,8 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-close-circled"></i> Cancelar</button>
-      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c(); openNotificacaoModal()"><i class="ion-trash-a"></i> Remover</button>
+      <button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecSelecionado); c(); abrirNotificacaoModal()"><i class="ion-trash-a"></i> Remover</button>
     </div>
   </ng-template>  
   <hr>
 
-  <simple-notifications [options]="opcoesModalNotificao"></simple-notifications>'

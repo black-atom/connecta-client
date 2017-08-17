@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DadosEndereco } from './../../../../models';
 import { Tecnico } from './../../../../models';
-import { TecnicoService } from './../../../../shared/services/tecnico-service';
-import { CepService } from './../../../../shared/services/cep-service';
-
+import { TecnicoService } from './../../../../shared/services';
+import { CepService } from './../../../../shared/services';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-detalhes-tecnico',
@@ -16,30 +16,30 @@ import { CepService } from './../../../../shared/services/cep-service';
 export class DetalhesTecnicoComponent implements OnInit {
 
   formEditarTec: FormGroup;
-  data = new Date();
   id: Number;
   tecnicoRecebido: Tecnico;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  verificaCampoInput = true;
+  desabilitaSelect = true;
 
   constructor(private _tecnicoService: TecnicoService,
-              private _router: ActivatedRoute,
+              private _activatedRoute: ActivatedRoute,
               private _cepService: CepService,
+              private _notificacaoService: NotificationsService,
               private _fb: FormBuilder,
-              private _navRouter: Router ) { }
+              private _router: Router) { }
 
 
   ngOnInit() {
-    this.formInit();
-    this.pegarId();
+    this.iniciarFormulario();
+    this.obterIdTecnico();
   }
 
-   pegarId() {
-     this._router.params.subscribe(params => this.id = +params['id']);
+  obterIdTecnico() {
+     this._activatedRoute.params.subscribe(params => this.id = +params['id']);
      this.buscarTecnico();
    }
 
-   formInit() {
+   iniciarFormulario() {
       this.formEditarTec = this._fb.group({
           nome: ['', [Validators.required]],
           rg: ['', [Validators.required]],
@@ -99,21 +99,58 @@ export class DetalhesTecnicoComponent implements OnInit {
       });
     }
 
-    atualizar(tecnico) {
-     tecnico.value.updatedAt = this.data;
-     tecnico.value.id = this.tecnicoRecebido.id;
-     tecnico.value.createdAt = this.tecnicoRecebido.createdAt;
+    atualizarTecnico(tecnico) {
+      tecnico.value.updatedAt = new Date();
+      tecnico.value.id = this.tecnicoRecebido.id;
+      tecnico.value.createdAt = this.tecnicoRecebido.id;
 
-    this._tecnicoService.atualizar(tecnico.value)
-                        .subscribe(res => alert(res.nome));
+      this._tecnicoService.atualizarTecnico(tecnico.value)
+      .subscribe(
+        dados => {
+      },
+        erro => {
+        this.falhaNaAtualizacao();
+      },
+        () => {
+        this.sucessoNaAtualizacao();
+      }
+    );
+  }
+  
+   sucessoNaAtualizacao() {
+    this._notificacaoService.success(
+      'Cadastro efetuado com sucesso!',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
     this.formEditarTec.reset();
-
     this.irParaGerenciar();
-   }
+  }
+  
+  falhaNaAtualizacao() {
+    this._notificacaoService.error(
+      'Não foi possível efetuar o cadastro',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+      );
+    }
 
-   irParaGerenciar() {
-     setTimeout(() => {
-       this._navRouter.navigate(['/pages/tecnicos/gerenciar']);
-     }, 2000);
-   }
+    irParaGerenciar() {
+      setTimeout(() => {
+        this._router.navigate(['/pages/tecnicos/gerenciar']);
+      }, 1500);
+    }
+ 
 }

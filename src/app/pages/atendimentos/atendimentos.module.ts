@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from './../../shared/shared.module';
 
@@ -25,7 +24,6 @@ import { routing } from './atendimentos.routing';
     CommonModule,
     NgaModule,
     NgbModule,
-    SimpleNotificationsModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule,

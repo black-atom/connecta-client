@@ -1,7 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { AtendimentoService } from './../../../../shared/services/atendimento-service/atendimento.service';
+import { Atendimento } from './../../../../models';
+import { NotificationsService } from 'angular2-notifications';
+import { AtendimentoService } from './../../../../shared/services';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -14,7 +16,8 @@ export class NovoAtendimentoComponent implements OnInit {
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
-              private _atendimentoServiceService: AtendimentoService) { }
+              private _atendimentoServiceService: AtendimentoService,
+              private _notificacaoService: NotificationsService) { }
 
   ngOnInit() {
     this.formAtendimento = this._fb.group({
@@ -44,8 +47,46 @@ export class NovoAtendimentoComponent implements OnInit {
     });
   }
 
-  novoAtendimento(atendimento) {
-    this._atendimentoServiceService.novo(atendimento)
-                                   .subscribe(res => alert(res.razao_social));
+  cadastrarAtendimento(atendimento: Atendimento) {
+    this._atendimentoServiceService.novoAtendimento(atendimento)
+    .subscribe(
+      dados => {
+    },
+      erro => {
+      this.falhaNoCadastro();
+    },
+      () => {
+      this.sucessoNoCadastro();
+    }
+  );
+}
+
+  sucessoNoCadastro() {
+    this._notificacaoService.success(
+      'Cadastro efetuado com sucesso!',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+    this.formAtendimento.reset();
+  }
+
+  falhaNoCadastro() {
+    this._notificacaoService.error(
+      'Não foi possível efetuar o cadastro',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
   }
 }

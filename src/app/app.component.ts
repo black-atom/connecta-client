@@ -34,6 +34,12 @@ export class App {
     });
   }
 
+  opcoesDaNotificacao = {
+    position: ['top', 'right'],
+    timeOut: 1500,
+    lastOnBottom: true
+  };
+
   public ngAfterViewInit(): void {
     // hide spinner once all loaders are completed
     BaThemePreloader.load().then((values) => {

@@ -1,10 +1,12 @@
-
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
-import { ClienteService } from './../../../../shared/services/cliente-service/cliente.service';
-import { formContatoControls } from './../../../../shared/components/contato/';
-import { formEnderecoControls } from './../../../../shared/components/endereco/';
+import { Cliente } from './../../../../models';
+import { ClienteService } from './../../../../shared/services/cliente-service';
+import { formContatoControls } from './../../../../shared/components/contato';
+import { formEnderecoControls } from './../../../../shared/components/endereco';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-novo-cliente',
@@ -13,13 +15,15 @@ import { formEnderecoControls } from './../../../../shared/components/endereco/'
 })
 export class NovoClienteComponent implements OnInit {
 
-  dadosClienteForm: FormGroup;
-  verificaCampoInput = true;
+  formCliente: FormGroup;
+  desabilitaSelect = true;
 
-  constructor(private _fb: FormBuilder, private _clienteService: ClienteService) {}
+  constructor(private _fb: FormBuilder, 
+              private _clienteService: ClienteService,
+              private _notificacaoService: NotificationsService) {}
 
   ngOnInit() {
-    this.dadosClienteForm = this._fb.group({
+    this.formCliente = this._fb.group({
       cnpj_cpf: ['', [Validators.required]],
       razao_social: ['', [Validators.required]],
       inscricao_estadual: ['', [Validators.required]],
@@ -31,11 +35,47 @@ export class NovoClienteComponent implements OnInit {
   });
 }
 
-  cadastrar(cliente) {
-    this._clienteService.novo(cliente)
-                        .subscribe(res => res);
+  cadastrarCliente(cliente: Cliente) {
+      this._clienteService.novoCliente(cliente)
+      .subscribe(
+        dados => {
+      },
+        erro => {
+        this.falhaNoCadastro();
+      },
+        () => {
+        this.sucessoNoCadastro();
+      }
+    );
+}
+  
 
-    this.dadosClienteForm.reset();
+  sucessoNoCadastro() {
+    this._notificacaoService.success(
+      'Cadastro efetuado com sucesso!',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+    this.formCliente.reset();
   }
 
+  falhaNoCadastro() {
+    this._notificacaoService.error(
+      'Não foi possível efetuar o cadastro',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+  }
 }

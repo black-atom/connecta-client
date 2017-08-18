@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { NotificationsService } from 'angular2-notifications';
-import { formEnderecoControls } from './../../../../shared/components/endereco';
-import { formContatoControls } from './../../../../shared/components/contato';
 import { ClienteService } from './../../../../shared/services/cliente-service';
 import { Cliente } from './../../../../models/cliente.interface';
+import { formEnderecoControls } from './../../../../shared/components/endereco';
+import { formContatoControls } from './../../../../shared/components/contato';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-detalhes-cliente',
@@ -19,8 +19,8 @@ export class DetalhesClienteComponent implements OnInit {
   private id: string;
   private sub: any;
   private cliente: Cliente;
-  public desabilita = false;
-  public clienteRecebidoAtendimento: Cliente;
+  public desabilitaElemento = false;
+  public dadosClienteCadastrado: Cliente;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _clientService: ClienteService,
@@ -42,8 +42,8 @@ export class DetalhesClienteComponent implements OnInit {
 
   iniciarForm() {
     this.formEdicaoCliente = this._fb.group({
-      cnpj_cpf: [''],
-      razao_social: [''],
+      cnpj_cpf: ['', [Validators.required]],
+      razao_social: ['', [Validators.required]],
       inscricao_estadual: [''],
       nome_fantasia: [''],
       createdAt: [''],
@@ -59,14 +59,14 @@ export class DetalhesClienteComponent implements OnInit {
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
-      this.clienteRecebidoAtendimento = res;
+      this.dadosClienteCadastrado = res;
     });
   }
 
   atualizarCliente(cliente) {
     cliente.value.updatedAt = new Date();
-    cliente.value.id = this.clienteRecebidoAtendimento.id;
-    cliente.value.createdAt = this.clienteRecebidoAtendimento.createdAt;
+    cliente.value.id = this.dadosClienteCadastrado.id;
+    cliente.value.createdAt = this.dadosClienteCadastrado.createdAt;
 
     this._clientService.atualizarCliente(cliente)
     .subscribe(dados => {

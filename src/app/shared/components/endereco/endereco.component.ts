@@ -1,8 +1,10 @@
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { CepService } from './../../services/cep-service/cep.service';
+import { Cliente } from './../../../models';
+import { CepService } from './../../services/cep-service';
 import { DadosEndereco } from './../../../models';
+import { ValidaFormulario } from './../valida-formulario';
 
 @Component({
   selector: 'app-endereco',
@@ -12,7 +14,7 @@ export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
   @Input() desabilitaSelecionarEndereco: Boolean;
-  @Input() clienteRecebido;
+  @Input() clienteRecebido: Cliente;
 
   constructor(
     private _cepService: CepService,
@@ -22,15 +24,14 @@ export class EnderecoComponent implements OnInit {
   }
 
   buscaPorCep(cep: string) {
-    this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-        this.formEndereco.get('cidade').patchValue(dados.localidade);
-        this.formEndereco.get('complemento').patchValue(dados.complemento);
-        this.formEndereco.get('uf').patchValue(dados.uf);
-        this.formEndereco.get('rua').patchValue(dados.logradouro);
-        this.formEndereco.get('bairro').patchValue(dados.bairro);
-    });
-
-
+      if (cep.length === 8) {
+        this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+          this.formEndereco.get('cidade').patchValue(dados.localidade);
+          this.formEndereco.get('complemento').patchValue(dados.complemento);
+          this.formEndereco.get('uf').patchValue(dados.uf);
+          this.formEndereco.get('rua').patchValue(dados.logradouro);
+          this.formEndereco.get('bairro').patchValue(dados.bairro);
+      });
   }
-
+}
 }

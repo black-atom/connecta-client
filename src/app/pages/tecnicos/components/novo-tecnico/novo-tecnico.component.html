@@ -14,8 +14,8 @@
     <div class="col-12">
       <ba-card cardTitle="Contato">
         <app-contato
-         [desabilitaNome]="desabilita"
-         [desabilitaSelecionarContato]="desabilita"
+         [desabilitaNome]="desabilitaElemento"
+         [desabilitaSelecionarContato]="desabilitaElemento"
          [formContato]="formTecnico">
         </app-contato>
       </ba-card>
@@ -27,7 +27,7 @@
     <div class="col-12">
       <ba-card cardTitle="Endereço">
         <app-endereco
-        [desabilitaSelecionarEndereco]="desabilita"
+        [desabilitaSelecionarEndereco]="desabilitaElemento"
         [formEndereco]="formTecnico">
       </app-endereco>
       </ba-card>

@@ -13,8 +13,8 @@
     <ba-card cardTitle="Contato"
     *ngFor="let contato of formCliente.controls['contatos'].controls; let i=index">
       <app-contato
-      [desabilitaNome]="!desabilita"
-      [desabilitaSelecionarContato]="desabilita"
+      [desabilitaNome]="!desabilitaElemento"
+      [desabilitaSelecionarContato]="desabilitaElemento"
       [formContato]="formCliente.controls['contatos'].controls[i]">
     </app-contato>
     </ba-card>
@@ -25,7 +25,7 @@
   *ngFor="let endereco of formCliente.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
       <app-endereco
-      [desabilitaSelecionarEndereco]="desabilita"
+      [desabilitaSelecionarEndereco]="desabilitaElemento"
       [formEndereco]="formCliente.controls['enderecos'].controls[i]">
     </app-endereco>
     </ba-card>

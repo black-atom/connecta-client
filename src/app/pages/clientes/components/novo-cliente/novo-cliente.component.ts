@@ -16,7 +16,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class NovoClienteComponent implements OnInit {
 
   public formCliente: FormGroup;
-  public desabilita: boolean = true;
+  public desabilitaElemento: boolean = true;
 
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService,
@@ -26,8 +26,8 @@ export class NovoClienteComponent implements OnInit {
     this.formCliente = this._fb.group({
       cnpj_cpf: ['', [Validators.required]],
       razao_social: ['', [Validators.required]],
-      inscricao_estadual: ['', [Validators.required]],
-      nome_fantasia: ['', [Validators.required]],
+      inscricao_estadual: [''],
+      nome_fantasia: [''],
       createdAt: [''],
       updatedAt: [''],
       contatos: this._fb.array([this._fb.group(formContatoControls)]),

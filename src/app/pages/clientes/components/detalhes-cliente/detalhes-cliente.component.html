@@ -14,7 +14,7 @@
     *ngFor="let contato of formEdicaoCliente.controls['contatos'].controls; let i=index">
       <app-contato
       [formContato]="formEdicaoCliente.controls['contatos'].controls[i]"
-      [clienteRecebido]="clienteRecebidoAtendimento">
+      [clienteRecebido]="dadosClienteCadastrado">
     </app-contato>
     </ba-card>
   </div>
@@ -24,9 +24,9 @@
   *ngFor="let endereco of formEdicaoCliente.controls['enderecos'].controls; let i=index">
     <ba-card cardTitle="Endereço" >
       <app-endereco
-      [desabilitaSelecionarEndereco]="desabilita"
+      [desabilitaSelecionarEndereco]="desabilitaElemento"
       [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]"
-      [clienteRecebido]="clienteRecebidoAtendimento">
+      [clienteRecebido]="dadosClienteCadastrado">
     </app-endereco>
     </ba-card>
   </div>

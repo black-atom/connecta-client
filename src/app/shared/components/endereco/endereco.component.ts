@@ -4,7 +4,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Cliente } from './../../../models';
 import { CepService } from './../../services/cep-service';
 import { DadosEndereco } from './../../../models';
-import { ValidaFormulario } from './../valida-formulario';
 
 @Component({
   selector: 'app-endereco',

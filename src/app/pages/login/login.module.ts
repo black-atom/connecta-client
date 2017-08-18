@@ -1,3 +1,4 @@
+import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppTranslationModule } from '../../app.translation.module';
@@ -15,7 +16,8 @@ import { routing } from './login.routing';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    routing
+    routing,
+    SharedModule
   ],
   declarations: [
     LoginComponent

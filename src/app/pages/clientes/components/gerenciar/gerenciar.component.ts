@@ -33,6 +33,7 @@ export class GerenciarComponent implements OnInit {
 
   public settings = {
     actions: false,
+    noDataMessage: 'Nenhum dado encontrado',
     columns: {
       cnpj_cpf: {
         title: 'CNPJ/CPF',

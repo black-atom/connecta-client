@@ -16,6 +16,7 @@ export class GerenciarComponent implements OnInit {
 
   settings = {
     actions: false,
+    noDataMessage: 'Nenhum dado encontrado',
     columns: {
       nome: {
         title: 'Nome',

@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs/Rx';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
 import { DadosEndereco } from './../../../models';
+import { ManipuladorErro } from './../';
 
 
 @Injectable()
@@ -13,10 +15,10 @@ export class CepService {
   obterInfoEndereco(cep: string): Observable<DadosEndereco> {
 
     const url = `${this.url}/${this.removerCaracteresEspeciais(cep)}/json`;
-    return this.http
-                .get(url)
-                .map((response) => response
-                .json() as DadosEndereco);
+    return this.http.get(url)
+                    .map((response) => response
+                    .json() as DadosEndereco)
+                    .catch(ManipuladorErro.lidaComErro);
 
   }
 

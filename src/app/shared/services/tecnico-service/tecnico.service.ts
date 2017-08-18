@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { Tecnico } from './../../../models';
+import { ManipuladorErro } from './../';
 
 @Injectable()
 export class TecnicoService {
@@ -14,15 +15,13 @@ export class TecnicoService {
   retornarTodos(): Observable<Tecnico[]> {
     return this._http.get(this.url)
                      .map((res) => res.json() as Tecnico[] )
-                     .catch((error: any) => Observable
-                     .throw(error.json().error || 'Server error'));
+                     .catch(ManipuladorErro.lidaComErro);
   }
 
   retornarUm(id: Number): Observable<Tecnico> {
     return this._http.get(`${this.url}${id}`)
                      .map((res) => res.json() )
-                     .catch((error: any) => Observable
-                     .throw(error.json().error || 'Ocorreu um erro'));
+                     .catch(ManipuladorErro.lidaComErro);
  }
 
   novoTecnico(tecnico: Tecnico) {
@@ -31,8 +30,7 @@ export class TecnicoService {
 
     return this._http.post(this.url, tecnico, options)
                      .map((res) => res.json() as Tecnico)
-                     .catch((error: any) => Observable
-                     .throw(error.json().error || 'Ocorreu um erro'));
+                     .catch(ManipuladorErro.lidaComErro);
   }
 
   atualizarTecnico(tecnico: Tecnico) {
@@ -41,7 +39,6 @@ export class TecnicoService {
 
     return this._http.put(`${this.url}${tecnico.id}/`, tecnico, options)
                      .map((res) => res.json() as Tecnico)
-                     .catch((error: any) => Observable
-                     .throw(error.json().error || 'Ocorreu um erro'));
+                     .catch(ManipuladorErro.lidaComErro);
   }
 }

@@ -9,6 +9,7 @@ export class ConsultaComponent implements OnInit {
 
   settings = {
     actions: false,
+    noDataMessage: 'Nenhum dado encontrado',
     columns: {
       data: { 
         title: 'Data',     

@@ -1,12 +1,14 @@
 <form [formGroup]="formContato">
 
   <div class="row">
-
   <div class="col-md-12 col-sm-12" *ngIf="!desabilitaSelecionarContato">
       <div class="form-group">
-         <select class="form-control">
+         <select class="form-control"
+            *ngFor="let contato of clienteRecebido?.contatos">
            <option value="" disabled selected>Selecione o contato</option>
-           <option>Contato</option>
+           <option >
+             {{ contato?.nome+', '+ contato?.telefone+', '+ contato?.email }}
+            </option>
          </select>
        </div>
      </div>

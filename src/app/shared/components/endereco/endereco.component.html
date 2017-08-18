@@ -5,9 +5,17 @@
 
   <div class="col-md-12 col-sm-12" *ngIf="!desabilitaSelecionarEndereco">
      <div class="form-group">
-        <select class="form-control">
-          <option value="" disabled selected>Selecione o endereço</option>
-          <option >Enderecos </option>
+        <select class="form-control"
+          *ngFor="let endereco of clienteRecebido?.enderecos">
+          <option value="" selected>Selecione o endereço</option>
+          <option>{{
+            endereco?.rua + " - "
+            + endereco?.numero + " - "
+            + endereco?.bairro +", "
+            + endereco?.cidade +" - "
+            + endereco?.cep
+          }}
+          </option>
         </select>
       </div>
     </div>

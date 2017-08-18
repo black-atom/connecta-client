@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -19,8 +19,8 @@ export class DetalhesClienteComponent implements OnInit {
   private id: string;
   private sub: any;
   private cliente: Cliente;
-  private clienteRecebido: Cliente;
   public desabilita = false;
+  public clienteRecebidoAtendimento: Cliente;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _clientService: ClienteService,
@@ -59,14 +59,14 @@ export class DetalhesClienteComponent implements OnInit {
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
-      this.clienteRecebido = res;
+      this.clienteRecebidoAtendimento = res;
     });
   }
 
   atualizarCliente(cliente) {
     cliente.value.updatedAt = new Date();
-    cliente.value.id = this.clienteRecebido._id;
-    cliente.value.createdAt = this.clienteRecebido.createdAt;
+    cliente.value.id = this.clienteRecebidoAtendimento.id;
+    cliente.value.createdAt = this.clienteRecebidoAtendimento.createdAt;
 
     this._clientService.atualizarCliente(cliente)
     .subscribe(dados => {

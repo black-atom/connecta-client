@@ -12,6 +12,7 @@ export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
   @Input() desabilitaSelecionarEndereco: Boolean;
+  @Input() clienteRecebido;
 
   constructor(
     private _cepService: CepService,

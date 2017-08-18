@@ -13,7 +13,8 @@
     <ba-card cardTitle="Contato"
     *ngFor="let contato of formEdicaoCliente.controls['contatos'].controls; let i=index">
       <app-contato
-      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]">
+      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]"
+      [clienteRecebido]="clienteRecebidoAtendimento">
     </app-contato>
     </ba-card>
   </div>
@@ -24,7 +25,8 @@
     <ba-card cardTitle="Endereço" >
       <app-endereco
       [desabilitaSelecionarEndereco]="desabilita"
-      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]">
+      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]"
+      [clienteRecebido]="clienteRecebidoAtendimento">
     </app-endereco>
     </ba-card>
   </div>
@@ -44,7 +46,7 @@
         <div class="col-md-6 col-sm-12">
           <button type="reset" class="btn btn-danger btn-with-icon"
             [routerLink]="['/pages/clientes/gerenciar']"
-            [disabled]="formEdicaoCliente.pristine"> 
+            [disabled]="formEdicaoCliente.pristine">
           <i class="ion-close"></i>Cancelar</button>
         </div>
       </div>

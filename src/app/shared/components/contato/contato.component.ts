@@ -12,6 +12,7 @@ export class ContatoComponent implements OnInit {
   @Input() formContato: FormGroup;
   @Input() desabilitaSelecionarContato: Boolean;
   @Input() desabilitaNome: Boolean;
+  @Input() clienteRecebido;
 
   constructor(
     private _fb: FormBuilder) { }

@@ -1,3 +1,4 @@
+import { ReduxModule } from './redux/redux.module';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -51,6 +52,7 @@ export type StoreType = {
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
+    ReduxModule,
     PagesModule,
     routing
   ],

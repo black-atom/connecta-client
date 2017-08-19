@@ -64,19 +64,23 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   atualizarCliente(cliente) {
-    cliente.value.updatedAt = new Date();
-    cliente.value.id = this.dadosClienteCadastrado.id;
-    cliente.value.createdAt = this.dadosClienteCadastrado.createdAt;
 
-    this._clientService.atualizarCliente(cliente)
-    .subscribe(dados => {
-    },
-    erro => {
-      this.falhaNaEdicao();
-    },
-    () => {
-      this.sucessoNaEdicao();
-    });
+    Array.prototype.push.apply(cliente.contatos, this.dadosClienteCadastrado.contatos);
+    Array.prototype.push.apply(cliente.enderecos, this.dadosClienteCadastrado.enderecos);
+      cliente.updatedAt = new Date();
+      cliente.id = this.dadosClienteCadastrado.id;
+      cliente.createdAt = this.dadosClienteCadastrado.createdAt;
+
+      this._clientService.atualizarCliente(cliente)
+      .subscribe(dados => {
+      },
+      erro => {
+        this.falhaNaEdicao();
+      },
+      () => {
+        this.sucessoNaEdicao();
+      });
+
   }
 
 
@@ -112,7 +116,7 @@ export class DetalhesClienteComponent implements OnInit {
 
   irParaGerenciar() {
     setTimeout(() => {
-      this._router.navigate(['/pages/tecnicos/gerenciar']);
+      this._router.navigate(['/pages/clientes/gerenciar']);
     }, 1500);
   }
 

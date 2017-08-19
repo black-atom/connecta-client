@@ -1,9 +1,10 @@
 <form [formGroup]="formContato">
 
   <div class="row">
-  <div class="col-md-12 col-sm-12" *ngIf="!desabilitaSelecionarContato">
+  <div class="col-md-10 col-sm-12" *ngIf="!desabilitaSelecionarContato">
       <div class="form-group">
          <select class="form-control"
+            (change)="contatoSelecionado(contato)"
             *ngFor="let contato of clienteRecebido?.contatos">
            <option value="" disabled selected>Selecione o contato</option>
            <option >
@@ -12,6 +13,13 @@
          </select>
        </div>
      </div>
+
+     <!-- inicio do botao novo -->
+     <div class="col-md-2 col-sm-12" *ngIf="!desabilitaSelecionarContato">
+      <button type="reset" class="btn btn-danger btn-with-icon"
+      (click)="formContato.reset()"> Novo </button>
+     </div>
+     <!-- fim do botao novo -->
 
     <div class="form-group col-md-12 col-sm-12" *ngIf="!desabilitaNome">
       <label for="nome">Nome</label>

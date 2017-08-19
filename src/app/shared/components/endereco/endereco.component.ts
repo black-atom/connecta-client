@@ -33,4 +33,15 @@ export class EnderecoComponent implements OnInit {
       });
   }
 }
+  enderecoSelecionado(endereco) {
+    this.formEndereco.get('cep').patchValue(endereco.cep);
+    this.formEndereco.get('cidade').patchValue(endereco.cidade);
+    this.formEndereco.get('complemento').patchValue(endereco.complemento);
+    this.formEndereco.get('uf').patchValue(endereco.uf);
+    this.formEndereco.get('rua').patchValue(endereco.rua);
+    this.formEndereco.get('bairro').patchValue(endereco.bairro);
+    this.formEndereco.get('numero').patchValue(endereco.numero);
+    this.formEndereco.get('ponto_referencia').patchValue(endereco.ponto_referencia);
+}
+
 }

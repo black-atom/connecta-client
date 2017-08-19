@@ -1,3 +1,4 @@
+import { LoginState } from './login.reducer';
 
 import { Action } from '@ngrx/store';
 
@@ -9,7 +10,11 @@ export class LoginActions{
   static LOGOUT = 'LOGOUT';
   static LOGOUT_FAILED = 'LOGOUT_FAILED';
 
-  static login(user): Action{
+  static login(user): Action {
     return { type: this.LOGIN, payload: user };
+  }
+
+  static loginSuccess(payload: LoginState): Action {
+    return { type: this.LOGIN_SUCCESS, payload };
   }
 }

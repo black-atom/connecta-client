@@ -1,3 +1,4 @@
+import { ManipuladorErro } from './../app-manipulador-erro';
 import { LoginState } from '../../../pages/login/redux/login.reducer';
 import { Observable } from 'rxjs/Rx';
 import { LoginData } from './../../../models/login-data.interface';
@@ -15,6 +16,7 @@ export class LoginService {
 
   logar(loginData: LoginData ): Observable<LoginState> {
     return this.http.post(this.url, loginData)
-    .map( response => response.json() as LoginState);
+    .map( response => response.json() as LoginState)
+    .catch(ManipuladorErro.lidaComErro);
   }
 }

@@ -18,7 +18,6 @@ export class DetalhesTecnicoComponent implements OnInit {
   public formEdicaoTecnico: FormGroup;
   private id: Number;
   private tecnicoRecebido: Tecnico;
-  public desabilitaElemento = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _tecnicoService: TecnicoService,

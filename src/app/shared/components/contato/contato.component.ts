@@ -6,14 +6,12 @@ import { Cliente } from './../../../models/';
 
 @Component({
   selector: 'app-contato',
-  templateUrl: './contato.component.html'
+  templateUrl: './contato.component.html',
+  styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent implements OnInit {
 
   @Input() formContato: FormGroup;
-  @Input() desabilitaSelecionarContato: Boolean;
-  @Input() desabilitaNome: Boolean;
-  @Input() clienteRecebido: Cliente;
 
   constructor(
     private _fb: FormBuilder) { }

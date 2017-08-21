@@ -38,14 +38,14 @@ export class NovoClienteComponent implements OnInit {
               enderecos: this._fb.array([])
       });
       this.adicionarContato();
-      this.adicionaEndereco();
+      this.adicionarEndereco();
   }
 
-  removeContato(index) {
+  removerContato(index) {
     this.contatos.removeAt(index);
   }
 
-  removeEndereco(index) {
+  removerEndereco(index) {
     this.enderecos.removeAt(index);
   }
 
@@ -54,7 +54,7 @@ export class NovoClienteComponent implements OnInit {
     contatos.push(this._fb.group(formContatoControls));
   }
 
-  adicionaEndereco() {
+  adicionarEndereco() {
     const enderecos: FormArray = <FormArray> this.formCliente.get('enderecos');
     enderecos.push(this._fb.group(formEnderecoControls));
   }

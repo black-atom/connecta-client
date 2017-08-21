@@ -3,30 +3,47 @@
   <div class="col-md-12">
     <ba-card cardTitle="Dados principais">
       <app-principais-info-cliente
-       [formDadosPrincipais]="formEdicaoCliente">
-      </app-principais-info-cliente>
+      [formDadosPrincipais]="formEdicaoCliente">
+    </app-principais-info-cliente>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de contato do cliente -->
   <div class="col-md-12">
-    <ba-card cardTitle="Contato"
-    *ngFor="let contato of formEdicaoCliente.controls['contatos'].controls; let i=index">
-      <app-contato
-      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]">
-    </app-contato>
+    <ba-card cardTitle='Contatos' formArrayName="contatos">
+      <ba-card *ngFor="let contato of contatos?.controls; let i=index">
+          <div>
+            <span>Contato {{i + 1}}</span>
+            <span class="pull-right" *ngIf="contatos?.controls.length > 1" (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
+          </div>
+          <app-contato
+            [formContato]="contato">
+          </app-contato>
+      </ba-card>
+      <button (click)="adicionarContato()" type="reset" class="adiciona pull-right btn btn-primary">+</button>
     </ba-card>
   </div>
 
   <!-- Card com os inputs das informações de endereço do cliente -->
-  <div class="col-md-12"
-  *ngFor="let endereco of formEdicaoCliente.controls['enderecos'].controls; let i=index">
-    <ba-card cardTitle="Endereço" >
-      <app-endereco
-      [desabilitaSelecionarEndereco]="desabilitaElemento"
-      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]">
-    </app-endereco>
-    </ba-card>
+  <div class="col-md-12">
+    <ba-card cardTitle='Enderecos' formArrayName="enderecos">
+
+      <ba-card *ngFor="let endereco of enderecos?.controls; let i=index">
+
+          <div>
+            <span>Endereço {{i + 1}}</span>
+            <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
+            (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
+          </div>
+
+          <app-endereco
+          [formEndereco]="endereco">
+          </app-endereco>
+
+        </ba-card>
+        <button (click)="adicionarEndereco()" type="reset" 
+        class="adiciona pull-right btn btn-primary">+</button>
+      </ba-card>
   </div>
 
   <!-- Botões de cadastro e de limpeza de dados -->
@@ -36,16 +53,16 @@
 
         <div class="col-md-6 col-sm-12">
           <button type="submit" class="btn btn-primary btn-with-icon"
-          (click)="atualizarCliente(formEdicaoCliente.value)"
-          [disabled]="formEdicaoCliente.pristine">
-          <i class="ion-android-checkmark-circle"></i>Editar</button>
+          (click)="cadastrarCliente(formEdicaoCliente.value)"
+          [disabled]="formEdicaoCliente.invalid">
+          <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
         </div>
 
         <div class="col-md-6 col-sm-12">
           <button type="reset" class="btn btn-danger btn-with-icon"
-            [routerLink]="['/pages/clientes/gerenciar']"
+            (click)="formEdicaoCliente.reset()"
             [disabled]="formEdicaoCliente.pristine">
-          <i class="ion-close"></i>Cancelar</button>
+          <i class="ion-trash-a"></i>Limpar</button>
         </div>
       </div>
 

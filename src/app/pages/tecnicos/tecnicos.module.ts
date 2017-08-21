@@ -9,8 +9,6 @@ import { TecnicosComponent } from './tecnicos.component';
 import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar/';
 import { NovoTecnicoComponent } from './components/novo-tecnico';
 import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
-import { CepService } from './../../shared/services/cep-service/';
-import { TecnicoService } from './../../shared/services/tecnico-service/';
 import { HabilitacaoComponent } from './components/shared-components/habilitacao/';
 import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes/';
 import { routing } from './tecnicos.routing';
@@ -38,8 +36,7 @@ import { routing } from './tecnicos.routing';
     BtnDetalhesTecComponent
   ],
   providers: [
-    CepService,
-    TecnicoService
+    SharedModule
    ]
 })
 export class TecnicosModule { }

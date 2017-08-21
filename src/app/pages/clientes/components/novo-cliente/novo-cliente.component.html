@@ -12,17 +12,19 @@
   <div class="col-md-12">
     <ba-card cardTitle='Contatos' formArrayName="contatos">
       <ba-card *ngFor="let contato of contatos?.controls; let i=index">
+
           <div>
             <span>Contato {{i + 1}}</span>
-            <span class="pull-right" *ngIf="contatos?.controls.length > 1" (click)="removeContato(i)">x</span>
+            <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
+              (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
           </div>
+
           <app-contato
-            [desabilitaNome]="!desabilitaElemento"
-            [desabilitaSelecionarContato]="desabilitaElemento"
             [formContato]="contato">
           </app-contato>
       </ba-card>
-      <button (click)="adicionarContato()" type="reset" class="btn btn-danger btn-with-icon"> Novo </button>
+      <button (click)="adicionarContato()" type="reset" 
+      class="adiciona pull-right btn btn-primary">+</button>
     </ba-card>
   </div>
 
@@ -34,16 +36,17 @@
 
           <div>
             <span>Endereço {{i + 1}}</span>
-            <span class="pull-right" *ngIf="enderecos?.controls.length > 1" (click)="removeEndereco(i)">x</span>
+            <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
+              (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
           </div>
 
           <app-endereco
-            [desabilitaSelecionarEndereco]="desabilitaElemento"
             [formEndereco]="endereco">
           </app-endereco>
 
         </ba-card>
-        <button (click)="adicionaEndereco()" type="reset" class="btn btn-danger btn-with-icon"> Novo </button>
+        <button (click)="adicionarEndereco()" type="reset" 
+        class="adiciona pull-right btn btn-primary">+</button>
 
       </ba-card>
   </div>

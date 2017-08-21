@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { ClienteService } from './../../../../shared/services/cliente-service';
 import { Cliente } from './../../../../models/cliente.interface';
@@ -19,8 +19,10 @@ export class DetalhesClienteComponent implements OnInit {
   private id: string;
   private sub: any;
   private cliente: Cliente;
-  public desabilitaElemento = false;
   public dadosClienteCadastrado: Cliente;
+
+  get contatos(): FormArray { return this.formEdicaoCliente.get('contatos') as FormArray; }
+  get enderecos(): FormArray { return this.formEdicaoCliente.get('enderecos') as FormArray; }
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _clientService: ClienteService,
@@ -31,6 +33,8 @@ export class DetalhesClienteComponent implements OnInit {
   ngOnInit() {
     this.iniciarForm();
     this.obterIdCliente();
+    this.adicionarContato();
+    this.adicionarEndereco();
   }
 
   obterIdCliente() {
@@ -81,6 +85,25 @@ export class DetalhesClienteComponent implements OnInit {
         this.sucessoNaEdicao();
       });
 
+  }
+
+
+  removerContato(index) {
+    this.contatos.removeAt(index);
+  }
+
+  removerEndereco(index) {
+    this.enderecos.removeAt(index);
+  }
+
+  adicionarContato() {
+    const contatos: FormArray = <FormArray> this.formEdicaoCliente.get('contatos');
+    contatos.push(this._fb.group(formContatoControls));
+  }
+
+  adicionarEndereco() {
+    const enderecos: FormArray = <FormArray> this.formEdicaoCliente.get('enderecos');
+    enderecos.push(this._fb.group(formEnderecoControls));
   }
 
 

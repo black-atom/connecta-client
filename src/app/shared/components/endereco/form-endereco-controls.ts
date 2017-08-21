@@ -6,7 +6,7 @@ export let formEnderecoControls = {
     bairro: ['', [Validators.required]],
     numero: ['', [Validators.required]],
     cidade: ['', [Validators.required]],
-    complemento: ['', [Validators.required]],
-    ponto_referencia: ['', [Validators.required]],
+    complemento: [''],
+    ponto_referencia: [''],
     uf: ['', [Validators.required]]
 };

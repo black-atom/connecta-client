@@ -7,18 +7,12 @@ import { DadosEndereco } from './../../../models';
 
 @Component({
   selector: 'app-endereco',
-  templateUrl: './endereco.component.html'
+  templateUrl: './endereco.component.html',
+  styleUrls: ['./endereco.component.scss']
 })
 export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
-  @Input() desabilitaSelecionarEndereco: Boolean;
-
-  selectedCity: Object;
-  cities: Object[] = [
-      { name: 'SF' },
-      { name: 'NYC' }
-   ];
 
   constructor(
     private _cepService: CepService,

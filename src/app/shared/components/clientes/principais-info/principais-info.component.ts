@@ -13,12 +13,38 @@ import { ClienteService } from './../../../services/cliente-service/cliente.serv
 export class PrincipaisInfoComponent implements OnInit {
 
   @Input() formDadosPrincipais: FormGroup;
+  private inscricaoEstadual = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/];
+  
 
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService) { }
 
   ngOnInit() {
+    this.formDadosPrincipais.valueChanges.subscribe(dados => {
+      dados['cnpj_cpf'] = this.obterNumber(dados['cnpj_cpf']);
+    });
     }
+
+    obterNumber(str: string): string {
+    if (str === undefined) {
+      str = '';
+    }
+      return str.replace(/\D+/g, '');
+    } 
+    mask(valorDaLinha: string) {
+        if (valorDaLinha === undefined) {
+          valorDaLinha = '';
+    }
+
+  const valor = valorDaLinha.replace(/\D+/g, '');
+    if (valor.length > 11) {
+      return [/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/];
+  }else {
+      return [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/];
+  }
+  }
+
+
 
   // buscarCliente(cnpj) {
   //   this._clienteService.retornarTodos(cnpj)

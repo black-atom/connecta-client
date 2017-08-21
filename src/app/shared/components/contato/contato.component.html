@@ -1,48 +1,53 @@
 <form [formGroup]="formContato">
 
   <div class="row">
-  <div class="col-md-10 col-sm-12" *ngIf="!desabilitaSelecionarContato">
-      <div class="form-group">
-         <select class="form-control"
-            (change)="contatoSelecionado(contato)"
-            *ngFor="let contato of clienteRecebido?.contatos">
-           <option value="" disabled selected>Selecione o contato</option>
-           <option >
-             {{ contato?.nome+', '+ contato?.telefone+', '+ contato?.email }}
-            </option>
-         </select>
-       </div>
-     </div>
 
-     <!-- inicio do botao novo -->
-     <div class="col-md-2 col-sm-12" *ngIf="!desabilitaSelecionarContato">
-      <button type="reset" class="btn btn-danger btn-with-icon"
-      (click)="formContato.reset()"> Novo </button>
-     </div>
-     <!-- fim do botao novo -->
-
-    <div class="form-group col-md-12 col-sm-12" *ngIf="!desabilitaNome">
+    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="nome">Nome</label>
       <input type="text" class="form-control"
       formControlName="nome" id="nome">
+
+      <div class="text-danger" ngxErrors="nome" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Obrigatório!</small>
+          </div>
+        </div>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12">
+    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="email">E-mail</label>
       <input type="email" class="form-control"
       formControlName="email" id="email">
+
+      <div class="text-danger" ngxErrors="email" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Obrigatório!</small>
+          </div>
+        </div>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12">
+    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="telefone">Telefone</label>
       <input type="text" class="form-control"
       formControlName="telefone" id="telefone">
+      
+      <div class="text-danger" ngxErrors="telefone" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Obrigatório!</small>
+          </div>
+        </div>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12">
+    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="celular">Celular</label>
       <input type="text" class="form-control"
       formControlName="celular" id="celular">
+
+      <div class="text-danger" ngxErrors="celular" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Obrigatório!</small>
+          </div>
+        </div>
     </div>
 
     <div class="form-group col-md-12 col-sm-12">
@@ -50,7 +55,6 @@
       <input type="text" class="form-control"
       formControlName="observacao" id="observacao">
     </div>
-
   </div>
 
   </form>

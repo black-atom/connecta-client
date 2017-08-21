@@ -5,7 +5,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
+import { ClienteService } from './services/cliente-service/cliente.service';
 import { EnderecoComponent } from './components/endereco/endereco.component';
 import { ContatoComponent } from './components/contato/contato.component';
 import { PrincipaisInfoComponent } from './components/clientes/principais-info';
@@ -17,7 +20,9 @@ import { CepService } from './services/cep-service/cep.service';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    SimpleNotificationsModule
+    SimpleNotificationsModule,
+    TextMaskModule,
+    NgxErrorsModule
   ],
   declarations: [
     EnderecoComponent,
@@ -26,7 +31,8 @@ import { CepService } from './services/cep-service/cep.service';
 ],
   providers: [
     CepService,
-    LoginService
+    LoginService,
+    ClienteService
   ],
   exports: [
     EnderecoComponent,

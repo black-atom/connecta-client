@@ -12,10 +12,6 @@ import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento'
 import { AssociarComponent } from './components/associar/';
 import { AtendimentosDisponiveisComponent } from './components/associar/atendimentos-disponiveis/';
 import { InformacoesAtendimentoComponent } from './components/shared-components/informacoes-atendimento/';
-import { CepService } from './../../shared/services/cep-service/cep.service';
-import { TecnicoService } from './../../shared/services/tecnico-service/';
-import { AtendimentoService } from './../../shared/services/atendimento-service';
-import { ClienteService } from './../../shared/services/cliente-service';
 import { routing } from './atendimentos.routing';
 
 
@@ -42,10 +38,7 @@ import { routing } from './atendimentos.routing';
     AtendimentosDisponiveisComponent
   ],
   providers: [
-    CepService,
-    TecnicoService,
-    AtendimentoService,
-    ClienteService
+    SharedModule
   ]
 })
 export class AtendimentosModule { }

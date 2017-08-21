@@ -9,8 +9,6 @@ import { ClientesComponent } from './clientes.component';
 import { NovoClienteComponent } from './components/novo-cliente';
 import { GerenciarComponent, BtnDetalhesCliComponent } from './components/gerenciar';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
-import { CepService } from './../../shared/services/cep-service/cep.service';
-import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
 import { routing } from './clientes.routing';
 import { TesteComponent } from './components/teste/teste.component';
 
@@ -25,8 +23,7 @@ import { TesteComponent } from './components/teste/teste.component';
     FormsModule
   ],
   providers: [
-    CepService,
-    ClienteService
+    SharedModule
   ],
   entryComponents: [
     BtnDetalhesCliComponent

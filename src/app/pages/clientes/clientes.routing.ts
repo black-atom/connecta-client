@@ -1,3 +1,4 @@
+import { TesteComponent } from './components/teste/teste.component';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClientesComponent } from './clientes.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'novo', component: NovoClienteComponent },
       { path: 'gerenciar', component: GerenciarComponent },
+      { path: 'teste', component: TesteComponent },
       { path: 'detalhes/:id', component: DetalhesClienteComponent }
     ]
   }

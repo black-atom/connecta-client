@@ -12,6 +12,7 @@ import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { CepService } from './../../shared/services/cep-service/cep.service';
 import { ClienteService } from './../../shared/services/cliente-service/cliente.service';
 import { routing } from './clientes.routing';
+import { TesteComponent } from './components/teste/teste.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { routing } from './clientes.routing';
     NovoClienteComponent, 
     GerenciarComponent,  
     DetalhesClienteComponent,
-    BtnDetalhesCliComponent
+    BtnDetalhesCliComponent,
+    TesteComponent
   ]
 })
 export class ClientesModule { }

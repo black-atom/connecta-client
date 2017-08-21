@@ -19,7 +19,7 @@ export class LoginEffects {
   .switchMap( payload => {
     return this.loginService.logar(payload)
     .map( (response: LoginState) => LoginActions.loginSuccess(response) )
-    .catch( () => Observable.of({ type: LoginActions.LOGIN_FAILED }) ) ;
+    .catch( () => Observable.of(LoginActions.loginFailed('Usuário ou senha incorretos!!!')));
   });
 
 }

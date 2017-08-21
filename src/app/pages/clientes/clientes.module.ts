@@ -10,13 +10,12 @@ import { NovoClienteComponent } from './components/novo-cliente';
 import { GerenciarComponent, BtnDetalhesCliComponent } from './components/gerenciar';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { routing } from './clientes.routing';
-import { TesteComponent } from './components/teste/teste.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    Ng2SmartTableModule, 
-    NgaModule, 
+    Ng2SmartTableModule,
+    NgaModule,
     routing,
     ReactiveFormsModule,
     SharedModule,
@@ -30,11 +29,10 @@ import { TesteComponent } from './components/teste/teste.component';
   ],
   declarations: [
     ClientesComponent,
-    NovoClienteComponent, 
-    GerenciarComponent,  
+    NovoClienteComponent,
+    GerenciarComponent,
     DetalhesClienteComponent,
-    BtnDetalhesCliComponent,
-    TesteComponent
+    BtnDetalhesCliComponent
   ]
 })
 export class ClientesModule { }

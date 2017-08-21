@@ -14,8 +14,8 @@ import { routing } from './clientes.routing';
 @NgModule({
   imports: [
     CommonModule,
-    Ng2SmartTableModule, 
-    NgaModule, 
+    Ng2SmartTableModule,
+    NgaModule,
     routing,
     ReactiveFormsModule,
     SharedModule,
@@ -29,8 +29,8 @@ import { routing } from './clientes.routing';
   ],
   declarations: [
     ClientesComponent,
-    NovoClienteComponent, 
-    GerenciarComponent,  
+    NovoClienteComponent,
+    GerenciarComponent,
     DetalhesClienteComponent,
     BtnDetalhesCliComponent
   ]

@@ -6,10 +6,9 @@
   <div class="col-md-10 col-sm-12" *ngIf="!desabilitaSelecionarEndereco">
      <div class="form-group">
         <select class="form-control"
-          (change)="enderecoSelecionado(endereco)"
-          *ngFor="let endereco of clienteRecebido?.enderecos">
-          <option value="" selected>Selecione o endereço</option>
-          <option>{{
+        (change)="enderecoSelecionado($event)">
+          <option selected>Selecione o endereço</option>
+          <option [value]=endereco *ngFor="let endereco of clienteRecebido?.enderecos; let i = index">{{
             endereco?.rua + " - "
             + endereco?.numero + " - "
             + endereco?.bairro +", "
@@ -30,7 +29,7 @@
 
     <div class="form-group col-md-10 col-sm-12">
       <label for="cep">CEP</label>
-      <input type="number" style="width: 15em" class="form-control"
+      <input type="text" style="width: 15em" class="form-control"
       placeholder="Insira um CEP" formControlName="cep"
       (blur)="buscaPorCep($event.target.value)" id="cep">
     </div>

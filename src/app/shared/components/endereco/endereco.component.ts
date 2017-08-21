@@ -34,6 +34,7 @@ export class EnderecoComponent implements OnInit {
   }
 }
   enderecoSelecionado(endereco) {
+    console.dir(endereco);
     this.formEndereco.get('cep').patchValue(endereco.cep);
     this.formEndereco.get('cidade').patchValue(endereco.cidade);
     this.formEndereco.get('complemento').patchValue(endereco.complemento);

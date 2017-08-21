@@ -32,8 +32,6 @@ export class NovoClienteComponent implements OnInit {
               razao_social: ['', [Validators.required]],
               inscricao_estadual: [''],
               nome_fantasia: [''],
-              createdAt: [''],
-              updatedAt: [''],
               contatos: this._fb.array([]),
               enderecos: this._fb.array([])
       });

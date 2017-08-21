@@ -3,8 +3,8 @@
 <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
   <div class="col-12">
-    <ba-card cardTitle="Dados principais">          
-      <app-principais-info-cliente 
+    <ba-card cardTitle="Dados principais">
+      <app-principais-info-cliente
       [formDadosPrincipais]="formAtendimento">
     </app-principais-info-cliente>
     </ba-card>
@@ -33,7 +33,7 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Atendimento">
-      <app-informacoes-atendimento 
+      <app-informacoes-atendimento
       [formDescricaoAtendimento]="formAtendimento">
     </app-informacoes-atendimento>
     </ba-card>
@@ -47,7 +47,7 @@
       <div class="row">
         <div class="col-md-6 col-sm-12">
 
-          <button type="submit" class="btn btn-primary btn-with-icon" 
+          <button type="submit" class="btn btn-primary btn-with-icon"
           (click)="cadastrarAtendimento(formAtendimento.value)">
           <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
         </div>

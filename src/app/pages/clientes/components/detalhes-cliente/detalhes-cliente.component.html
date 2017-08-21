@@ -13,8 +13,7 @@
     <ba-card cardTitle="Contato"
     *ngFor="let contato of formEdicaoCliente.controls['contatos'].controls; let i=index">
       <app-contato
-      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]"
-      [clienteRecebido]="dadosClienteCadastrado">
+      [formContato]="formEdicaoCliente.controls['contatos'].controls[i]">
     </app-contato>
     </ba-card>
   </div>
@@ -25,8 +24,7 @@
     <ba-card cardTitle="Endereço" >
       <app-endereco
       [desabilitaSelecionarEndereco]="desabilitaElemento"
-      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]"
-      [clienteRecebido]="dadosClienteCadastrado">
+      [formEndereco]="formEdicaoCliente.controls['enderecos'].controls[i]">
     </app-endereco>
     </ba-card>
   </div>

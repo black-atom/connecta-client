@@ -13,7 +13,12 @@ export class EnderecoComponent implements OnInit {
 
   @Input() formEndereco: FormGroup;
   @Input() desabilitaSelecionarEndereco: Boolean;
-  @Input() clienteRecebido: Cliente;
+
+  selectedCity: Object;
+  cities: Object[] = [
+      { name: 'SF' },
+      { name: 'NYC' }
+   ];
 
   constructor(
     private _cepService: CepService,
@@ -30,19 +35,7 @@ export class EnderecoComponent implements OnInit {
           this.formEndereco.get('uf').patchValue(dados.uf);
           this.formEndereco.get('rua').patchValue(dados.logradouro);
           this.formEndereco.get('bairro').patchValue(dados.bairro);
-      });
+        });
+      }
   }
-}
-  enderecoSelecionado(endereco) {
-    console.dir(endereco);
-    this.formEndereco.get('cep').patchValue(endereco.cep);
-    this.formEndereco.get('cidade').patchValue(endereco.cidade);
-    this.formEndereco.get('complemento').patchValue(endereco.complemento);
-    this.formEndereco.get('uf').patchValue(endereco.uf);
-    this.formEndereco.get('rua').patchValue(endereco.rua);
-    this.formEndereco.get('bairro').patchValue(endereco.bairro);
-    this.formEndereco.get('numero').patchValue(endereco.numero);
-    this.formEndereco.get('ponto_referencia').patchValue(endereco.ponto_referencia);
-}
-
 }

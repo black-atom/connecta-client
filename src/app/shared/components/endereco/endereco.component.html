@@ -3,12 +3,11 @@
   <div class="row">
 
 
-  <div class="col-md-10 col-sm-12" *ngIf="!desabilitaSelecionarEndereco">
-     <div class="form-group">
-        <select class="form-control"
-        (change)="enderecoSelecionado($event)">
-          <option selected>Selecione o endereço</option>
-          <option [value]=endereco *ngFor="let endereco of clienteRecebido?.enderecos; let i = index">{{
+   <!-- <div class="col-md-10 col-sm-12" *ngIf="!desabilitaSelecionarEndereco">
+      <div class="form-group">
+        <select class="form-control"    (change)="enderecoSelecionado()">
+          <option selected [ngValue]="{}">Selecione o endereço</option>
+          <option [ngValue]="endereco" *ngFor="let endereco of clienteRecebido?.enderecos; let i = index">{{
             endereco?.rua + " - "
             + endereco?.numero + " - "
             + endereco?.bairro +", "
@@ -18,7 +17,8 @@
           </option>
         </select>
       </div>
-    </div>
+
+    </div> -->
 
        <!-- inicio do botao novo -->
        <div class="col-md-2 col-sm-12" *ngIf="!desabilitaSelecionarEndereco">

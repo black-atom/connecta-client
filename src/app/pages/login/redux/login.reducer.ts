@@ -23,10 +23,10 @@ export const loginReducer: ActionReducer<LoginState> = ( state = initialState , 
 
   switch ( type ) {
     case LoginActions.LOGIN_SUCCESS:
-      return Object.assign({}, state, payload, { error: null });
+      return Object.assign({}, state, payload, { error: null, logged: true });
 
     case LoginActions.LOGIN_FAILED:
-      return Object.assign({}, state, { error: payload });
+      return Object.assign({}, state, { error: payload, logged: false });
 
     default:
       return state;
@@ -35,4 +35,6 @@ export const loginReducer: ActionReducer<LoginState> = ( state = initialState , 
 };
 
 export const getLogin = (state: AppState) => state.login as LoginState;
+
+export const getIsLogged = (state: AppState) => getLogin(state).logged;
 

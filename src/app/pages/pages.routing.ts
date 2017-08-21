@@ -1,3 +1,4 @@
+import { LoggedGuardService } from '../shared/guards/logged-guard.service';
 import { Routes, RouterModule }  from '@angular/router';
 import { Pages } from './pages.component';
 import { ModuleWithProviders } from '@angular/core';
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: 'pages',
     component: Pages,
+    canActivate: [LoggedGuardService],
     children: [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
       { path: 'home', loadChildren: './home/home.module#HomeModule' },

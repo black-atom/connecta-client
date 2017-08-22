@@ -65,18 +65,15 @@ export class DetalhesClienteComponent implements OnInit {
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
       this.formEdicaoCliente.controls['contatos'].patchValue(res.contatos);
       this.formEdicaoCliente.controls['enderecos'].patchValue(res.enderecos);
+      this.dadosClienteCadastrado = res;
     });
   }
 
   atualizarCliente(cliente) {
+      cliente.value.updatedAt = new Date();
+      cliente.value.id = this.id;
 
-    Array.prototype.push.apply(cliente.contatos, this.dadosClienteCadastrado.contatos);
-    Array.prototype.push.apply(cliente.enderecos, this.dadosClienteCadastrado.enderecos);
-      cliente.updatedAt = new Date();
-      cliente.id = this.dadosClienteCadastrado.id;
-      cliente.createdAt = this.dadosClienteCadastrado.createdAt;
-
-      this._clientService.atualizarCliente(cliente)
+      this._clientService.atualizarCliente(cliente.value)
       .subscribe(dados => {
       },
       erro => {

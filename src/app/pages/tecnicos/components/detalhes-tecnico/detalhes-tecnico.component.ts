@@ -101,7 +101,7 @@ export class DetalhesTecnicoComponent implements OnInit {
 
     atualizarTecnico(tecnico) {
       tecnico.value.updatedAt = new Date();
-      tecnico.value.id = this.tecnicoRecebido.id;
+      tecnico.value.id = this.id;
       tecnico.value.createdAt = this.tecnicoRecebido.id;
 
       this._tecnicoService.atualizarTecnico(tecnico.value)

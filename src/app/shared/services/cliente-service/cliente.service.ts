@@ -15,7 +15,7 @@ export class ClienteService {
   constructor(private _http: Http) { }
 
   retornarTodos(cnpjCpf?: any): Observable <Cliente[]> {
-    
+
     return this._http.get(this.url, { params: { cnpj_cpf: cnpjCpf } })
                      .map(res => res.json() as Cliente[])
                      .catch(ManipuladorErro.lidaComErro);
@@ -39,9 +39,10 @@ export class ClienteService {
   atualizarCliente(cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
-  
-    return this._http.put(`${this.url}${cliente.id}`, cliente, options)
+
+    return this._http.put(`${this.url}${cliente.id}/`, cliente, options)
                      .map(res => res.json() as Cliente)
-                     .catch(ManipuladorErro.lidaComErro);  
+                     .catch(ManipuladorErro.lidaComErro);
   }
 }
+

@@ -1,10 +1,10 @@
-import { LoggedGuardService } from '../shared/guards/logged-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { routing } from './pages.routing';
 import { NgaModule } from '../theme/nga.module';
 import { AppTranslationModule } from '../app.translation.module';
+// import { LoggedGuardService } from '../shared/guards/logged-guard.service';
 
 import { Pages } from './pages.component';
 
@@ -16,7 +16,7 @@ import { Pages } from './pages.component';
     routing
   ],
   providers: [
-    LoggedGuardService
+    // LoggedGuardService
   ],
   declarations: [Pages]
 })

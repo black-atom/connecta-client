@@ -6,28 +6,28 @@
 
         <div class="form-group col-md-12 col-sm-12">
           <label for="nome">Nome completo</label>
-          <input type="text" class="form-control" 
+          <input type="text" class="form-control"
           formControlName="nome" id="nome">
         </div>
 
          <div class="form-group col-md-4 col-sm-12">
           <label for="rg">RG</label>
-          <input type="text" class="form-control" 
-          formControlName="rg" id="rg">
+          <input type="text" class="form-control"
+          formControlName="rg" id="rg" [textMask]="{ mask : mascaraRg }">
         </div>
 
         <div class="form-group col-md-4 col-sm-12">
           <label for="cpf">CPF</label>
-          <input type="text" class="form-control" 
-          formControlName="cpf" id="cpf">
+          <input type="text" class="form-control"
+          formControlName="cpf" id="cpf" [textMask]="{ mask : mascaraCpf }">
         </div>
 
         <div class="form-group col-md-4 col-sm-12">
           <label for="data_nasc">Data de nascimento</label>
-          <input type="text" class="form-control" 
-          formControlName="data_nasc" id="data_nasc">
+          <input type="text" class="form-control"
+          formControlName="data_nasc" id="data_nasc" [textMask]="{ mask : mascaraDataNasc }">
         </div>
-        
+
        </div>
      </div>
 

@@ -63,7 +63,8 @@ export class DetalhesClienteComponent implements OnInit {
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
-      this.dadosClienteCadastrado = res;
+      this.formEdicaoCliente.controls['contatos'].patchValue(res.contatos);
+      this.formEdicaoCliente.controls['enderecos'].patchValue(res.enderecos);
     });
   }
 

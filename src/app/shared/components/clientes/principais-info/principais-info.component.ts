@@ -14,7 +14,7 @@ export class PrincipaisInfoComponent implements OnInit {
 
   @Input() formDadosPrincipais: FormGroup;
   private inscricaoEstadual = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/];
-  
+
 
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService) { }
@@ -30,7 +30,8 @@ export class PrincipaisInfoComponent implements OnInit {
       str = '';
     }
       return str.replace(/\D+/g, '');
-    } 
+    }
+
     mask(valorDaLinha: string) {
         if (valorDaLinha === undefined) {
           valorDaLinha = '';

@@ -12,7 +12,10 @@ import { DadosEndereco } from './../../../models';
 })
 export class EnderecoComponent implements OnInit {
 
-  @Input() formEndereco: FormGroup;
+  @Input()
+  formEndereco: FormGroup;
+
+  private mascaraCep = [/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/];
 
   constructor(
     private _cepService: CepService,

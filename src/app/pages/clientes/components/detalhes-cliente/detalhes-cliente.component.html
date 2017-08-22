@@ -32,7 +32,7 @@
 
           <div>
             <span>Endereço {{i + 1}}</span>
-            <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
+            <span class="pull-right" *ngIf="enderecos?.controls.length > 1"
             (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
           </div>
 
@@ -41,7 +41,7 @@
           </app-endereco>
 
         </ba-card>
-        <button (click)="adicionarEndereco()" type="reset" 
+        <button (click)="adicionarEndereco()" type="reset"
         class="adiciona pull-right btn btn-primary">+</button>
       </ba-card>
   </div>
@@ -60,9 +60,8 @@
 
         <div class="col-md-6 col-sm-12">
           <button type="reset" class="btn btn-danger btn-with-icon"
-            (click)="formEdicaoCliente.reset()"
-            [disabled]="formEdicaoCliente.pristine">
-          <i class="ion-trash-a"></i>Limpar</button>
+           [routerLink]="['/pages/clientes/gerenciar']">
+          <i class="ion-close"></i>Cancelar</button>
         </div>
       </div>
 

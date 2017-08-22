@@ -25,7 +25,8 @@ export class EnderecoComponent implements OnInit {
   }
 
   buscaPorCep(cep: string) {
-      if (cep.length === 8) {
+   const removeCaracteresCep = cep.replace(/\D+/g, '');
+      if (removeCaracteresCep.length === 8) {
         this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
           this.formEndereco.get('cidade').patchValue(dados.localidade);
           this.formEndereco.get('complemento').patchValue(dados.complemento);

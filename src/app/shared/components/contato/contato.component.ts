@@ -1,7 +1,5 @@
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
 import { Component, OnInit, Input } from '@angular/core';
-import { Cliente } from './../../../models/';
 
 
 @Component({
@@ -19,12 +17,15 @@ export class ContatoComponent implements OnInit {
   ngOnInit() {
     }
 
-  contatoSelecionado(contato) {
-      this.formContato.get('nome').patchValue(contato.nome);
-      this.formContato.get('email').patchValue(contato.email);
-      this.formContato.get('telefone').patchValue(contato.telefone);
-      this.formContato.get('celular').patchValue(contato.celular);
-      this.formContato.get('observacao').patchValue(contato.observacao);
+  mascaraTelefone(rawValue: string) {
+    if ( rawValue === undefined) {
+        rawValue = '';
+    }
+    const value = rawValue.replace(/\D+/g, '');
+    if ( value.length > 10 ) {
+        return ['(',/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]
+    } else {
+        return ['(',/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]
+    }
   }
-
 }

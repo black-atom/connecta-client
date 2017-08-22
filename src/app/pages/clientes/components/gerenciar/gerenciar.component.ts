@@ -6,13 +6,13 @@ import { ClienteService } from './../../../../shared/services';
 @Component({
   selector: 'button-view',
   template: `
-<button type="button" class="btn btn-info btn-block" 
+<button type="button" class="btn btn-info btn-block"
 routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-ios-redo"></i> Detalhes</button>
 `,
   styleUrls: ['./gerenciar.component.scss']
 })
 export class BtnDetalhesCliComponent implements ViewCell, OnInit {
-  
+
   public idCliente: string;
 
   @Input() value: string | number;
@@ -35,18 +35,18 @@ export class GerenciarComponent implements OnInit {
     actions: false,
     noDataMessage: 'Nenhum dado encontrado',
     columns: {
+      razao_social: {
+        title: 'Razão Social/Nome',
+        type: 'string'
+      },
       cnpj_cpf: {
         title: 'CNPJ/CPF',
         type: 'number'
       },
-      nome_fantasia: {
-        title: 'Nome',
-        type: 'string'
-      },
-      email: {
-        title: 'E-mail',
-        type: 'string'
-      },
+      // email: {
+      //   title: 'E-mail',
+      //   type: 'string'
+      // },
       contatos: {
         title: 'Telefone',
         valuePrepareFunction: contatos => {

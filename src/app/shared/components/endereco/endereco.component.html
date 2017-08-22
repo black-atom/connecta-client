@@ -4,7 +4,7 @@
 
     <div class="form-group col-md-2 col-sm-12" [class.required]="formEndereco.hasError('required')">
       <label for="cep">CEP</label>
-      <input type="text" class="form-control"
+      <input [textMask]="{ mask : mascaraCep }" type="text" class="form-control"
       placeholder="Insira um CEP" formControlName="cep"
       (blur)="buscaPorCep($event.target.value)" id="cep">
 

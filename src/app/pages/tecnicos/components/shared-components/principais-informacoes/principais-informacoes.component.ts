@@ -8,7 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PrincipaisInformacoesComponent implements OnInit {
 
-  @Input() dadosPrincipaisTecnico: FormGroup;
+  @Input()
+  dadosPrincipaisTecnico: FormGroup;
+
+  private mascaraCpf = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/];
+  private mascaraRg = [/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/];
+  private mascaraDataNasc = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
+
 
   constructor() { }
 

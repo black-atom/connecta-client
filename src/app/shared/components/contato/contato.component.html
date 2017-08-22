@@ -29,8 +29,8 @@
     <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="telefone">Telefone</label>
       <input type="text" class="form-control"
-      formControlName="telefone" id="telefone">
-      
+      formControlName="telefone" id="telefone" [textMask]="{ mask : mascaraTelefone }">
+
       <div class="text-danger" ngxErrors="telefone" #myError="ngxErrors">
           <div ngxError="required" when="touched">
             <small>Obrigatório!</small>
@@ -41,7 +41,7 @@
     <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
       <label for="celular">Celular</label>
       <input type="text" class="form-control"
-      formControlName="celular" id="celular">
+      formControlName="celular" id="celular" [textMask]="{ mask : mascaraTelefone }">
 
       <div class="text-danger" ngxErrors="celular" #myError="ngxErrors">
           <div ngxError="required" when="touched">

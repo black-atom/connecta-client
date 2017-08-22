@@ -24,7 +24,7 @@ export class TecnicoService {
                      .catch(ManipuladorErro.lidaComErro);
  }
 
-  novoTecnico(tecnico: Tecnico) {
+  novoTecnico(tecnico: Tecnico): Observable<Tecnico> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
@@ -33,7 +33,7 @@ export class TecnicoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  atualizarTecnico(tecnico: Tecnico) {
+  atualizarTecnico(tecnico: Tecnico): Observable<Tecnico> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 

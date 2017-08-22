@@ -85,7 +85,6 @@ export class DetalhesClienteComponent implements OnInit {
 
   }
 
-
   removerContato(index) {
     this.contatos.removeAt(index);
   }

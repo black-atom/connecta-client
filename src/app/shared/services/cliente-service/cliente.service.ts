@@ -45,3 +45,4 @@ export class ClienteService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 }
+

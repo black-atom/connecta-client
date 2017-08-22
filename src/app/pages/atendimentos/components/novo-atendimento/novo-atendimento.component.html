@@ -15,6 +15,12 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Contato">
+        <div class="form-group">
+            <label for="selecionar_contato">Selecionar contato</label>
+            <select class="form-control" id="selecionar_contato" >
+              <option>Endereço 1</option>
+            </select>
+          </div>
       <app-contato [formContato]="formAtendimento"></app-contato>
     </ba-card>
   </div>
@@ -24,6 +30,12 @@
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Endereço">
+        <div class="form-group">
+            <label for="selecionar_endereco">Selecionar endereço</label>
+            <select class="form-control" id="selecionar_endereco" >
+              <option>Contato 1</option>
+            </select>
+          </div>
       <app-endereco [formEndereco]="formAtendimento"></app-endereco>
     </ba-card>
   </div>

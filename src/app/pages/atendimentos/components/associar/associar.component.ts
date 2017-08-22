@@ -29,8 +29,8 @@ export class AssociarComponent implements OnInit {
               private _servicoModal: NgbModal) {}
 
   ngOnInit() {
-      // this._tecnicoService.retornarTodos()
-      //                     .subscribe(res => this.tecnicos = res);
+      this._tecnicoService.retornarTodos()
+                          .subscribe(res => this.tecnicos = res);
   }
 
   abrirModalDeConfirmacao(conteudo, atendimento, tecnico) {
@@ -39,8 +39,6 @@ export class AssociarComponent implements OnInit {
     this._servicoModal.open(conteudo);
  }
    
-
-
   abrirModal(tecnicoSelecionado) {
 
     const modalRef = this._servicoModal

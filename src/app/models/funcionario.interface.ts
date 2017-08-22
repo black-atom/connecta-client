@@ -21,7 +21,7 @@ interface Login {
 }
 
 interface Habilitacao {
-  nunmero: string;
+  numero: string;
   validade: string;
 }
 

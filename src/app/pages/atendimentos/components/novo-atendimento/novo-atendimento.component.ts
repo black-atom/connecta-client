@@ -23,8 +23,8 @@ export class NovoAtendimentoComponent implements OnInit {
     this.formAtendimento = this._fb.group({
       razao_social: ['', Validators.required],
       cnpj_cpf: ['', [Validators.required]],
-      inscricao_estadual: ['', [Validators.required]],
-      nome_fantasia: ['', [Validators.required]],
+      inscricao_estadual: [''],
+      nome_fantasia: [''],
       email: ['', [Validators.pattern(this.emailPattern)]],
       nome: ['', Validators.required],
       telefone: ['', [Validators.required]],
@@ -43,7 +43,6 @@ export class NovoAtendimentoComponent implements OnInit {
       createAt: [''],
       updatedAt: [''],
       tecnico: this._fb.array([])
-
     });
   }
 

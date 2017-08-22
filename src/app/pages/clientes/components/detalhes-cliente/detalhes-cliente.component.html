@@ -14,13 +14,15 @@
       <ba-card *ngFor="let contato of contatos?.controls; let i=index">
           <div>
             <span>Contato {{i + 1}}</span>
-            <span class="pull-right" *ngIf="contatos?.controls.length > 1" (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
+            <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
+              (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
           </div>
-          <app-contato
+          <app-contato 
             [formContato]="contato">
           </app-contato>
       </ba-card>
-      <button (click)="adicionarContato()" type="reset" class="adiciona pull-right btn btn-primary">+</button>
+      <button (click)="adicionarContato()" type="reset" 
+      class="adiciona pull-right btn btn-primary">+</button>
     </ba-card>
   </div>
 

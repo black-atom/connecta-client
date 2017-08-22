@@ -4,6 +4,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from './../../shared/shared.module';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
@@ -23,6 +24,7 @@ import { routing } from './atendimentos.routing';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    NgxErrorsModule,
     routing
   ],
   entryComponents: [

@@ -6,11 +6,11 @@ export interface Funcionario {
   endereco: Endereco;
   cpf: string;
   rg: string;
-  tel1: string;
+  telefone: string;
   habilitacao: Habilitacao;
   tipo: string[];
   email: string;
-  tel2: string;
+  celular: string;
   login: Login;
   photo_url: string;
 }

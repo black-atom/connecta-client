@@ -53,6 +53,26 @@
           "complemento": "(Vl S Pedro)",
           "ponto_referencia": "Padaria Branca de neves",
           "uf": "SP"
+        },
+        {
+          "cep": "432432432",
+          "rua": "Rua Bueno Vilela",
+          "bairro": "Montanhão",
+          "numero": "51",
+          "cidade": "São Bernardo do Campo",
+          "complemento": "(Vl S Pedro)",
+          "ponto_referencia": "Padaria Branca de neves",
+          "uf": "SP"
+        },
+       {
+          "cep": "423432432",
+          "rua": "Rua Bueno Vilela",
+          "bairro": "Montanhão",
+          "numero": "51",
+          "cidade": "São Bernardo do Campo",
+          "complemento": "(Vl S Pedro)",
+          "ponto_referencia": "Padaria Branca de neves",
+          "uf": "SP"
         }
       ],
       "id": 1

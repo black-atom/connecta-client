@@ -33,8 +33,6 @@ export class DetalhesClienteComponent implements OnInit {
   ngOnInit() {
     this.iniciarForm();
     this.obterIdCliente();
-    this.adicionarContato();
-    this.adicionarEndereco();
   }
 
   obterIdCliente() {
@@ -52,8 +50,8 @@ export class DetalhesClienteComponent implements OnInit {
       nome_fantasia: [''],
       createdAt: [''],
       updatedAt: [''],
-      contatos: this._fb.array([this._fb.group(formContatoControls)]),
-      enderecos: this._fb.array([this._fb.group(formEnderecoControls)])
+      contatos: this._fb.array([]),
+      enderecos: this._fb.array([])
   });
   }
 
@@ -63,7 +61,14 @@ export class DetalhesClienteComponent implements OnInit {
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
+      /**
+       *  Add the number of necessary contacts according to the number of contacts that comes
+       *  from the server
+      */
+      res.contatos.forEach( () => this.adicionarContato() );
       this.formEdicaoCliente.controls['contatos'].patchValue(res.contatos);
+
+      res.enderecos.forEach( () => this.adicionarEndereco() );
       this.formEdicaoCliente.controls['enderecos'].patchValue(res.enderecos);
       this.dadosClienteCadastrado = res;
     });

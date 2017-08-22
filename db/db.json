@@ -1,54 +1,61 @@
 {
-    "atendimentos": [],
-    "tecnicos": [],
-    "clientes": [{
-        "id": 1,
-        "razao_social": "Realponto Com. Serv. Ponto",
-        "cnpj_cpf": "123.456.789-11",
-        "email": "realponto@real.com.br",
-        "nome_fantasia": "Realponto",
-        "inscricao_estadual": "323123213",
-        "enderecos": [{
-            "id": 1,
-            "rua": "Rua Dr.Cincinato Braga",
-            "complemento": "Perto da Padaria Tranza",
-            "bairro": "Planalto",
-            "cidade": "São Bernardo do Campo",
-            "estado": "São Paulo",
-            "ponto_refencia": "Rua sem saída",
-            "cep": "123456-78"
-        }],
-        "contatos": [{
-            "id": 1,
-            "telefone": "1234-5678",
-            "nome": "Jose Januario",
-            "email": "jose@realponto.com.br",
-            "obervacao": "Só atende em dias da semana"
-        }]
-    },
+  "atendimentos": [],
+  "tecnicos": [
     {
-        "id": 2,
-        "razao_social": "Realponto Com. Serv. Ponto",
-        "cnpj_cpf": "123.456.789-11",
-        "email": "realponto@real.com.br",
-        "nome_fantasia": "Digaspi",
-        "inscricao_estadual": "323123213",
-        "enderecos": [{
-            "id": 1,
-            "rua": "Rua Dr.Cincinato Braga",
-            "complemento": "Perto da Padaria Tranza",
-            "bairro": "Planalto",
-            "cidade": "São Bernardo do Campo",
-            "estado": "São Paulo",
-            "ponto_refencia": "Rua sem saída",
-            "cep": "123456-78"
-        }],
-        "contatos": [{
-            "id": 1,
-            "telefone": "1234-5678",
-            "nome": "Jose Januario",
-            "email": "jose@realponto.com.br",
-            "obervacao": "Só atende em dias da semana"
-        }]
-    }]
+      "nome": "ALexandre ",
+      "rg": "54.353.453-4",
+      "cpf": "534.534.534-54",
+      "data_nasc": "25/05/1994",
+      "email": "alexandredevrp@gmail.com",
+      "telefone": "(43) 2423-4232",
+      "celular": "(43) 2423-4234",
+      "observacao": "Teste Alexandre",
+      "cnh": "89080988098",
+      "validade_carteira": "19/09/2022",
+      "rua": "bueno vilela, 51, casa",
+      "numero": "51",
+      "complemento": "São Pedro",
+      "ponto_referencia": "",
+      "bairro": "Montanhão",
+      "cidade": "são bernardo do campo",
+      "uf": "são paulo",
+      "cep": "09784-385",
+      "createdAt": 1,
+      "updatedAt": "2017-08-22T13:06:49.105Z",
+      "atendimentos": [],
+      "id": 1
+    }
+  ],
+  "clientes": [
+    {
+      "cnpj_cpf": "99988778787",
+      "razao_social": "Alexandre dos Santos Soares",
+      "inscricao_estadual": "",
+      "nome_fantasia": "",
+      "createdAt": "",
+      "updatedAt": "2017-08-22T13:24:11.983Z",
+      "contatos": [
+        {
+          "nome": "Alexandre dos santos soares",
+          "email": "alexandredevrp@gmail.com",
+          "telefone": "11982269470",
+          "celular": "11982269470",
+          "observacao": "horario comercial do cliente é das 08h-17h"
+        }
+      ],
+      "enderecos": [
+        {
+          "cep": "09784385",
+          "rua": "Rua Bueno Vilela",
+          "bairro": "Montanhão",
+          "numero": "51",
+          "cidade": "São Bernardo do Campo",
+          "complemento": "(Vl S Pedro)",
+          "ponto_referencia": "Padaria Branca de neves",
+          "uf": "SP"
+        }
+      ],
+      "id": 1
+    }
+  ]
 }

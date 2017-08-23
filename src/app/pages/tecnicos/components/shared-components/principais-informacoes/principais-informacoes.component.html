@@ -4,28 +4,47 @@
     <div class="col-md-9">
       <div class="row">
 
-        <div class="form-group col-md-12 col-sm-12">
+        <div class="form-group col-md-12 col-sm-12" [class.required]="dadosPrincipaisTecnico.hasError('required')">
           <label for="nome">Nome completo</label>
           <input type="text" class="form-control"
           formControlName="nome" id="nome">
         </div>
 
-         <div class="form-group col-md-4 col-sm-12">
+         <div class="form-group col-md-4 col-sm-12" [class.required]="dadosPrincipaisTecnico.hasError('required')">
           <label for="rg">RG</label>
           <input type="text" class="form-control"
           formControlName="rg" id="rg" [textMask]="{ mask : mascaraRg }">
+
+          <div class="text-danger" ngxErrors="rg" #myError="ngxErrors">
+            <div ngxError="required" when="touched">
+              <small>Requerido!</small>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group col-md-4 col-sm-12">
+        <div class="form-group col-md-4 col-sm-12" [class.required]="dadosPrincipaisTecnico.hasError('required')">
           <label for="cpf">CPF</label>
           <input type="text" class="form-control"
           formControlName="cpf" id="cpf" [textMask]="{ mask : mascaraCpf }">
+
+          <div class="text-danger" ngxErrors="cpf" #myError="ngxErrors">
+            <div ngxError="required" when="touched">
+              <small>Requerido!</small>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group col-md-4 col-sm-12">
+        <div class="form-group col-md-4 col-sm-12" [class.required]="dadosPrincipaisTecnico.hasError('required')">
           <label for="data_nasc">Data de nascimento</label>
           <input type="text" class="form-control"
           formControlName="data_nasc" id="data_nasc" [textMask]="{ mask : mascaraDataNasc }">
+
+          <div class="text-danger" ngxErrors="data_nasc" #myError="ngxErrors">
+            <div ngxError="required" when="touched">
+              <small>Requerido!</small>
+            </div>
+          </div>
+          
         </div>
 
        </div>

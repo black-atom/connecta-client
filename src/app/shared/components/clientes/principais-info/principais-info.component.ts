@@ -12,7 +12,12 @@ import { ClienteService } from './../../../services/cliente-service/cliente.serv
 })
 export class PrincipaisInfoComponent implements OnInit {
 
-  @Input() formDadosPrincipais: FormGroup;
+  @Input()
+  formDadosPrincipais: FormGroup;
+
+  @Output()
+  enviaCnpj = new EventEmitter();
+
   private inscricaoEstadual = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/];
 
 
@@ -45,6 +50,10 @@ export class PrincipaisInfoComponent implements OnInit {
   }
   }
 
+  emiteEventoCnpj(cnpj) {
+    const removerCaracteres = this.obterNumber(cnpj);
+    this.enviaCnpj.emit(removerCaracteres);
+  }
 
 
   // buscarCliente(cnpj) {

@@ -1,11 +1,11 @@
 <div class="row" [formGroup]="formDescricaoAtendimento">
 
-  <div class="col-md-2 col-sm-12" 
+  <div class="col-md-2 col-sm-12"
   [class.required]="formDescricaoAtendimento.hasError('required')">
     <div class="form-group">
       <label for="data_atendimento">Data do atendimento</label>
-      <input type="text" class="form-control" 
-      formControlName="data_atendimento" id="data_atendimento">
+      <input type="text" class="form-control"
+      formControlName="data_atendimento" id="data_atendimento" [textMask]="{ mask : mascaraDataAtendimento }">
     </div>
 
     <div class="text-danger" ngxErrors="data_atendimento" #myError="ngxErrors">
@@ -29,7 +29,7 @@
 
   <div class="col-md-5 col-sm-12">
     <div class="form-group">
-      <select class="form-control">
+      <select class="form-control" formControlName="tipo_atendimento">
         <option value="" disabled selected>Selecione o tipo do atendimento</option>
         <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
       </select>
@@ -39,10 +39,17 @@
   <div class="col-md-12 col-sm-12">
     <div class="form-group">
       <label for="descricao_atendimento">Descrição do atendimento</label>
-      <textarea class="form-control" rows="3" 
+      <textarea class="form-control" rows="3"
       formControlName="decricao_atendimento" id="descricao_atendimento">
       </textarea>
     </div>
+
+    <div class="text-danger" ngxErrors="decricao_atendimento" #myError="ngxErrors">
+        <div ngxError="required" when="touched">
+          <small>Obrigatório!</small>
+        </div>
+      </div>
+
   </div>
 
 </div>

@@ -27,6 +27,12 @@ export class ClienteService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  buscarCliente(cnpj): Observable <Cliente> {
+    return this._http.get(this.url, { params: { cnpj_cpf : cnpj } } )
+                     .map(res => res.json() as Cliente)
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
   novoCliente(cliente: Cliente): Observable <Cliente> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });

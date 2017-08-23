@@ -11,8 +11,13 @@ import { TIPOATENDIMENTOMOCK } from './../../../../../utils/mocks';
 export class InformacoesAtendimentoComponent implements OnInit {
 
   tipoAtendimento = TIPOATENDIMENTOMOCK;
-  @Input() formDescricaoAtendimento: FormGroup;
-  
+
+  @Input()
+  formDescricaoAtendimento: FormGroup;
+
+  private mascaraDataAtendimento = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
+
+
   constructor() { }
 
   ngOnInit() {

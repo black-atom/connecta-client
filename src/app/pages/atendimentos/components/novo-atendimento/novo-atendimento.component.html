@@ -1,10 +1,10 @@
 <form [formGroup]="formAtendimento">
-
 <!-- Card com os inputs de dados principais do funcionário -->
 <div class="row">
   <div class="col-12">
     <ba-card cardTitle="Dados principais">
       <app-principais-info-cliente
+      (enviaCnpj)="buscarCliente($event)"
       [formDadosPrincipais]="formAtendimento">
     </app-principais-info-cliente>
     </ba-card>
@@ -17,8 +17,19 @@
     <ba-card cardTitle="Contato">
         <div class="form-group">
             <label for="selecionar_contato">Selecionar contato</label>
-            <select class="form-control" id="selecionar_contato" >
-              <option>Endereço 1</option>
+            <select class="form-control" id="selecionar_contato"
+            [(ngModel)]="contatoEscolhido"
+            [ngModelOptions]="{standalone: true}"
+            (change)="contatoSelecionado(contatoEscolhido)">
+              <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos">
+                {{
+                  contato?.nome + ', ' +
+                  contato?.email +', ' +
+                  contato?.telefone +', '+
+                  contato?.celular +', '+
+                  contato?.observacao
+                }}
+                </option>
             </select>
           </div>
       <app-contato [formContato]="formAtendimento"></app-contato>
@@ -32,8 +43,20 @@
     <ba-card cardTitle="Endereço">
         <div class="form-group">
             <label for="selecionar_endereco">Selecionar endereço</label>
-            <select class="form-control" id="selecionar_endereco" >
-              <option>Contato 1</option>
+            <select class="form-control" id="selecionar_endereco"
+            [(ngModel)]="enderecoEscolhido"
+            [ngModelOptions]="{standalone: true}"
+            (change)="enderecoSelecionado(enderecoEscolhido)">
+               <option [ngValue]="endereco" *ngFor="let endereco of clienteEncontrado?.enderecos">
+                {{
+                  endereco?.rua + ', ' +
+                  endereco?.numero + ', ' +
+                  endereco?.bairro + ', ' +
+                  endereco?.cidade + ' - ' +
+                  endereco?.uf + ' - ' +
+                  endereco?.cep
+                 }}
+                </option>
             </select>
           </div>
       <app-endereco [formEndereco]="formAtendimento"></app-endereco>

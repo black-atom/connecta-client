@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Atendimento } from './../../../../models';
 import { NotificationsService } from 'angular2-notifications';
-import { AtendimentoService } from './../../../../shared/services';
+import { AtendimentoService, ClienteService } from './../../../../shared/services';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -11,15 +11,23 @@ import { AtendimentoService } from './../../../../shared/services';
   styleUrls: ['./novo-atendimento.scss']
 })
 export class NovoAtendimentoComponent implements OnInit {
-  
+
+  public clienteEncontrado;
+  public contatoEscolhido;
+  public enderecoEscolhido;
   public formAtendimento: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
-              private _notificacaoService: NotificationsService) { }
+              private _notificacaoService: NotificationsService,
+              private _clienteService: ClienteService) { }
 
   ngOnInit() {
+    this.formInit();
+  }
+
+  formInit() {
     this.formAtendimento = this._fb.group({
       razao_social: ['', Validators.required],
       cnpj_cpf: ['', [Validators.required]],
@@ -39,12 +47,45 @@ export class NovoAtendimentoComponent implements OnInit {
       uf: ['', [Validators.required]],
       ponto_referencia: [''],
       data_atendimento: ['', [Validators.required]],
+      tipo_atendimento: ['', [Validators.required]],
       decricao_atendimento: ['', [Validators.required]],
       createAt: [''],
-      updatedAt: [''],
-      tecnico: this._fb.array([])
+      updatedAt: ['']
     });
   }
+
+  buscarCliente(cnpj) {
+    if (cnpj) {
+      this._clienteService.buscarCliente(cnpj)
+      .subscribe((res) => {
+        const cliente = res[0];
+        this.formAtendimento.get('razao_social').patchValue(cliente.razao_social);
+        this.formAtendimento.get('inscricao_estadual').patchValue(cliente.inscricao_estadual);
+        this.formAtendimento.get('nome_fantasia').patchValue(cliente.nome_fantasia);
+        this.clienteEncontrado = cliente;
+      });
+    }
+  }
+
+  contatoSelecionado(contato) {
+    this.formAtendimento.get('nome').patchValue(contato.nome);
+    this.formAtendimento.get('telefone').patchValue(contato.telefone);
+    this.formAtendimento.get('celular').patchValue(contato.celular);
+    this.formAtendimento.get('email').patchValue(contato.email);
+    this.formAtendimento.get('observacao').patchValue(contato.observacao);
+  }
+
+  enderecoSelecionado(endereco) {
+    this.formAtendimento.get('complemento').patchValue(endereco.complemento);
+    this.formAtendimento.get('uf').patchValue(endereco.uf);
+    this.formAtendimento.get('rua').patchValue(endereco.rua);
+    this.formAtendimento.get('bairro').patchValue(endereco.bairro);
+    this.formAtendimento.get('cep').patchValue(endereco.cep);
+    this.formAtendimento.get('cidade').patchValue(endereco.cidade);
+    this.formAtendimento.get('numero').patchValue(endereco.numero);
+    this.formAtendimento.get('ponto_referencia').patchValue(endereco.ponto_referencia);
+  }
+
 
   cadastrarAtendimento(atendimento: Atendimento) {
     this._atendimentoServiceService.novoAtendimento(atendimento)

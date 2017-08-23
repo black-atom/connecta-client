@@ -58,12 +58,21 @@ export class NovoAtendimentoComponent implements OnInit {
     if (cnpj) {
       this._clienteService.buscarCliente(cnpj)
       .subscribe((res) => {
-        const cliente = res[0];
-        this.formAtendimento.get('razao_social').patchValue(cliente.razao_social);
-        this.formAtendimento.get('inscricao_estadual').patchValue(cliente.inscricao_estadual);
-        this.formAtendimento.get('nome_fantasia').patchValue(cliente.nome_fantasia);
-        this.clienteEncontrado = cliente;
-      });
+        if(res) {
+           const cliente = res[0];
+         if(cliente !== undefined ) {
+          this.formAtendimento.get('razao_social').patchValue(cliente.razao_social);
+          this.formAtendimento.get('inscricao_estadual').patchValue(cliente.inscricao_estadual);
+          this.formAtendimento.get('nome_fantasia').patchValue(cliente.nome_fantasia);
+          this.clienteEncontrado = cliente;
+         }else {
+           this.falhaAoEncontrarCliente();
+           this.formAtendimento.reset();
+         }
+        }
+        
+      }
+      );
     }
   }
 
@@ -88,18 +97,32 @@ export class NovoAtendimentoComponent implements OnInit {
 
 
   cadastrarAtendimento(atendimento: Atendimento) {
-    this._atendimentoServiceService.novoAtendimento(atendimento)
-    .subscribe(
-      dados => {
-    },
-      erro => {
-      this.falhaNoCadastro();
-    },
-      () => {
-      this.sucessoNoCadastro();
-    }
-  );
-}
+    const diaAtd = new Date(atendimento.data_atendimento).getDate()+1;
+    const mesAtd = new Date(atendimento.data_atendimento).getMonth()
+    const anoAtd = new Date(atendimento.data_atendimento).getFullYear();
+    
+    const diaAtual = new Date().getDate();
+    const mesAtual = new Date().getMonth();
+    const anoAtual = new Date().getFullYear();
+
+    if(diaAtd >= diaAtual && mesAtd >= mesAtual && anoAtd >= anoAtual) {    
+        this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
+          dados => {
+
+          },
+           erro => {
+              this.falhaNoCadastro();
+          },
+          () => {
+              this.sucessoNoCadastro();
+       }
+    );  
+      } else {
+        console.log('ERRO, data menor que atual')
+      }
+
+  }
+
 
   sucessoNoCadastro() {
     this._notificacaoService.success(
@@ -119,6 +142,20 @@ export class NovoAtendimentoComponent implements OnInit {
   falhaNoCadastro() {
     this._notificacaoService.error(
       'Não foi possível efetuar o cadastro',
+      '',
+      {
+        timeOut: 1000,
+        showProgressBar: false,
+        pauseOnHover: false,
+        clickToClose: false,
+        maxLength: 10
+      }
+    );
+  }
+
+  falhaAoEncontrarCliente() {
+    this._notificacaoService.warn(
+      'Cliente não encontrado!',
       '',
       {
         timeOut: 1000,

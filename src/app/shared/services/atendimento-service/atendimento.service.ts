@@ -12,7 +12,19 @@ export class AtendimentoService {
 
   constructor(private _http: Http) { }
 
-  novoAtendimento(atendimento) {
+  retornarTodos(): Observable <Atendimento[]> {
+    return this._http.get(this.url)
+                     .map((res) => res.json() as Atendimento[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
+  retornarUm(id): Observable <Atendimento> {
+    return this._http.get(`${this.url}${id}`)
+                     .map(res => res.json() as Atendimento)
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
+  novoAtendimento(atendimento): Observable <Atendimento> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
@@ -21,10 +33,12 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarTodos() {
+  atualizarAtendimento(atendimento): Observable <Atendimento> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
 
-    return this._http.get(this.url)
-                     .map((res) => res.json() as Atendimento)
+    return this._http.put(`${this.url}${atendimento.id}/`, atendimento, options)
+                     .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }
 

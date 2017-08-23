@@ -21,7 +21,7 @@
             [(ngModel)]="contatoEscolhido"
             [ngModelOptions]="{standalone: true}"
             (change)="contatoSelecionado(contatoEscolhido)">
-              <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos">
+              <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos"> 
                 {{
                   contato?.nome + ', ' +
                   contato?.email +', ' +
@@ -29,7 +29,7 @@
                   contato?.celular +', '+
                   contato?.observacao
                 }}
-                </option>
+               </option>
             </select>
           </div>
       <app-contato [formContato]="formAtendimento"></app-contato>
@@ -83,12 +83,15 @@
         <div class="col-md-6 col-sm-12">
 
           <button type="submit" class="btn btn-primary btn-with-icon"
-          (click)="cadastrarAtendimento(formAtendimento.value)">
+          (click)="cadastrarAtendimento(formAtendimento.value)"
+          [disabled]="formAtendimento.invalid">
           <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
         </div>
 
         <div class="col-md-6 col-sm-12">
-          <button type="reset" class="btn btn-danger btn-with-icon">
+          <button type="reset" class="btn btn-danger btn-with-icon"
+          (click)="formAtendimento.reset()"
+          [disabled]="formAtendimento.pristine">
           <i class="ion-trash-a"></i>Limpar</button>
         </div>
 

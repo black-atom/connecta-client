@@ -1,3 +1,106 @@
-<p>
-  detalhes-atendimento works!
-</p>
+<form [formGroup]="formEdicaoAtendimento">
+    <!-- Card com os inputs de dados principais do funcionário -->
+    <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Dados principais">
+          <app-principais-info-cliente
+          (enviaCnpj)="buscarCliente($event)"
+          [formDadosPrincipais]="formEdicaoAtendimento">
+        </app-principais-info-cliente>
+        </ba-card>
+      </div>
+    </div>
+    
+    <!-- Card com os inputs das informações de contato do cliente -->
+    <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Contato">
+            <div class="form-group">
+                <label for="selecionar_contato">Selecionar contato</label>
+                <select class="form-control" id="selecionar_contato"
+                [(ngModel)]="contatoEscolhido"
+                [ngModelOptions]="{standalone: true}"
+                (change)="contatoSelecionado(contatoEscolhido)">
+                  <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos"> 
+                    {{
+                      contato?.nome + ', ' +
+                      contato?.email +', ' +
+                      contato?.telefone +', '+
+                      contato?.celular +', '+
+                      contato?.observacao
+                    }}
+                   </option>
+                </select>
+              </div>
+          <app-contato [formContato]="formEdicaoAtendimento"></app-contato>
+        </ba-card>
+      </div>
+    </div>
+    
+    <!-- Card com os inputs das informações de endereço do cliente -->
+    <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Endereço">
+            <div class="form-group">
+                <label for="selecionar_endereco">Selecionar endereço</label>
+                <select class="form-control" id="selecionar_endereco"
+                [(ngModel)]="enderecoEscolhido"
+                [ngModelOptions]="{standalone: true}"
+                (change)="enderecoSelecionado(enderecoEscolhido)">
+                   <option [ngValue]="endereco" *ngFor="let endereco of clienteEncontrado?.enderecos">
+                    {{
+                      endereco?.rua + ', ' +
+                      endereco?.numero + ', ' +
+                      endereco?.bairro + ', ' +
+                      endereco?.cidade + ' - ' +
+                      endereco?.uf + ' - ' +
+                      endereco?.cep
+                     }}
+                    </option>
+                </select>
+              </div>
+          <app-endereco [formEndereco]="formEdicaoAtendimento"></app-endereco>
+        </ba-card>
+      </div>
+    </div>
+    
+    <!-- Card com os inputs das informações do atendimento -->
+    <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Atendimento">
+          <app-informacoes-atendimento
+          [formDescricaoAtendimento]="formEdicaoAtendimento">
+        </app-informacoes-atendimento>
+        </ba-card>
+      </div>
+      </div>
+    
+    <!-- Botões de cadastro e de limpeza de dados -->
+    <div class="row">
+      <div class="col-12">
+        <ba-card>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+    
+              <button type="submit" class="btn btn-primary btn-with-icon"
+              (click)="cadastrarAtendimento(formEdicaoAtendimento.value)"
+              >
+              <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
+            </div>
+    
+            <div class="col-md-6 col-sm-12">
+              <button type="reset" class="btn btn-danger btn-with-icon"
+              (click)="formEdicaoAtendimento.reset()"
+              >
+              <i class="ion-trash-a"></i>Limpar</button>
+            </div>
+    
+           </div>
+        </ba-card>
+       </div>
+     </div>
+    </form>
+    
+
+    <!-- [disabled]="formEdicaoAtendimento.invalid" -->
+    <!-- [disabled]="formEdicaoAtendimento.pristine" -->

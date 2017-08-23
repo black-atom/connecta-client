@@ -16,7 +16,7 @@
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
               <p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero + 
               ' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"  
-              placement="top"> <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, tecnico.nome )">
+              placement="top"> <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, tecnico )">
               <i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
             </div>
           </ba-card>

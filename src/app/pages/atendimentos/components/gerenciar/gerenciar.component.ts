@@ -10,7 +10,7 @@ import { AtendimentoService } from './../../../../shared/services';
 <button type="button" class="btn btn-info btn-block"
 routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-ios-redo"></i> Detalhes</button>
 `,
-  styleUrls: ['./gerenciar.component.scss']
+  styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
 export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
 
@@ -29,7 +29,7 @@ export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
 @Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html',
-  styleUrls: ['./gerenciar.component.scss']
+  styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
 export class GerenciarComponent implements OnInit {
 

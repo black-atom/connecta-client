@@ -12,7 +12,9 @@ import { AtendimentoService } from './../../../../../shared/services/atendimento
 })
 export class AtendimentosDisponiveisComponent implements OnInit {
 
-  @Input() tecnicoSelecionado: Tecnico;
+  @Input() 
+  tecnicoSelecionado: Tecnico;
+
   public atendimentos: Atendimento[];
   public selecionados: any[] = [];
   public atendimentoVinculado: Atendimento[] = [];
@@ -33,7 +35,6 @@ export class AtendimentosDisponiveisComponent implements OnInit {
    
   getAtendimento(atendimento) {
     const isIgual = this.selecionados.find(elemento => elemento === atendimento);
-
     if (!isIgual) {
       this.selecionados.push(atendimento);
     }
@@ -46,27 +47,19 @@ export class AtendimentosDisponiveisComponent implements OnInit {
   
     
   associarAtendimento() {
-    this.atendimentoVinculado = this.selecionados
-                                .map((item) => {
-
-      const tecnicoComparado = item.tecnico
-                                .find((tecnicoProcurado) => 
-                                tecnicoProcurado === this.tecnicoSelecionado);
-      
-      if (!tecnicoComparado) {
-        item.tecnico.push(this.tecnicoSelecionado); 
-
-          if (item.tecnico.length > 0) {
+   const adicionarTecnico = this.selecionados.map((item) => {
+        item.tecnico = this.tecnicoSelecionado; 
+          if (item.tecnico) {
               this.atendimentos
                         .splice(this.atendimentos
                         .indexOf(item), 1);
           }
-      } 
-        return item;     
+        console.log(this.tecnicoSelecionado); 
     });
-    this.activeModal.close(this.atendimentoVinculado);
+    this.activeModal.close(adicionarTecnico);
   }
   
+
   // Método para apenas fechar a modal sem nenhum interesse de manipulação de dados
   closeModal() {
     this.activeModal.dismiss();

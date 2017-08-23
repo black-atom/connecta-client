@@ -34,6 +34,7 @@ export class AssociarComponent implements OnInit {
   }
 
   abrirModalDeConfirmacao(conteudo, atendimento, tecnico) {
+    console.log(tecnico)
     this.tecnicoSelecionado = tecnico;
     this.atendimentoASerRemovido = atendimento;
     this._servicoModal.open(conteudo);
@@ -49,19 +50,19 @@ export class AssociarComponent implements OnInit {
     modalRef.result.then((resultadoDaModal) => {
 
         const tecnicoProcurado = this.tecnicos
-          .find(tecnico => tecnico.nome === tecnicoSelecionado);
+          .find(tecnico => tecnico.nome === tecnicoSelecionado.nome);
+               resultadoDaModal.forEach((atendimento) => {
 
-        resultadoDaModal.forEach((atendimento) => {
+                    const atendimentoVerificado = tecnicoProcurado.atendimentos
+                    .find((atendimentoTecnico) => atendimentoTecnico  === atendimento);
 
-          const atendimentoVerificado = tecnicoProcurado.atendimentos
-          .find((atendimentoTecnico) => atendimentoTecnico  === atendimento);
+                    if ( atendimentoVerificado === undefined ) {
+                        tecnicoProcurado.atendimentos.push(atendimento);
+                    }
+         });
 
-          if ( atendimentoVerificado === undefined ) {
-              tecnicoProcurado.atendimentos.push(atendimento);
-          }
-        });
     }).catch((e) => {
-        return e;
+        console.log(e);
     });
   }
 

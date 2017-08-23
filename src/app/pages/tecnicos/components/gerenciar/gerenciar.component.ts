@@ -5,9 +5,30 @@ import { TecnicoService } from './../../../../shared/services/tecnico-service';
 import { Tecnico } from './../../../../models';
 
 @Component({
+  selector: 'button-view',
+  template: `
+  <button type="button" class="btn btn-info btn-block"
+  routerLink="/pages/tecnicos/detalhes/{{ idTecnico }}"><i class="ion-ios-redo"></i> Detalhes</button>`,
+  styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
+  
+})
+export class BtnDetalhesTecComponent implements ViewCell, OnInit {
+  
+  idTecnico: string;
+
+  @Input() value: string | number;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.idTecnico = this.value.toString().toUpperCase();
+  }
+}
+
+@Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html',
-  styleUrls: ['./gerenciar.component.scss']
+  styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
 export class GerenciarComponent implements OnInit {
 
@@ -57,27 +78,5 @@ export class GerenciarComponent implements OnInit {
         this.source.load(tecnicos);
     });
   }
-
 }
 
-@Component({
-  selector: 'button-view',
-  template: `
-  <button type="button" class="btn btn-info btn-block"
-  routerLink="/pages/tecnicos/detalhes/{{ idTecnico }}"><i class="ion-ios-redo"></i> Detalhes</button>
-  `,
-  styleUrls: ['./gerenciar.component.scss']
-})
-export class BtnDetalhesTecComponent implements ViewCell, OnInit {
-
-  idTecnico: string;
-
-  @Input() value: string | number;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.idTecnico = this.value.toString().toUpperCase();
-  }
-
-}

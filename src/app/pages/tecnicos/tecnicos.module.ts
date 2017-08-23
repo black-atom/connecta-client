@@ -5,6 +5,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from './../../shared/shared.module';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 import { TecnicosComponent } from './tecnicos.component';
 import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar/';
@@ -23,6 +24,7 @@ import { routing } from './tecnicos.routing';
      FormsModule,
      SharedModule,
      TextMaskModule,
+     NgxErrorsModule,
      routing
     ],
   declarations: [

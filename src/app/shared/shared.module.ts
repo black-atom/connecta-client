@@ -43,6 +43,6 @@ import { AtendimentoService } from './services';
     EnderecoComponent,
     ContatoComponent,
     PrincipaisInfoComponent
-  ]
+   ]
 })
 export class SharedModule { }

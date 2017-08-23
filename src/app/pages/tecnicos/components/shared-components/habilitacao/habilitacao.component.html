@@ -1,12 +1,12 @@
 <div class="row" [formGroup]="formHabilitacao">
   <div class="form-group col-md-6 col-sm-12">
-    <label for="cnh">CNH</label>
+    <label for="cnh">CNH (opcional)</label>
     <input type="text" class="form-control"
     formControlName="cnh" id="cnh" [textMask]="{ mask : mascaraCnh }">
   </div>
 
   <div class="form-group col-md-6 col-sm-12">
-    <label for="validade_carteira">Validade da CNH</label>
+    <label for="validade_carteira">Validade da CNH (opcional)</label>
     <input type="text" class="form-control"
     formControlName="validade_carteira" id="validade_carteira"     [textMask]="{ mask : mascaraCnhData }">
   </div>

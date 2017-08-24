@@ -17,7 +17,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 export class DetalhesClienteComponent implements OnInit {
 
   public formEdicaoCliente: FormGroup;
-  private _id: string;
+  private id: string;
   private sub: any;
   private cliente: Cliente;
   public dadosClienteCadastrado: Cliente;
@@ -38,7 +38,7 @@ export class DetalhesClienteComponent implements OnInit {
 
   obterIdCliente() {
     this.sub = this._activatedRoute.params.subscribe(params => {
-      this._id = params['id'];
+      this.id = params['id'];
       this.recuperarCliente();
   });
 }
@@ -57,7 +57,7 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   recuperarCliente() {
-    this._clienteService.retornarUm(this._id).subscribe((res) => {
+    this._clienteService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
@@ -77,7 +77,7 @@ export class DetalhesClienteComponent implements OnInit {
 
   atualizarCliente(cliente) {
       cliente.updatedAt = new Date();
-      cliente.id = this._id;
+      cliente.id = this.id;
 
       this._clienteService.atualizarCliente(cliente)
       .subscribe(dados => {

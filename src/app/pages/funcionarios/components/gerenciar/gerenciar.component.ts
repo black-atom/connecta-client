@@ -2,7 +2,7 @@ import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { FuncionarioService } from './../../../../shared/services';
-import { Tecnico } from './../../../../models';
+import { Funcionario } from './../../../../models';
 
 @Component({
   selector: 'button-view',
@@ -32,7 +32,7 @@ export class BtnDetalhesTecComponent implements ViewCell, OnInit {
 })
 export class GerenciarComponent implements OnInit {
 
-  tecnicos: Tecnico[];
+  tecnicos: Funcionario[];
   tecnicoSelecionado;
 
   settings = {

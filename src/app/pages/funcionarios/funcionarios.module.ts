@@ -8,13 +8,13 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 import { FuncionariosComponent } from './funcionarios.component';
-import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar/';
+import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar';
 import { NovoFuncionarioComponent } from './components/novo-funcionario';
 import { DetalhesFuncionarioComponent } from './components/detalhes-funcionarios';
-import { HabilitacaoComponent } from './components/shared-components/habilitacao/';
-import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes/';
+import { HabilitacaoComponent } from './components/shared-components/habilitacao';
+import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes';
+import { LoginFuncionarioComponent } from './components/shared-components/login-funcionario/';
 import { routing } from './funcionarios.routing';
-import { LoginFuncionarioComponent } from './components/shared-components/login-funcionario/login-funcionario.component';
 
 @NgModule({
   imports: [

@@ -25,10 +25,10 @@ interface Habilitacao {
 }
 
 export interface ContatoFuncionario {
+  _id: string;
   email: string;
   telefone: string;
   celular: string;
-  login: Login;
   observacao: string;
 }
 

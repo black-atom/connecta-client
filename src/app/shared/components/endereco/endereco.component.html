@@ -2,7 +2,8 @@
 
   <div class="row">
 
-    <div class="form-group col-md-2 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-2 col-sm-12" 
+    [class.required]="formEndereco.hasError('required')">
       <label for="cep">CEP</label>
       <input [textMask]="{ mask : mascaraCep }" type="text" class="form-control"
       placeholder="Insira um CEP" formControlName="cep"
@@ -15,7 +16,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formEndereco.hasError('required')">
       <label for="rua">Rua</label>
       <input type="text" class="form-control"
        formControlName="rua" id="rua">
@@ -27,7 +29,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-1 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-1 col-sm-12" 
+      [class.required]="formEndereco.hasError('required')">
       <label for="numero">Número</label>
       <input type="text" class="form-control"
       formControlName="numero" id="numero">
@@ -39,7 +42,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-2 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-2 col-sm-12" 
+    [class.required]="formEndereco.hasError('required')">
       <label for="bairro">Bairro</label>
       <input type="text" class="form-control"
       formControlName="bairro" id="bairro">
@@ -51,7 +55,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-1 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-1 col-sm-12" 
+      [class.required]="formEndereco.hasError('required')">
       <label for="uf">Estado</label>
       <input type="text" class="form-control"
       formControlName="uf" id="uf">
@@ -63,7 +68,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formEndereco.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formEndereco.hasError('required')">
       <label for="cidade">Cidade</label>
       <input type="text" class="form-control"
       formControlName="cidade" id="cidade">

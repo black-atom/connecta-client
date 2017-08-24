@@ -2,8 +2,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Atendimento } from './../../../../models';
-import { NotificationsService } from 'angular2-notifications';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
+import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -20,7 +20,7 @@ export class NovoAtendimentoComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
-              private _notificacaoService: NotificationsService,
+              private _notificacaoService: NotificacaoService,
               private _clienteService: ClienteService) { }
 
   ngOnInit() {
@@ -58,9 +58,9 @@ export class NovoAtendimentoComponent implements OnInit {
     if (cnpj) {
       this._clienteService.buscarCliente(cnpj)
       .subscribe((res) => {
-        if(res) {
+        if (res) {
            const cliente = res[0];
-         if(cliente !== undefined ) {
+         if (cliente !== undefined ) {
           this.formAtendimento.get('razao_social').patchValue(cliente.razao_social);
           this.formAtendimento.get('inscricao_estadual').patchValue(cliente.inscricao_estadual);
           this.formAtendimento.get('nome_fantasia').patchValue(cliente.nome_fantasia);
@@ -70,11 +70,10 @@ export class NovoAtendimentoComponent implements OnInit {
            this.formAtendimento.reset();
          }
         }
-        
       }
-      );
-    }
+    );
   }
+}
 
   contatoSelecionado(contato) {
     this.formAtendimento.get('nome').patchValue(contato.nome);
@@ -97,73 +96,54 @@ export class NovoAtendimentoComponent implements OnInit {
 
 
   cadastrarAtendimento(atendimento: Atendimento) {
-    const diaAtd = new Date(atendimento.data_atendimento).getDate()+1;
-    const mesAtd = new Date(atendimento.data_atendimento).getMonth()
-    const anoAtd = new Date(atendimento.data_atendimento).getFullYear();
-    
-    const diaAtual = new Date().getDate();
-    const mesAtual = new Date().getMonth();
-    const anoAtual = new Date().getFullYear();
+    const dataFormAtendimento = new Date(atendimento.data_atendimento);   
+    const dataAtual = new Date();
 
-    if(diaAtd >= diaAtual && mesAtd >= mesAtual && anoAtd >= anoAtual) {    
+    if ( dataFormAtendimento.getDate() + 1 >= dataAtual.getDate() 
+      && dataFormAtendimento.getMonth() >= dataAtual.getMonth()
+      && dataFormAtendimento.getFullYear() >= dataAtual.getFullYear()) {   
+
         this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
-          dados => {
-
-          },
-           erro => {
+          dados => {},
+          erro => {
               this.falhaNoCadastro();
           },
           () => {
               this.sucessoNoCadastro();
-       }
-    );  
+          }
+        );  
       } else {
-        console.log('ERRO, data menor que atual')
+        this.falhaDataMenorQueAtual();
       }
-
   }
 
 
   sucessoNoCadastro() {
-    this._notificacaoService.success(
+    this._notificacaoService.notificarSucesso(
       'Cadastro efetuado com sucesso!',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
     this.formAtendimento.reset();
   }
 
   falhaNoCadastro() {
-    this._notificacaoService.error(
+    this._notificacaoService.notificarErro(
       'Não foi possível efetuar o cadastro',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
   }
 
   falhaAoEncontrarCliente() {
-    this._notificacaoService.warn(
+    this._notificacaoService.notificarAviso(
       'Cliente não encontrado!',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
+    );
+  }
+
+  falhaDataMenorQueAtual() {
+    this._notificacaoService.notificarErro(
+      'Data informada inferior a data atual',
+      ''
     );
   }
 }

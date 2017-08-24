@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Cliente } from './../../../models';
-import { CepService } from './../../services/cep-service';
+import { CepService } from './../../services';
 import { DadosEndereco } from './../../../models';
 
 @Component({

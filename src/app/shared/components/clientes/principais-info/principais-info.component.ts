@@ -2,7 +2,7 @@ import { formContatoControls } from './../../contato/form-contato-controls';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
-import { ClienteService } from './../../../services/cliente-service/cliente.service';
+import { ClienteService } from './../../../services';
 
 
 @Component({
@@ -30,14 +30,14 @@ export class PrincipaisInfoComponent implements OnInit {
     });
     }
 
-    obterNumber(str: string): string {
+  obterNumber(str: string): string {
     if (str === undefined) {
       str = '';
     }
       return str.replace(/\D+/g, '');
     }
 
-    mask(valorDaLinha: string) {
+  mask(valorDaLinha: string) {
         if (valorDaLinha === undefined) {
           valorDaLinha = '';
     }

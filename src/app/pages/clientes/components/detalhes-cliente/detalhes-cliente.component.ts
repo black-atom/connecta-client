@@ -2,11 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
-import { ClienteService } from './../../../../shared/services/cliente-service';
+import { ClienteService } from './../../../../shared/services';
 import { Cliente } from './../../../../models/cliente.interface';
 import { formEnderecoControls } from './../../../../shared/components/endereco';
 import { formContatoControls } from './../../../../shared/components/contato';
 import { NotificationsService } from 'angular2-notifications';
+import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 
 @Component({
   selector: 'app-detalhes-cliente',
@@ -27,7 +28,7 @@ export class DetalhesClienteComponent implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute,
               private _clientService: ClienteService,
               private _fb: FormBuilder,
-              private _notificacaoService: NotificationsService,
+              private _notificacaoService: NotificacaoService,
               private _router: Router) { }
 
   ngOnInit() {
@@ -110,32 +111,18 @@ export class DetalhesClienteComponent implements OnInit {
 
 
   sucessoNaEdicao() {
-    this._notificacaoService.success(
+    this._notificacaoService.notificarSucesso(
       'Edição efetuada com sucesso!',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
     this.formEdicaoCliente.reset();
     this.irParaGerenciar();
   }
 
   falhaNaEdicao() {
-    this._notificacaoService.error(
+    this._notificacaoService.notificarErro(
       'Não foi possível efetuar a edição',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
   }
 

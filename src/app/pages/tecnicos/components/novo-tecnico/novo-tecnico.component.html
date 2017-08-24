@@ -1,4 +1,5 @@
-<form [formGroup]="formTecnico">
+<form [formGroup]="formTecnico" 
+(ngSubmit)="cadastrarTecnico(formTecnico.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
@@ -53,7 +54,6 @@ carteira de habilitação do funcionário -->
 
           <div class="col-md-6 col-sm-12">
             <button type="submit" class="btn btn-primary btn-with-icon" 
-            (click)="cadastrarTecnico(formTecnico.value)"
              [disabled]="formTecnico.invalid">
             <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
           </div>

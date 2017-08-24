@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { NotificationsService } from 'angular2-notifications';
+import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { DadosEndereco } from './../../../../models';
 import { CepService } from './../../../../shared/services';
 import { TecnicoService } from './../../../../shared/services';
@@ -19,7 +19,7 @@ export class NovoTecnicoComponent implements OnInit {
 
    constructor(private _fb: FormBuilder,
                private _tecnicoService: TecnicoService,
-               private _notificacaoService: NotificationsService) {}
+               private _notificacaoService: NotificacaoService) {}
 
    ngOnInit() {
     this.formTecnico = this._fb.group({
@@ -61,31 +61,17 @@ export class NovoTecnicoComponent implements OnInit {
 }
 
 sucessoNoCadastro() {
-  this._notificacaoService.success(
+  this._notificacaoService.notificarSucesso(
     'Cadastro efetuado com sucesso!',
-    '',
-    {
-      timeOut: 1000,
-      showProgressBar: false,
-      pauseOnHover: false,
-      clickToClose: false,
-      maxLength: 10
-    }
+    ''
   );
     this.formTecnico.reset();
 }
 
 falhaNoCadastro() {
-  this._notificacaoService.error(
+  this._notificacaoService.notificarErro(
     'Não foi possível efetuar o cadastro',
-    '',
-    {
-      timeOut: 1000,
-      showProgressBar: false,
-      pauseOnHover: false,
-      clickToClose: false,
-      maxLength: 10
-    }
+    ''
     );
   }
 }

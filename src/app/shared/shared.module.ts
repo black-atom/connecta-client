@@ -15,7 +15,7 @@ import { PrincipaisInfoComponent } from './components/clientes/principais-info';
 import { CepService } from './services';
 import { LoginService } from './services';
 import { AtendimentoService } from './services';
-
+import { NotificacaoService } from './services/notificacao-service/notificacao.service';
 
 @NgModule({
   imports: [
@@ -37,7 +37,8 @@ import { AtendimentoService } from './services';
     LoginService,
     ClienteService,
     TecnicoService,
-    AtendimentoService
+    AtendimentoService,
+    NotificacaoService
   ],
   exports: [
     EnderecoComponent,

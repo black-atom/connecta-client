@@ -1,13 +1,12 @@
-import { NotificationsService } from 'angular2-notifications';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { AtendimentoService } from './../../../../shared/services';
-import { CepService } from '../../../../shared/services/cep-service';
-import { Atendimento } from './../../../../models/atendimento.interface';
-import { DadosEndereco } from './../../../../models/dados-endereco.interface';
+import { CepService } from '../../../../shared/services';
+import { Atendimento } from './../../../../models';
+import { DadosEndereco } from './../../../../models';
+import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -29,7 +28,7 @@ export class DetalhesAtendimentoComponent implements OnInit {
              private _cepService: CepService,
              private _fb: FormBuilder,
              private _router: Router,
-             private _notificacaoService: NotificationsService
+             private _notificacaoService: NotificacaoService
   ) { }
 
   ngOnInit() {
@@ -142,32 +141,18 @@ export class DetalhesAtendimentoComponent implements OnInit {
 }
 
   sucessoNaEdicao() {
-  this._notificacaoService.success(
+  this._notificacaoService.notificarSucesso(
     'Edição efetuada com sucesso!',
-    '',
-    {
-      timeOut: 1000,
-      showProgressBar: false,
-      pauseOnHover: false,
-      clickToClose: false,
-      maxLength: 10
-    }
+    ''
   );
   this.formEdicaoAtendimento.reset();
   this.irParaGerenciar();
 }
 
   falhaNaEdicao() {
-  this._notificacaoService.error(
+  this._notificacaoService.notificarErro(
     'Não foi possível efetuar a edição',
-    '',
-    {
-      timeOut: 1000,
-      showProgressBar: false,
-      pauseOnHover: false,
-      clickToClose: false,
-      maxLength: 10
-    }
+    ''
     );
   }
 

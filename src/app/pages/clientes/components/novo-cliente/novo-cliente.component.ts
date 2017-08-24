@@ -1,12 +1,13 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 
 import { Cliente } from './../../../../models';
-import { ClienteService } from './../../../../shared/services/cliente-service';
+import { ClienteService } from './../../../../shared/services';
 import { formContatoControls } from './../../../../shared/components/contato';
 import { formEnderecoControls } from './../../../../shared/components/endereco';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificacaoService } from '../../../../shared/services/notificacao-service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-novo-cliente',
@@ -23,7 +24,7 @@ export class NovoClienteComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService,
-              private _notificacaoService: NotificationsService) {}
+              private _notificacaoService: NotificacaoService) {}
 
   ngOnInit() {
 
@@ -73,31 +74,17 @@ export class NovoClienteComponent implements OnInit {
 
 
   sucessoNoCadastro() {
-    this._notificacaoService.success(
-      'Cadastro efetuado com sucesso!',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+    this._notificacaoService.notificarSucesso(
+       'Cliente cadastrado com sucesso',
+       ''
     );
     this.formCliente.reset();
   }
 
   falhaNoCadastro() {
-    this._notificacaoService.error(
+    this._notificacaoService.notificarErro(
       'Não foi possível efetuar o cadastro',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
   }
 }

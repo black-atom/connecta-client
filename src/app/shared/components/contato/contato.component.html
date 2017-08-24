@@ -2,7 +2,8 @@
 
   <div class="row">
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formContato.hasError('required')">
       <label for="nome">Nome</label>
       <input type="text" class="form-control"
       formControlName="nome" id="nome">
@@ -14,7 +15,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formContato.hasError('required')">
       <label for="email">E-mail (opcional)</label>
       <input type="email" class="form-control"
       formControlName="email" id="email">
@@ -26,7 +28,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formContato.hasError('required')">
       <label for="telefone">Telefone</label>
       <input type="text" class="form-control"
       formControlName="telefone" id="telefone" [textMask]="{ mask : mascaraTelefone }">
@@ -38,7 +41,8 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" [class.required]="formContato.hasError('required')">
+    <div class="form-group col-md-3 col-sm-12" 
+      [class.required]="formContato.hasError('required')">
       <label for="celular">Celular (opcional)</label>
       <input type="text" class="form-control"
       formControlName="celular" id="celular" [textMask]="{ mask : mascaraTelefone }">

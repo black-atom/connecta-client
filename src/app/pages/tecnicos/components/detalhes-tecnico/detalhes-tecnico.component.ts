@@ -6,7 +6,7 @@ import { DadosEndereco } from './../../../../models';
 import { Tecnico } from './../../../../models';
 import { TecnicoService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 
 @Component({
   selector: 'app-detalhes-tecnico',
@@ -23,7 +23,7 @@ export class DetalhesTecnicoComponent implements OnInit {
   constructor(private _tecnicoService: TecnicoService,
               private _activatedRoute: ActivatedRoute,
               private _cepService: CepService,
-              private _notificacaoService: NotificationsService,
+              private _notificacaoService: NotificacaoService,
               private _fb: FormBuilder,
               private _router: Router) { }
 
@@ -118,32 +118,18 @@ export class DetalhesTecnicoComponent implements OnInit {
   }
 
    sucessoNaEdicao() {
-    this._notificacaoService.success(
+    this._notificacaoService.notificarSucesso(
       'Edição efetuada com sucesso!',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
     );
     this.formEdicaoTecnico.reset();
     this.irParaGerenciar();
   }
 
   falhaNaEdicao() {
-    this._notificacaoService.error(
+    this._notificacaoService.notificarErro(
       'Não foi possível efetuar a edição',
-      '',
-      {
-        timeOut: 1000,
-        showProgressBar: false,
-        pauseOnHover: false,
-        clickToClose: false,
-        maxLength: 10
-      }
+      ''
       );
     }
 

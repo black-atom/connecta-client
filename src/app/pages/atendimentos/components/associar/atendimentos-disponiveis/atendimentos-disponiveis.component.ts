@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Tecnico } from './../../../../../models';
 import { Atendimento } from './../../../../../models';
-import { AtendimentoService } from './../../../../../shared/services/atendimento-service/';
+import { AtendimentoService } from './../../../../../shared/services';
 
 @Component({
   selector: 'app-atendimentos-disponiveis',

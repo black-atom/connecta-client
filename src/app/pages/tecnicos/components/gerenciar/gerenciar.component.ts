@@ -1,7 +1,7 @@
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { TecnicoService } from './../../../../shared/services/tecnico-service';
+import { TecnicoService } from './../../../../shared/services';
 import { Tecnico } from './../../../../models';
 
 @Component({

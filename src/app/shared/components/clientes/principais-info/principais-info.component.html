@@ -1,45 +1,42 @@
 <form [formGroup]="formDadosPrincipais">
 
-    <div class="row">
+  <div class="row">
 
-        <div class="form-group col-md-2 col-sm-12" [class.required]="formDadosPrincipais.hasError('required')">
-          <label for="cnpj_cpf">CNPJ ou CPF</label>
-          <input type="text" [textMask]="{mask: mask}" class="form-control"
-          formControlName="cnpj_cpf" id="cnpj_cpf" (blur)="emiteEventoCnpj($event.target.value)">
-
-          <div class="text-danger" ngxErrors="cnpj_cpf" #myError="ngxErrors">
-              <div ngxError="required" when="touched">
-                <small>Obrigatório!</small>
-              </div>
-            </div>
-
+    <div class="form-group col-md-2 col-sm-12 col-xs-12" 
+      [class.required]="formDadosPrincipais.hasError('required')">
+      <label for="cnpj_cpf">CNPJ ou CPF</label>
+      <input type="text" [textMask]="{mask: mask}" class="form-control" 
+      formControlName="cnpj_cpf" id="cnpj_cpf" (blur)="emiteEventoCnpj($event.target.value)">
+      
+      <div class="text-danger" ngxErrors="cnpj_cpf" #myError="ngxErrors">
+        <div ngxError="required" when="touched">
+          <small>Obrigatório!</small>
         </div>
-
-        <div class="form-group col-md-4 col-sm-12" [class.required]="formDadosPrincipais.hasError('required')">
-          <label for="razao_social">Razão social ou nome</label>
-          <input type="text" class="form-control"
-          formControlName="razao_social" id="razao_social">
-
-          <div class="text-danger" ngxErrors="razao_social" #myError="ngxErrors">
-              <div ngxError="required" when="touched">
-                <small>Obrigatório!</small>
-              </div>
-            </div>
-        </div>
-
-        <div class="form-group col-md-4 col-sm-12">
-          <label for="nome_fantasia">Nome fantasia (opcional)</label>
-          <input type="text" class="form-control"
-          formControlName="nome_fantasia" id="nome_fantasia">
-        </div>
-
-        <div class="form-group col-md-2 col-sm-12">
-          <label for="inscricao_estadual">Inscrição estadual (opcional)</label>
-          <input type="text" [textMask]="{mask: inscricaoEstadual}" class="form-control"
-          formControlName="inscricao_estadual" id="inscricao_estadual">
-        </div>
-
-       
       </div>
+    </div>
 
+    <div class="form-group col-md-4 col-sm-12 col-xs-12" 
+      [class.required]="formDadosPrincipais.hasError('required')">
+      <label for="razao_social">Razão social ou nome</label>
+      <input type="text" class="form-control" formControlName="razao_social" id="razao_social">
+
+      <div class="text-danger" ngxErrors="razao_social" #myError="ngxErrors">
+        <div ngxError="required" when="touched">
+          <small>Obrigatório!</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+      <label for="nome_fantasia">Nome fantasia (opcional)</label>
+      <input type="text" class="form-control" 
+      formControlName="nome_fantasia" id="nome_fantasia">
+    </div>
+
+    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+      <label for="inscricao_estadual">Inscrição estadual (opcional)</label>
+      <input type="text" [textMask]="{mask: inscricaoEstadual}" 
+      class="form-control" formControlName="inscricao_estadual" id="inscricao_estadual">
+    </div>
+  </div>
 </form>

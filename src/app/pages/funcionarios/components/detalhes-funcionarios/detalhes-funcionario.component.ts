@@ -16,7 +16,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 export class DetalhesFuncionarioComponent implements OnInit {
 
   public formEdicaoFuncionario: FormGroup;
-  private _id: Number;
+  private _id: any;
   private funcionarioRecebido: Funcionario;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -34,33 +34,36 @@ export class DetalhesFuncionarioComponent implements OnInit {
   }
 
   obterIdFuncionario() {
-     this._activatedRoute.params.subscribe(params => this._id = +params['_id']);
-     this.recuperarFuncionario();
+     this._activatedRoute.params.subscribe(params => this._id = +params['id']);
+     this.recuperarFuncionario();   
    }
+
 
    iniciarFormulario() {
       this.formEdicaoFuncionario = this._fb.group({
-          nome: ['', [Validators.required]],
-          rg: ['', [Validators.required]],
-          cpf: ['', [Validators.required]],
-          data_nasc: ['', [Validators.required]],
-          email: ['', [Validators.pattern(this.emailPattern)]],
-          telefone: ['', [Validators.required]],
-          celular: ['', [Validators.required]],
-          observacao: [''],
-          cnh: ['', [Validators.required]],
-          validade_carteira: ['', [Validators.required]],
-          rua: ['', [Validators.required]],
-          numero: ['', [Validators.required]],
-          complemento: [''],
-          ponto_referencia: [''],
-          bairro: ['', [Validators.required]],
-          cidade: ['', [Validators.required]],
-          uf: ['', [Validators.required]],
-          cep: ['', [Validators.required]],
-          createdAt: [''],
-          updatedAt: [''],
-          atendimentos: this._fb.array([])
+        nome: ['', [Validators.required]],
+        rg: ['', [Validators.required]],
+        cpf: ['', [Validators.required]],
+        data_nasc: ['', [Validators.required]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        tipo: ['', [Validators.required]],
+        email: ['', [Validators.pattern(this.emailPattern)]],
+        telefone: ['', [Validators.required]],
+        celular: [''],
+        observacao: [''],
+        cnh: [''],
+        validade_carteira: [''],
+        cep: ['', [Validators.required]],
+        rua: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        bairro: ['', [Validators.required]],
+        complemento: [''],
+        cidade: ['', [Validators.required]],
+        uf: ['', [Validators.required]],
+        ponto_referencia: [''],
+        createdAt: [''],
+        updatedAt: ['']
      });
   }
 
@@ -80,6 +83,9 @@ export class DetalhesFuncionarioComponent implements OnInit {
         this.formEdicaoFuncionario.get('rg').patchValue(res.rg);
         this.formEdicaoFuncionario.get('cpf').patchValue(res.cpf);
         this.formEdicaoFuncionario.get('data_nasc').patchValue(res.data_nasc);
+        this.formEdicaoFuncionario.get('username').patchValue(res.login.username);
+        this.formEdicaoFuncionario.get('password').patchValue(res.login.password);
+        this.formEdicaoFuncionario.get('tipo').patchValue(res.tipo);
         this.formEdicaoFuncionario.get('email').patchValue(res.contato.email);
         this.formEdicaoFuncionario.get('telefone').patchValue(res.contato.telefone);
         this.formEdicaoFuncionario.get('celular').patchValue(res.contato.celular);
@@ -101,7 +107,7 @@ export class DetalhesFuncionarioComponent implements OnInit {
 
     atualizarTecnico(funcionario) {
       funcionario.updatedAt = new Date();
-      funcionario.id = this._id;
+      funcionario._id = this._id;
       funcionario.createdAt = this.funcionarioRecebido._id;
 
       this._funcionarioService.atualizarFuncionario(funcionario)

@@ -21,8 +21,8 @@ export class ClienteService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarUm(id): Observable <Cliente> {
-    return this._http.get(`${this.url}${id}`)
+  retornarUm(_id): Observable <Cliente> {
+    return this._http.get(`${this.url}${_id}`)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -46,7 +46,7 @@ export class ClienteService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${cliente.id}/`, cliente, options)
+    return this._http.put(`${this.url}${cliente._id}/`, cliente, options)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }

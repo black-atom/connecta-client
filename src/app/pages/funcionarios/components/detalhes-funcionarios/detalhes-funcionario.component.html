@@ -12,7 +12,17 @@
     </div>
   </div>
 
-
+  <!-- Card com os inputs de login do funcionário -->
+  <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Login">
+          <app-login-funcionario
+          [formLoginFuncionario]="formEdicaoFuncionario">
+          </app-login-funcionario>
+        </ba-card>
+      </div>
+    </div>
+  
   <!-- Card com os inputs de contato do funcionário -->
   <div class="row">
     <div class="col-12">

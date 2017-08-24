@@ -26,7 +26,7 @@ export class DetalhesClienteComponent implements OnInit {
   get enderecos(): FormArray { return this.formEdicaoCliente.get('enderecos') as FormArray; }
 
   constructor(private _activatedRoute: ActivatedRoute,
-              private _clientService: ClienteService,
+              private _clienteService: ClienteService,
               private _fb: FormBuilder,
               private _notificacaoService: NotificacaoService,
               private _router: Router) { }
@@ -57,7 +57,7 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   recuperarCliente() {
-    this._clientService.retornarUm(this.id).subscribe((res) => {
+    this._clienteService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
       this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
@@ -76,10 +76,10 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   atualizarCliente(cliente) {
-      cliente.value.updatedAt = new Date();
-      cliente.value.id = this.id;
+      cliente.updatedAt = new Date();
+      cliente.id = this.id;
 
-      this._clientService.atualizarCliente(cliente.value)
+      this._clienteService.atualizarCliente(cliente)
       .subscribe(dados => {
       },
       erro => {

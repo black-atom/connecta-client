@@ -123,11 +123,11 @@ export class DetalhesAtendimentoComponent implements OnInit {
     this.formEdicaoAtendimento.get('ponto_referencia').patchValue(endereco.ponto_referencia);
   }
    atualizarAtendimento(tecnico) {
-    tecnico.value.updatedAt = new Date();
-    tecnico.value.id = this.id;
-    tecnico.value.createdAt = this.atendimentoRecebido.id;
+    tecnico.updatedAt = new Date();
+    tecnico.id = this.id;
+    tecnico.createdAt = this.atendimentoRecebido.id;
 
-    this._atendimentoService.atualizarAtendimento(tecnico.value)
+    this._atendimentoService.atualizarAtendimento(tecnico)
     .subscribe(
       dados => {
     },

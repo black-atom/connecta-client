@@ -1,5 +1,5 @@
  <form [formGroup]="formEdicaoCliente" 
- (ngSubmit)="cadastrarCliente(formEdicaoCliente.value)" novalidate>
+ (ngSubmit)="atualizarCliente(formEdicaoCliente.value)" novalidate>
 
 
 
@@ -19,16 +19,19 @@
   <div class="col-md-12">
     <ba-card cardTitle='Contatos' formArrayName="contatos">
       <ba-card *ngFor="let contato of contatos?.controls; let i=index">
+
           <div>
             <span>Contato {{i + 1}}</span>
             <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
               (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
           </div>
+
           <app-contato 
             [formContato]="contato">
           </app-contato>
+
       </ba-card>
-      <button (click)="adicionarContato()" type="reset" 
+      <button (click)="adicionarContato()" type="button" 
       class="adiciona pull-right btn btn-primary">+</button>
     </ba-card>
   </div>
@@ -52,7 +55,7 @@
           </app-endereco>
 
         </ba-card>
-        <button (click)="adicionarEndereco()" type="reset"
+        <button (click)="adicionarEndereco()" type="button"
         class="adiciona pull-right btn btn-primary">+</button>
       </ba-card>
   </div>

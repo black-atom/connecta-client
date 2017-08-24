@@ -2,7 +2,7 @@
 
   <div class="row">
 
-    <div class="form-group col-md-2 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
     [class.required]="formEndereco.hasError('required')">
       <label for="cep">CEP</label>
       <input [textMask]="{ mask : mascaraCep }" type="text" class="form-control"
@@ -11,12 +11,12 @@
 
       <div class="text-danger" ngxErrors="cep" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-4" 
       [class.required]="formEndereco.hasError('required')">
       <label for="rua">Rua</label>
       <input type="text" class="form-control"
@@ -24,25 +24,25 @@
 
        <div class="text-danger" ngxErrors="rua" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-1 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
       [class.required]="formEndereco.hasError('required')">
-      <label for="numero">Número</label>
+      <label for="numero">N°</label>
       <input type="text" class="form-control"
       formControlName="numero" id="numero">
 
       <div class="text-danger" ngxErrors="numero" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-2 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-4" 
     [class.required]="formEndereco.hasError('required')">
       <label for="bairro">Bairro</label>
       <input type="text" class="form-control"
@@ -50,12 +50,25 @@
 
       <div class="text-danger" ngxErrors="bairro" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-1 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
+    [class.required]="formEndereco.hasError('required')">
+    <label for="cidade">Cidade</label>
+    <input type="text" class="form-control"
+    formControlName="cidade" id="cidade">
+
+    <div class="text-danger" ngxErrors="cidade" #myError="ngxErrors">
+        <div ngxError="required" when="touched">
+          <small><i class="ion-close"></i> Requerido!</small>
+        </div>
+      </div>
+  </div>
+
+    <div class="form-group col-md-6 col-sm-6 col-lg-1" 
       [class.required]="formEndereco.hasError('required')">
       <label for="uf">Estado</label>
       <input type="text" class="form-control"
@@ -63,32 +76,19 @@
 
       <div class="text-danger" ngxErrors="uf" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" 
-      [class.required]="formEndereco.hasError('required')">
-      <label for="cidade">Cidade</label>
-      <input type="text" class="form-control"
-      formControlName="cidade" id="cidade">
-
-      <div class="text-danger" ngxErrors="cidade" #myError="ngxErrors">
-          <div ngxError="required" when="touched">
-            <small>Requerido!</small>
-          </div>
-        </div>
-    </div>
-
-    <div class="form-group col-md-6 col-sm-12">
+    <div class="form-group col-md-6 col-sm-6 col-lg-3">
       <label for="complemento">Complemento (opcional)</label>
       <input type="text" class="form-control"
       formControlName="complemento"
       id="complemento">
     </div>
 
-    <div class="form-group col-md-6 col-sm-12">
+    <div class="form-group col-md-6 col-sm-6 col-lg-6">
       <label for="ponto_referencia">Ponto de referência (opcional)</label>
       <input type="text" class="form-control"
       formControlName="ponto_referencia"

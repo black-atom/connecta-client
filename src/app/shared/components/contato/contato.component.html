@@ -2,7 +2,7 @@
 
   <div class="row">
 
-    <div class="form-group col-md-3 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formContato.hasError('required')">
       <label for="nome">Nome</label>
       <input type="text" class="form-control"
@@ -10,12 +10,12 @@
 
       <div class="text-danger" ngxErrors="nome" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formContato.hasError('required')">
       <label for="email">E-mail (opcional)</label>
       <input type="email" class="form-control"
@@ -23,12 +23,12 @@
 
       <div class="text-danger" ngxErrors="email" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formContato.hasError('required')">
       <label for="telefone">Telefone</label>
       <input type="text" class="form-control"
@@ -36,25 +36,19 @@
 
       <div class="text-danger" ngxErrors="telefone" #myError="ngxErrors">
           <div ngxError="required" when="touched">
-            <small>Requerido!</small>
+            <small><i class="ion-close"></i> Requerido!</small>
           </div>
         </div>
     </div>
 
-    <div class="form-group col-md-3 col-sm-12" 
+    <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formContato.hasError('required')">
       <label for="celular">Celular (opcional)</label>
       <input type="text" class="form-control"
       formControlName="celular" id="celular" [textMask]="{ mask : mascaraTelefone }">
-
-      <div class="text-danger" ngxErrors="celular" #myError="ngxErrors">
-          <div ngxError="required" when="touched">
-            <small>Requerido!</small>
-          </div>
-        </div>
     </div>
 
-    <div class="form-group col-md-12 col-sm-12">
+    <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-12">
       <label for="observacao">Observação (opcional)</label>
       <input type="text" class="form-control"
       formControlName="observacao" id="observacao">

@@ -1,60 +1,70 @@
-<div class="row" [formGroup]="formDescricaoAtendimento">
+<form [formGroup]="formDescricaoAtendimento">
 
-  <div class="col-md-2 col-sm-12"
-  [class.required]="formDescricaoAtendimento.hasError('required')">
-    <div class="form-group">
-      <label for="data_atendimento">Data do atendimento</label>
-      <input type="date" class="form-control"
-      formControlName="data_atendimento"
-       id="data_atendimento">
-    </div>
+  <div class="row">
 
-    <div class="text-danger" ngxErrors="data_atendimento" #myError="ngxErrors">
-      <div ngxError="required" when="touched">
-        <small>Obrigatório!</small>
+    <div class="col-md-6 col-sm-12">
+      <div class="form-group" 
+        [class.required]="formDescricaoAtendimento.hasError('required')">
+        <label for="data_atendimento">Data do atendimento</label>
+        <input type="date" class="form-control" formControlName="data_atendimento" id="data_atendimento">
+
+        <div class="text-danger" ngxErrors="data_atendimento" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Requerido!</small>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
 
+      <div class="form-group" [class.required]="formDescricaoAtendimento.hasError('required')">
+        <label for="descricao_atendimento">Selecione o tipo do atendimento</label>
+        <select class="form-control" formControlName="tipo_atendimento">
+          <option value="" disabled selected>Selecione o tipo do atendimento</option>
+          <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
+        </select>
 
-  <!-- Somente na próxima versão -->
-  <!-- <div class="col-md-5 col-sm-12">
-    <div class="form-group">
-      <label for="descricao_atendimento">Selecione o tipo de avaliação</label>
-      <select class="form-control" disabled>
-        <option value="" disabled selected>Selecione o tipo de avaliação</option>
-        <option>Entrega</option>
-        <option>Instalação</option>
-        <option>Encaixe</option>
-        <option>Reparo</option>
-      </select>
-    </div>
-  </div> -->
-
-  <div class="col-md-10 col-sm-12">
-    <div class="form-group">
-      <label for="descricao_atendimento">Selecione o tipo do atendimento</label>
-      <select class="form-control" formControlName="tipo_atendimento">
-        <option value="" disabled selected>Selecione o tipo do atendimento</option>
-        <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="col-md-12 col-sm-12">
-    <div class="form-group">
-      <label for="descricao_atendimento">Descrição do atendimento</label>
-      <textarea class="form-control" rows="3"
-      formControlName="decricao_atendimento" id="descricao_atendimento">
-      </textarea>
-    </div>
-
-    <div class="text-danger" ngxErrors="decricao_atendimento" #myError="ngxErrors">
-        <div ngxError="required" when="touched">
-          <small>Obrigatório!</small>
+        <div class="text-danger" ngxErrors="tipo_atendimento" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small>Requerido!</small>
+          </div>
         </div>
       </div>
+    </div>
 
+
+    <div class="col-md-6 col-sm-12">
+      <div class="form-group" [class.required]="formDescricaoAtendimento.hasError('required')">
+        <label for="descricao_atendimento">Descrição do atendimento</label>
+        <textarea class="form-control" rows="3" 
+        formControlName="decricao_atendimento"
+         id="descricao_atendimento">
+        </textarea>
+      </div>
+
+      <div class="text-danger" ngxErrors="decricao_atendimento" #myError="ngxErrors">
+        <div ngxError="required" when="touched">
+          <small>Requerido!</small>
+        </div>
+      </div>
+    </div>
   </div>
 
-</div>
+</form>
+
+
+
+
+
+<!-- Somente na próxima versão 
+<div class="col-md-5 col-sm-12">
+  <div class="form-group">
+    <label for="descricao_atendimento">Selecione o tipo de avaliação</label>
+    <select class="form-control" disabled>
+      <option value="" disabled selected>Selecione o tipo de avaliação</option>
+      <option>Entrega</option>
+      <option>Instalação</option>
+      <option>Encaixe</option>
+      <option>Reparo</option>
+    </select>
+  </div>
+</div>  -->

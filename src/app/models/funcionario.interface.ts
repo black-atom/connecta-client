@@ -3,14 +3,14 @@ export interface Funcionario {
   createdAt: string;
   updatedAt: string;
   nome: string;
-  endereco: Endereco;
+  endereco: EnderecoFuncionario;
   cpf: string;
   rg: string;
   data_nasc: string;
   habilitacao: Habilitacao;
   tipo: string[];
   photo_url: string;
-  contato: Contato;
+  contato: ContatoFuncionario;
 }
 
 interface Login {
@@ -23,7 +23,7 @@ interface Habilitacao {
   validade: string;
 }
 
-export interface Contato {
+export interface ContatoFuncionario {
   email: string;
   telefone: string;
   celular: string;
@@ -31,7 +31,7 @@ export interface Contato {
   observacao: string;
 }
 
-interface Endereco {
+interface EnderecoFuncionario {
   rua: string;
   numero: string;
   bairro: string;

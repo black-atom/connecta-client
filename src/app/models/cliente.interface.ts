@@ -7,11 +7,11 @@ export interface Cliente {
   inscricao_estadual: string;
   createdAt: string;
   updatedAt: string;
-  enderecos: Endereco[];
-  contatos: Contato[];
+  enderecos: EnderecoCliente[];
+  contatos: ContatoCliente[];
 }
 
-export interface Contato {
+export interface ContatoCliente {
   id: string;
   telefone: string;
   nome: string;
@@ -22,7 +22,7 @@ export interface Contato {
   cliente_id: number;
 }
 
-export interface Endereco {
+export interface EnderecoCliente {
   id: string;
   rua: string;
   complemento: string;
@@ -33,10 +33,10 @@ export interface Endereco {
   cep: string;
   createdAt: string;
   updatedAt: string;
-  cliente_enderecos?: Clienteenderecos;
+  cliente_enderecos?: ClienteEnderecos;
 }
 
-interface Clienteenderecos {
+interface ClienteEnderecos {
   createdAt: string;
   updatedAt: string;
   cliente_id: number;

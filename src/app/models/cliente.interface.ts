@@ -1,5 +1,5 @@
 export interface Cliente {
-  id: string;
+  _id: string;
   razao_social: string;
   cnpj_cpf: string;
   email: string;
@@ -12,24 +12,25 @@ export interface Cliente {
 }
 
 export interface ContatoCliente {
-  id: string;
+  _id: string;
   telefone: string;
+  celular: string;
   nome: string;
-  email?: any;
-  obervacao?: any;
+  email?: string;
+  obervacao?: string;
   createdAt: string;
   updatedAt: string;
   cliente_id: number;
 }
 
 export interface EnderecoCliente {
-  id: string;
+  _id: string;
   rua: string;
   complemento: string;
   bairro: string;
   cidade: string;
   uf: string;
-  ponto_refencia?: any;
+  ponto_refencia?: string;
   cep: string;
   createdAt: string;
   updatedAt: string;

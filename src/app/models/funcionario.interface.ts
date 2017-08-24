@@ -11,6 +11,7 @@ export interface Funcionario {
   tipo: string[];
   photo_url: string;
   contato: ContatoFuncionario;
+  login: Login;
 }
 
 interface Login {
@@ -32,13 +33,13 @@ export interface ContatoFuncionario {
 }
 
 interface EnderecoFuncionario {
+  _id: string;
   rua: string;
   numero: string;
   bairro: string;
   uf: string;
   cidade: string;
   cep: string;
-  _id: string;
   ponto_referencia: string;
   complemento: string;
 }

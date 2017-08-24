@@ -19,11 +19,11 @@ export const routes: Routes = [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
       { path: 'home', loadChildren: './home/home.module#HomeModule' },
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
-      { path: 'tecnicos', loadChildren: './tecnicos/tecnicos.module#TecnicosModule' },
+      { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },
-      { path: 'sac', loadChildren: './sac/sac.module#SacModule' },
-    ],
-  },
+      { path: 'sac', loadChildren: './sac/sac.module#SacModule' }
+    ]
+  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

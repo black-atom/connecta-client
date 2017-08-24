@@ -1,32 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { NotificacaoService } from './../../../../shared/services';
 import { DadosEndereco } from './../../../../models';
 import { CepService } from './../../../../shared/services';
-import { TecnicoService } from './../../../../shared/services';
-import { Tecnico } from './../../../../models';
+import { FuncionarioService } from './../../../../shared/services';
+import { Funcionario } from './../../../../models';
+
 
 @Component({
-  selector: 'app-novo-tecnico',
-  templateUrl: './novo-tecnico.component.html',
-  styleUrls: ['./novo-tecnico.component.scss']
+  selector: 'app-novo-funcionario',
+  templateUrl: './novo-funcionario.component.html',
+  styleUrls: ['./novo-funcionario.component.scss']
 })
-export class NovoTecnicoComponent implements OnInit {
+export class NovoFuncionarioComponent implements OnInit {
 
-  public formTecnico: FormGroup;
+  public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
    constructor(private _fb: FormBuilder,
-               private _tecnicoService: TecnicoService,
+               private _funcionarioService: FuncionarioService,
                private _notificacaoService: NotificacaoService) {}
 
    ngOnInit() {
-    this.formTecnico = this._fb.group({
+    this.formFuncionario = this._fb.group({
       nome: ['', [Validators.required]],
       rg: ['', [Validators.required]],
       cpf: ['', [Validators.required]],
       data_nasc: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
       email: ['', [Validators.pattern(this.emailPattern)]],
       telefone: ['', [Validators.required]],
       celular: [''],
@@ -46,8 +50,8 @@ export class NovoTecnicoComponent implements OnInit {
     });
    }
 
-   cadastrarTecnico(tecnico: Tecnico) {
-    this._tecnicoService.novoTecnico(tecnico)
+   cadastrarTecnico(funcionario: Funcionario) {
+    this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {
     },
@@ -65,7 +69,7 @@ sucessoNoCadastro() {
     'Cadastro efetuado com sucesso!',
     ''
   );
-    this.formTecnico.reset();
+    this.formFuncionario.reset();
 }
 
 falhaNoCadastro() {

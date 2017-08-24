@@ -44,10 +44,10 @@ export const PAGES_MENU = [{
       ]
     },
     {
-      path: 'tecnicos',
+      path: 'funcionarios',
       data: {
         menu: {
-          title: 'Técnicos',
+          title: 'Funcionários',
           icon: 'ion-model-s',
           selected: false,
           expanded: false,

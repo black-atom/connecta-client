@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TecnicoService } from './tecnico.service';
+import { TecnicoService } from './funcionario.service';
 
 describe('TecnicoService', () => {
   beforeEach(() => {

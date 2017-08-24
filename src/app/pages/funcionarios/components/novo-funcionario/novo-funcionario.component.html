@@ -1,23 +1,34 @@
-<form [formGroup]="formTecnico" 
-(ngSubmit)="cadastrarTecnico(formTecnico.value)" novalidate>
+<form [formGroup]="formFuncionario" 
+(ngSubmit)="cadastrarTecnico(formFuncionario.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">
       <ba-card cardTitle="Dados principais">
         <app-principais-informacoes 
-        [dadosPrincipaisTecnico]="formTecnico">
+        [dadosPrincipaisFuncionario]="formFuncionario">
       </app-principais-informacoes>
       </ba-card>
     </div>
   </div>
+
+  <!-- Card com os inputs de login do funcionário -->
+  <div class="row">
+      <div class="col-12">
+        <ba-card cardTitle="Login">
+          <app-login-funcionario
+          [formLoginFuncionario]="formFuncionario">
+          </app-login-funcionario>
+        </ba-card>
+      </div>
+    </div>
 
   <!-- Card com os inputs de contato do funcionário -->
   <div class="row">
     <div class="col-12">
       <ba-card cardTitle="Contato">
         <app-contato
-         [formContato]="formTecnico">
+         [formContato]="formFuncionario">
         </app-contato>
       </ba-card>
     </div>
@@ -28,7 +39,7 @@
     <div class="col-12">
       <ba-card cardTitle="Endereço">
         <app-endereco
-        [formEndereco]="formTecnico">
+        [formEndereco]="formFuncionario">
       </app-endereco>
       </ba-card>
     </div>
@@ -40,7 +51,7 @@ carteira de habilitação do funcionário -->
     <div class="col-12">
       <ba-card cardTitle="Habilitação">
         <app-habilitacao
-        [formHabilitacao]="formTecnico">
+        [formHabilitacao]="formFuncionario">
       </app-habilitacao>
       </ba-card>
     </div>
@@ -54,14 +65,14 @@ carteira de habilitação do funcionário -->
 
           <div class="col-md-6 col-sm-12">
             <button type="submit" class="btn btn-primary btn-with-icon" 
-             [disabled]="formTecnico.invalid">
+             [disabled]="formFuncionario.invalid">
             <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
           </div>
 
           <div class="col-md-6 col-sm-12">
             <button type="reset" class="btn btn-danger btn-with-icon"
-             (click)="formTecnico.reset()" 
-             [disabled]="formTecnico.pristine">
+             (click)="formFuncionario.reset()" 
+             [disabled]="formFuncionario.pristine">
             <i class="ion-trash-a"></i>Limpar</button>
           </div>
 

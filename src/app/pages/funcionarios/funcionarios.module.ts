@@ -7,13 +7,14 @@ import { SharedModule } from './../../shared/shared.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
-import { TecnicosComponent } from './tecnicos.component';
+import { FuncionariosComponent } from './funcionarios.component';
 import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar/';
-import { NovoTecnicoComponent } from './components/novo-tecnico';
-import { DetalhesTecnicoComponent } from './components/detalhes-tecnico';
+import { NovoFuncionarioComponent } from './components/novo-funcionario';
+import { DetalhesFuncionarioComponent } from './components/detalhes-funcionarios';
 import { HabilitacaoComponent } from './components/shared-components/habilitacao/';
 import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes/';
-import { routing } from './tecnicos.routing';
+import { routing } from './funcionarios.routing';
+import { LoginFuncionarioComponent } from './components/shared-components/login-funcionario/login-funcionario.component';
 
 @NgModule({
   imports: [
@@ -28,13 +29,14 @@ import { routing } from './tecnicos.routing';
      routing
     ],
   declarations: [
-    TecnicosComponent,
-    NovoTecnicoComponent,
+    FuncionariosComponent,
+    NovoFuncionarioComponent,
     GerenciarComponent,
-    DetalhesTecnicoComponent,
+    DetalhesFuncionarioComponent,
     PrincipaisInformacoesComponent,
     HabilitacaoComponent,
-    BtnDetalhesTecComponent
+    BtnDetalhesTecComponent,
+    LoginFuncionarioComponent
   ],
   entryComponents: [
     BtnDetalhesTecComponent
@@ -43,4 +45,4 @@ import { routing } from './tecnicos.routing';
     SharedModule
    ]
 })
-export class TecnicosModule { }
+export class FuncionariosModule { }

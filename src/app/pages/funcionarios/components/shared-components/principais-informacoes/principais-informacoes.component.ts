@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PrincipaisInformacoesComponent implements OnInit {
 
   @Input()
-  dadosPrincipaisTecnico: FormGroup;
+  dadosPrincipaisFuncionario: FormGroup;
 
   private mascaraCpf = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/];
   private mascaraRg = [/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/];

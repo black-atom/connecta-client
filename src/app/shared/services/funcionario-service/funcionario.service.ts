@@ -2,43 +2,43 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
-import { Tecnico } from './../../../models';
+import { Funcionario } from '../../../models/';
 import { ManipuladorErro } from './../';
 
 @Injectable()
-export class TecnicoService {
+export class FuncionarioService {
 
-  private url = ' http://localhost:3000/tecnicos/';
+  private url = ' http://localhost:3000/funcionarios/';
 
   constructor( private _http: Http) { }
 
-  retornarTodos(): Observable<Tecnico[]> {
+  retornarTodos(): Observable<Funcionario[]> {
     return this._http.get(this.url)
-                     .map((res) => res.json() as Tecnico[] )
+                     .map((res) => res.json() as Funcionario[] )
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarUm(id: Number): Observable<Tecnico> {
-    return this._http.get(`${this.url}${id}`)
+  retornarUm(_id: Number): Observable<Funcionario> {
+    return this._http.get(`${this.url}${_id}`)
                      .map((res) => res.json() )
                      .catch(ManipuladorErro.lidaComErro);
  }
 
-  novoTecnico(tecnico: Tecnico): Observable<Tecnico> {
+  novoFuncionario(funcionario: Funcionario): Observable<Funcionario> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(this.url, tecnico, options)
-                     .map((res) => res.json() as Tecnico)
+    return this._http.post(this.url, funcionario, options)
+                     .map((res) => res.json() as Funcionario)
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  atualizarTecnico(tecnico: Tecnico): Observable<Tecnico> {
+  atualizarFuncionario(funcionario: Funcionario): Observable<Funcionario> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${tecnico.id}/`, tecnico, options)
-                     .map((res) => res.json() as Tecnico)
+    return this._http.put(`${this.url}${funcionario._id}/`, funcionario, options)
+                     .map((res) => res.json() as Funcionario)
                      .catch(ManipuladorErro.lidaComErro);
   }
 }

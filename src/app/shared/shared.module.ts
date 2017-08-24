@@ -7,7 +7,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
-import { TecnicoService } from './services';
+import { FuncionarioService } from './services';
 import { ClienteService } from './services';
 import { EnderecoComponent } from './components/endereco';
 import { ContatoComponent } from './components/contato';
@@ -15,7 +15,7 @@ import { PrincipaisInfoComponent } from './components/clientes/principais-info';
 import { CepService } from './services';
 import { LoginService } from './services';
 import { AtendimentoService } from './services';
-import { NotificacaoService } from './services/notificacao-service/notificacao.service';
+import { NotificacaoService } from './services';
 
 @NgModule({
   imports: [
@@ -36,7 +36,7 @@ import { NotificacaoService } from './services/notificacao-service/notificacao.s
     CepService,
     LoginService,
     ClienteService,
-    TecnicoService,
+    FuncionarioService,
     AtendimentoService,
     NotificacaoService
   ],

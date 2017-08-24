@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationsService } from 'angular2-notifications';
+// import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+// import { NotificationsService } from 'angular2-notifications';
 
-import { Atendimento } from './../../../../models';
-import { Tecnico } from '../../../../models';
-import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
-import { TecnicoService } from './../../../../shared/services';
+// import { Atendimento } from './../../../../models';
+// import { Funcionario } from './../../../../models';
+// import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
+// import { FuncionarioService } from './../../../../shared/services';
 
 
 @Component({
@@ -15,78 +15,77 @@ import { TecnicoService } from './../../../../shared/services';
 })
 export class AssociarComponent implements OnInit {
 
-  public atendimentos: Atendimento[] = [];
-  public atendimentoASerRemovido;
-  public tecnicoSelecionado: string;
-  public tecnicos: Tecnico[];
+  // public atendimentos: Atendimento[] = [];
+  // public atendimentoASerRemovido;
+  // public funcionarioSelecionado: string;
+  // public funcionarios: Funcionario[];
 
-  opcoesModalAtendimentos: NgbModalOptions = {
-    size: 'lg'
-  };
+  // opcoesModalAtendimentos: NgbModalOptions = {
+  //   size: 'lg'
+  // };
 
   
-  constructor(private _tecnicoService: TecnicoService,
-              private _servicoModal: NgbModal) {}
+  // constructor() {}private _funcionarioService: FuncionarioService,
+  // private _servicoModal: NgbModal
 
   ngOnInit() {
-      this._tecnicoService.retornarTodos()
-                          .subscribe(res => this.tecnicos = res);
+      // this._funcionarioService.retornarTodos()
+      //                     .subscribe(res => this.funcionarios = res);
   }
 
-  abrirModalDeConfirmacao(conteudo, atendimento, tecnico) {
-    console.log(tecnico)
-    this.tecnicoSelecionado = tecnico;
-    this.atendimentoASerRemovido = atendimento;
-    this._servicoModal.open(conteudo);
- }
+//   abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
+//     this.funcionarioSelecionado = funcionario;
+//     this.atendimentoASerRemovido = atendimento;
+//     this._servicoModal.open(conteudo);
+//  }
    
-  abrirModal(tecnicoSelecionado) {
+//   abrirModal(funcionarioSelecionado) {
 
-    const modalRef = this._servicoModal
-                    .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
+//     const modalRef = this._servicoModal
+//                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
-    modalRef.componentInstance.tecnicoSelecionado = tecnicoSelecionado;
+//     modalRef.componentInstance.tecnicoSelecionado = funcionarioSelecionado;
 
-    modalRef.result.then((resultadoDaModal) => {
+//     modalRef.result.then((resultadoDaModal) => {
 
-        const tecnicoProcurado = this.tecnicos
-          .find(tecnico => tecnico.nome === tecnicoSelecionado.nome);
-               resultadoDaModal.forEach((atendimento) => {
+//         const tecnicoProcurado = this.funcionarios
+//           .find(tecnico => tecnico.nome === funcionarioSelecionado.nome);
+//                resultadoDaModal.forEach((atendimento) => {
 
-                    const atendimentoVerificado = tecnicoProcurado.atendimentos
-                    .find((atendimentoTecnico) => atendimentoTecnico  === atendimento);
+//                     const atendimentoVerificado = tecnicoProcurado.atendimentos
+//                     .find((atendimentoTecnico) => atendimentoTecnico  === atendimento);
 
-                    if ( atendimentoVerificado === undefined ) {
-                        tecnicoProcurado.atendimentos.push(atendimento);
-                    }
-         });
+//                     if ( atendimentoVerificado === undefined ) {
+//                         tecnicoProcurado.atendimentos.push(atendimento);
+//                     }
+//          });
 
-    }).catch((e) => {
-        console.log(e);
-    });
-  }
+//     }).catch((e) => {
+//         console.log(e);
+//     });
+//   }
 
-  removerAtendimento(atendimento, tecnico) {
+//   removerAtendimento(atendimento, tecnico) {
 
-    // Verificando se nome técnico é = técnico do atendimento
-    const tecnicoAtendimentoClicado = atendimento.tecnico
-                            .find((nome) => nome === tecnico);
+//     // Verificando se nome técnico é = técnico do atendimento
+//     const funcionarioAtendimentoClicado = atendimento.tecnico
+//                             .find((nome) => nome === tecnico);
 
-    // Verificando se técnico armazenado é o mesmo do atd clicado
-     const tecnicoArmazenado = this.tecnicos
-                            .find((tecnicoProcurado) =>
-                            tecnicoProcurado.nome === tecnicoAtendimentoClicado);
+//     // Verificando se técnico armazenado é o mesmo do atd clicado
+//      const funcionarioArmazenado = this.funcionarios
+//                             .find((tecnicoProcurado) =>
+//                             tecnicoProcurado.nome === funcionarioAtendimentoClicado);
 
-    // Removendo o atendimento do técnico
-      tecnicoArmazenado.atendimentos
-                           .splice(tecnicoArmazenado.atendimentos
-                           .indexOf(atendimento), 1);
+//     // Removendo o atendimento do técnico
+//       funcionarioArmazenado.atendimentos
+//                            .splice(funcionarioArmazenado.atendimentos
+//                            .indexOf(atendimento), 1);
 
-     // Removendo o técnico do atendimento
-      atendimento.tecnico
-                          .splice(atendimento.tecnico
-                          .indexOf(tecnico), 1);
+//      // Removendo o técnico do atendimento
+//       atendimento.tecnico
+//                           .splice(atendimento.funcionario
+//                           .indexOf(tecnico), 1);
 
-      }
+//       }
   }
 

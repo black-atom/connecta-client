@@ -1,14 +1,16 @@
 export const TIPOATENDIMENTOMOCK: String[] = [
-    'Autorizado',
-    'Avulso',
-    'Conserto',
-    'Contrato',
-    'Entrega',
-    'Garantia externo',
-    'Garantia laboratório',
-    'Garantia de atendimento',
-    'Garantia de venda',
-    'Venda'
+  'Aberto por técnica',
+  'Autorizado',
+  'Contrato garantia externo',
+  'Contrato garantia laboratório',
+  'Contrato garantia venda',
+  'Contrato locação',
+  'Contrato',
+  'Contrato novo',
+  'Garantia externa',
+  'Garantia laboratório',
+  'Garantia venda',
+  'NF - Avulso local',
+  'NF - Avulso online/telefone',
+  'NF - Registro de sistema'
 ];
-
-    

@@ -5,8 +5,8 @@ export interface Cliente {
   email: string;
   nome_fantasia: string;
   inscricao_estadual: string;
-  createdAt: string;
-  updatedAt: string;
+  criado_em: string;
+  atualizado_em: string;
   enderecos: EnderecoCliente[];
   contatos: ContatoCliente[];
 }

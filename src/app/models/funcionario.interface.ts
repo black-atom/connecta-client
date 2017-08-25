@@ -1,20 +1,20 @@
 export interface Funcionario {
   _id?: string;
-  createdAt: string;
-  updatedAt: string;
+  criado_em: string;
+  atualizado_em: string;
   nome: string;
   endereco: EnderecoFuncionario;
   cpf: string;
   rg: string;
   data_nasc: string;
   habilitacao: Habilitacao;
-  tipo: string[];
-  photo_url: string;
+  foto_url: string;
   contato: ContatoFuncionario;
   login: Login;
 }
 
 interface Login {
+  tipo: string[];
   username: string;
   password: string;
 }
@@ -26,6 +26,7 @@ interface Habilitacao {
 
 export interface ContatoFuncionario {
   _id: string;
+  nome: string;
   email: string;
   telefone: string;
   celular: string;

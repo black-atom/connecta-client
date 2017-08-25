@@ -19,11 +19,6 @@
       <ba-card cardTitle="Contato {{i + 1}}" 
       *ngFor="let contato of contatos?.controls; let i=index">
 
-        <div>
-          <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
-            (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
-        </div>
-
         <app-contato [formContato]="contato">
         </app-contato>
 
@@ -48,11 +43,6 @@
       <ba-card cardTitle="Endereço {{i + 1}}" 
       *ngFor="let endereco of enderecos?.controls; let i=index">
 
-        <div>
-          <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
-            (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
-        </div>
-
         <app-endereco 
         [formEndereco]="endereco">
         </app-endereco>
@@ -63,7 +53,7 @@
         </div>
 
         <div>
-          <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
+          <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
             (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
         </div>
 

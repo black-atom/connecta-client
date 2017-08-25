@@ -59,7 +59,11 @@ export class NovoClienteComponent implements OnInit {
   }
 
   cadastrarCliente(cliente: Cliente) {
-      this._clienteService.novoCliente(cliente)
+
+    cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
+    cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+      
+    this._clienteService.novoCliente(cliente)
       .subscribe(
         dados => {
       },

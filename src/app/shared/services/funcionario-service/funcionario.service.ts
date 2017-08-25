@@ -18,6 +18,12 @@ export class FuncionarioService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  retornarFuncionarioPorFuncao(funcao?: string): Observable<Funcionario[]> {
+    return this._http.get(this.url, { params: { 'login.tipo': funcao } })
+                     .map((res) => res.json() as Funcionario[] )
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
   retornarUm(_id: Number): Observable<Funcionario> {
     return this._http.get(`${this.url}${_id}`)
                      .map((res) => res.json() )

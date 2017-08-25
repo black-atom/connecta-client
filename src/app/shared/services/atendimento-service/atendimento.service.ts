@@ -25,6 +25,12 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  retornarAtendimentoPorData(data): Observable <Atendimento[]> {
+    return this._http.get(this.url, { params: { data_atendimento : data } })
+                     .map((res) => res.json() as Atendimento[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
   novoAtendimento(atendimento): Observable <Atendimento> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });

@@ -1,7 +1,7 @@
 import { Funcionario } from '../../models';
 
 export const TIPOFUNCIONARIOMOCK: string[] = [
-    'Adminstrador',
+    'Administrador',
     'Técnica',
     'Técnico',
     'Suporte'

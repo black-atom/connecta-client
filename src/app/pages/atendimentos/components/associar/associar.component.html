@@ -2,8 +2,9 @@
   <div class="col-md-12 col-sm-12">
       <div class="row">
 
-        <div class="col-md-6 col-sm-12 col-xs-12" 
+        <div class="col-md-5 col-sm-12 col-xs-12" 
         *ngFor="let tecnico of tecnicos; let i = index">
+
           <ba-card cardTitle="{{tecnico.nome}}">
             <button type="button" 
             class="btn btn-primary animated rollIn pull-right" 
@@ -11,8 +12,11 @@
             <strong>+</strong>
             </button>
 
-            <p *ngIf="tecnico.atendimentos?.length">
-              <strong>Atendimentos associados : {{tecnico.atendimentos.length}}</strong></p>
+
+
+
+            <!-- <p *ngIf="tecnico.atendimentos?.length">
+              <strong>Atendimentos associados : {{tecnicos.atendimentos.length}}</strong></p>
             <div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
               <p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero + 
               ' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"  
@@ -20,11 +24,43 @@
               <i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
             </div>
           </ba-card>
+        </div> -->
+        
+          </ba-card>
         </div>
       </div>
   </div>
 
-  <!-- Abrir modal de confirmação de exclusão de atendimento -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+  Abrir modal de confirmação de exclusão de atendimento
   <ng-template #conteudo let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title animated flipInX">Confirmar remoção de atendimento</h4>
@@ -42,4 +78,4 @@
     </div>
   </ng-template>  
   <hr>
-
+ -->

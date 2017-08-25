@@ -17,7 +17,7 @@
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Contato">
         <app-contato 
-        [formContato]="formEdicaoFuncionario">
+        [formContato]="formEdicaoFuncionario.controls.contato">
         </app-contato>
       </ba-card>
     </div>
@@ -27,7 +27,7 @@
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Endereço">
         <app-endereco 
-        [formEndereco]="formEdicaoFuncionario">
+        [formEndereco]="formEdicaoFuncionario.controls.endereco">
         </app-endereco>
       </ba-card>
     </div>
@@ -39,7 +39,7 @@
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Habilitação">
         <app-habilitacao 
-        [formHabilitacao]="formEdicaoFuncionario">
+        [formHabilitacao]="formEdicaoFuncionario.controls.habilitacao">
         </app-habilitacao>
       </ba-card>
     </div>
@@ -49,7 +49,7 @@
       <div class="col-md-12 col-lg-6 col-sm-12">
         <ba-card cardTitle="Login">
           <app-login-funcionario
-          [formLoginFuncionario]="formEdicaoFuncionario">
+          [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>
       </div>
@@ -64,7 +64,7 @@
 
             <button type="submit" class="btn btn-primary btn-with-icon" 
             [disabled]="formEdicaoFuncionario.pristine">
-            <i class="ion-android-checkmark-circle"></i>Editar</button>
+            <i class="ion-android-checkmark-circle"></i>Salvar</button>
           </div>
 
           <div class="col-md-6 col-sm-12">

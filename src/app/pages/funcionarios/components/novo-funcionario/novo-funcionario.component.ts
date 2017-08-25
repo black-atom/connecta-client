@@ -23,35 +23,55 @@ export class NovoFuncionarioComponent implements OnInit {
                private _notificacaoService: NotificacaoService) {}
 
    ngOnInit() {
-    this.formFuncionario = this._fb.group({
-      nome: ['', [Validators.required]],
-      rg: ['', [Validators.required]],
-      cpf: ['', [Validators.required]],
-      data_nasc: ['', [Validators.required]],
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
-      email: ['', [Validators.pattern(this.emailPattern)]],
-      telefone: ['', [Validators.required]],
-      celular: [''],
-      observacao: [''],
-      cnh: [''],
-      validade_carteira: [''],
-      cep: ['', [Validators.required]],
-      rua: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      bairro: ['', [Validators.required]],
-      complemento: [''],
-      cidade: ['', [Validators.required]],
-      uf: ['', [Validators.required]],
-      ponto_referencia: [''],
-      createdAt: [''],
-      updatedAt: ['']
-    });
+    this.iniciarFormFuncionario();
+   }
+
+   iniciarFormFuncionario() {
+      this.formFuncionario = this._fb.group({
+
+        nome: ['', [Validators.required]],
+        rg: ['', [Validators.required]],
+        cpf: ['', [Validators.required]],
+        data_nasc: ['', [Validators.required]],
+        
+        login: this._fb.group({
+          username: ['', [Validators.required]],
+          password: ['', [Validators.required]],
+          tipo: ['', [Validators.required]]
+        }),
+
+        habilitacao: this._fb.group({
+          numero: [''],
+          validade: ['']
+        }),
+        
+        contato: this._fb.group({
+          nome: ['', Validators.required],
+          email: ['', [Validators.pattern(this.emailPattern)]],
+          telefone: ['', [Validators.required]],
+          celular: [''],
+          observacao: ['']
+        }),
+        
+        endereco: this._fb.group({
+          cep: ['', [Validators.required]],
+          rua: ['', [Validators.required]],
+          numero: ['', [Validators.required]],
+          bairro: ['', [Validators.required]],
+          complemento: [''],
+          cidade: ['', [Validators.required]],
+          uf: ['', [Validators.required]],
+          ponto_referencia: ['']
+        }),
+        
+        criado_em: [''],
+        atualizado_em: ['']
+        
+      });
    }
 
    cadastrarTecnico(funcionario: Funcionario) {
-    this._funcionarioService.novoFuncionario(funcionario)
+     this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {
     },

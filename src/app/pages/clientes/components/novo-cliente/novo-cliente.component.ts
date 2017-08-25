@@ -5,7 +5,7 @@ import { Cliente } from './../../../../models';
 import { ClienteService } from './../../../../shared/services';
 import { formContatoControls } from './../../../../shared/components/contato';
 import { formEnderecoControls } from './../../../../shared/components/endereco';
-import { NotificacaoService } from '../../../../shared/services/notificacao-service';
+import { NotificacaoService } from '../../../../shared/services';
 import { Router } from '@angular/router';
 
 

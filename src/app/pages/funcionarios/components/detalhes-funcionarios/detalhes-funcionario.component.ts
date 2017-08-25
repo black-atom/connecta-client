@@ -29,7 +29,7 @@ export class DetalhesFuncionarioComponent implements OnInit {
 
 
   ngOnInit() {
-    this.iniciarFormulario();
+    this.iniciarFormFuncionario();
     this.obterIdFuncionario();
   }
 
@@ -39,21 +39,33 @@ export class DetalhesFuncionarioComponent implements OnInit {
    }
 
 
-   iniciarFormulario() {
-      this.formEdicaoFuncionario = this._fb.group({
-        nome: ['', [Validators.required]],
-        rg: ['', [Validators.required]],
-        cpf: ['', [Validators.required]],
-        data_nasc: ['', [Validators.required]],
+   iniciarFormFuncionario() {
+    this.formEdicaoFuncionario = this._fb.group({
+      nome: ['', [Validators.required]],
+      rg: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
+      data_nasc: ['', [Validators.required]],
+      
+      login: this._fb.group({
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
-        tipo: ['', [Validators.required]],
+        tipo: ['', [Validators.required]]
+      }),
+
+      habilitacao: this._fb.group({
+        numero: [''],
+        validade: ['']
+      }),
+      
+      contato: this._fb.group({
+        nome: ['', Validators.required],
         email: ['', [Validators.pattern(this.emailPattern)]],
         telefone: ['', [Validators.required]],
         celular: [''],
-        observacao: [''],
-        cnh: [''],
-        validade_carteira: [''],
+        observacao: ['']
+      }),
+      
+      endereco: this._fb.group({
         cep: ['', [Validators.required]],
         rua: ['', [Validators.required]],
         numero: ['', [Validators.required]],
@@ -61,11 +73,14 @@ export class DetalhesFuncionarioComponent implements OnInit {
         complemento: [''],
         cidade: ['', [Validators.required]],
         uf: ['', [Validators.required]],
-        ponto_referencia: [''],
-        createdAt: [''],
-        updatedAt: ['']
-     });
-  }
+        ponto_referencia: ['']
+      }),
+      
+      criado_em: [''],
+      atualizado_em: ['']
+      
+    });
+ }
 
     buscaPorCep(cep: string) {
      this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
@@ -73,42 +88,45 @@ export class DetalhesFuncionarioComponent implements OnInit {
          this.formEdicaoFuncionario.get('bairro').patchValue(dados.bairro);
          this.formEdicaoFuncionario.get('cidade').patchValue(dados.localidade);
          this.formEdicaoFuncionario.get('uf').patchValue(dados.uf);
-
      });
    }
 
     recuperarFuncionario() {
-      this._funcionarioService.retornarUm(this._id).subscribe((res) => {
-        this.formEdicaoFuncionario.get('nome').patchValue(res.nome);
-        this.formEdicaoFuncionario.get('rg').patchValue(res.rg);
-        this.formEdicaoFuncionario.get('cpf').patchValue(res.cpf);
-        this.formEdicaoFuncionario.get('data_nasc').patchValue(res.data_nasc);
-        this.formEdicaoFuncionario.get('username').patchValue(res.login.username);
-        this.formEdicaoFuncionario.get('password').patchValue(res.login.password);
-        this.formEdicaoFuncionario.get('tipo').patchValue(res.tipo);
-        this.formEdicaoFuncionario.get('email').patchValue(res.contato.email);
-        this.formEdicaoFuncionario.get('telefone').patchValue(res.contato.telefone);
-        this.formEdicaoFuncionario.get('celular').patchValue(res.contato.celular);
-        this.formEdicaoFuncionario.get('observacao').patchValue(res.contato.observacao);
-        this.formEdicaoFuncionario.get('cnh').patchValue(res.habilitacao.numero);
-        this.formEdicaoFuncionario.get('validade_carteira').patchValue(res.habilitacao.validade);
-        this.formEdicaoFuncionario.get('rua').patchValue(res.endereco.rua);
-        this.formEdicaoFuncionario.get('numero').patchValue(res.endereco.numero);
-        this.formEdicaoFuncionario.get('complemento').patchValue(res.endereco.complemento);
-        this.formEdicaoFuncionario.get('ponto_referencia').patchValue(res.endereco.ponto_referencia);
-        this.formEdicaoFuncionario.get('bairro').patchValue(res.endereco.bairro);
-        this.formEdicaoFuncionario.get('cidade').patchValue(res.endereco.cidade);
-        this.formEdicaoFuncionario.get('uf').patchValue(res.endereco.uf);
-        this.formEdicaoFuncionario.get('cep').patchValue(res.endereco.cep);
+      this._funcionarioService.retornarUm(this._id).subscribe((dados) => {
+        this.formEdicaoFuncionario.get('nome').patchValue(dados.nome);
+        this.formEdicaoFuncionario.get('rg').patchValue(dados.rg);
+        this.formEdicaoFuncionario.get('cpf').patchValue(dados.cpf);
+        this.formEdicaoFuncionario.get('data_nasc').patchValue(dados.data_nasc);
 
-        this.funcionarioRecebido = res;
+        this.formEdicaoFuncionario.get('login.username').patchValue(dados.login.username);
+        this.formEdicaoFuncionario.get('login.password').patchValue(dados.login.password);
+        this.formEdicaoFuncionario.get('login.tipo').patchValue(dados.login.tipo);
+
+        this.formEdicaoFuncionario.get('habilitacao.numero').patchValue(dados.habilitacao.numero);
+        this.formEdicaoFuncionario.get('habilitacao.validade').patchValue(dados.habilitacao.validade);
+
+        this.formEdicaoFuncionario.get('contato.nome').patchValue(dados.contato.nome);
+        this.formEdicaoFuncionario.get('contato.email').patchValue(dados.contato.email);
+        this.formEdicaoFuncionario.get('contato.telefone').patchValue(dados.contato.telefone);
+        this.formEdicaoFuncionario.get('contato.celular').patchValue(dados.contato.celular);
+        this.formEdicaoFuncionario.get('contato.observacao').patchValue(dados.contato.observacao);
+
+        this.formEdicaoFuncionario.get('endereco.cep').patchValue(dados.endereco.cep);
+        this.formEdicaoFuncionario.get('endereco.rua').patchValue(dados.endereco.rua);
+        this.formEdicaoFuncionario.get('endereco.numero').patchValue(dados.endereco.numero);
+        this.formEdicaoFuncionario.get('endereco.bairro').patchValue(dados.endereco.bairro);
+        this.formEdicaoFuncionario.get('endereco.complemento').patchValue(dados.endereco.complemento);
+        this.formEdicaoFuncionario.get('endereco.cidade').patchValue(dados.endereco.cidade);
+        this.formEdicaoFuncionario.get('endereco.uf').patchValue(dados.endereco.uf);
+        this.formEdicaoFuncionario.get('endereco.ponto_referencia').patchValue(dados.endereco.ponto_referencia);
+
+        this.funcionarioRecebido = dados;
       });
     }
 
     atualizarTecnico(funcionario) {
-      funcionario.updatedAt = new Date();
+      funcionario.atualizado_em = new Date();
       funcionario._id = this._id;
-      funcionario.createdAt = this.funcionarioRecebido._id;
 
       this._funcionarioService.atualizarFuncionario(funcionario)
       .subscribe(

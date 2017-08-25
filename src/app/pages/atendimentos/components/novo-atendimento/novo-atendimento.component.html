@@ -1,4 +1,4 @@
-<form [formGroup]="formAtendimento" 
+<form [formGroup]="formAtendimento"
 (ngSubmit)="cadastrarAtendimento(formAtendimento.value)" novalidate>
 
 <!-- Card com os inputs de dados principais do funcionário -->
@@ -23,7 +23,7 @@
             [(ngModel)]="contatoEscolhido"
             [ngModelOptions]="{standalone: true}"
             (change)="contatoSelecionado(contatoEscolhido)">
-              <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos"> 
+              <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos">
                 {{
                   contato?.nome + ', ' +
                   contato?.email +', ' +
@@ -34,7 +34,7 @@
                </option>
             </select>
           </div>
-      <app-contato [formContato]="formAtendimento"></app-contato>
+      <app-contato [formContato]="formAtendimento.controls.contato"></app-contato>
     </ba-card>
   </div>
 
@@ -60,7 +60,7 @@
                 </option>
             </select>
           </div>
-      <app-endereco [formEndereco]="formAtendimento"></app-endereco>
+      <app-endereco [formEndereco]="formAtendimento.controls.endereco"></app-endereco>
     </ba-card>
   </div>
 </div>
@@ -100,3 +100,4 @@
    </div>
  </div>
 </form>
+

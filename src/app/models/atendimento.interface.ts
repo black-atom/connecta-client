@@ -14,6 +14,7 @@ export interface Atendimento {
     descricao: string;
     testes_efetuados: string;
     observacao: string;
+    valor: string;
     criado_por: string;
     criado_em: string;
     atualizado_em: string;
@@ -38,4 +39,3 @@ interface ContatoAtendimento {
     celular: string;
     observacao: string;
 }
-

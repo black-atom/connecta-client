@@ -17,7 +17,7 @@ export class DetalhesAtendimentoComponent implements OnInit {
 
   public formEdicaoAtendimento: FormGroup;
   private id: any;
-  private atendimentoRecebido: Atendimento;
+  private atendimentoRecebido: any;
   public contatoEscolhido;
   public enderecoEscolhido;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -47,22 +47,36 @@ export class DetalhesAtendimentoComponent implements OnInit {
       cnpj_cpf: ['', [Validators.required]],
       inscricao_estadual: [''],
       nome_fantasia: [''],
-      email: ['', [Validators.pattern(this.emailPattern)]],
-      nome: ['', Validators.required],
-      telefone: ['', [Validators.required]],
-      celular: ['', [Validators.required]],
-      observacao: [''],
-      cep: ['', [Validators.required]],
-      rua: ['', [Validators.required]],
-      bairro: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      cidade: ['', [Validators.required]],
-      complemento: [''],
-      uf: ['', [Validators.required]],
-      ponto_referencia: [''],
+
+      contato: this._fb.group({
+        email: ['', [Validators.pattern(this.emailPattern)]],
+        nome: ['', Validators.required],
+        telefone: ['', [Validators.required]],
+        celular: ['', [Validators.required]],
+        observacao: ['']
+      }),
+
+      endereco: this._fb.group({
+        cep: ['', [Validators.required]],
+        rua: ['', [Validators.required]],
+        bairro: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        complemento: [''],
+        uf: ['', [Validators.required]],
+        ponto_referencia: ['']
+      }),
+
       data_atendimento: ['', [Validators.required]],
-      tipo_atendimento: ['', [Validators.required]],
-      decricao_atendimento: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      valor: [''],
+      modelo_equipamento: ['', [Validators.required]],
+      numero_equipamento: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      testes_efetuados: ['', [Validators.required]],
+      observacao: [''],
+      estacionamento: ['', Validators.required],
+
       createAt: [''],
       updatedAt: ['']
    });
@@ -70,10 +84,10 @@ export class DetalhesAtendimentoComponent implements OnInit {
 
    buscaPorCep(cep: string) {
     this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-        this.formEdicaoAtendimento.get('rua').patchValue(dados.logradouro);
-        this.formEdicaoAtendimento.get('bairro').patchValue(dados.bairro);
-        this.formEdicaoAtendimento.get('cidade').patchValue(dados.localidade);
-        this.formEdicaoAtendimento.get('uf').patchValue(dados.uf);
+        this.formEdicaoAtendimento.get('endereco.rua').patchValue(dados.logradouro);
+        this.formEdicaoAtendimento.get('endereco.bairro').patchValue(dados.bairro);
+        this.formEdicaoAtendimento.get('endereco.cidade').patchValue(dados.localidade);
+        this.formEdicaoAtendimento.get('endereco.uf').patchValue(dados.uf);
     });
   }
 
@@ -83,51 +97,61 @@ export class DetalhesAtendimentoComponent implements OnInit {
       this.formEdicaoAtendimento.get('cnpj_cpf').patchValue(res.cnpj_cpf);
       this.formEdicaoAtendimento.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoAtendimento.get('nome_fantasia').patchValue(res.nome_fantasia);
-      this.formEdicaoAtendimento.get('email').patchValue(res.contato.email);
-      this.formEdicaoAtendimento.get('nome').patchValue(res.contato.nome);
-      this.formEdicaoAtendimento.get('telefone').patchValue(res.contato.telefone);
-      this.formEdicaoAtendimento.get('celular').patchValue(res.contato.celular);
-      this.formEdicaoAtendimento.get('observacao').patchValue(res.contato.observacao);
-      this.formEdicaoAtendimento.get('cep').patchValue(res.endereco.cep);
-      this.formEdicaoAtendimento.get('rua').patchValue(res.endereco.rua);
-      this.formEdicaoAtendimento.get('bairro').patchValue(res.endereco.bairro);
-      this.formEdicaoAtendimento.get('numero').patchValue(res.endereco.numero);
-      this.formEdicaoAtendimento.get('cidade').patchValue(res.endereco.cidade);
-      this.formEdicaoAtendimento.get('uf').patchValue(res.endereco.uf);
-      this.formEdicaoAtendimento.get('complemento').patchValue(res.endereco.complemento);
-      this.formEdicaoAtendimento.get('ponto_referencia').patchValue(res.endereco.ponto_referencia);
-      this.formEdicaoAtendimento.get('data_atendimento').patchValue(res.endereco.cidade);
-      this.formEdicaoAtendimento.get('tipo_atendimento').patchValue(res.tipo_atendimento);
-      this.formEdicaoAtendimento.get('descricao_atendimento').patchValue(res.descricao_atendimento);
-
+      this.formEdicaoAtendimento.get('contato.email').patchValue(res.contato.email);
+      this.formEdicaoAtendimento.get('contato.nome').patchValue(res.contato.nome);
+      this.formEdicaoAtendimento.get('contato.telefone').patchValue(res.contato.telefone);
+      this.formEdicaoAtendimento.get('contato.celular').patchValue(res.contato.celular);
+      this.formEdicaoAtendimento.get('contato.observacao').patchValue(res.contato.observacao);
+      this.formEdicaoAtendimento.get('endereco.cep').patchValue(res.endereco.cep);
+      this.formEdicaoAtendimento.get('endereco.rua').patchValue(res.endereco.rua);
+      this.formEdicaoAtendimento.get('endereco.bairro').patchValue(res.endereco.bairro);
+      this.formEdicaoAtendimento.get('endereco.numero').patchValue(res.endereco.numero);
+      this.formEdicaoAtendimento.get('endereco.cidade').patchValue(res.endereco.cidade);
+      this.formEdicaoAtendimento.get('endereco.uf').patchValue(res.endereco.uf);
+      this.formEdicaoAtendimento.get('endereco.complemento').patchValue(res.endereco.complemento);
+      this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(res.endereco.ponto_referencia);
+      this.formEdicaoAtendimento.get('data_atendimento').patchValue(res.data_atendimento);
+      this.formEdicaoAtendimento.get('tipo').patchValue(res.tipo);
+      this.formEdicaoAtendimento.get('descricao').patchValue(res.descricao);
+      this.formEdicaoAtendimento.get('testes_efetuados').patchValue(res.testes_efetuados);
+      this.formEdicaoAtendimento.get('valor').patchValue(res.valor);
+      this.formEdicaoAtendimento.get('modelo_equipamento').patchValue(res.modelo_equipamento);
+      this.formEdicaoAtendimento.get('numero_equipamento').patchValue(res.numero_equipamento);
+      this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
+      this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
       this.atendimentoRecebido = res;
     });
   }
 
   contatoSelecionado(contato) {
-    this.formEdicaoAtendimento.get('nome').patchValue(contato.nome);
-    this.formEdicaoAtendimento.get('telefone').patchValue(contato.telefone);
-    this.formEdicaoAtendimento.get('celular').patchValue(contato.celular);
-    this.formEdicaoAtendimento.get('email').patchValue(contato.email);
-    this.formEdicaoAtendimento.get('observacao').patchValue(contato.observacao);
+    this.formEdicaoAtendimento.get('contato.nome').patchValue(contato.nome);
+    this.formEdicaoAtendimento.get('contato.telefone').patchValue(contato.telefone);
+    this.formEdicaoAtendimento.get('contato.celular').patchValue(contato.celular);
+    this.formEdicaoAtendimento.get('contato.email').patchValue(contato.email);
+    this.formEdicaoAtendimento.get('contato.observacao').patchValue(contato.observacao);
   }
 
   enderecoSelecionado(endereco) {
-    this.formEdicaoAtendimento.get('complemento').patchValue(endereco.complemento);
-    this.formEdicaoAtendimento.get('uf').patchValue(endereco.uf);
-    this.formEdicaoAtendimento.get('rua').patchValue(endereco.rua);
-    this.formEdicaoAtendimento.get('bairro').patchValue(endereco.bairro);
-    this.formEdicaoAtendimento.get('cep').patchValue(endereco.cep);
-    this.formEdicaoAtendimento.get('cidade').patchValue(endereco.cidade);
-    this.formEdicaoAtendimento.get('numero').patchValue(endereco.numero);
-    this.formEdicaoAtendimento.get('ponto_referencia').patchValue(endereco.ponto_referencia);
+    this.formEdicaoAtendimento.get('endereco.complemento').patchValue(endereco.complemento);
+    this.formEdicaoAtendimento.get('endereco.uf').patchValue(endereco.uf);
+    this.formEdicaoAtendimento.get('endereco.rua').patchValue(endereco.rua);
+    this.formEdicaoAtendimento.get('endereco.bairro').patchValue(endereco.bairro);
+    this.formEdicaoAtendimento.get('endereco.cep').patchValue(endereco.cep);
+    this.formEdicaoAtendimento.get('endereco.cidade').patchValue(endereco.cidade);
+    this.formEdicaoAtendimento.get('endereco.numero').patchValue(endereco.numero);
+    this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
-   atualizarAtendimento(tecnico) {
-    tecnico.updatedAt = new Date();
-    tecnico.id = this.id;
-    tecnico.createdAt = this.atendimentoRecebido._id;
+   atualizarAtendimento(atendimento) {
+    atendimento.updatedAt = new Date();
+    atendimento.id = this.id;
+    atendimento.createdAt = this.atendimentoRecebido._id;
+    atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.inscricao_estadual = atendimento.inscricao_estadual.replace(/\D+/g, '');
+    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
-    this._atendimentoService.atualizarAtendimento(tecnico)
+    this._atendimentoService.atualizarAtendimento(atendimento)
     .subscribe(
       dados => {
     },

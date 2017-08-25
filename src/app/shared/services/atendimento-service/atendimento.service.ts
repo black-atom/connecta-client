@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
-import { Atendimento } from './../../../models';
 import { ManipuladorErro } from './..';
+import { Atendimento } from './../../../models';
+
 
 @Injectable()
 export class AtendimentoService {

@@ -10,6 +10,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
   templateUrl: './novo-atendimento.component.html',
   styleUrls: ['./novo-atendimento.scss']
 })
+
 export class NovoAtendimentoComponent implements OnInit {
 
   public clienteEncontrado;
@@ -33,23 +34,36 @@ export class NovoAtendimentoComponent implements OnInit {
       cnpj_cpf: ['', [Validators.required]],
       inscricao_estadual: [''],
       nome_fantasia: [''],
-      email: ['', [Validators.pattern(this.emailPattern)]],
-      nome: ['', Validators.required],
-      telefone: ['', [Validators.required]],
-      celular: ['', [Validators.required]],
-      observacao: [''],
-      cep: ['', [Validators.required]],
-      rua: ['', [Validators.required]],
-      bairro: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      cidade: ['', [Validators.required]],
-      complemento: [''],
-      uf: ['', [Validators.required]],
-      ponto_referencia: [''],
-      data: ['', [Validators.required]],
+
+      contato: this._fb.group({
+        email: ['', [Validators.pattern(this.emailPattern)]],
+        nome: ['', Validators.required],
+        telefone: ['', [Validators.required]],
+        celular: ['', [Validators.required]],
+        observacao: ['']
+      }),
+
+      endereco: this._fb.group({
+        cep: ['', [Validators.required]],
+        rua: ['', [Validators.required]],
+        bairro: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        complemento: [''],
+        uf: ['', [Validators.required]],
+        ponto_referencia: ['']
+      }),
+
+      data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      decricao: ['', [Validators.required]],
+      valor: [''],
+      modelo_equipamento: ['', [Validators.required]],
+      numero_equipamento: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      testes_efetuados: ['', [Validators.required]],
+      observacao: [''],
       estacionamento: ['', Validators.required],
+
       createAt: [''],
       updatedAt: ['']
     });
@@ -77,32 +91,38 @@ export class NovoAtendimentoComponent implements OnInit {
 }
 
   contatoSelecionado(contato) {
-    this.formAtendimento.get('nome').patchValue(contato.nome);
-    this.formAtendimento.get('telefone').patchValue(contato.telefone);
-    this.formAtendimento.get('celular').patchValue(contato.celular);
-    this.formAtendimento.get('email').patchValue(contato.email);
-    this.formAtendimento.get('observacao').patchValue(contato.observacao);
+    this.formAtendimento.get('contato.nome').patchValue(contato.nome);
+    this.formAtendimento.get('contato.telefone').patchValue(contato.telefone);
+    this.formAtendimento.get('contato.celular').patchValue(contato.celular);
+    this.formAtendimento.get('contato.email').patchValue(contato.email);
+    this.formAtendimento.get('contato.observacao').patchValue(contato.observacao);
   }
 
   enderecoSelecionado(endereco) {
-    this.formAtendimento.get('complemento').patchValue(endereco.complemento);
-    this.formAtendimento.get('uf').patchValue(endereco.uf);
-    this.formAtendimento.get('rua').patchValue(endereco.rua);
-    this.formAtendimento.get('bairro').patchValue(endereco.bairro);
-    this.formAtendimento.get('cep').patchValue(endereco.cep);
-    this.formAtendimento.get('cidade').patchValue(endereco.cidade);
-    this.formAtendimento.get('numero').patchValue(endereco.numero);
-    this.formAtendimento.get('ponto_referencia').patchValue(endereco.ponto_referencia);
+    this.formAtendimento.get('endereco.complemento').patchValue(endereco.complemento);
+    this.formAtendimento.get('endereco.uf').patchValue(endereco.uf);
+    this.formAtendimento.get('endereco.rua').patchValue(endereco.rua);
+    this.formAtendimento.get('endereco.bairro').patchValue(endereco.bairro);
+    this.formAtendimento.get('endereco.cep').patchValue(endereco.cep);
+    this.formAtendimento.get('endereco.cidade').patchValue(endereco.cidade);
+    this.formAtendimento.get('endereco.numero').patchValue(endereco.numero);
+    this.formAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
 
 
   cadastrarAtendimento(atendimento: Atendimento) {
-    const dataFormAtendimento = new Date(atendimento.data_atendimento);   
+    const dataFormAtendimento = new Date(atendimento.data_atendimento);
     const dataAtual = new Date();
 
-    if ( dataFormAtendimento.getDate() + 1 >= dataAtual.getDate() 
+      atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
+      atendimento.inscricao_estadual = atendimento.inscricao_estadual.replace(/\D+/g, '');
+      atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+
+    if ( dataFormAtendimento.getDate() + 1 >= dataAtual.getDate()
       && dataFormAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataFormAtendimento.getFullYear() >= dataAtual.getFullYear()) {   
+      && dataFormAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
         this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
@@ -112,7 +132,7 @@ export class NovoAtendimentoComponent implements OnInit {
           () => {
               this.sucessoNoCadastro();
           }
-        );  
+        );
       } else {
         this.falhaDataMenorQueAtual();
       }

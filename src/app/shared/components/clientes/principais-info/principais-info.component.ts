@@ -24,18 +24,7 @@ export class PrincipaisInfoComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService) { }
 
-  ngOnInit() {
-    this.formDadosPrincipais.valueChanges.subscribe(dados => {
-      dados['cnpj_cpf'] = this.obterNumber(dados['cnpj_cpf']);
-    });
-    }
-
-  obterNumber(str: string): string {
-    if (str === undefined) {
-      str = '';
-    }
-      return str.replace(/\D+/g, '');
-    }
+  ngOnInit() { }
 
   mask(valorDaLinha: string) {
         if (valorDaLinha === undefined) {
@@ -51,7 +40,7 @@ export class PrincipaisInfoComponent implements OnInit {
   }
 
   emiteEventoCnpj(cnpj) {
-    const removerCaracteres = this.obterNumber(cnpj);
+    const removerCaracteres = cnpj.replace(/\D+/g, '');
     this.enviaCnpj.emit(removerCaracteres);
   }
 

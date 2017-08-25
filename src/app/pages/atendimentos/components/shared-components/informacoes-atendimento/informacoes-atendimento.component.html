@@ -3,15 +3,15 @@
   <div class="col-md-2 col-sm-12">
     <div class="form-group">
       <label for="data_atendimento">Data do atendimento</label>
-      <input type="date" class="form-control" 
-      name="data_atendimento" id="data_atendimento">
+      <input type="date" class="form-control"
+      formControlName="data_atendimento" id="data_atendimento">
     </div>
   </div>
 
   <div class="col-md-3 col-sm-12">
     <div class="form-group">
       <label for="descricao_atendimento">Selecione o tipo do atendimento</label>
-      <select class="form-control" name="tipo_atendimento">
+      <select class="form-control" formControlName="tipo">
         <option value="" disabled selected>Selecione o tipo do atendimento</option>
         <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
       </select>
@@ -21,15 +21,15 @@
   <div class="col-md-2 col-sm-12">
     <div class="form-group">
       <label for="descricao_atendimento">Valor</label>
-      <input type="text" class="form-control" 
-      name="valor" id="valor">
+      <input type="text" class="form-control"
+      formControlName="valor" id="valor">
     </div>
   </div>
 
   <div class="col-md-3 col-sm-12">
     <div class="form-group">
       <label for="descricao_atendimento">Selecione o modelo do equipamento</label>
-      <select class="form-control" name="tipo">
+      <select class="form-control" formControlName="modelo_equipamento">
         <option value="" disabled selected>Selecione o tipo do atendimento</option>
         <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
       </select>
@@ -40,45 +40,36 @@
   <div class="col-md-2 col-sm-12">
     <div class="form-group">
       <label for="numero_equipamento">Número equipamento</label>
-      <input type="text" class="form-control" 
-      name="numero_equipamento" id="numero_equipamento">
+      <input type="text" class="form-control"
+      formControlName="numero_equipamento" id="numero_equipamento">
     </div>
   </div>
 
-</div>
 
-
-<div class="row">
-  
   <div class="col-md-5 col-sm-12">
     <div class="form-group">
       <label for="descricao">Descrição do atendimento</label>
-      <textarea class="form-control" rows="3" 
-       name="descricao" id="descricao">
+      <textarea class="form-control" rows="3"
+       formControlName="descricao" id="descricao">
       </textarea>
     </div>
   </div>
-  
+
   <div class="col-md-7 col-sm-12">
     <div class="form-group">
       <label for="testes_efetuados">Testes efetuados</label>
-        <textarea class="form-control" rows="3" 
-          name="testes_efetuados" 
+        <textarea class="form-control" rows="3"
+          formControlName="testes_efetuados"
           id="testes_efetuados">
         </textarea>
       </div>
   </div>
 
-</div>
-
-
-<div class="row">
-
   <div class="col-md-5 col-sm-12">
     <div class="form-group">
-      <label for="observacoes">Observações</label>
-      <input type="text" class="form-control" 
-      name="observacoes" id="observacoes">
+      <label for="observacao">Observações</label>
+      <input type="text" class="form-control"
+      formControlName="observacao" id="observacao">
     </div>
   </div>
 
@@ -86,7 +77,7 @@
   <div class="col-md-7 col-sm-12">
     <div class="form-group">
       <label for="descricao_atendimento">Estacionamento no local?</label>
-      <select class="form-control" name="estacionamento_local">
+      <select class="form-control" formControlName="estacionamento">
         <option value="" disabled selected>Selecione o tipo do estacionamento</option>
         <option *ngFor="let estacionamento of tipoEstacionamento" >{{estacionamento}}</option>
       </select>

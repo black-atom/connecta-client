@@ -1,4 +1,4 @@
-<form [formGroup]="formEdicaoAtendimento" 
+<form [formGroup]="formEdicaoAtendimento"
   (ngSubmit)="atualizarAtendimento(formEdicaoAtendimento.value)" novalidate>
 
     <!-- Card com os inputs de dados principais do funcionário -->
@@ -12,7 +12,7 @@
         </ba-card>
       </div>
     </div>
-    
+
     <!-- Card com os inputs das informações de contato do cliente -->
     <div class="row">
       <div class="col-12">
@@ -23,7 +23,7 @@
                 [(ngModel)]="contatoEscolhido"
                 [ngModelOptions]="{standalone: true}"
                 (change)="contatoSelecionado(contatoEscolhido)">
-                  <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos"> 
+                  <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos">
                     {{
                       contato?.nome + ', ' +
                       contato?.email +', ' +
@@ -34,11 +34,11 @@
                    </option>
                 </select>
               </div>
-          <app-contato [formContato]="formEdicaoAtendimento"></app-contato>
+          <app-contato [formContato]="formEdicaoAtendimento.controls.contato"></app-contato>
         </ba-card>
       </div>
     </div>
-    
+
     <!-- Card com os inputs das informações de endereço do cliente -->
     <div class="row">
       <div class="col-12">
@@ -61,11 +61,11 @@
                     </option>
                 </select>
               </div>
-          <app-endereco [formEndereco]="formEdicaoAtendimento"></app-endereco>
+          <app-endereco [formEndereco]="formEdicaoAtendimento.controls.endereco"></app-endereco>
         </ba-card>
       </div>
     </div>
-    
+
     <!-- Card com os inputs das informações do atendimento -->
     <div class="row">
       <div class="col-12">
@@ -76,29 +76,29 @@
         </ba-card>
       </div>
       </div>
-    
+
     <!-- Botões de cadastro e de limpeza de dados -->
     <div class="row">
       <div class="col-12">
         <ba-card>
           <div class="row">
             <div class="col-md-6 col-sm-12">
-    
+
               <button type="submit" class="btn btn-primary btn-with-icon"
                [disabled]="formEdicaoAtendimento.invalid">
               <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
             </div>
-    
+
             <div class="col-md-6 col-sm-12">
               <button type="reset" class="btn btn-danger btn-with-icon"
               (click)="formEdicaoAtendimento.reset()"
               [disabled]="formEdicaoAtendimento.pristine">
               <i class="ion-trash-a"></i>Limpar</button>
             </div>
-    
+
            </div>
         </ba-card>
        </div>
      </div>
     </form>
-    
+

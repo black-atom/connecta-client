@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-// import { TIPOFUNCIONARIOMOCK } from './../../../../../utils/mocks/';
+import { TIPOFUNCIONARIOMOCK } from './../../../../../utils/mocks/';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginFuncionarioComponent implements OnInit {
 
   @Input()
   formLoginFuncionario: FormGroup;
-  // tipoFuncionario = TIPOFUNCIONARIOMOCK;
+  tipoFuncionario = TIPOFUNCIONARIOMOCK;
 
   constructor() { }
 

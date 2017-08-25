@@ -12,31 +12,22 @@
     </div>
   </div>
 
-  <!-- Card com os inputs de login do funcionário -->
-  <div class="row">
-      <div class="col-12">
-        <ba-card cardTitle="Login">
-          <app-login-funcionario
-          [formLoginFuncionario]="formFuncionario">
-          </app-login-funcionario>
-        </ba-card>
-      </div>
-    </div>
+
 
   <!-- Card com os inputs de contato do funcionário -->
   <div class="row">
-    <div class="col-12">
+    <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Contato">
         <app-contato
          [formContato]="formFuncionario">
         </app-contato>
       </ba-card>
     </div>
-  </div>
+
 
   <!-- Card com os inputs de endereço do funcionário -->
-  <div class="row">
-    <div class="col-12">
+
+    <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Endereço">
         <app-endereco
         [formEndereco]="formFuncionario">
@@ -48,14 +39,25 @@
   <!-- Card com os inputs de informações da
 carteira de habilitação do funcionário -->
   <div class="row">
-    <div class="col-12">
+    <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Habilitação">
         <app-habilitacao
         [formHabilitacao]="formFuncionario">
       </app-habilitacao>
       </ba-card>
     </div>
-  </div>
+
+
+    <!-- Card com os inputs de login do funcionário -->
+    
+        <div class="col-md-12 col-lg-6 col-sm-12">
+          <ba-card cardTitle="Login">
+            <app-login-funcionario
+            [formLoginFuncionario]="formFuncionario">
+            </app-login-funcionario>
+          </ba-card>
+        </div>
+      </div>
 
   <!-- Botões de cadastro e de limpeza de dados -->
   <div class="row">

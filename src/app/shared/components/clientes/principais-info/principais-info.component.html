@@ -2,9 +2,9 @@
 
   <div class="row">
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4" 
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formDadosPrincipais.hasError('required')">
-      <label for="cnpj_cpf">CNPJ ou CPF</label>
+      <label class="control-label" for="cnpj_cpf">CNPJ ou CPF</label>
       <input type="text" [textMask]="{mask: mask}" class="form-control" 
       formControlName="cnpj_cpf" id="cnpj_cpf" (blur)="emiteEventoCnpj($event.target.value)">
       
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8" 
+    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" 
       [class.required]="formDadosPrincipais.hasError('required')">
       <label for="razao_social">Razão social ou nome</label>
       <input type="text" class="form-control" formControlName="razao_social" id="razao_social">
@@ -27,13 +27,13 @@
       </div>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
         <label for="inscricao_estadual">Inscrição estadual (opcional)</label>
         <input type="text" [textMask]="{mask: inscricaoEstadual}" 
         class="form-control" formControlName="inscricao_estadual" id="inscricao_estadual">
       </div>
 
-    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
+    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
       <label for="nome_fantasia">Nome fantasia (opcional)</label>
       <input type="text" class="form-control" 
       formControlName="nome_fantasia" id="nome_fantasia">

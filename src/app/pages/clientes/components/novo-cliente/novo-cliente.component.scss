@@ -7,13 +7,6 @@ button {
     margin-bottom: 1em;
 }
 
-.adiciona {
-    width:  7%;
-}
-
 i {
-    &:hover{
-        color: $danger;
-        cursor: pointer;
-    }
+    padding: 5px;
 }

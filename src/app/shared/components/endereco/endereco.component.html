@@ -2,11 +2,11 @@
 
   <div class="row">
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-4" 
     [class.required]="formEndereco.hasError('required')">
       <label for="cep">CEP</label>
       <input [textMask]="{ mask : mascaraCep }" type="text" class="form-control"
-      placeholder="Insira um CEP" formControlName="cep"
+        formControlName="cep"
       (blur)="buscaPorCep($event.target.value)" id="cep">
 
       <div class="text-danger" ngxErrors="cep" #myError="ngxErrors">
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-4" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-5" 
       [class.required]="formEndereco.hasError('required')">
       <label for="rua">Rua</label>
       <input type="text" class="form-control"
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-3" 
       [class.required]="formEndereco.hasError('required')">
       <label for="numero">N°</label>
       <input type="text" class="form-control"
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-2" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-5" 
     [class.required]="formEndereco.hasError('required')">
     <label for="cidade">Cidade</label>
     <input type="text" class="form-control"
@@ -68,7 +68,7 @@
       </div>
   </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-1" 
+    <div class="form-group col-md-6 col-sm-6 col-lg-3" 
       [class.required]="formEndereco.hasError('required')">
       <label for="uf">Estado</label>
       <input type="text" class="form-control"
@@ -81,14 +81,14 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-3">
+    <div class="form-group col-md-6 col-sm-6 col-lg-4">
       <label for="complemento">Complemento (opcional)</label>
       <input type="text" class="form-control"
       formControlName="complemento"
       id="complemento">
     </div>
 
-    <div class="form-group col-md-6 col-sm-6 col-lg-6">
+    <div class="form-group col-md-6 col-sm-6 col-lg-8">
       <label for="ponto_referencia">Ponto de referência (opcional)</label>
       <input type="text" class="form-control"
       formControlName="ponto_referencia"

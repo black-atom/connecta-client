@@ -1,74 +1,79 @@
 <form [formGroup]="formCliente" 
 (ngSubmit)="cadastrarCliente(formCliente.value)" novalidate>
 
-  <!-- <div class="row"> -->
-
-    <!-- Card com os inputs de dados principais do cliente -->
-    <div class="row">
+  <!-- Card com os inputs de dados principais do cliente -->
+  <div class="row">
     <div class="col-md-12">
       <ba-card cardTitle="Dados principais">
-        <app-principais-info-cliente [formDadosPrincipais]="formCliente">
+        <app-principais-info-cliente 
+        [formDadosPrincipais]="formCliente">
         </app-principais-info-cliente>
       </ba-card>
     </div>
   </div>
 
-    <!-- Card com os inputs das informações de contato do cliente -->
-    <div class="row">
-    <div class="col-md-12">
-      <ba-card cardTitle='Contatos' formArrayName="contatos">
-        <ba-card *ngFor="let contato of contatos?.controls; let i=index">
 
-          <div>
-            <span>Contato {{i + 1}}</span>
-            <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
-              (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
-          </div>
+  <!-- Card com os inputs das informações de contato do cliente -->
+  <div class="row">
+    <div class="col-md-12 col-lg-6 col-sm-12" formArrayName="contatos">
+      <ba-card cardTitle="Contato {{ i +1 }}" 
+      *ngFor="let contato of contatos?.controls; let i=index">
 
-          <app-contato [formContato]="contato">
-          </app-contato>
-        </ba-card>
-        <button (click)="adicionarContato()" type="button" 
-        class="adiciona pull-right btn btn-primary">+</button>
+
+        <app-contato 
+        [formContato]="contato">
+        </app-contato>
+
+        <div>
+          <span class="pull-right" (click)="adicionarContato()" 
+          class="pull-right"><i class="ion-plus-circled"></i></span>
+        </div>
+
+        <div>
+          <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
+            (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
+        </div>
       </ba-card>
+
     </div>
-  </div>
+
 
     <!-- Card com os inputs das informações de endereço do cliente -->
-    <div class="row">
-    <div class="col-md-12">
-      <ba-card cardTitle='Enderecos' formArrayName="enderecos">
+    <div class="col-md-12 col-lg-6 col-sm-12" formArrayName="enderecos">
 
-        <ba-card *ngFor="let endereco of enderecos?.controls; let i=index">
+      <ba-card cardTitle="Endereço {{ i +1 }}" baCardClass="with-scroll" 
+      *ngFor="let endereco of enderecos?.controls; let i=index">
 
-          <div>
-            <span>Endereço {{i + 1}}</span>
-            <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
-              (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
-          </div>
 
-          <app-endereco 
-          [formEndereco]="endereco">
-          </app-endereco>
+        <app-endereco 
+        [formEndereco]="endereco">
+        </app-endereco>
 
-        </ba-card>
-        <button (click)="adicionarEndereco()" type="button" 
-        class="adiciona pull-right btn btn-primary">+</button>
+        <div>
+          <span class="pull-right" (click)="adicionarEndereco()" 
+          class="pull-right"><i class="ion-plus-circled"></i></span>
+        </div>
+
+        <div>
+          <span class="pull-right" *ngIf="enderecos?.controls.length > 1"
+             (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
+        </div>
       </ba-card>
-
     </div>
+
   </div>
 
-    <!-- Botões de cadastro e de limpeza de dados -->
-    <div class="row">
+
+  <!-- Botões de cadastro e de limpeza de dados -->
+  <div class="row">
     <div class="col-md-12">
-      <ba-card>
+      <ba-card class="fixed">
         <div class="row">
 
           <div class="col-md-6 col-sm-12">
             <button type="submit" class="btn btn-primary btn-with-icon" 
             [disabled]="formCliente.invalid">
-            <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
+            <i class="ion-checkmark"></i>Cadastrar</button>
           </div>
 
           <div class="col-md-6 col-sm-12">
@@ -78,7 +83,7 @@
           </div>
         </div>
       </ba-card>
-      
+
     </div>
   </div>
 </form>

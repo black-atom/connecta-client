@@ -46,9 +46,10 @@ export class NovoAtendimentoComponent implements OnInit {
       complemento: [''],
       uf: ['', [Validators.required]],
       ponto_referencia: [''],
-      data_atendimento: ['', [Validators.required]],
-      tipo_atendimento: ['', [Validators.required]],
-      decricao_atendimento: ['', [Validators.required]],
+      data: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      decricao: ['', [Validators.required]],
+      estacionamento: ['', Validators.required],
       createAt: [''],
       updatedAt: ['']
     });

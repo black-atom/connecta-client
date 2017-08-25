@@ -6,12 +6,12 @@ export interface Atendimento {
     inscricao_estadual: string;
     contato: ContatoAtendimento;
     endereco: EnderecoAtendimento;
-    estacionamento: Estacionamento;
+    estacionamento: string;
     modelo_equipamento: string;
     numero_equipamento: string;
     data_atendimento: string;
-    tipo_atendimento: string;
-    descricao_atendimento: string;
+    tipo: string;
+    descricao: string;
     testes_efetuados: string;
     observacao: string;
     criado_por: string;
@@ -39,7 +39,3 @@ interface ContatoAtendimento {
     observacao: string;
 }
 
-interface Estacionamento {
-    estacionamento_local: boolean;
-    valor: string;
-}

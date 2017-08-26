@@ -7,6 +7,7 @@ import { CepService } from '../../../../shared/services';
 import { Atendimento } from './../../../../models';
 import { DadosEndereco } from './../../../../models';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -28,7 +29,8 @@ export class DetalhesAtendimentoComponent implements OnInit {
              private _cepService: CepService,
              private _fb: FormBuilder,
              private _router: Router,
-             private _notificacaoService: NotificacaoService
+             private _notificacaoService: NotificacaoService,
+             private ngbDateParserFormatter: NgbDateParserFormatter
   ) { }
 
   ngOnInit() {
@@ -77,8 +79,8 @@ export class DetalhesAtendimentoComponent implements OnInit {
       observacao: [''],
       estacionamento: ['', Validators.required],
 
-      createAt: [''],
-      updatedAt: ['']
+      criado_em: [''],
+      atualizado_em: ['']
    });
   }
 
@@ -142,14 +144,23 @@ export class DetalhesAtendimentoComponent implements OnInit {
     this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
    atualizarAtendimento(atendimento) {
-    atendimento.updatedAt = new Date();
     atendimento.id = this.id;
     atendimento.createdAt = this.atendimentoRecebido._id;
+
+    const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
+    const dataFormatada = this.ngbDateParserFormatter.format(dataFormulario);
+    const dataAtendimento = new Date(dataFormatada);
+    const dataAtual = new Date();
+
     atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
     atendimento.inscricao_estadual = atendimento.inscricao_estadual.replace(/\D+/g, '');
     atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
     atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
     atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+
+    if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
+      && dataAtendimento.getMonth() >= dataAtual.getMonth()
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
     this._atendimentoService.atualizarAtendimento(atendimento)
     .subscribe(
@@ -162,6 +173,9 @@ export class DetalhesAtendimentoComponent implements OnInit {
       this.sucessoNaEdicao();
     }
   );
+  } else {
+      this.falhaDataMenorQueAtual();
+  }
 }
 
   sucessoNaEdicao() {
@@ -177,6 +191,13 @@ export class DetalhesAtendimentoComponent implements OnInit {
   this._notificacaoService.notificarErro(
     'Não foi possível efetuar a edição',
     ''
+    );
+  }
+
+  falhaDataMenorQueAtual() {
+    this._notificacaoService.notificarErro(
+      'Data informada inferior a data atual',
+      ''
     );
   }
 

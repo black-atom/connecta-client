@@ -66,8 +66,8 @@ export class NovoAtendimentoComponent implements OnInit {
       observacao: [''],
       estacionamento: ['', Validators.required],
 
-      createAt: [''],
-      updatedAt: ['']
+      criado_em: [''],
+      atualizado_em: ['']
     });
   }
 

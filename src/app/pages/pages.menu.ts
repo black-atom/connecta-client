@@ -48,7 +48,7 @@ export const PAGES_MENU = [{
       data: {
         menu: {
           title: 'Funcionários',
-          icon: 'ion-model-s',
+          icon: 'ion-briefcase',
           selected: false,
           expanded: false,
           order: 300

@@ -38,7 +38,10 @@ export class GerenciarComponent implements OnInit {
     columns: {
       razao_social: {
         title: 'Razão Social/Nome',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: razaoSocial => {
+          return razaoSocial.split(' ').slice(0, -2).join(' ');
+        }
       },
       cnpj_cpf: {
         title: 'CNPJ/CPF',

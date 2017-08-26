@@ -4,11 +4,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Atendimento } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 
 @Component({
   selector: 'app-novo-atendimento',
   templateUrl: './novo-atendimento.component.html',
-  styleUrls: ['./novo-atendimento.scss']
+  styleUrls: ['./novo-atendimento.component.scss']
 })
 
 export class NovoAtendimentoComponent implements OnInit {
@@ -22,7 +23,8 @@ export class NovoAtendimentoComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
               private _notificacaoService: NotificacaoService,
-              private _clienteService: ClienteService) { }
+              private _clienteService: ClienteService,
+              private ngbDateParserFormatter: NgbDateParserFormatter) { }
 
   ngOnInit() {
     this.formInit();
@@ -111,7 +113,9 @@ export class NovoAtendimentoComponent implements OnInit {
 
 
   cadastrarAtendimento(atendimento: Atendimento) {
-    const dataFormAtendimento = new Date(atendimento.data_atendimento);
+    const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
+    const dataFormatada = this.ngbDateParserFormatter.format(dataFormulario);
+    const dataAtendimento = new Date(dataFormatada);
     const dataAtual = new Date();
 
       atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
@@ -120,9 +124,9 @@ export class NovoAtendimentoComponent implements OnInit {
       atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
       atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
-    if ( dataFormAtendimento.getDate() + 1 >= dataAtual.getDate()
-      && dataFormAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataFormAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+    if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
+      && dataAtendimento.getMonth() >= dataAtual.getMonth()
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
         this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},

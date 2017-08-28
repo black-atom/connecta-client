@@ -97,7 +97,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   recuperarAtendimento() {
-    this._atendimentoService.retornarUm(this.id).subscribe((res) => {
+    this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoAtendimento.get('razao_social').patchValue(res.razao_social);
       this.formEdicaoAtendimento.get('cnpj_cpf').patchValue(res.cnpj_cpf);
       this.formEdicaoAtendimento.get('inscricao_estadual').patchValue(res.inscricao_estadual);
@@ -213,7 +213,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.sub) {
     this.sub.unsubscribe();
+    }
   }
-
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,8 +14,9 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
   templateUrl: './detalhes-funcionario.component.html',
   styleUrls: ['./detalhes-funcionario.component.scss']
 })
-export class DetalhesFuncionarioComponent implements OnInit {
+export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public formEdicaoFuncionario: FormGroup;
   private _id: any;
   private funcionarioRecebido: Funcionario;
@@ -161,6 +163,10 @@ export class DetalhesFuncionarioComponent implements OnInit {
       setTimeout(() => {
         this._router.navigate(['/pages/funcionarios/gerenciar']);
       }, 1500);
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
 
 }

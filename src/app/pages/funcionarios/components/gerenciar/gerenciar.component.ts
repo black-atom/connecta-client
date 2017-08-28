@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs/Rx';
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { FuncionarioService } from './../../../../shared/services';
 import { Funcionario } from './../../../../models';
@@ -30,7 +31,7 @@ export class BtnDetalhesTecComponent implements ViewCell, OnInit {
   templateUrl: './gerenciar.component.html',
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
-export class GerenciarComponent implements OnInit {
+export class GerenciarComponent implements OnInit, OnDestroy {
 
   tecnicos: Funcionario[];
   tecnicoSelecionado;
@@ -67,7 +68,8 @@ export class GerenciarComponent implements OnInit {
     }
   };
 
-  source: LocalDataSource;
+  private subscription: Subscription;
+  public source: LocalDataSource;
 
   constructor(private _funcionarioService: FuncionarioService) {
     this.source = new LocalDataSource();
@@ -77,6 +79,10 @@ export class GerenciarComponent implements OnInit {
     this._funcionarioService.retornarTodos().subscribe(funcionarios => {
         this.source.load(funcionarios);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
 

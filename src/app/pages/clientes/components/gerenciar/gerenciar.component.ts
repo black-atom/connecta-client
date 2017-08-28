@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 import { ClienteService } from './../../../../shared/services';
@@ -30,7 +31,7 @@ export class BtnDetalhesCliComponent implements ViewCell, OnInit {
   templateUrl: './gerenciar.component.html',
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
-export class GerenciarComponent implements OnInit {
+export class GerenciarComponent implements OnInit, OnDestroy {
 
   public settings = {
     actions: false,
@@ -62,7 +63,8 @@ export class GerenciarComponent implements OnInit {
     }
   };
 
-  source: LocalDataSource;
+  private subscription: Subscription;
+  public source: LocalDataSource;
 
   constructor(private clienteService: ClienteService) {
     this.source = new LocalDataSource();
@@ -72,5 +74,9 @@ export class GerenciarComponent implements OnInit {
     this.clienteService.retornarTodos().subscribe(clientes => {
       this.source.load(clientes);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

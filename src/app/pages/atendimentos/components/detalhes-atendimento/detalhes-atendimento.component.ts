@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AtendimentoService } from './../../../../shared/services';
 import { CepService } from '../../../../shared/services';
@@ -14,14 +15,15 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
   templateUrl: './detalhes-atendimento.component.html',
   styleUrls: ['./detalhes-atendimento.component.scss']
 })
-export class DetalhesAtendimentoComponent implements OnInit {
+export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   public formEdicaoAtendimento: FormGroup;
+  private subscription: Subscription;
   private id: any;
   private atendimentoRecebido: any;
-  public contatoEscolhido;
-  public enderecoEscolhido;
-  public detalhesAtendimentoEditarCampos: Boolean = true;
+  public contatoEscolhido: any;
+  public enderecoEscolhido: any;
+  public detalhesAtendimentoEditarCampos = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 
@@ -208,6 +210,10 @@ export class DetalhesAtendimentoComponent implements OnInit {
     setTimeout(() => {
       this._router.navigate(['/pages/atendimentos/gerenciar']);
     }, 1500);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

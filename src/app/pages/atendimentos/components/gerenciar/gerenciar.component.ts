@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 import { AtendimentoService } from './../../../../shared/services';
@@ -13,7 +14,7 @@ routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-ios-
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
 export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
-
+  
   public idAtendimento: string;
 
   @Input()
@@ -31,7 +32,7 @@ export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
   templateUrl: './gerenciar.component.html',
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
-export class GerenciarComponent implements OnInit {
+export class GerenciarComponent implements OnInit, OnDestroy {
 
   public settings = {
     actions: false,
@@ -66,6 +67,8 @@ export class GerenciarComponent implements OnInit {
   };
 
   source: LocalDataSource;
+  private subscription: Subscription;
+
   constructor(private _atendimentoService: AtendimentoService) {
     this.source = new LocalDataSource();
   }
@@ -76,4 +79,7 @@ export class GerenciarComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

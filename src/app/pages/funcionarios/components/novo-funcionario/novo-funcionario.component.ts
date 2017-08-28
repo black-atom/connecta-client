@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { NotificacaoService } from './../../../../shared/services';
@@ -13,8 +14,9 @@ import { Funcionario } from './../../../../models';
   templateUrl: './novo-funcionario.component.html',
   styleUrls: ['./novo-funcionario.component.scss']
 })
-export class NovoFuncionarioComponent implements OnInit {
+export class NovoFuncionarioComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -97,6 +99,10 @@ falhaNoCadastro() {
     'Não foi possível efetuar o cadastro',
     ''
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
 

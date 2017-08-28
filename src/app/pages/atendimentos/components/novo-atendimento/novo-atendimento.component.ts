@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs/Rx';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Atendimento } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
@@ -12,8 +13,9 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
   styleUrls: ['./novo-atendimento.component.scss']
 })
 
-export class NovoAtendimentoComponent implements OnInit {
-
+export class NovoAtendimentoComponent implements OnInit, OnDestroy {
+  
+  private subscription: Subscription;
   public clienteEncontrado;
   public contatoEscolhido;
   public enderecoEscolhido;
@@ -173,5 +175,9 @@ export class NovoAtendimentoComponent implements OnInit {
       'Data informada inferior a data atual',
       ''
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

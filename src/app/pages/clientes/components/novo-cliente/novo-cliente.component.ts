@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 
@@ -14,8 +15,9 @@ import { Router } from '@angular/router';
   templateUrl: './novo-cliente.component.html',
   styleUrls: ['./novo-cliente.component.scss']
 })
-export class NovoClienteComponent implements OnInit {
+export class NovoClienteComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public formCliente: FormGroup;
   public desabilitaElemento: boolean = true;
 
@@ -90,5 +92,9 @@ export class NovoClienteComponent implements OnInit {
       'Não foi possível efetuar o cadastro',
       ''
     );
+  }
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

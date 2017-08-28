@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -14,8 +15,9 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
   templateUrl: './detalhes-cliente.component.html',
   styleUrls: ['./detalhes-cliente.component.scss']
 })
-export class DetalhesClienteComponent implements OnInit {
+export class DetalhesClienteComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public formEdicaoCliente: FormGroup;
   private id: string;
   private sub: any;
@@ -130,6 +132,10 @@ export class DetalhesClienteComponent implements OnInit {
     setTimeout(() => {
       this._router.navigate(['/pages/clientes/gerenciar']);
     }, 1500);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

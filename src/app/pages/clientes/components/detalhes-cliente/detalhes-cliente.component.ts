@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { ClienteService } from './../../../../shared/services';

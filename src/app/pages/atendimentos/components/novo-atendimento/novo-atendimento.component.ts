@@ -18,13 +18,14 @@ export class NovoAtendimentoComponent implements OnInit {
   public contatoEscolhido;
   public enderecoEscolhido;
   public formAtendimento: FormGroup;
+  public novoAtendimentoEditarCampos: Boolean = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
               private _notificacaoService: NotificacaoService,
               private _clienteService: ClienteService,
-              private ngbDateParserFormatter: NgbDateParserFormatter) { }
+              private _ngbDateParserFormatter: NgbDateParserFormatter) { }
 
   ngOnInit() {
     this.formInit();
@@ -114,7 +115,7 @@ export class NovoAtendimentoComponent implements OnInit {
 
   cadastrarAtendimento(atendimento: Atendimento) {
     const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
-    const dataFormatada = this.ngbDateParserFormatter.format(dataFormulario);
+    const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
     const dataAtendimento = new Date(dataFormatada);
     const dataAtual = new Date();
 
@@ -127,6 +128,8 @@ export class NovoAtendimentoComponent implements OnInit {
     if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+
+        atendimento.data_atendimento = dataFormatada;
 
         this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},

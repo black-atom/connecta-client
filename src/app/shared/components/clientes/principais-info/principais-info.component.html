@@ -2,12 +2,12 @@
 
   <div class="row">
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" 
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
       [class.required]="formDadosPrincipais.hasError('required')">
       <label class="control-label" for="cnpj_cpf">CNPJ ou CPF</label>
-      <input type="text" [textMask]="{mask: mask}" class="form-control" 
+      <input type="text" [textMask]="{mask: mask}" class="form-control"
       formControlName="cnpj_cpf" id="cnpj_cpf" (blur)="emiteEventoCnpj($event.target.value)">
-      
+
       <div class="text-danger" ngxErrors="cnpj_cpf" #myError="ngxErrors">
         <div ngxError="required" when="touched">
           <small><i class="ion-close"></i> Requerido!</small>
@@ -15,10 +15,10 @@
       </div>
     </div>
 
-    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" 
+    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
       [class.required]="formDadosPrincipais.hasError('required')">
       <label for="razao_social">Razão social ou nome</label>
-      <input type="text" class="form-control" formControlName="razao_social" id="razao_social">
+      <input type="text" class="form-control" formControlName="razao_social" id="razao_social" [readonly]="editarCampoFormulario">
 
       <div class="text-danger" ngxErrors="razao_social" #myError="ngxErrors">
         <div ngxError="required" when="touched">
@@ -29,16 +29,16 @@
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
         <label for="inscricao_estadual">Inscrição estadual (opcional)</label>
-        <input type="text" [textMask]="{mask: inscricaoEstadual}" 
-        class="form-control" formControlName="inscricao_estadual" id="inscricao_estadual">
+        <input type="text" [textMask]="{mask: inscricaoEstadual}"
+        class="form-control" formControlName="inscricao_estadual" id="inscricao_estadual" [readonly]="editarCampoFormulario">
       </div>
 
     <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
       <label for="nome_fantasia">Nome fantasia (opcional)</label>
-      <input type="text" class="form-control" 
-      formControlName="nome_fantasia" id="nome_fantasia">
+      <input type="text" class="form-control"
+      formControlName="nome_fantasia" id="nome_fantasia" [readonly]="editarCampoFormulario">
     </div>
 
-    
+
   </div>
 </form>

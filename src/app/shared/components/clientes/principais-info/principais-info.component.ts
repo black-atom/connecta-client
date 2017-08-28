@@ -15,6 +15,9 @@ export class PrincipaisInfoComponent implements OnInit {
   @Input()
   formDadosPrincipais: FormGroup;
 
+  @Input()
+  editarCampoFormulario: Boolean = false;
+
   @Output()
   enviaCnpj = new EventEmitter();
 

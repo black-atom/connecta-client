@@ -21,16 +21,17 @@ export class DetalhesAtendimentoComponent implements OnInit {
   private atendimentoRecebido: any;
   public contatoEscolhido;
   public enderecoEscolhido;
+  public detalhesAtendimentoEditarCampos: Boolean = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 
   constructor(private _atendimentoService: AtendimentoService,
-             private _activatedRoute: ActivatedRoute,
-             private _cepService: CepService,
-             private _fb: FormBuilder,
-             private _router: Router,
-             private _notificacaoService: NotificacaoService,
-             private ngbDateParserFormatter: NgbDateParserFormatter
+              private _activatedRoute: ActivatedRoute,
+              private _cepService: CepService,
+              private _fb: FormBuilder,
+              private _router: Router,
+              private _notificacaoService: NotificacaoService,
+              private _ngbDateParserFormatter: NgbDateParserFormatter
   ) { }
 
   ngOnInit() {
@@ -148,7 +149,7 @@ export class DetalhesAtendimentoComponent implements OnInit {
     atendimento.createdAt = this.atendimentoRecebido._id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
-    const dataFormatada = this.ngbDateParserFormatter.format(dataFormulario);
+    const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
     const dataAtendimento = new Date(dataFormatada);
     const dataAtual = new Date();
 
@@ -161,6 +162,8 @@ export class DetalhesAtendimentoComponent implements OnInit {
     if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+
+        atendimento.data_atendimento = dataFormatada;
 
     this._atendimentoService.atualizarAtendimento(atendimento)
     .subscribe(

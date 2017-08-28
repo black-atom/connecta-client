@@ -7,6 +7,7 @@
         <ba-card cardTitle="Dados principais">
           <app-principais-info-cliente
           (enviaCnpj)="buscarCliente($event)"
+          [editarCampoFormulario]="detalhesAtendimentoEditarCampos"
           [formDadosPrincipais]="formEdicaoAtendimento">
         </app-principais-info-cliente>
         </ba-card>

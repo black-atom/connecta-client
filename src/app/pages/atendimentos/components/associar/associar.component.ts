@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
+import { Subscription } from 'rxjs/Rx';
 
 import { Atendimento } from './../../../../models';
 import { Funcionario } from './../../../../models';
@@ -13,8 +14,9 @@ import { FuncionarioService } from './../../../../shared/services';
   templateUrl: './associar.component.html',
   styleUrls: ['./associar.component.scss']
 })
-export class AssociarComponent implements OnInit {
+export class AssociarComponent implements OnInit, OnDestroy {
 
+  private sub: Subscription;
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
   public tecnicoSelecionado: string;
@@ -30,7 +32,7 @@ export class AssociarComponent implements OnInit {
 
 
   ngOnInit() {
-      this._funcionarioService.retornarFuncionarioPorFuncao('Técnico')
+      this.sub = this._funcionarioService.retornarFuncionarioPorFuncao('Técnico')
       .subscribe(res => this.tecnicos = res);
   }
 
@@ -53,6 +55,10 @@ export class AssociarComponent implements OnInit {
   //   });
   // });
 }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
 }
 

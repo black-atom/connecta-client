@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs/Rx';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { Subscription } from 'rxjs/Rx';
 
 import { AtendimentoService } from './../../../../shared/services';
 
@@ -67,19 +67,19 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   };
 
   source: LocalDataSource;
-  private subscription: Subscription;
+  private sub: Subscription;
 
   constructor(private _atendimentoService: AtendimentoService) {
     this.source = new LocalDataSource();
   }
 
   ngOnInit() {
-    this._atendimentoService.retornarTodos().subscribe(atendimentos => {
+    this.sub = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
       this.source.load(atendimentos);
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

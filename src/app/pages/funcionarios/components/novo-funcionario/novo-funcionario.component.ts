@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs/Rx';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Rx';
 
 import { NotificacaoService } from './../../../../shared/services';
 import { DadosEndereco } from './../../../../models';
@@ -16,7 +16,7 @@ import { Funcionario } from './../../../../models';
 })
 export class NovoFuncionarioComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  private sub: Subscription;
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -73,7 +73,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
    }
 
    cadastrarTecnico(funcionario: Funcionario) {
-     this._funcionarioService.novoFuncionario(funcionario)
+    this.sub = this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {
     },
@@ -102,7 +102,9 @@ falhaNoCadastro() {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
 

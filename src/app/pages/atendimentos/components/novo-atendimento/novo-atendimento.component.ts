@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs/Rx';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
 
 import { Atendimento } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
@@ -15,7 +15,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 
 export class NovoAtendimentoComponent implements OnInit, OnDestroy {
   
-  private subscription: Subscription;
+  private sub: Subscription;
   public clienteEncontrado;
   public contatoEscolhido;
   public enderecoEscolhido;
@@ -76,7 +76,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
   buscarCliente(cnpj) {
     if (cnpj) {
-      this._clienteService.buscarCliente(cnpj)
+     this.sub = this._clienteService.buscarCliente(cnpj)
       .subscribe((res) => {
         if (res) {
            const cliente = res[0];
@@ -133,7 +133,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
         atendimento.data_atendimento = dataFormatada;
 
-        this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
+        this.sub = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
           erro => {
               this.falhaNoCadastro();
@@ -178,6 +178,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs/Rx';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs/Rx';
 
 import { Cliente } from './../../../../models';
 import { ClienteService } from './../../../../shared/services';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class NovoClienteComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  private sub: Subscription;
   public formCliente: FormGroup;
   public desabilitaElemento: boolean = true;
 
@@ -65,7 +65,7 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
     cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
     cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
       
-    this._clienteService.novoCliente(cliente)
+    this.sub = this._clienteService.novoCliente(cliente)
       .subscribe(
         dados => {
       },
@@ -95,6 +95,8 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

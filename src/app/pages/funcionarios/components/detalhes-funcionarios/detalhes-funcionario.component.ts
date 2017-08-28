@@ -1,7 +1,7 @@
-import { Subscription } from 'rxjs/Rx';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
 
 import { DadosEndereco } from './../../../../models';
 import { Funcionario } from './../../../../models';
@@ -16,7 +16,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 })
 export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  private sub: Subscription;
   public formEdicaoFuncionario: FormGroup;
   private _id: any;
   private funcionarioRecebido: Funcionario;
@@ -85,7 +85,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
  }
 
     buscaPorCep(cep: string) {
-     this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+     this.sub = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
          this.formEdicaoFuncionario.get('rua').patchValue(dados.logradouro);
          this.formEdicaoFuncionario.get('bairro').patchValue(dados.bairro);
          this.formEdicaoFuncionario.get('cidade').patchValue(dados.localidade);
@@ -94,7 +94,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
    }
 
     recuperarFuncionario() {
-      this._funcionarioService.retornarUm(this._id).subscribe((dados) => {
+      this.sub = this._funcionarioService.retornarUm(this._id).subscribe((dados) => {
         this.formEdicaoFuncionario.get('nome').patchValue(dados.nome);
         this.formEdicaoFuncionario.get('rg').patchValue(dados.rg);
         this.formEdicaoFuncionario.get('cpf').patchValue(dados.cpf);
@@ -130,7 +130,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
       funcionario.atualizado_em = new Date();
       funcionario._id = this._id;
 
-      this._funcionarioService.atualizarFuncionario(funcionario)
+      this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
       .subscribe(
         dados => {
       },
@@ -166,7 +166,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-      this.subscription.unsubscribe();
+      this.sub.unsubscribe();
     }
 
 }

@@ -1,7 +1,7 @@
-import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
 
 import { AtendimentoService } from './../../../../shared/services';
 import { CepService } from '../../../../shared/services';
@@ -18,7 +18,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   public formEdicaoAtendimento: FormGroup;
-  private subscription: Subscription;
+  private sub: Subscription;
   private id: any;
   private atendimentoRecebido: any;
   public contatoEscolhido: any;
@@ -88,7 +88,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
    buscaPorCep(cep: string) {
-    this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+    this.sub = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
         this.formEdicaoAtendimento.get('endereco.rua').patchValue(dados.logradouro);
         this.formEdicaoAtendimento.get('endereco.bairro').patchValue(dados.bairro);
         this.formEdicaoAtendimento.get('endereco.cidade').patchValue(dados.localidade);
@@ -167,7 +167,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
         atendimento.data_atendimento = dataFormatada;
 
-    this._atendimentoService.atualizarAtendimento(atendimento)
+    this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
     .subscribe(
       dados => {
     },
@@ -213,7 +213,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
 }

@@ -1,43 +1,32 @@
-<form [formGroup]="formModalAtendimentos">
 <div class="modal-header">
   <h4 class="modal-title animated slideInRight">
     Atendimentos disponíveis para {{ tecnicoSelecionado.nome }}</h4>
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
-<span aria-hidden="true">&times;</span>
-</button>
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
-
 
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12">
       <label for="param_busca">Pesquisar por data</label>
       <div class="input-group">
           <input class="form-control" name="dp"
-          ngbDatepicker #d="ngbDatepicker" formControlName="busca_data" 
+          ngbDatepicker #d="ngbDatepicker" name="busca_data" 
           [(ngModel)]="campoData" (ngModelChange)="buscarPorData()"
           id="param_busca">
           <button class="input-group-addon" (click)="d.toggle()" type="button">
             <i class="ion-calendar"></i>
           </button>
-
-          <button class="input-group-addon" (click)="retornarTodosAtendimentos()" type="button">
-            <i class="ion-refresh"></i>
-          </button>
       </div>        
     </div>
 
-
-  <div class="col-md-8 col-sm-12">
+  <div class="col-md-9 col-sm-10 col-xs-10 col-lg-9">
     <label for="data_atendimento">Pesquisar por razão social ou nome</label>        
-      <div class="input-group">
-        <input type="search" class="form-control" formControlName="busca_razao_social" id="pesquisa"
-         (blur)="buscarPorNome($event.target.value)">
-
-         <button class="input-group-addon" (click)="cancelarBusca()" type="button">
-            <i class="ion-close"></i>
-          </button>
+      <div class="form-group has-feedback">
+        <input type="search" class="form-control" name="busca_razao_social" id="pesquisa"
+         (blur)="buscarPorNome(nome)">
       </div>
     </div>
 
@@ -46,7 +35,7 @@
 
   <div class="row">
     <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos">
-      <ba-card>
+      <ba-card  (click)="selecionarAtendimento(atendimento)">
         <div class="card-body">
           <p><strong> {{ atendimento.razao_social }}</strong></p>
           <p class="local"><i class="ion-location">
@@ -61,8 +50,7 @@
 
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary btn-block">
+  <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
 <i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}})</button>
 </div>
 
-</form>

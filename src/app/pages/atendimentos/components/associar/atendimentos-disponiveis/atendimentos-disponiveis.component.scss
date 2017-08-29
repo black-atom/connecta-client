@@ -6,6 +6,18 @@ label {
     font-weight: 300;
 }
 
+i {
+    &:hover {
+        color: $primary;
+        cursor: pointer;
+    }
+}
+
+.input-group {
+    height: 35px;
+}
+
+
 ba-card {
     &:hover {
         cursor: pointer;

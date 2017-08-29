@@ -87,7 +87,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
           this.clienteEncontrado = cliente;
          }else {
            this.falhaAoEncontrarCliente();
-           this.formAtendimento.reset();
          }
         }
       }

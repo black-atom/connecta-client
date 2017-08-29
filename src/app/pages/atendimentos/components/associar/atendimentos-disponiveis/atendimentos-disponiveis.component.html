@@ -1,5 +1,7 @@
+<form [formGroup]="formModalAtendimentos">
 <div class="modal-header">
-  <h4 class="modal-title animated slideInRight">Atendimentos disponíveis para {{ tecnicoSelecionado.nome }}</h4>
+  <h4 class="modal-title animated slideInRight">
+    Atendimentos disponíveis para {{ tecnicoSelecionado.nome }}</h4>
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
 <span aria-hidden="true">&times;</span>
 </button>
@@ -9,20 +11,33 @@
 <div class="modal-body">
 
   <div class="row">
+    <div class="col-md-4 col-sm-12">
+      <label for="param_busca">Pesquisar por data</label>
+      <div class="input-group">
+          <input class="form-control" name="dp"
+          ngbDatepicker #d="ngbDatepicker" formControlName="busca_data" 
+          [(ngModel)]="campoData" (ngModelChange)="buscarPorData()"
+          id="param_busca">
+          <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <i class="ion-calendar"></i>
+          </button>
 
-    <div class="col-md-3 col-sm-12">
-      <div class="form-group">
-        <label for="data_atendimento">Pesquisar por Data </label>
-        <input type="text" class="form-control" 
-        name="data_atendimento" id="data_atendimento" 
-        (change)="buscarPorData($event.target.value)">
-      </div>
+          <button class="input-group-addon" (click)="retornarTodosAtendimentos()" type="button">
+            <i class="ion-refresh"></i>
+          </button>
+      </div>        
     </div>
 
-    <div class="col-md-9 col-sm-12">
-      <div class="form-group">
-        <label for="data_atendimento">Pesquisar atendimento</label>
-        <input type="search" class="form-control" name="pesquisa" id="pesquisa">
+
+  <div class="col-md-8 col-sm-12">
+    <label for="data_atendimento">Pesquisar por razão social ou nome</label>        
+      <div class="input-group">
+        <input type="search" class="form-control" formControlName="busca_razao_social" id="pesquisa"
+         (blur)="buscarPorNome($event.target.value)">
+
+         <button class="input-group-addon" (click)="cancelarBusca()" type="button">
+            <i class="ion-close"></i>
+          </button>
       </div>
     </div>
 
@@ -47,5 +62,7 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-primary btn-block">
-<i class="ion-android-checkmark-circle"></i> Associar</button>
+<i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}})</button>
 </div>
+
+</form>

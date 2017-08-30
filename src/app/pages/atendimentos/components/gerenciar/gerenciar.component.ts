@@ -38,8 +38,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     actions: false,
     noDataMessage: 'Nenhum dado encontrado',
     columns: {
+      data_atendimento: {
+        title: 'Data',
+        type: 'string'
+      },
       razao_social: {
-        title: 'Razão Social/Nome',
+        title: 'Razão social/nome',
         type: 'string'
       },
       cnpj_cpf: {

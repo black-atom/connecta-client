@@ -37,7 +37,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     actions: false,
     noDataMessage: 'Nenhum dado encontrado',
     columns: {
-      razao_social: {
+      nome_razao_social: {
         title: 'Razão Social/Nome',
         type: 'string'
       },
@@ -45,10 +45,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'CNPJ/CPF',
         type: 'number'
       },
-      // email: {
-      //   title: 'E-mail',
-      //   type: 'string'
-      // },
       contatos: {
         title: 'Telefone',
         valuePrepareFunction: contatos => {

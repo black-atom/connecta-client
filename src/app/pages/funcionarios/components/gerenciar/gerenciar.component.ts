@@ -52,13 +52,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'RG',
         type: 'string'
       },
-      telefone: {
-        title: 'Telefone',
-        type: 'string'
-      },
-      celular: {
+      contato: {
         title: 'Celular',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: contato => {
+          return contato.celular;
+        }
       },
       id: {
         type: 'custom',

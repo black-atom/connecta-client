@@ -1,8 +1,8 @@
-import { formContatoControls } from './../../contato/form-contato-controls';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
 import { ClienteService } from './../../../services';
+import { formContatoControls } from './../../contato/form-contato-controls';
 
 
 @Component({

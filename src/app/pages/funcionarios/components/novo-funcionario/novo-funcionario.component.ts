@@ -64,11 +64,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
           cidade: ['', [Validators.required]],
           uf: ['', [Validators.required]],
           ponto_referencia: ['']
-        }),
-        
-        criado_em: [''],
-        atualizado_em: ['']
-        
+        })   
       });
    }
 

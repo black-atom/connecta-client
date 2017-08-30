@@ -15,6 +15,7 @@
   <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
     <label for="tipo">Permissão</label>
     <select class="form-control" id="tipo" formControlName="tipo">
+      <option value="" disabled selected>Selecione um nível de permissão</option>
       <option *ngFor="let permissaoFuncionario of tipoFuncionario">{{permissaoFuncionario}}</option>
     </select>
   </div>

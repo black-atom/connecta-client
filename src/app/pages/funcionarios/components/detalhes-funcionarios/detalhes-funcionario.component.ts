@@ -76,11 +76,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         cidade: ['', [Validators.required]],
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
-      }),
-      
-      criado_em: [''],
-      atualizado_em: ['']
-      
+      })
     });
  }
 
@@ -127,7 +123,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     }
 
     atualizarTecnico(funcionario) {
-      funcionario.atualizado_em = new Date();
       funcionario._id = this._id;
 
       this.sub = this._funcionarioService.atualizarFuncionario(funcionario)

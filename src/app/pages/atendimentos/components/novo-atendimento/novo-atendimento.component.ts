@@ -35,11 +35,14 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
   formInit() {
     this.formAtendimento = this._fb.group({
-      razao_social: ['', Validators.required],
-      cnpj_cpf: ['', [Validators.required]],
-      inscricao_estadual: [''],
-      nome_fantasia: [''],
-
+      cliente: this._fb.group({
+        nome_razao_social: ['', Validators.required],
+        cnpj_cpf: ['', [Validators.required]],
+        inscricao_estadual: [''],
+        nome_fantasia: ['']
+  
+      }),
+      
       contato: this._fb.group({
         email: ['', [Validators.pattern(this.emailPattern)]],
         nome: ['', Validators.required],
@@ -67,10 +70,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       descricao: ['', [Validators.required]],
       testes_efetuados: ['', [Validators.required]],
       observacao: [''],
-      estacionamento: ['', Validators.required],
-
-      criado_em: [''],
-      atualizado_em: ['']
+      estacionamento: ['', Validators.required]
     });
   }
 
@@ -78,17 +78,14 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
     if (cnpj) {
      this.sub = this._clienteService.buscarCliente(cnpj)
       .subscribe((res) => {
-        if (res) {
-           const cliente = res[0];
-         if (cliente !== undefined ) {
-          this.formAtendimento.get('razao_social').patchValue(cliente.razao_social);
-          this.formAtendimento.get('inscricao_estadual').patchValue(cliente.inscricao_estadual);
-          this.formAtendimento.get('nome_fantasia').patchValue(cliente.nome_fantasia);
-          this.clienteEncontrado = cliente;
-         }else {
-           this.falhaAoEncontrarCliente();
-         }
-        }
+          if (res) {
+          this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
+          this.formAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
+          this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
+          this.clienteEncontrado = res;    
+          } else {
+            this.falhaAoEncontrarCliente();
+          }    
       }
     );
   }
@@ -120,8 +117,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
     const dataAtendimento = new Date(dataFormatada);
     const dataAtual = new Date();
 
-      atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
-      atendimento.inscricao_estadual = atendimento.inscricao_estadual.replace(/\D+/g, '');
+      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+      atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
       atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
       atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
       atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');

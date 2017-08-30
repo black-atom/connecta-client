@@ -1,15 +1,14 @@
 export interface Atendimento {
-    _id: number;
-    cnpj_cpf: string;
-    razao_social: string;
-    nome_fantasia?: string;
-    inscricao_estadual: string;
-    contato: ContatoAtendimento;
+    cliente: Cliente;
     endereco: EnderecoAtendimento;
+    contato: ContatoAtendimento;
+    tecnico: TecnicoAtendimento;
+    avaliacao: Avaliacao;
+    imagens: string[];
+    data_atendimento: string;
     estacionamento: string;
     modelo_equipamento: string;
     numero_equipamento: string;
-    data_atendimento: string;
     tipo: string;
     descricao: string;
     testes_efetuados: string;
@@ -19,6 +18,14 @@ export interface Atendimento {
     criado_em: string;
     atualizado_em: string;
     atualizado_por: string;
+}
+
+interface Cliente {
+    _id: number;
+    cnpj_cpf: string;
+    nome_razao_social: string;
+    nome_fantasia?: string;
+    inscricao_estadual?: string;
 }
 
 interface EnderecoAtendimento {
@@ -37,5 +44,16 @@ interface ContatoAtendimento {
     email: string;
     telefone: string;
     celular: string;
+    observacao: string;
+}
+
+interface TecnicoAtendimento {
+    _id: number;
+    nome: string;
+}
+
+interface Avaliacao {
+    resposta: string;
+    nota: number;
     observacao: string;
 }

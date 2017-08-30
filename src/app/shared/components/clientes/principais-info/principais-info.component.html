@@ -17,10 +17,10 @@
 
     <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
       [class.required]="formDadosPrincipais.hasError('required')">
-      <label for="razao_social">Razão social ou nome</label>
-      <input type="text" class="form-control" formControlName="razao_social" id="razao_social" [readonly]="editarCampoFormulario">
+      <label for="nome_razao_social">Razão social ou nome</label>
+      <input type="text" class="form-control" formControlName="nome_razao_social" id="nome_razao_social" [readonly]="editarCampoFormulario">
 
-      <div class="text-danger" ngxErrors="razao_social" #myError="ngxErrors">
+      <div class="text-danger" ngxErrors="nome_razao_social" #myError="ngxErrors">
         <div ngxError="required" when="touched">
             <small><i class="ion-close"></i> Requerido!</small>
         </div>
@@ -28,13 +28,13 @@
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-        <label for="inscricao_estadual">Inscrição estadual (opcional)</label>
+        <label for="inscricao_estadual">Inscrição estadual <small>(opc.)</small></label>
         <input type="text" [textMask]="{mask: inscricaoEstadual}"
         class="form-control" formControlName="inscricao_estadual" id="inscricao_estadual" [readonly]="editarCampoFormulario">
       </div>
 
     <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
-      <label for="nome_fantasia">Nome fantasia (opcional)</label>
+      <label for="nome_fantasia">Nome fantasia <small>(opc.)</small></label>
       <input type="text" class="form-control"
       formControlName="nome_fantasia" id="nome_fantasia" [readonly]="editarCampoFormulario">
     </div>

@@ -48,11 +48,15 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   iniciarFormulario() {
     this.formEdicaoAtendimento = this._fb.group({
-      razao_social: ['', Validators.required],
-      cnpj_cpf: ['', [Validators.required]],
-      inscricao_estadual: [''],
-      nome_fantasia: [''],
 
+      cliente: this._fb.group({
+        nome_razao_social: ['', Validators.required],
+        cnpj_cpf: ['', [Validators.required]],
+        inscricao_estadual: [''],
+        nome_fantasia: ['']
+  
+      }),
+      
       contato: this._fb.group({
         email: ['', [Validators.pattern(this.emailPattern)]],
         nome: ['', Validators.required],
@@ -81,9 +85,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       testes_efetuados: ['', [Validators.required]],
       observacao: [''],
       estacionamento: ['', Validators.required],
-
-      criado_em: [''],
-      atualizado_em: ['']
    });
   }
 
@@ -98,10 +99,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   recuperarAtendimento() {
     this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
-      this.formEdicaoAtendimento.get('razao_social').patchValue(res.razao_social);
-      this.formEdicaoAtendimento.get('cnpj_cpf').patchValue(res.cnpj_cpf);
-      this.formEdicaoAtendimento.get('inscricao_estadual').patchValue(res.inscricao_estadual);
-      this.formEdicaoAtendimento.get('nome_fantasia').patchValue(res.nome_fantasia);
+      this.formEdicaoAtendimento.get('cliente.nome_razao_social').patchValue(res.cliente.nome_razao_social);
+      this.formEdicaoAtendimento.get('cliente.cnpj_cpf').patchValue(res.cliente.cnpj_cpf);
+      this.formEdicaoAtendimento.get('cliente.inscricao_estadual').patchValue(res.cliente.inscricao_estadual);
+      this.formEdicaoAtendimento.get('cliente.nome_fantasia').patchValue(res.cliente.nome_fantasia);
       this.formEdicaoAtendimento.get('contato.email').patchValue(res.contato.email);
       this.formEdicaoAtendimento.get('contato.nome').patchValue(res.contato.nome);
       this.formEdicaoAtendimento.get('contato.telefone').patchValue(res.contato.telefone);
@@ -148,7 +149,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
    atualizarAtendimento(atendimento) {
     atendimento.id = this.id;
-    atendimento.createdAt = this.atendimentoRecebido._id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
     const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);

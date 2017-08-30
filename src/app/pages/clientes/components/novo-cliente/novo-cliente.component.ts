@@ -32,7 +32,7 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
 
       this.formCliente = this._fb.group({
               cnpj_cpf: ['', [Validators.required]],
-              razao_social: ['', [Validators.required]],
+              nome_razao_social: ['', [Validators.required]],
               inscricao_estadual: [''],
               nome_fantasia: [''],
               contatos: this._fb.array([]),

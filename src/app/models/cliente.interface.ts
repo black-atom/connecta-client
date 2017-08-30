@@ -1,6 +1,6 @@
 export interface Cliente {
   _id: string;
-  razao_social: string;
+  nome_razao_social: string;
   cnpj_cpf: string;
   email: string;
   nome_fantasia: string;

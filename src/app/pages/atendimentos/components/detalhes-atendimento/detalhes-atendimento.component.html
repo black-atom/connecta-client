@@ -8,7 +8,7 @@
           <app-principais-info-cliente
           (enviaCnpj)="buscarCliente($event)"
           [editarCampoFormulario]="detalhesAtendimentoEditarCampos"
-          [formDadosPrincipais]="formEdicaoAtendimento">
+          [formDadosPrincipais]="formEdicaoAtendimento.controls.cliente">
         </app-principais-info-cliente>
         </ba-card>
       </div>

@@ -47,11 +47,9 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   iniciarForm() {
     this.formEdicaoCliente = this._fb.group({
       cnpj_cpf: ['', [Validators.required]],
-      razao_social: ['', [Validators.required]],
+      nome_razao_social: ['', [Validators.required]],
       inscricao_estadual: [''],
       nome_fantasia: [''],
-      createdAt: [''],
-      updatedAt: [''],
       contatos: this._fb.array([]),
       enderecos: this._fb.array([])
   });
@@ -60,7 +58,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   recuperarCliente() {
     this.sub = this._clienteService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
-      this.formEdicaoCliente.get('razao_social').patchValue(res.razao_social);
+      this.formEdicaoCliente.get('nome_razao_social').patchValue(res.nome_razao_social);
       this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
       this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
       /**
@@ -77,7 +75,6 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   atualizarCliente(cliente) {
-      cliente.updatedAt = new Date();
       cliente.id = this.id;
 
     this.sub = this._clienteService.atualizarCliente(cliente)

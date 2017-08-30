@@ -21,12 +21,12 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   public selecionados: any[] = [];
   public atendimentoVinculado: Atendimento[] = [];
   public campoData: NgbDateStruct;
+  public existeAtendimento: boolean;
+  atendimentoSelecionado: boolean;
 
-  constructor(
-    public _activeModal: NgbActiveModal,
-    private _atendimentoService: AtendimentoService,
-    private _ngbDateParserFormatter: NgbDateParserFormatter
-  ) {}
+  constructor(public _activeModal: NgbActiveModal,
+              private _atendimentoService: AtendimentoService,
+              private _ngbDateParserFormatter: NgbDateParserFormatter) {}
 
   ngOnInit() {
     this.retornarTodosAtendimentos();
@@ -39,25 +39,40 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   }
 
   selecionarAtendimento(atendimento) {
-    this.selecionados.push(atendimento);
+    const isIgual = this.selecionados
+                        .find(atendimentoSelecionado =>
+                              atendimentoSelecionado === atendimento);
+
+    if (!isIgual) {
+      this.selecionados.push(atendimento);
+      this.atendimentoSelecionado = true;
+    }
   }
 
   associarAtendimento() {
 
   }
 
-  buscarPorData(data) {
-      data = this._ngbDateParserFormatter.format(this.campoData);
+  buscarPorData(dataInformada: any) {
+    dataInformada = this._ngbDateParserFormatter.format(this.campoData);
       
           this.sub = this._atendimentoService
-            .retornarAtendimentoPorData(data)
-            .subscribe(res => (this.atendimentos = res));
+            .retornarAtendimentoPorData(dataInformada)
+            .subscribe((dataEncontrada) => {
+              this.atendimentos = dataEncontrada;
+
+              if (dataEncontrada.length > 0) {
+                this.existeAtendimento = true;
+              } else {
+                this.existeAtendimento = false;
+              }
+            });
   }
 
   buscarPorNome(nome) {
     this.atendimentos = this.atendimentos.filter(elemento => {
       return (
-        elemento.razao_social.toLowerCase().indexOf(nome.toLowerCase()) > -1
+        elemento.cliente.nome_razao_social.toLowerCase().indexOf(nome.toLowerCase()) > -1
       );
     });
   }

@@ -17,9 +17,16 @@ i {
     height: 35px;
 }
 
+h6 {
+    color: grey;
+}
 
 ba-card {
     &:hover {
         cursor: pointer;
     }
+}
+
+.selecaoDoAtendimento {
+    color: $primary;
 }

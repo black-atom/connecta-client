@@ -51,7 +51,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
           return contatos[0].telefone;
         }
       },
-      id: {
+      _id: {
         type: 'custom',
         filter: false,
         renderComponent: BtnDetalhesCliComponent

@@ -75,7 +75,25 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   atualizarCliente(cliente) {
-      cliente.id = this.id;
+
+    cliente._id = this.id;
+    cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
+    cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+
+    cliente.contatos = cliente.contatos.map((removerMascaraContato) => {
+        const novoContatos = {
+            telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
+            celular : removerMascaraContato.celular.replace(/\D+/g, '')
+        };
+      return (Object.assign({}, removerMascaraContato, novoContatos));
+      });
+
+      cliente.enderecos = cliente.enderecos.map((removerMascaraEndereco) => {
+        const novoContatos = {
+            cep: removerMascaraEndereco.cep.replace(/\D+/g, '')
+        };
+      return (Object.assign({}, removerMascaraEndereco, novoContatos));
+      });
 
     this.sub = this._clienteService.atualizarCliente(cliente)
       .subscribe(dados => {
@@ -135,6 +153,3 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-

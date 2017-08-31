@@ -11,10 +11,10 @@ import { Funcionario } from './../../../../models';
   <button type="button" class="btn btn-info btn-block"
   routerLink="/pages/funcionarios/detalhes/{{ idFuncionario }}"><i class="ion-ios-redo"></i> Detalhes</button>`,
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
-  
+
 })
 export class BtnDetalhesTecComponent implements ViewCell, OnInit {
-  
+
   idFuncionario: string;
 
   @Input() value: string | number;
@@ -59,7 +59,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
           return contato.celular;
         }
       },
-      id: {
+      _id: {
         type: 'custom',
         filter: false,
         renderComponent: BtnDetalhesTecComponent

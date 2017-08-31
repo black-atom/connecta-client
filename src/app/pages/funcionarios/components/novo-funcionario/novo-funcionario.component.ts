@@ -35,7 +35,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
         rg: ['', [Validators.required]],
         cpf: ['', [Validators.required]],
         data_nasc: ['', [Validators.required]],
-        
+
         login: this._fb.group({
           username: ['', [Validators.required]],
           password: ['', [Validators.required]],
@@ -46,7 +46,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
           numero: [''],
           validade: ['']
         }),
-        
+
         contato: this._fb.group({
           nome: ['', Validators.required],
           email: ['', [Validators.pattern(this.emailPattern)]],
@@ -54,7 +54,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
           celular: [''],
           observacao: ['']
         }),
-        
+
         endereco: this._fb.group({
           cep: ['', [Validators.required]],
           rua: ['', [Validators.required]],
@@ -64,11 +64,19 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
           cidade: ['', [Validators.required]],
           uf: ['', [Validators.required]],
           ponto_referencia: ['']
-        })   
+        })
       });
    }
 
    cadastrarTecnico(funcionario: Funcionario) {
+
+     funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
+     funcionario.rg = funcionario.rg.replace(/\D+/g, '');
+     funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+     funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
+     funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+
+
     this.sub = this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {

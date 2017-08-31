@@ -18,7 +18,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
   public formEdicaoFuncionario: FormGroup;
-  private _id: any;
+  private id: string;
   private funcionarioRecebido: Funcionario;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -36,8 +36,8 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
   }
 
   obterIdFuncionario() {
-     this._activatedRoute.params.subscribe(params => this._id = +params['id']);
-     this.recuperarFuncionario();   
+     this._activatedRoute.params.subscribe(params => this.id = params['id']);
+     this.recuperarFuncionario();
    }
 
 
@@ -47,7 +47,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
       rg: ['', [Validators.required]],
       cpf: ['', [Validators.required]],
       data_nasc: ['', [Validators.required]],
-      
+
       login: this._fb.group({
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
@@ -58,7 +58,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         numero: [''],
         validade: ['']
       }),
-      
+
       contato: this._fb.group({
         nome: ['', Validators.required],
         email: ['', [Validators.pattern(this.emailPattern)]],
@@ -66,7 +66,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         celular: [''],
         observacao: ['']
       }),
-      
+
       endereco: this._fb.group({
         cep: ['', [Validators.required]],
         rua: ['', [Validators.required]],
@@ -90,7 +90,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
    }
 
     recuperarFuncionario() {
-      this.sub = this._funcionarioService.retornarUm(this._id).subscribe((dados) => {
+      this.sub = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
         this.formEdicaoFuncionario.get('nome').patchValue(dados.nome);
         this.formEdicaoFuncionario.get('rg').patchValue(dados.rg);
         this.formEdicaoFuncionario.get('cpf').patchValue(dados.cpf);
@@ -123,7 +123,14 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     }
 
     atualizarTecnico(funcionario) {
-      funcionario._id = this._id;
+
+      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
+      funcionario.rg = funcionario.rg.replace(/\D+/g, '');
+      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
+      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+
+      funcionario._id = this.id;
 
       this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
       .subscribe(

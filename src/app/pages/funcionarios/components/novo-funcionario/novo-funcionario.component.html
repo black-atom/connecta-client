@@ -1,11 +1,11 @@
-<form [formGroup]="formFuncionario" 
+<form [formGroup]="formFuncionario"
 (ngSubmit)="cadastrarTecnico(formFuncionario.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">
       <ba-card cardTitle="Dados principais">
-        <app-principais-informacoes 
+        <app-principais-informacoes
         [dadosPrincipaisFuncionario]="formFuncionario">
       </app-principais-informacoes>
       </ba-card>
@@ -49,7 +49,7 @@ carteira de habilitação do funcionário -->
 
 
     <!-- Card com os inputs de login do funcionário -->
-    
+
         <div class="col-md-12 col-lg-6 col-sm-12">
           <ba-card cardTitle="Login">
             <app-login-funcionario
@@ -66,14 +66,14 @@ carteira de habilitação do funcionário -->
         <div class="row">
 
           <div class="col-md-6 col-sm-12">
-            <button type="submit" class="btn btn-primary btn-with-icon" 
+            <button type="submit" class="btn btn-primary btn-with-icon"
              [disabled]="formFuncionario.invalid">
             <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
           </div>
 
           <div class="col-md-6 col-sm-12">
             <button type="reset" class="btn btn-danger btn-with-icon"
-             (click)="formFuncionario.reset()" 
+             (click)="formFuncionario.reset()"
              [disabled]="formFuncionario.pristine">
             <i class="ion-trash-a"></i>Limpar</button>
           </div>

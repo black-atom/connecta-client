@@ -8,7 +8,7 @@ import { ManipuladorErro } from './../';
 @Injectable()
 export class FuncionarioService {
 
-  private url = ' http://localhost:3000/funcionarios/';
+  private url = ' http://localhost:3000/api/funcionarios/';
 
   constructor( private _http: Http) { }
 
@@ -24,7 +24,7 @@ export class FuncionarioService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarUm(_id: Number): Observable<Funcionario> {
+  retornarUm(_id: string): Observable<Funcionario> {
     return this._http.get(`${this.url}${_id}`)
                      .map((res) => res.json() )
                      .catch(ManipuladorErro.lidaComErro);

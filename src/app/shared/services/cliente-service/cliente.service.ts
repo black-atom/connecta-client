@@ -9,7 +9,7 @@ import { ManipuladorErro } from './../';
 @Injectable()
 export class ClienteService {
 
-  private url: string = 'http://localhost:3002/api/clientes/';
+  private url: string = 'http://localhost:3000/api/clientes/';
 
 
   constructor(private _http: Http) { }

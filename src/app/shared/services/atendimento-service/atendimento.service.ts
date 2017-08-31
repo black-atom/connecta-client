@@ -9,7 +9,7 @@ import { Atendimento } from './../../../models';
 @Injectable()
 export class AtendimentoService {
 
-  private url = ' http://localhost:3000/atendimentos/';
+  private url: string = ' http://localhost:3000/api/atendimentos/';
 
   constructor(private _http: Http) { }
 

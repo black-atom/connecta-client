@@ -8,7 +8,7 @@ import { ManipuladorErro } from './../';
 @Injectable()
 export class FuncionarioService {
 
-  private url = ' http://localhost:3000/api/funcionarios/';
+  private url: string = ' http://localhost:3000/api/funcionarios/';
 
   constructor( private _http: Http) { }
 

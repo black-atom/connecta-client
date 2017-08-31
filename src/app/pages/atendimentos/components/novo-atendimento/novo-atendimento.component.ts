@@ -14,7 +14,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 })
 
 export class NovoAtendimentoComponent implements OnInit, OnDestroy {
-  
+
   private sub: Subscription;
   public clienteEncontrado;
   public contatoEscolhido;
@@ -40,9 +40,9 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
         cnpj_cpf: ['', [Validators.required]],
         inscricao_estadual: [''],
         nome_fantasia: ['']
-  
+
       }),
-      
+
       contato: this._fb.group({
         email: ['', [Validators.pattern(this.emailPattern)]],
         nome: ['', Validators.required],
@@ -76,16 +76,16 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
   buscarCliente(cnpj) {
     if (cnpj) {
-     this.sub = this._clienteService.buscarCliente(cnpj)
+     this.sub = this._clienteService.retornarUm(cnpj)
       .subscribe((res) => {
           if (res) {
           this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
           this.formAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
           this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
-          this.clienteEncontrado = res;    
+          this.clienteEncontrado = res;
           } else {
             this.falhaAoEncontrarCliente();
-          }    
+          }
       }
     );
   }

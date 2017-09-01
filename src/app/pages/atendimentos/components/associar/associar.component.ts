@@ -1,3 +1,4 @@
+import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
@@ -19,30 +20,42 @@ export class AssociarComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
-  public tecnicoSelecionado: string;
-  public tecnicos: Funcionario[];
+  public funcionarioSelecionado: string;
+  public funcionario: Funcionario[];
+  public funcoes = TIPOFUNCIONARIOMOCK;
 
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg'
   };
 
-  
+
   constructor(private _funcionarioService: FuncionarioService,
               private _servicoModal: NgbModal) {}
 
 
   ngOnInit() {
-      this.sub = this._funcionarioService.retornarFuncionarioPorFuncao('Técnico')
-      .subscribe(res => this.tecnicos = res);
+    this.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2]);
+  }
+
+  retornarFuncionarioPorFuncao(funcao) {
+    if (funcao === 'todos') {
+      this.sub = this._funcionarioService
+                     .retornarTodos()
+                     .subscribe(res => this.funcionario = res);
+    } else {
+      this.sub = this._funcionarioService
+                     .retornarFuncionarioPorFuncao(funcao)
+                     .subscribe(res => this.funcionario = res);
+    }
   }
 
 
-  abrirModal(tecnicoSelecionado) {
+  abrirModal(funcionarioSelecionado) {
 
     const modalRef = this._servicoModal
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
-    modalRef.componentInstance.tecnicoSelecionado = tecnicoSelecionado;
+    modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
 
   //   modalRef.result.then((resultadoDaModal) => {
 
@@ -57,7 +70,9 @@ export class AssociarComponent implements OnInit, OnDestroy {
 }
 
   ngOnDestroy() {
+    if (this.sub) {
     this.sub.unsubscribe();
+    }
   }
 
 }

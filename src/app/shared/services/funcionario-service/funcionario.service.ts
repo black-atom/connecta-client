@@ -18,18 +18,12 @@ export class FuncionarioService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  getTecnicos(): Observable<Funcionario[]> {
+  retornarFuncionarioPorFuncao(funcao): Observable<Funcionario[]> {
     return this.retornarTodos().map(funcionarios => {
-      return funcionarios.filter(funcionario => funcionario.login.tipo.indexOf('Técnico') > -1);
+      return funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(funcao) > -1);
     });
   }
-
-  retornarFuncionarioPorFuncao(funcao?: string): Observable<Funcionario[]> {
-    return this._http.get(this.url, { params: { 'login.tipo': funcao } })
-                     .map((res) => res.json() as Funcionario[] )
-                     .catch(ManipuladorErro.lidaComErro);
-  }
-
+  
   retornarUm(_id: string): Observable<Funcionario> {
     return this._http.get(`${this.url}${_id}`)
                      .map((res) => res.json() )

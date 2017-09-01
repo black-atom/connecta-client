@@ -189,7 +189,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     ''
   );
   this.formEdicaoAtendimento.reset();
-  this.irParaGerenciar();
 }
 
   falhaNaEdicao() {
@@ -204,12 +203,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       'Data informada inferior a data atual',
       ''
     );
-  }
-
-  irParaGerenciar() {
-    setTimeout(() => {
-      this._router.navigate(['/pages/atendimentos/gerenciar']);
-    }, 1500);
   }
 
   ngOnDestroy() {

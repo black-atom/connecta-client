@@ -151,7 +151,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
       ''
     );
     this.formEdicaoFuncionario.reset();
-    this.irParaGerenciar();
   }
 
   falhaNaEdicao() {
@@ -159,12 +158,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
       'Não foi possível efetuar a edição',
       ''
       );
-    }
-
-    irParaGerenciar() {
-      setTimeout(() => {
-        this._router.navigate(['/pages/funcionarios/gerenciar']);
-      }, 1500);
     }
 
     ngOnDestroy() {

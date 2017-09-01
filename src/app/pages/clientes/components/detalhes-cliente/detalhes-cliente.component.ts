@@ -132,7 +132,6 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
       ''
     );
     this.formEdicaoCliente.reset();
-    this.irParaGerenciar();
   }
 
   falhaNaEdicao() {
@@ -140,12 +139,6 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
       'Não foi possível efetuar a edição',
       ''
     );
-  }
-
-  irParaGerenciar() {
-    setTimeout(() => {
-      this._router.navigate(['/pages/clientes/gerenciar']);
-    }, 1500);
   }
 
   ngOnDestroy() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions } from '@angular/http';
-
+import 'rxjs/add/operator/filter';
 import { Funcionario } from '../../../models/';
 import { ManipuladorErro } from './../';
 
@@ -16,6 +16,12 @@ export class FuncionarioService {
     return this._http.get(this.url)
                      .map((res) => res.json() as Funcionario[] )
                      .catch(ManipuladorErro.lidaComErro);
+  }
+
+  getTecnicos(): Observable<Funcionario[]> {
+    return this.retornarTodos().map(funcionarios => {
+      return funcionarios.filter(funcionario => funcionario.login.tipo.indexOf('Técnico') > -1);
+    });
   }
 
   retornarFuncionarioPorFuncao(funcao?: string): Observable<Funcionario[]> {

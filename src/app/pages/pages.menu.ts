@@ -1,7 +1,7 @@
 export const PAGES_MENU = [{
   path: 'pages',
   children: [{
-      path: 'home',
+      path: 'monitoramento',
       data: {
         menu: {
           title: 'Monitoramento',
@@ -11,6 +11,27 @@ export const PAGES_MENU = [{
           order: 250
         }
       }
+    },
+    {
+      path: 'metricas',
+      data: {
+        menu: {
+          title: 'Métricas',
+          icon: 'ion-connection-bars',
+          selected: false,
+          expanded: false,
+          order: 250
+        }
+      },
+      children: [{
+        path: 'atendimentos',
+        data: {
+          menu: {
+            title: 'Atendimentos',
+            icon: 'ion-ios-list-outline'
+          }
+        }
+      }]
     },
     {
       path: 'clientes',

@@ -17,7 +17,8 @@ export const routes: Routes = [
     // canActivate: [LoggedGuardService],
     children: [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
-      { path: 'home', loadChildren: './home/home.module#HomeModule' },
+      { path: 'monitoramento', loadChildren: './monitoramento/monitoramento.module#MonitoramentoModule' },
+      { path: 'metricas', loadChildren: './metricas/metricas.module#MetricasModule' },
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },

@@ -5,7 +5,7 @@ export interface Atendimento {
     tecnico: TecnicoAtendimento;
     avaliacao: Avaliacao;
     imagens: string[];
-    data_atendimento: string;
+    data_atendimento: Date;
     estacionamento: string;
     modelo_equipamento: string;
     numero_equipamento: string;

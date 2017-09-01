@@ -14,7 +14,7 @@ routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-ios-
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
 export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
-  
+
   public idAtendimento: string;
 
   @Input()
@@ -62,7 +62,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
           title: 'CEP',
           type: 'string'
       },
-      id: {
+      _id: {
         type: 'custom',
         filter: false,
         renderComponent: BtnDetalhesAtdComponent

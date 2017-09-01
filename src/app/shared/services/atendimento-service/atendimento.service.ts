@@ -44,7 +44,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${atendimento.id}/`, atendimento, options)
+    return this._http.put(`${this.url}${atendimento._id}/`, atendimento, options)
                      .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }

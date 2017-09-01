@@ -112,6 +112,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
 
   cadastrarAtendimento(atendimento: Atendimento) {
+
     const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
     const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
     const dataAtendimento = new Date(dataFormatada);
@@ -127,7 +128,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
-        atendimento.data_atendimento = dataFormatada;
+        atendimento.data_atendimento = dataAtendimento;
 
         this.sub = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},

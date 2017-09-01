@@ -42,7 +42,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   obterIdAtendimento() {
-    this._activatedRoute.params.subscribe(params => this.id = +params['id']);
+    this._activatedRoute.params.subscribe(params => this.id = params['id']);
     this.recuperarAtendimento();
   }
 
@@ -54,9 +54,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         cnpj_cpf: ['', [Validators.required]],
         inscricao_estadual: [''],
         nome_fantasia: ['']
-  
+
       }),
-      
+
       contato: this._fb.group({
         email: ['', [Validators.pattern(this.emailPattern)]],
         nome: ['', Validators.required],
@@ -148,15 +148,15 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
    atualizarAtendimento(atendimento) {
-    atendimento.id = this.id;
+    atendimento._id = this.id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
     const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
     const dataAtendimento = new Date(dataFormatada);
     const dataAtual = new Date();
 
-    atendimento.cnpj_cpf = atendimento.cnpj_cpf.replace(/\D+/g, '');
-    atendimento.inscricao_estadual = atendimento.inscricao_estadual.replace(/\D+/g, '');
+    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
     atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
     atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
     atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
@@ -165,7 +165,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
-        atendimento.data_atendimento = dataFormatada;
+        atendimento.data_atendimento = dataAtendimento;
 
     this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
     .subscribe(

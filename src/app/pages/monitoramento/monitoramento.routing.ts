@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
-
-import { HomeComponent } from './home.component';
 import { ModuleWithProviders } from '@angular/core';
+
+import { MonitoramentoComponent } from './monitoramento.component';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: MonitoramentoComponent
   }
 ];
 

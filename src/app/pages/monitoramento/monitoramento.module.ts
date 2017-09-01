@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 
-import { HomeComponent } from './home.component';
-import { routing } from './home.routing';
-
+import { routing } from './monitoramento.routing';
+import { MonitoramentoComponent } from './monitoramento.component';
 
 @NgModule({
   imports: [
@@ -12,6 +11,6 @@ import { routing } from './home.routing';
     NgaModule,
     routing
   ],
-  declarations: [HomeComponent]
+  declarations: [MonitoramentoComponent]
 })
-export class HomeModule { }
+export class MonitoramentoModule {}

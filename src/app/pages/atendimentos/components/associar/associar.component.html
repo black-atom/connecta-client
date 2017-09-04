@@ -18,7 +18,7 @@
       <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of funcionario; let i = index">
         <ba-card cardTitle="{{colaborador.nome}}">
           <button type="button" class="btn btn-primary animated rollIn pull-right" 
-            (click)="abrirModal(colaborador.nome)">
+            (click)="abrirModal(colaborador)">
             <strong>+</strong>
           </button>
 

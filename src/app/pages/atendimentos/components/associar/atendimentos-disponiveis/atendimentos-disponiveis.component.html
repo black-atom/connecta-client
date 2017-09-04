@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title animated slideInRight">
-    Atendimentos disponíveis para {{ tecnicoSelecionado.nome }}</h4>
+    Atendimentos disponíveis para Alexandre</h4>
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -40,7 +40,7 @@
     <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos">
       <ba-card  (click)="selecionarAtendimento(atendimento)">
         <div class="card-body" [ngClass]="{'selecaoDoAtendimento': atendimentoSelecionado}">
-          <p><strong> {{ atendimento.razao_social }}</strong></p>
+          <p><strong> {{ atendimento?.cliente.nome_razao_social }} ({{ atendimento.data_atendimento}})</strong></p>
           <p class="local"><i class="ion-location">
             </i> {{ atendimento.endereco.rua + " - " + atendimento.endereco.bairro +", "+ atendimento.endereco.cidade +"
             - "+ atendimento.endereco.cep }}

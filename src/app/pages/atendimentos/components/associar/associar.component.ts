@@ -1,9 +1,10 @@
-import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 import { Subscription } from 'rxjs/Rx';
 
+import { AtendimentoService } from '../../../../shared/services/atendimento-service';
+import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { Atendimento } from './../../../../models';
 import { Funcionario } from './../../../../models';
 import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
@@ -30,7 +31,8 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
 
   constructor(private _funcionarioService: FuncionarioService,
-              private _servicoModal: NgbModal) {}
+              private _servicoModal: NgbModal,
+              private _atendimentoService: AtendimentoService) {}
 
 
   ngOnInit() {
@@ -51,22 +53,22 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
 
   abrirModal(funcionarioSelecionado) {
-
-    const modalRef = this._servicoModal
+       const modalRef = this._servicoModal
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
 
-  //   modalRef.result.then((resultadoDaModal) => {
-
-  //       const tecnicoProcurado = this.funcionarios
-  //         .find(tecnico => tecnico.nome === funcionarioSelecionado.nome);
-  //              resultadoDaModal.forEach((atendimento) => {
-
-  //   }).catch((e) => {
-  //       console.log(e);
-  //   });
-  // });
+    modalRef.result.then((resultadoDaModal) => {
+     
+     const vinculaTecnico = resultadoDaModal.map((adicionaFuncionario) => {
+       const novoFuncionario = adicionaFuncionario.tecnico = { nome : funcionarioSelecionado.nome }; 
+       return (Object.assign({}, adicionaFuncionario, novoFuncionario));
+      });
+     
+      this._atendimentoService
+          .atualizarTodosAtendimentos(vinculaTecnico)
+          .subscribe(res => console.log(res));
+  });
 }
 
   ngOnDestroy() {

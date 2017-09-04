@@ -50,12 +50,12 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   }
 
   associarAtendimento() {
-
+    this._activeModal.close(this.selecionados);
   }
 
   buscarPorData(dataInformada: any) {
     dataInformada = this._ngbDateParserFormatter.format(this.campoData);
-      
+
           this.sub = this._atendimentoService
             .retornarAtendimentoPorData(dataInformada)
             .subscribe((dataEncontrada) => {

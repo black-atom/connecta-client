@@ -49,4 +49,13 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  atualizarTodosAtendimentos(atendimento): Observable <Atendimento> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this._http.patch(this.url, atendimento)
+                     .map(res => res.json() as Atendimento)
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

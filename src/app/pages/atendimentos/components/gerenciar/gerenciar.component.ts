@@ -42,25 +42,40 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'Data',
         type: 'string'
       },
-      razao_social: {
+      nome_razao_social: {
         title: 'Razão social/nome',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: (coluna, linha) => {
+          return linha.cliente.nome_razao_social;
+        }
       },
       cnpj_cpf: {
         title: 'CNPJ/CPF',
-        type: 'number'
+        type: 'number',
+        valuePrepareFunction: (coluna, linha) => {
+          return linha.cliente.cnpj_cpf;
+        }
       },
       email: {
         title: 'E-mail',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: (coluna, linha) => {
+          return linha.contato.email;
+       }
       },
       telefone: {
         title: 'Telefone',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: (coluna, linha) => {
+          return linha.contato.telefone;
+       }
       },
-        cep: {
-          title: 'CEP',
-          type: 'string'
+      cep: {
+        title: 'CEP',
+        type: 'string',
+        valuePrepareFunction: (coluna, linha) => {
+            return linha.endereco.cep;
+        }
       },
       _id: {
         type: 'custom',

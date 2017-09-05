@@ -18,6 +18,7 @@ export interface Atendimento {
     criado_em: string;
     atualizado_em: string;
     atualizado_por: string;
+    inativo?: Inativo;   
 }
 
 interface Cliente {
@@ -56,4 +57,9 @@ interface Avaliacao {
     resposta: string;
     nota: number;
     observacao: string;
+}
+
+interface Inativo {
+    status: boolean;
+    motivo: string;
 }

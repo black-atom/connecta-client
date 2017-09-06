@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs/Rx';
 
 import { AtendimentoService } from './../../../../shared/services';
 import { CepService } from '../../../../shared/services';
+import { ClienteService } from '../../../../shared/services/cliente-service';
+
 import { Atendimento } from './../../../../models';
 import { DadosEndereco } from './../../../../models';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
@@ -25,7 +27,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   public enderecoEscolhido: any;
   public detalhesAtendimentoEditarCampos = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
+  public clienteEncontrado;
 
   constructor(private _atendimentoService: AtendimentoService,
               private _activatedRoute: ActivatedRoute,
@@ -33,7 +35,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
               private _fb: FormBuilder,
               private _router: Router,
               private _notificacaoService: NotificacaoService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter
+              private _ngbDateParserFormatter: NgbDateParserFormatter,
+              private _clienteService: ClienteService
   ) { }
 
   ngOnInit() {
@@ -84,7 +87,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       descricao: ['', [Validators.required]],
       testes_efetuados: ['', [Validators.required]],
       observacao: [''],
-      estacionamento: ['', Validators.required],
+      estacionamento: ['', Validators.required]
    });
   }
 
@@ -98,7 +101,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   recuperarAtendimento() {
-    this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
+      
+      this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoAtendimento.get('cliente.nome_razao_social').patchValue(res.cliente.nome_razao_social);
       this.formEdicaoAtendimento.get('cliente.cnpj_cpf').patchValue(res.cliente.cnpj_cpf);
       this.formEdicaoAtendimento.get('cliente.inscricao_estadual').patchValue(res.cliente.inscricao_estadual);
@@ -116,7 +120,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       this.formEdicaoAtendimento.get('endereco.uf').patchValue(res.endereco.uf);
       this.formEdicaoAtendimento.get('endereco.complemento').patchValue(res.endereco.complemento);
       this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(res.endereco.ponto_referencia);
-      this.formEdicaoAtendimento.get('data_atendimento').patchValue(res.data_atendimento);
       this.formEdicaoAtendimento.get('tipo').patchValue(res.tipo);
       this.formEdicaoAtendimento.get('descricao').patchValue(res.descricao);
       this.formEdicaoAtendimento.get('testes_efetuados').patchValue(res.testes_efetuados);
@@ -125,7 +128,16 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       this.formEdicaoAtendimento.get('numero_equipamento').patchValue(res.numero_equipamento);
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
+
+      const date = new Date(res.data_atendimento);
+      const formatoData = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() };
+      this.formEdicaoAtendimento.get('data_atendimento').patchValue(formatoData);
+
       this.atendimentoRecebido = res;
+      this._clienteService.retornarUm(res.cliente.cnpj_cpf).subscribe((dados) => {
+        this.clienteEncontrado = dados;
+      });
+
     });
   }
 

@@ -6,10 +6,16 @@ import { AtendimentoService } from './../../../../shared/services';
 
 
 @Component({
-  selector: 'button-view',
+  selector: 'button-detalhes-view',
   template: `
-<button type="button" class="btn btn-info btn-block"
-routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-ios-redo"></i> Detalhes</button>
+  <div class="row">
+
+  <div class="col-md-4">
+    <button type="button" class="btn btn-info" title="Detalhes do atendimento"
+    routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-ios-information" style="margin-left: -5px;"></i></button>
+  </div>
+
+</div>
 `,
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })

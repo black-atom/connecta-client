@@ -75,8 +75,8 @@
         </app-informacoes-atendimento>
         </ba-card>
       </div>
-      </div>
-
+      </div> 
+      
     <!-- Botões de cadastro e de limpeza de dados -->
     <div class="row">
       <div class="col-12">
@@ -91,8 +91,7 @@
 
             <div class="col-md-6 col-sm-12">
               <button type="reset" class="btn btn-danger btn-with-icon"
-              (click)="formEdicaoAtendimento.reset()"
-              [disabled]="formEdicaoAtendimento.pristine">
+              [routerLink]="['/pages/atendimentos/gerenciar']">
               <i class="ion-close"></i>Cancelar</button>
             </div>
 

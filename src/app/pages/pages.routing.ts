@@ -18,7 +18,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
       { path: 'monitoramento', loadChildren: './monitoramento/monitoramento.module#MonitoramentoModule' },
-      { path: 'metricas', loadChildren: './metricas/metricas.module#MetricasModule' },
+      // { path: 'metricas', loadChildren: './metricas/metricas.module#MetricasModule' },
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },

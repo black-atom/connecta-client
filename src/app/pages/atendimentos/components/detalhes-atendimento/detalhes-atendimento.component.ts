@@ -101,7 +101,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   recuperarAtendimento() {
-      
+
       this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoAtendimento.get('cliente.nome_razao_social').patchValue(res.cliente.nome_razao_social);
       this.formEdicaoAtendimento.get('cliente.cnpj_cpf').patchValue(res.cliente.cnpj_cpf);
@@ -163,8 +163,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     atendimento._id = this.id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
-    const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
-    const dataAtendimento = new Date(dataFormatada);
+    const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
     const dataAtual = new Date();
 
     atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
@@ -173,7 +172,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
     atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
-    if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
+    if ( dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 

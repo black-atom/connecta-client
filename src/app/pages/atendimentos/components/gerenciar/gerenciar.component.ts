@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { Subscription } from 'rxjs/Rx';
 
+import { DatePipe } from '@angular/common';
 import { AtendimentoService } from './../../../../shared/services';
 
 
@@ -45,11 +46,17 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     noDataMessage: 'Nenhum dado encontrado',
     columns: {
       data_atendimento: {
-        title: 'Data',
-        type: 'string'
+        title: 'Data atendimento',
+        type: 'string',
+        valuePrepareFunction: (date) => {
+          const data = new Date(date);
+          const novaData = new DatePipe('pt-BR').transform(data, 'dd/MM/yyyy');
+
+          return novaData;
+        }
       },
       nome_razao_social: {
-        title: 'Razão social/nome',
+        title: 'Empresa',
         type: 'string',
         valuePrepareFunction: (coluna, linha) => {
           return linha.cliente.nome_razao_social;
@@ -83,6 +90,10 @@ export class GerenciarComponent implements OnInit, OnDestroy {
             return linha.endereco.cep;
         }
       },
+      createdBy: {
+        title: 'Responsável',
+        type: 'string'
+      },
       _id: {
         type: 'custom',
         filter: false,
@@ -94,7 +105,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   source: LocalDataSource;
   private sub: Subscription;
 
-  constructor(private _atendimentoService: AtendimentoService) {
+  constructor(private _atendimentoService: AtendimentoService, private datePipe: DatePipe) {
     this.source = new LocalDataSource();
   }
 

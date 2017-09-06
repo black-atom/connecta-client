@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -46,7 +46,8 @@ import { routing } from './atendimentos.routing';
     AtendimentosDisponiveisComponent
   ],
   providers: [
-    SharedModule
+    SharedModule,
+    DatePipe
   ]
 })
 export class AtendimentosModule { }

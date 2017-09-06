@@ -114,8 +114,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
   cadastrarAtendimento(atendimento: Atendimento) {
 
     const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
-    const dataFormatada = this._ngbDateParserFormatter.format(dataFormulario);
-    const dataAtendimento = new Date(dataFormatada);
+    const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
     const dataAtual = new Date();
 
       atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
@@ -124,7 +123,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
       atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
-    if ( dataAtendimento.getDate() + 1 >= dataAtual.getDate()
+    if ( dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 

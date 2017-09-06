@@ -15,6 +15,7 @@ import { HabilitacaoComponent } from './components/shared-components/habilitacao
 import { PrincipaisInformacoesComponent } from './components/shared-components/principais-informacoes';
 import { LoginFuncionarioComponent } from './components/shared-components/login-funcionario/';
 import { routing } from './funcionarios.routing';
+import { PerfilComponent } from './components/perfil';
 
 @NgModule({
   imports: [
@@ -36,13 +37,19 @@ import { routing } from './funcionarios.routing';
     PrincipaisInformacoesComponent,
     HabilitacaoComponent,
     BtnDetalhesTecComponent,
-    LoginFuncionarioComponent
+    LoginFuncionarioComponent,
+    PerfilComponent
   ],
   entryComponents: [
     BtnDetalhesTecComponent
   ],
   providers: [
     SharedModule
+   ],
+   exports: [
+    PrincipaisInformacoesComponent,
+    HabilitacaoComponent,
+    LoginFuncionarioComponent
    ]
 })
 export class FuncionariosModule { }

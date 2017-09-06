@@ -92,6 +92,15 @@ export const PAGES_MENU = [{
               icon: 'ion-clipboard'
             }
           }
+        },
+        {
+          path: 'perfil',
+          data: {
+            menu: {
+              title: 'Perfil',
+              icon: 'ion-person'
+            }
+          }
         }
       ]
     },

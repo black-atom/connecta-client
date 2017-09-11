@@ -25,8 +25,8 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarAtendimentoPorData(data): Observable <Atendimento[]> {
-    return this._http.get(this.url, { params: { data_atendimento : data } })
+  retornarAtendimentoPorData(data: Date): Observable <Atendimento[]> {
+    return this._http.get(this.url, { params: { data_atendimento : data.toJSON() } })
                      .map((res) => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -49,12 +49,12 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  atualizarTodosAtendimentos(atendimento): Observable <Atendimento> {
+  atualizarTodosAtendimentos(atendimentos: Atendimento[]): Observable <Atendimento[]> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.patch(this.url, atendimento)
-                     .map(res => res.json() as Atendimento)
+    return this._http.patch(this.url, atendimentos)
+                     .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
 

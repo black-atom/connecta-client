@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 import { Subscription } from 'rxjs/Rx';
+import 'rxjs/add/operator/switchMap';
 
 import { AtendimentoService } from '../../../../shared/services/atendimento-service';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
@@ -37,6 +38,29 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2]);
+    const today = new Date();
+    const searchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    this._atendimentoService.retornarAtendimentoPorData(searchDate)
+    .switchMap(atendimentos => {
+      console.log(atendimentos)
+      return this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
+        .map(funcionarios => {
+
+          return funcionarios.map(funcionario => {
+            const atendimentoFuncionarios = atendimentos.filter(atendimento => atendimento.tecnico._id === funcionario._id);
+
+            funcionario.atendimentos = atendimentoFuncionarios;
+            return funcionario;
+          });
+
+        });
+    })
+    .subscribe(funcionarios => console.log(funcionarios));
+  }
+
+  retornarTodosAtendimentos() {
+    this._atendimentoService.retornarTodos()
+                            .subscribe(res => this.atendimentos = res);
   }
 
   retornarFuncionarioPorFuncao(funcao) {
@@ -59,15 +83,19 @@ export class AssociarComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
 
     modalRef.result.then((resultadoDaModal) => {
-     
-     const vinculaTecnico = resultadoDaModal.map((adicionaFuncionario) => {
-       const novoFuncionario = adicionaFuncionario.tecnico = { nome : funcionarioSelecionado.nome }; 
-       return (Object.assign({}, adicionaFuncionario, novoFuncionario));
-      });
-     
-      this._atendimentoService
-          .atualizarTodosAtendimentos(vinculaTecnico)
-          .subscribe(res => console.log(res));
+
+      const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
+        const tecnico = {
+          nome : funcionarioSelecionado.nome,
+          _id : funcionarioSelecionado._id
+        };
+        return (Object.assign({}, atendimento, { tecnico }));
+       });
+       console.log(JSON.stringify(arrayDeAtendimentos));
+
+       this._atendimentoService
+           .atualizarTodosAtendimentos(arrayDeAtendimentos)
+           .subscribe(res => console.log(res));
   });
 }
 

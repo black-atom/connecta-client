@@ -18,7 +18,7 @@ export interface Atendimento {
     criado_em: string;
     atualizado_em: string;
     atualizado_por: string;
-    inativo?: Inativo;   
+    inativo?: Inativo;
 }
 
 interface Cliente {
@@ -49,7 +49,7 @@ interface ContatoAtendimento {
 }
 
 interface TecnicoAtendimento {
-    _id: number;
+    _id: string;
     nome: string;
 }
 

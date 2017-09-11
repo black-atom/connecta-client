@@ -1,3 +1,4 @@
+import { Atendimento } from './atendimento.interface';
 export interface Funcionario {
   _id?: string;
   criado_em: string;
@@ -11,6 +12,7 @@ export interface Funcionario {
   foto_url: string;
   contato: ContatoFuncionario;
   login: Login;
+  atendimentos?: Atendimento[];
 }
 
 interface Login {

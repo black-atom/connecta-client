@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
-import { Subscription } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
 import { AtendimentoService } from '../../../../shared/services/atendimento-service';
@@ -26,6 +26,8 @@ export class AssociarComponent implements OnInit, OnDestroy {
   public funcionario: Funcionario[];
   public funcoes = TIPOFUNCIONARIOMOCK;
 
+  public tecnicos$: Observable<Funcionario[]>;
+
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg'
   };
@@ -40,9 +42,8 @@ export class AssociarComponent implements OnInit, OnDestroy {
     this.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2]);
     const today = new Date();
     const searchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this._atendimentoService.retornarAtendimentoPorData(searchDate)
+    this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
     .switchMap(atendimentos => {
-      console.log(atendimentos)
       return this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
         .map(funcionarios => {
 
@@ -52,10 +53,9 @@ export class AssociarComponent implements OnInit, OnDestroy {
             funcionario.atendimentos = atendimentoFuncionarios;
             return funcionario;
           });
-
         });
-    })
-    .subscribe(funcionarios => console.log(funcionarios));
+    });
+    // .subscribe(funcionarios => console.log(funcionarios));
   }
 
   retornarTodosAtendimentos() {

@@ -15,26 +15,25 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of funcionario; let i = index">
+      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos$ | async; let i = index">
         <ba-card cardTitle="{{colaborador.nome}}">
-          <button type="button" class="btn btn-primary animated rollIn pull-right" 
+          <button type="button" class="btn btn-primary animated rollIn pull-right"
             (click)="abrirModal(colaborador)">
             <strong>+</strong>
           </button>
 
 
-          <!-- <p *ngIf="tecnico.atendimentos?.length">
-<strong>Atendimentos associados : {{tecnicos.atendimentos.length}}</strong></p>
-<div class="card-body" *ngFor="let atendimento of tecnico.atendimentos">
+           <p *ngIf="colaborador.atendimentos?.length">
+<strong>Atendimentos associados : {{colaborador.atendimentos.length}}</strong></p>
+<div class="card-body" *ngFor="let atendimento of colaborador.atendimentos">
 <p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero +
 ' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"
 placement="top"> <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, tecnico )">
 <i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
 </div>
 </ba-card>
-</div> -->
+</div>
 
-        </ba-card>
       </div>
     </div>
   </div>

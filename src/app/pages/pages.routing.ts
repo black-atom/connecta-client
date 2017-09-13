@@ -1,3 +1,4 @@
+import { LoggedGuardService } from './../shared/guards/logged-guard.service';
 // import { LoggedGuardService } from '../shared/guards/logged-guard.service';
 import { Routes, RouterModule } from '@angular/router';
 import { Pages } from './pages.component';
@@ -7,14 +8,14 @@ import { ModuleWithProviders } from '@angular/core';
 // export function loadChildren(path) { return System.import(path); };
 
 export const routes: Routes = [
-  // {
-  //   path: 'login',
-  //   loadChildren: 'app/pages/login/login.module#LoginModule'
-  // },
+  {
+    path: 'login',
+    loadChildren: 'app/pages/login/login.module#LoginModule'
+  },
   {
     path: 'pages',
     component: Pages,
-    // canActivate: [LoggedGuardService],
+    canActivate: [LoggedGuardService],
     children: [
       { path: '', redirectTo: 'charts', pathMatch: 'full' },
       { path: 'monitoramento', loadChildren: './monitoramento/monitoramento.module#MonitoramentoModule' },

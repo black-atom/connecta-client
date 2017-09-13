@@ -2,17 +2,21 @@
   <div class="col-md-12 col-sm-12">
     <div class="row">
 
-      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4">
-        <div class="form-group">
-          <label for="selecao_funcao">Selecione a função do funcionário</label>
-          <select class="form-control" id="selecao_funcao" (change)="retornarFuncionarioPorFuncao($event.target.value)">
-            <option value="" disabled selected>Selecione a função</option>
-            <option value="todos">Todos</option>
-            <option *ngFor="let funcao of funcoes">{{funcao}}</option>
-          </select>
+
+    </div>
+
+    <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12">
+        <label for="param_busca">Pesquisar por data</label>
+        <div class="input-group">
+            <input class="form-control" name="dp"
+            ngbDatepicker #d="ngbDatepicker" name="busca_data"
+            [(ngModel)]="model" (ngModelChange)="listarAtendimentoAssociado()"
+            id="param_busca">
+            <button class="input-group-addon" (click)="d.toggle()" type="button">
+              <i class="ion-calendar"></i>
+            </button>
         </div>
       </div>
-    </div>
 
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos$ | async; let i = index">

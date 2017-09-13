@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbDateStruct, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { NotificationsService } from 'angular2-notifications';
 import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
@@ -26,6 +27,9 @@ export class AssociarComponent implements OnInit, OnDestroy {
   public funcionario: Funcionario[];
   public funcoes = TIPOFUNCIONARIOMOCK;
   public funcao: string;
+  public dataAssociar;
+
+  model: any;
 
   public tecnicos$: Observable<Funcionario[]>;
 
@@ -36,52 +40,43 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
   constructor(private _funcionarioService: FuncionarioService,
               private _servicoModal: NgbModal,
-              private _atendimentoService: AtendimentoService) {}
+              private _atendimentoService: AtendimentoService,
+              private _ngbDateParserFormatter: NgbDateParserFormatter) {}
 
 
   ngOnInit() {
 
-    this.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2]);
-    this.listarAtendimentoAssociado();
   }
 
-  listarAtendimentoAssociado() {
+  listarAtendimentoAssociado(dataInformada: any) {
 
-    const today = new Date();
-    const searchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
-    .switchMap(atendimentos => {
-      return this._funcionarioService.retornarFuncionarioPorFuncao(this.funcao)
-        .map(funcionarios => {
+    dataInformada = this._ngbDateParserFormatter.format(this.model);
+      const today = this.model;
+      const searchDate = new Date(today.year, today.month - 1, today.day );
 
-          return funcionarios.map(funcionario => {
-            const atendimentoFuncionarios = atendimentos.filter(atendimento => atendimento.tecnico._id === funcionario._id);
+      this.dataAssociar = searchDate;
 
-            funcionario.atendimentos = atendimentoFuncionarios;
-            return funcionario;
+      this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
+      .switchMap(atendimentos => {
+        return this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
+          .map(funcionarios => {
+
+            return funcionarios.map(funcionario => {
+              const atendimentoFuncionarios = atendimentos.filter(atendimento => atendimento.tecnico._id === funcionario._id);
+
+              funcionario.atendimentos = atendimentoFuncionarios;
+              return funcionario;
+            });
           });
-        });
-    });
-    // .subscribe(funcionarios => console.log(funcionarios));
+      });
+
   }
+
+
   retornarTodosAtendimentos() {
     this._atendimentoService.retornarTodos()
                             .subscribe(res => this.atendimentos = res);
   }
-
-  retornarFuncionarioPorFuncao(funcao) {
-    this.funcao = funcao;
-    if (funcao === 'todos') {
-      this.sub = this._funcionarioService
-                     .retornarTodos()
-                     .subscribe(res => this.funcionario = res);
-    } else {
-      this.sub = this._funcionarioService
-                     .retornarFuncionarioPorFuncao(funcao)
-                     .subscribe(res => this.funcionario = res);
-    }
-  }
-
 
   abrirModal(funcionarioSelecionado) {
        const modalRef = this._servicoModal
@@ -101,8 +96,8 @@ export class AssociarComponent implements OnInit, OnDestroy {
        this._atendimentoService
            .atualizarTodosAtendimentos(arrayDeAtendimentos)
            .subscribe((res) => {
-             if(res){
-              this.listarAtendimentoAssociado();
+             if (res) {
+              this.listarAtendimentoAssociado(this.dataAssociar);
              }
             });
   });
@@ -118,8 +113,8 @@ removerAtendimento(atendimento) {
  const nome = '';
 atendimento.tecnico = { nome };
 this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
-  if(res){
-    this.listarAtendimentoAssociado();
+  if (res) {
+     this.listarAtendimentoAssociado(this.dataAssociar);
   }
 });
 }

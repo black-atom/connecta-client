@@ -22,9 +22,10 @@ export class AssociarComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
-  public funcionarioSelecionado: string;
+  public funcionarioSelecionado;
   public funcionario: Funcionario[];
   public funcoes = TIPOFUNCIONARIOMOCK;
+  public funcao: string;
 
   public tecnicos$: Observable<Funcionario[]>;
 
@@ -39,12 +40,18 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
     this.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2]);
+    this.listarAtendimentoAssociado();
+  }
+
+  listarAtendimentoAssociado() {
+
     const today = new Date();
     const searchDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
     .switchMap(atendimentos => {
-      return this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
+      return this._funcionarioService.retornarFuncionarioPorFuncao(this.funcao)
         .map(funcionarios => {
 
           return funcionarios.map(funcionario => {
@@ -57,13 +64,13 @@ export class AssociarComponent implements OnInit, OnDestroy {
     });
     // .subscribe(funcionarios => console.log(funcionarios));
   }
-
   retornarTodosAtendimentos() {
     this._atendimentoService.retornarTodos()
                             .subscribe(res => this.atendimentos = res);
   }
 
   retornarFuncionarioPorFuncao(funcao) {
+    this.funcao = funcao;
     if (funcao === 'todos') {
       this.sub = this._funcionarioService
                      .retornarTodos()
@@ -91,12 +98,30 @@ export class AssociarComponent implements OnInit, OnDestroy {
         };
         return (Object.assign({}, atendimento, { tecnico }));
        });
-       console.log(JSON.stringify(arrayDeAtendimentos));
-
        this._atendimentoService
            .atualizarTodosAtendimentos(arrayDeAtendimentos)
-           .subscribe(res => console.log(res));
+           .subscribe((res) => {
+             if(res){
+              this.listarAtendimentoAssociado();
+             }
+            });
   });
+}
+
+abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
+  this.funcionarioSelecionado = funcionario;
+  this.atendimentoASerRemovido = atendimento;
+  this._servicoModal.open(conteudo);
+}
+
+removerAtendimento(atendimento) {
+ const nome = '';
+atendimento.tecnico = { nome };
+this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
+  if(res){
+    this.listarAtendimentoAssociado();
+  }
+});
 }
 
   ngOnDestroy() {
@@ -106,10 +131,3 @@ export class AssociarComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-//   abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
-//     this.funcionarioSelecionado = funcionario;
-//     this.atendimentoASerRemovido = atendimento;
-//     this._servicoModal.open(conteudo);
-//  }}

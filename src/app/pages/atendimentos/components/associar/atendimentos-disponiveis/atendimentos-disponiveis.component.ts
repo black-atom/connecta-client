@@ -35,7 +35,13 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   retornarTodosAtendimentos() {
     this.sub = this._atendimentoService
       .retornarTodos()
-      .subscribe(res => (this.atendimentos = res));
+      .subscribe((res) => {
+      this.atendimentos = res.filter((atendimento) => {
+          if (!atendimento.tecnico.nome) {
+            return atendimento;
+          }
+        });
+      });
   }
 
   selecionarAtendimento(atendimento) {

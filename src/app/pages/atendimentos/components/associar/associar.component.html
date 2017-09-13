@@ -17,46 +17,55 @@
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos$ | async; let i = index">
         <ba-card cardTitle="{{colaborador.nome}}">
-          <button type="button" class="btn btn-primary animated rollIn pull-right"
-            (click)="abrirModal(colaborador)">
+          <button type="button" class="btn btn-primary animated rollIn pull-right" (click)="abrirModal(colaborador)">
             <strong>+</strong>
           </button>
 
 
-           <p *ngIf="colaborador.atendimentos?.length">
-<strong>Atendimentos associados : {{colaborador.atendimentos.length}}</strong></p>
-<div class="card-body" *ngFor="let atendimento of colaborador.atendimentos">
-<p class="atendimento animated flipInX" ngbPopover="{{atendimento.rua + ', ' + atendimento.numero +
-' - ' +  atendimento.bairro + ' , ' + atendimento.cidade + ' - ' + atendimento.cep}}"
-placement="top"> <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, tecnico )">
-<i class="ion-close" ></i></a>{{atendimento.razao_social}}</p>
-</div>
-</ba-card>
-</div>
-
+          <p *ngIf="colaborador.atendimentos?.length">
+            <strong>Atendimentos associados : {{colaborador.atendimentos.length}}</strong></p>
+          <div class="card-body" *ngFor="let atendimento of colaborador.atendimentos">
+            <p class="atendimento animated flipInX" ngbPopover="{{
+              atendimento.endereco.rua + ', ' +
+              atendimento.endereco.numero +' - ' +
+              atendimento.endereco.bairro + ' , ' +
+              atendimento.endereco.cidade + ' - ' +
+              atendimento.endereco.cep
+            }}" placement="top">
+            <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, colaborador )">
+            <i class="ion-close"></i>
+          </a>{{atendimento.cliente.nome_razao_social}}
+        </p>
+          </div>
+        </ba-card>
       </div>
+
     </div>
   </div>
+</div>
 
 
 
-  <!--
-Abrir modal de confirmação de exclusão de atendimento
+
+<!-- Abrir modal de confirmação de exclusão de atendimento -->
 <ng-template #conteudo let-c="close" let-d="dismiss">
 <div class="modal-header">
-<h4 class="modal-title animated flipInX">Confirmar remoção de atendimento</h4>
+<h4 class="modal-title animated flipInX">Rmover atendimento?</h4>
 <button type="button" class="close" aria-label="Close" (click)="d()">
 <span aria-hidden="true"></span>
 </button>
 </div>
 <div class="modal-body">
-<p>Deseja realmente remover o atendimento
-<strong>{{atendimentoASerRemovido.razao_social}}</strong> do técnico <strong>{{tecnicoSelecionado}}?</strong></p>
+<p><strong>{{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong>
+  do técnico
+  <strong>{{funcionarioSelecionado.nome}}?</strong></p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-close-circled"></i> Cancelar</button>
-<button type="button" class="btn btn-danger animated infinite pulse" (click)="removerAtendimento(atendimentoASerRemovido, tecnicoSelecionado); c()"><i class="ion-trash-a"></i> Remover</button>
+<button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-ios-close-outline"></i> Não</button>
+<button type="button"
+class="btn btn-secondary" (click)="removerAtendimento(atendimentoASerRemovido); c()">
+  <i class="ion-ios-checkmark-outline"></i> Sim</button>
 </div>
 </ng-template>
 <hr>
--->
+

@@ -130,7 +130,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
 
       const date = new Date(res.data_atendimento);
-      const formatoData = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() };
+      const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };
       this.formEdicaoAtendimento.get('data_atendimento').patchValue(formatoData);
 
       this.atendimentoRecebido = res;

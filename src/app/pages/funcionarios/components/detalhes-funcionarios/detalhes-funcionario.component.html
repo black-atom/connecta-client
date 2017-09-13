@@ -1,22 +1,22 @@
-<form [formGroup]="formEdicaoFuncionario" 
+<form [formGroup]="formEdicaoFuncionario"
 (ngSubmit)="atualizarTecnico(formEdicaoFuncionario.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">
       <ba-card cardTitle="Dados principais">
-        <app-principais-informacoes 
+        <app-principais-informacoes
         [dadosPrincipaisFuncionario]="formEdicaoFuncionario">
         </app-principais-informacoes>
       </ba-card>
     </div>
   </div>
-  
+
   <!-- Card com os inputs de contato do funcionário -->
   <div class="row">
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Contato">
-        <app-contato 
+        <app-contato
         [formContato]="formEdicaoFuncionario.controls.contato">
         </app-contato>
       </ba-card>
@@ -26,7 +26,7 @@
   <!-- Card com os inputs de endereço do funcionário -->
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Endereço">
-        <app-endereco 
+        <app-endereco
         [formEndereco]="formEdicaoFuncionario.controls.endereco">
         </app-endereco>
       </ba-card>
@@ -38,7 +38,7 @@
   <div class="row">
     <div class="col-md-12 col-lg-6 col-sm-12">
       <ba-card cardTitle="Habilitação">
-        <app-habilitacao 
+        <app-habilitacao
         [formHabilitacao]="formEdicaoFuncionario.controls.habilitacao">
         </app-habilitacao>
       </ba-card>
@@ -49,6 +49,7 @@
       <div class="col-md-12 col-lg-6 col-sm-12">
         <ba-card cardTitle="Login">
           <app-login-funcionario
+          (tipoSelecionado)="permissao($event)"
           [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>
@@ -62,15 +63,15 @@
         <div class="row">
           <div class="col-md-6 col-sm-12">
 
-            <button type="submit" class="btn btn-primary btn-with-icon" 
+            <button type="submit" class="btn btn-primary btn-with-icon"
             [disabled]="formEdicaoFuncionario.pristine">
             <i class="ion-android-checkmark-circle"></i>Salvar</button>
           </div>
 
           <div class="col-md-6 col-sm-12">
-            <button type="reset" class="btn btn-danger btn-with-icon" 
-            [routerLink]="['/pages/funcionarios/gerenciar']"> 
-            <i class="ion-close"></i>Cancelar</button>
+            <button type="reset" class="btn btn-danger btn-with-icon"
+            [routerLink]="['/pages/funcionarios/gerenciar']">
+            <i class="ion-reply"></i>Voltar</button>
           </div>
 
         </div>

@@ -49,6 +49,7 @@
       <div class="col-md-12 col-lg-6 col-sm-12">
         <ba-card cardTitle="Login">
           <app-login-funcionario
+          [disabled]="editarCamposTipo"
           [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>
@@ -71,7 +72,7 @@
             <button type="reset" class="btn btn-danger btn-with-icon"
             [routerLink]="['/pages/funcionarios/gerenciar']"
             [disabled]="formEdicaoFuncionario.pristine">
-            <i class="ion-close"></i>Cancelar</button>
+            <i class="ion-reply"></i>Voltar</button>
           </div>
 
         </div>

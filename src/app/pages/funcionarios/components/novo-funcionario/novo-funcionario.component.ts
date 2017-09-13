@@ -19,6 +19,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  public tipo: string[] = [];
 
    constructor(private _fb: FormBuilder,
                private _funcionarioService: FuncionarioService,
@@ -68,6 +69,15 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
       });
    }
 
+
+  permissao(permissao) {
+    const index = this.tipo.indexOf(permissao);
+    if (index === -1) {
+      this.tipo.push(permissao);
+    }else {
+      this.tipo.splice(this.tipo.indexOf(permissao), 1);
+    }
+   }
    cadastrarTecnico(funcionario: Funcionario) {
 
      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
@@ -75,7 +85,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
-
+     funcionario.login.tipo = this.tipo;
 
     this.sub = this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(

@@ -1,23 +1,30 @@
 <div class="row" [formGroup]="formLoginFuncionario">
 
-  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+  <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
     <label for="username">Usuário</label>
     <input type="text" class="form-control"
     formControlName="username" id="username">
   </div>
 
-  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+  <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
     <label for="senha">Senha</label>
     <input type="password" class="form-control"
     formControlName="password" id="password">
   </div>
 
-  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
-    <label for="tipo">Permissão</label>
-    <select class="form-control" id="tipo" formControlName="tipo">
-      <option value="" disabled selected>Selecione um nível de permissão</option>
-      <option *ngFor="let permissaoFuncionario of tipoFuncionario">{{permissaoFuncionario}}</option>
-    </select>
+  <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
+
+    <div *ngIf="!disabled">
+        <label class="checkbox-inline custom-checkbox nowrap"
+        *ngFor="let permissaoFuncionario of tipoFuncionario">
+            <input type="checkbox" formControlName="tipo"
+            [checked]=state
+            (click)="permissao(permissaoFuncionario, $event.target.checked)"
+            [value]="value">
+            <span>{{ permissaoFuncionario | uppercase }}</span>
+          </label>
+      </div>
+
   </div>
 
 </div>

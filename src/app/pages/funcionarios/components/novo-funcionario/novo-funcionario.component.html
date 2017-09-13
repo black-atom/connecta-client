@@ -53,6 +53,7 @@ carteira de habilitação do funcionário -->
         <div class="col-md-12 col-lg-6 col-sm-12">
           <ba-card cardTitle="Login">
             <app-login-funcionario
+            (tipoSelecionado)="permissao($event)"
             [formLoginFuncionario]="formFuncionario.controls.login">
             </app-login-funcionario>
           </ba-card>
@@ -67,7 +68,7 @@ carteira de habilitação do funcionário -->
 
           <div class="col-md-6 col-sm-12">
             <button type="submit" class="btn btn-primary btn-with-icon"
-             [disabled]="formFuncionario.invalid">
+             [disabled]="">
             <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
           </div>
 

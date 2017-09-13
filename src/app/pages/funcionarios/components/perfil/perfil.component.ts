@@ -10,7 +10,7 @@ import { Funcionario } from './../../../../models';
 import { FuncionarioService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
-import { JwtHelper } from "angular2-jwt";
+import { JwtHelper } from 'angular2-jwt';
 
 @Component({
   selector: 'app-perfil',
@@ -23,6 +23,9 @@ export class PerfilComponent implements OnInit {
   public formEdicaoFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   private jwtHelper: JwtHelper = new JwtHelper();
+  private id: string;
+  public editarCamposTipo: boolean = true;
+  public funcionarioRecebido;
 
   constructor(private _funcionarioService: FuncionarioService,
               private _activatedRoute: ActivatedRoute,
@@ -42,7 +45,11 @@ export class PerfilComponent implements OnInit {
     const token = localStorage.getItem('token');
     const loggedFunc: Funcionario = this.jwtHelper.decodeToken(token)._doc;
     this._funcionarioService.retornarUm(loggedFunc._id)
-      .subscribe(funcionario => this.formEdicaoFuncionario.patchValue(funcionario));
+      .subscribe((funcionario) => {
+        this.formEdicaoFuncionario.patchValue(funcionario);
+        this.id = funcionario._id;
+        this.funcionarioRecebido = funcionario;
+      });
   }
 
    iniciarFormFuncionario() {
@@ -93,8 +100,28 @@ export class PerfilComponent implements OnInit {
      });
    }
 
-    atualizarTecnico(funcionario) {
 
+    atualizarTecnico(funcionario: Funcionario) {
+
+      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
+      funcionario.rg = funcionario.rg.replace(/\D+/g, '');
+      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
+      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+      funcionario._id = this.id;
+      funcionario.login.tipo = this.funcionarioRecebido.login.tipo;
+
+      this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
+      .subscribe(
+        dados => {
+      },
+        erro => {
+        this.falhaNaEdicao();
+      },
+        () => {
+        this.sucessoNaEdicao();
+      }
+    );
   }
 
    sucessoNaEdicao() {

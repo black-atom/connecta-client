@@ -21,6 +21,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
   private id: string;
   private funcionarioRecebido: Funcionario;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  public tipo: string[] = [];
 
   constructor(private _funcionarioService: FuncionarioService,
               private _activatedRoute: ActivatedRoute,
@@ -34,6 +35,16 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     this.iniciarFormFuncionario();
     this.obterIdFuncionario();
   }
+
+
+  permissao(permissao) {
+    const index = this.tipo.indexOf(permissao);
+    if (index === -1) {
+      this.tipo.push(permissao);
+    }else {
+      this.tipo.splice(this.tipo.indexOf(permissao), 1);
+    }
+   }
 
   obterIdFuncionario() {
      this._activatedRoute.params.subscribe(params => this.id = params['id']);
@@ -91,58 +102,35 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
 
     recuperarFuncionario() {
       this.sub = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
-        this.formEdicaoFuncionario.get('nome').patchValue(dados.nome);
-        this.formEdicaoFuncionario.get('rg').patchValue(dados.rg);
-        this.formEdicaoFuncionario.get('cpf').patchValue(dados.cpf);
-        this.formEdicaoFuncionario.get('data_nasc').patchValue(dados.data_nasc);
-
-        this.formEdicaoFuncionario.get('login.username').patchValue(dados.login.username);
-        this.formEdicaoFuncionario.get('login.password').patchValue(dados.login.password);
-        this.formEdicaoFuncionario.get('login.tipo').patchValue(dados.login.tipo);
-
-        this.formEdicaoFuncionario.get('habilitacao.numero').patchValue(dados.habilitacao.numero);
-        this.formEdicaoFuncionario.get('habilitacao.validade').patchValue(dados.habilitacao.validade);
-
-        this.formEdicaoFuncionario.get('contato.nome').patchValue(dados.contato.nome);
-        this.formEdicaoFuncionario.get('contato.email').patchValue(dados.contato.email);
-        this.formEdicaoFuncionario.get('contato.telefone').patchValue(dados.contato.telefone);
-        this.formEdicaoFuncionario.get('contato.celular').patchValue(dados.contato.celular);
-        this.formEdicaoFuncionario.get('contato.observacao').patchValue(dados.contato.observacao);
-
-        this.formEdicaoFuncionario.get('endereco.cep').patchValue(dados.endereco.cep);
-        this.formEdicaoFuncionario.get('endereco.rua').patchValue(dados.endereco.rua);
-        this.formEdicaoFuncionario.get('endereco.numero').patchValue(dados.endereco.numero);
-        this.formEdicaoFuncionario.get('endereco.bairro').patchValue(dados.endereco.bairro);
-        this.formEdicaoFuncionario.get('endereco.complemento').patchValue(dados.endereco.complemento);
-        this.formEdicaoFuncionario.get('endereco.cidade').patchValue(dados.endereco.cidade);
-        this.formEdicaoFuncionario.get('endereco.uf').patchValue(dados.endereco.uf);
-        this.formEdicaoFuncionario.get('endereco.ponto_referencia').patchValue(dados.endereco.ponto_referencia);
-
+        this.formEdicaoFuncionario.patchValue(dados);
+        this.tipo = dados.login.tipo;
         this.funcionarioRecebido = dados;
+
       });
     }
 
-    atualizarTecnico(funcionario) {
+    atualizarTecnico(funcionario: Funcionario) {
 
-      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
-      funcionario.rg = funcionario.rg.replace(/\D+/g, '');
-      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
-      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
-      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
 
-      funcionario._id = this.id;
+        funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
+        funcionario.rg = funcionario.rg.replace(/\D+/g, '');
+        funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+        funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
+        funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+        funcionario.login.tipo = this.tipo;
+        funcionario._id = this.id;
+             this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
+              .subscribe(
+             dados => {
+          },
+             erro => {
+               this.falhaNaEdicao();
+          },
+             () => {
+            this.sucessoNaEdicao();
+          }
+        );
 
-      this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
-      .subscribe(
-        dados => {
-      },
-        erro => {
-        this.falhaNaEdicao();
-      },
-        () => {
-        this.sucessoNaEdicao();
-      }
-    );
   }
 
    sucessoNaEdicao() {

@@ -46,24 +46,4 @@ export class PrincipaisInfoComponent implements OnInit {
     const removerCaracteres = cnpj.replace(/\D+/g, '');
     this.enviaCnpj.emit(removerCaracteres);
   }
-
-
-  // buscarCliente(cnpj) {
-  //   this._clienteService.retornarTodos(cnpj)
-  //     .subscribe(
-  //       dados => {
-  //         const verificaCliente = dados.map((razao) => {
-  //           return razao.razao_social;
-  //         });
-  //         alert(`O cnpj: ${cnpj} já esta cadastrado nessa razão social ${verificaCliente}`);
-  //         this.formDadosPrincipais.get('cnpj_cpf').patchValue('');
-  //     },
-  //     erro => {
-  //         console.log('ocorreu um erro');
-  //     },
-  //     () => {
-  //       console.log('sucesso');
-  //     }
-  //   );
-  // }
 }

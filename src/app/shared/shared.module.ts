@@ -1,4 +1,4 @@
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -16,6 +16,13 @@ import { CepService } from './services';
 import { LoginService } from './services';
 import { AtendimentoService } from './services';
 import { NotificacaoService } from './services';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'token'
+  }), http, options);
+}
 
 @NgModule({
   imports: [
@@ -38,7 +45,12 @@ import { NotificacaoService } from './services';
     ClienteService,
     FuncionarioService,
     AtendimentoService,
-    NotificacaoService
+    NotificacaoService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
   ],
   exports: [
     EnderecoComponent,

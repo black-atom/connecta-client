@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { LoginData } from './../../../models/login-data.interface';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class LoginService {
@@ -19,4 +20,9 @@ export class LoginService {
     .map( response => response.json() as LoginState)
     .catch(ManipuladorErro.lidaComErro);
   }
+
+  estaLogado(): boolean {
+    return tokenNotExpired();
+  }
+
 }

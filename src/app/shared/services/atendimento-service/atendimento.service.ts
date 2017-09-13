@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { ManipuladorErro } from './..';
 import { Atendimento } from './../../../models';
+import { AuthHttp } from 'angular2-jwt';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class AtendimentoService {
 
   private url: string = ' http://localhost:3000/api/atendimentos/';
 
-  constructor(private _http: Http) { }
+  constructor(private _http: AuthHttp) { }
 
   retornarTodos(): Observable <Atendimento[]> {
     return this._http.get(this.url)

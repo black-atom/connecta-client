@@ -1,3 +1,4 @@
+import { LoggedGuardService } from './../shared/guards/logged-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +17,7 @@ import { Pages } from './pages.component';
     routing
   ],
   providers: [
-    // LoggedGuardService
+    LoggedGuardService
   ],
   declarations: [Pages]
 })

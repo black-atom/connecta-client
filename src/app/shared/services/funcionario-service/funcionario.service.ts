@@ -4,13 +4,14 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/filter';
 import { Funcionario } from '../../../models/';
 import { ManipuladorErro } from './../';
+import { AuthHttp } from 'angular2-jwt';
 
 @Injectable()
 export class FuncionarioService {
 
   private url: string = ' http://localhost:3000/api/funcionarios/';
 
-  constructor( private _http: Http) { }
+  constructor( private _http: AuthHttp) { }
 
   retornarTodos(): Observable<Funcionario[]> {
     return this._http.get(this.url)
@@ -23,7 +24,7 @@ export class FuncionarioService {
       return funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(funcao) > -1);
     });
   }
-  
+
   retornarUm(_id: string): Observable<Funcionario> {
     return this._http.get(`${this.url}${_id}`)
                      .map((res) => res.json() )

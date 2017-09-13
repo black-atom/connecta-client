@@ -18,6 +18,7 @@ export class LoginEffects {
   .map(action => action.payload )
   .switchMap( payload => {
     return this.loginService.logar(payload)
+    .do(response => localStorage.setItem('token', response.token))
     .map( (response: LoginState) => LoginActions.loginSuccess(response) )
     .catch( () => Observable.of(LoginActions.loginFailed('Usuário ou senha incorretos!!!')));
   });

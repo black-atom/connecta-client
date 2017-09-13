@@ -1,32 +1,30 @@
-// import { getIsLogged } from '../../pages/login/redux/login.reducer';
-// import { Observable } from 'rxjs/Rx';
-// import { AppState } from '../../redux';
-// import { Store } from '@ngrx/store';
-// import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-// import { Injectable } from '@angular/core';
+import { LoginService } from '../services/login-service';
+import { getIsLogged } from '../../pages/login/redux/login.reducer';
+import { Observable } from 'rxjs/Rx';
+import { AppState } from '../../redux';
+import { Store } from '@ngrx/store';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-// @Injectable()
-// export class LoggedGuardService implements CanActivate {
+@Injectable()
+export class LoggedGuardService implements CanActivate {
 
-//   isLogged: boolean;
+  isLogged: boolean;
 
-//   constructor(
-//     private _store: Store<AppState>,
-//     private _router: Router
-//   ) { console.log("new"); }
-
-
-//   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-//       this._store.select(getIsLogged)
-//       .subscribe(isLogged => {
-//         this.isLogged = isLogged;
-//         if ( isLogged ) {
-//         }else {
-//           this._router.navigate(['/login']);
-//         }
-//       });
-//       return this.isLogged;
-//   }
+  constructor(
+    private loginService: LoginService,
+    private _router: Router
+  ) {}
 
 
-// }
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.loginService.estaLogado()) {
+      return true;
+    } else {
+      this._router.navigate(['login']);
+      return false;
+    }
+  }
+
+
+}

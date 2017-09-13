@@ -1,3 +1,5 @@
+import { AppState } from '../../../../redux';
+import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +10,7 @@ import { Funcionario } from './../../../../models';
 import { FuncionarioService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { JwtHelper } from "angular2-jwt";
 
 @Component({
   selector: 'app-perfil',
@@ -19,17 +22,27 @@ export class PerfilComponent implements OnInit {
   private sub: Subscription;
   public formEdicaoFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  private jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private _funcionarioService: FuncionarioService,
               private _activatedRoute: ActivatedRoute,
               private _cepService: CepService,
               private _notificacaoService: NotificacaoService,
               private _fb: FormBuilder,
+              private store: Store<AppState>,
               private _router: Router) { }
 
 
   ngOnInit() {
     this.iniciarFormFuncionario();
+    this.carregaPerfil();
+  }
+
+  carregaPerfil() {
+    const token = localStorage.getItem('token');
+    const loggedFunc: Funcionario = this.jwtHelper.decodeToken(token)._doc;
+    this._funcionarioService.retornarUm(loggedFunc._id)
+      .subscribe(funcionario => this.formEdicaoFuncionario.patchValue(funcionario));
   }
 
    iniciarFormFuncionario() {

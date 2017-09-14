@@ -1,11 +1,11 @@
-<form [formGroup]="formEdicaoCliente" 
+<form [formGroup]="formEdicaoCliente"
 (ngSubmit)="atualizarCliente(formEdicaoCliente.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do cliente -->
   <div class="row">
     <div class="col-md-12">
       <ba-card cardTitle="Dados principais">
-        <app-principais-info-cliente 
+        <app-principais-info-cliente
         [formDadosPrincipais]="formEdicaoCliente">
         </app-principais-info-cliente>
       </ba-card>
@@ -16,19 +16,19 @@
   <div class="row">
     <div class="col-md-12 col-lg-6 col-sm-12" formArrayName="contatos">
 
-      <ba-card cardTitle="Contato {{i + 1}}" 
+      <ba-card cardTitle="Contato {{i + 1}}"
       *ngFor="let contato of contatos?.controls; let i=index">
 
         <app-contato [formContato]="contato">
         </app-contato>
 
         <div>
-          <span class="pull-right" (click)="adicionarContato()" 
+          <span class="pull-right" (click)="adicionarContato()"
           class="pull-right"><i class="ion-plus-circled"></i></span>
         </div>
 
         <div>
-          <span class="pull-right" *ngIf="contatos?.controls.length > 1" 
+          <span class="pull-right" *ngIf="contatos?.controls.length > 1"
             (click)="removerContato(i)"><i class="ion-trash-a"></i></span>
         </div>
       </ba-card>
@@ -40,10 +40,10 @@
     <!-- Card com os inputs das informações de endereço do cliente -->
     <div class="col-md-12 col-lg-6 col-sm-12" formArrayName="enderecos">
 
-      <ba-card cardTitle="Endereço {{i + 1}}" 
+      <ba-card cardTitle="Endereço {{i + 1}}"
       *ngFor="let endereco of enderecos?.controls; let i=index">
 
-        <app-endereco 
+        <app-endereco
         [formEndereco]="endereco">
         </app-endereco>
 
@@ -53,7 +53,7 @@
         </div>
 
         <div>
-          <span class="pull-right" *ngIf="enderecos?.controls.length > 1" 
+          <span class="pull-right" *ngIf="enderecos?.controls.length > 1"
             (click)="removerEndereco(i)"><i class="ion-trash-a"></i></span>
         </div>
 
@@ -69,7 +69,8 @@
         <div class="row">
 
           <div class="col-md-6 col-sm-12">
-            <button type="submit" class="btn btn-primary btn-with-icon">
+            <button type="submit" class="btn btn-primary btn-with-icon"
+            [disabled]="formEdicaoCliente.pristine">
               <i class="ion-android-checkmark-circle"></i>Salvar</button>
           </div>
 

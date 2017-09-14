@@ -15,7 +15,7 @@
   <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
 
     <div *ngIf="!disabled">
-        <label class="checkbox-inline custom-checkbox nowrap"
+        <label class="checkbox-inline custom-checkbox nowrap permissao"
         *ngFor="let permissaoFuncionario of tipoFuncionario">
             <input type="checkbox" formControlName="tipo"
             (click)="permissao(permissaoFuncionario)">

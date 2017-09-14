@@ -11,6 +11,8 @@ import { Atendimento } from './../../../../models';
 import { DadosEndereco } from './../../../../models';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.mock';
+
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -21,8 +23,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   public formEdicaoAtendimento: FormGroup;
   private sub: Subscription;
-  private id: any;
-  private atendimentoRecebido: any;
+  private id: string;
+  public atendimentoRecebido: Atendimento;
   public contatoEscolhido: any;
   public enderecoEscolhido: any;
   public detalhesAtendimentoEditarCampos = true;
@@ -82,6 +84,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
+      autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
@@ -159,7 +162,11 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     this.formEdicaoAtendimento.get('endereco.numero').patchValue(endereco.numero);
     this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
+
    atualizarAtendimento(atendimento) {
+     if (atendimento.tipo === TIPOATENDIMENTOMOCK[1]){
+
+     }
     atendimento._id = this.id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;

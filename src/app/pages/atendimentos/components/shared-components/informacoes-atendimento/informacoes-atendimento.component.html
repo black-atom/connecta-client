@@ -3,13 +3,13 @@
 <div class="col-md-4 col-sm-12 col-lg-2">
   <label for="data_atendimento">Data</label>
   <div class="input-group">
-      <input class="form-control" name="dp" 
-      ngbDatepicker #d="ngbDatepicker" formControlName="data_atendimento" 
-      id="data_atendimento" [(ngModel)]="model">
       <button class="input-group-addon" (click)="d.toggle()" type="button">
-        <i class="ion-calendar"></i>
-    </button>
-  </div>  
+          <i class="ion-calendar"></i>
+      </button>
+      <input class="form-control" name="dp"
+      ngbDatepicker #d="ngbDatepicker" formControlName="data_atendimento"
+      id="data_atendimento" [(ngModel)]="model">
+  </div>
 </div>
 
   <div class="col-md-4 col-sm-12 col-lg-3">
@@ -17,18 +17,29 @@
       <label for="descricao_atendimento">Tipo</label>
       <select class="form-control" formControlName="tipo">
         <option value="" disabled selected>Selecione o tipo do atendimento</option>
-        <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
+        <option *ngFor="let tipo_atd of tipoAtendimento"
+          >{{tipo_atd}}</option>
       </select>
     </div>
   </div>
 
-  <div class="col-md-4 col-sm- col-lg-2">
+  <div *ngIf="disabledAutorizado" class="col-md-4 col-sm- col-lg-2">
     <div class="form-group">
-      <label for="descricao_atendimento">Valor</label>
+      <label for="descricao_atendimento">Autorizado</label>
       <input type="text" class="form-control"
+      formControlName="autorizado" id="autorizado">
+    </div>
+  </div>
+
+  <div *ngIf="disabledValor" class="col-md-4 col-sm- col-lg-2">
+    <label for="descricao_atendimento">Valor</label>
+    <div class="input-group">
+      <label class="input-group-addon">R$</label>
+      <input type="number" class="form-control"
       formControlName="valor" id="valor">
     </div>
   </div>
+
 
   <div class="col-md-8 col-sm- col-lg-3">
     <div class="form-group">

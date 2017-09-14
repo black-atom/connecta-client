@@ -7,6 +7,8 @@ import { AtendimentoService, ClienteService } from './../../../../shared/service
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 
+import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
+
 @Component({
   selector: 'app-novo-atendimento',
   templateUrl: './novo-atendimento.component.html',
@@ -65,6 +67,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
+      autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: ['', [Validators.required]],
       descricao: ['', [Validators.required]],

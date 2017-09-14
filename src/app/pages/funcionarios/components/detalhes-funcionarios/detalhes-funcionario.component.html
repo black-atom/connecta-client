@@ -49,7 +49,7 @@
       <div class="col-md-12 col-lg-6 col-sm-12">
         <ba-card cardTitle="Login">
           <app-login-funcionario
-          (tipoSelecionado)="permissao($event)"
+          [disabled]="editarCamposTipo"
           [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>

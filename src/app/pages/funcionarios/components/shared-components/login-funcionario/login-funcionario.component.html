@@ -18,9 +18,7 @@
         <label class="checkbox-inline custom-checkbox nowrap"
         *ngFor="let permissaoFuncionario of tipoFuncionario">
             <input type="checkbox" formControlName="tipo"
-            [checked]=state
-            (click)="permissao(permissaoFuncionario, $event.target.checked)"
-            [value]="value">
+            (click)="permissao(permissaoFuncionario)">
             <span>{{ permissaoFuncionario | uppercase }}</span>
           </label>
       </div>

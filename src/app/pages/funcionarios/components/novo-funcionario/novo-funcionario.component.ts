@@ -87,7 +87,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
      funcionario.login.tipo = this.tipo;
 
-    this.sub = this._funcionarioService.novoFuncionario(funcionario)
+     this.sub = this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {
     },

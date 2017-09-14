@@ -22,6 +22,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
   private funcionarioRecebido: Funcionario;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   public tipo: string[] = [];
+  public editarCamposTipo: boolean = true;
 
   constructor(private _funcionarioService: FuncionarioService,
               private _activatedRoute: ActivatedRoute,
@@ -37,14 +38,14 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
   }
 
 
-  permissao(permissao) {
-    const index = this.tipo.indexOf(permissao);
-    if (index === -1) {
-      this.tipo.push(permissao);
-    }else {
-      this.tipo.splice(this.tipo.indexOf(permissao), 1);
-    }
-   }
+  // permissao(permissao) {
+  //   const index = this.tipo.indexOf(permissao);
+  //   if (index === -1) {
+  //     this.tipo.push(permissao);
+  //   }else {
+  //     this.tipo.splice(this.tipo.indexOf(permissao), 1);
+  //   }
+  //  }
 
   obterIdFuncionario() {
      this._activatedRoute.params.subscribe(params => this.id = params['id']);

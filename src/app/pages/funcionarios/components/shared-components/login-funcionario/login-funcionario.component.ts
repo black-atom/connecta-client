@@ -22,15 +22,12 @@ export class LoginFuncionarioComponent implements OnInit {
 
   tipoFuncionario = TIPOFUNCIONARIOMOCK;
 
-  state: boolean;
-  value: string;
-
   constructor() { }
 
   ngOnInit() {
   }
 
-  permissao(tipo, value) {
-      this.tipoSelecionado.emit(tipo);
+  permissao(tipo) {
+   this.tipoSelecionado.emit(tipo);
   }
 }

@@ -67,8 +67,9 @@ carteira de habilitação do funcionário -->
         <div class="row">
 
           <div class="col-md-6 col-sm-12">
-            <button type="submit" class="btn btn-primary btn-with-icon"
-             [disabled]="">
+            <button type="submit"
+            class="btn btn-primary btn-with-icon"
+            [disabled]="formFuncionario.invalid">
             <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
           </div>
 

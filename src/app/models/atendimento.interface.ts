@@ -14,6 +14,7 @@ export interface Atendimento {
     testes_efetuados: string;
     observacao: string;
     valor: string;
+    autorizado: string;
     criado_por: string;
     criado_em: string;
     atualizado_em: string;

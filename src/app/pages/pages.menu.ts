@@ -1,18 +1,18 @@
 export const PAGES_MENU = [{
   path: 'pages',
   children: [
-    // {
-    //   path: 'monitoramento',
-    //   data: {
-    //     menu: {
-    //       title: 'Monitoramento',
-    //       icon: 'ion-arrow-graph-up-right',
-    //       selected: false,
-    //       expanded: false,
-    //       order: 250
-    //     }
-    //   }
-    // },
+     {
+     path: 'monitoramento',
+      data: {
+         menu: {
+          title: 'Monitoramento',
+          icon: 'ion-arrow-graph-up-right',
+          selected: false,
+          expanded: false,
+          order: 250
+        }
+      }
+    },
     // {
     //   path: 'metricas',
     //   data: {

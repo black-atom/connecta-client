@@ -41,7 +41,7 @@ export class ClienteService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${cliente._id}/`, cliente, options)
+    return this._http.put(`${this.url}/${cliente._id}/`, cliente, options)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }

@@ -10,7 +10,7 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class AtendimentoService {
 
-  private url: string = ' http://localhost:3000/api/atendimentos/';
+  private url: string = 'http://165.227.78.113:3000/api/atendimentos';
 
   constructor(private _http: AuthHttp) { }
 
@@ -21,7 +21,7 @@ export class AtendimentoService {
   }
 
   retornarUm(id): Observable <Atendimento> {
-    return this._http.get(`${this.url}${id}`)
+    return this._http.get(`${this.url}/${id}`)
                      .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -45,7 +45,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${atendimento._id}/`, atendimento, options)
+    return this._http.put(`${this.url}/${atendimento._id}/`, atendimento, options)
                      .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }

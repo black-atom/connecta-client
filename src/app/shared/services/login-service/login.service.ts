@@ -9,7 +9,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class LoginService {
 
-  url = 'http://localhost:3000/login';
+  url = 'http://165.227.78.113:3000/login';
 
   constructor(
     private http: Http

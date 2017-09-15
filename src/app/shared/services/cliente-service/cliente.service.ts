@@ -10,7 +10,7 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class ClienteService {
 
-  private url: string = 'http://localhost:3000/api/clientes/';
+  private url: string = 'http://165.227.78.113:3000/api/clientes';
 
 
   constructor(private _http: AuthHttp) { }
@@ -23,7 +23,7 @@ export class ClienteService {
   }
 
   retornarUm(_id): Observable <Cliente> {
-    return this._http.get(`${this.url}${_id}`)
+    return this._http.get(`${this.url}/${_id}`)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }

@@ -15,13 +15,12 @@ $text-color: #ffffff;
   width: 540px;
   margin: 0 auto;
   border-radius: 5px;
-  @include bg-translucent-dark(0.55);
+  // @include bg-translucent-dark(0.55);
   color: #fff;
   padding: 32px;
-  h1 {
-    font-weight: $font-light;
-    margin-bottom: 28px;
-    text-align: center;
+  img {
+    margin-bottom: 50px;
+    width: 100%;
   }
   p {
     font-size: 16px;
@@ -124,4 +123,8 @@ a.forgot-pass {
 
 .btn-auth {
   color: #ffffff!important;
+  font-weight: bold !important;
+  font-size: 1.5em !important;
+  background: linear-gradient(to right, #0097A7,#00BCD4) !important;
+  border: none !important;
 }

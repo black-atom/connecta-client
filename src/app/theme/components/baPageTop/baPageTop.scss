@@ -12,7 +12,7 @@
     width: 100%;
     min-width: $resMin;
     padding: 0 32px 0 40px;
-     
+
     .dropdown-toggle::after {
       display: none;
     }
@@ -25,20 +25,12 @@
   }
 
   a.al-logo {
-    color: #fff;
     display: block;
-    font-size: 20px;
-    font-family: $font-family;
     white-space: nowrap;
     float: left;
-    outline: none !important;
     line-height: 60px;
     font-weight: bold;
-    margin: 0 0 0 08px;
-
-    span {
-      color: $primary;
-    }
+    margin: -05px 0 0 08px;
   }
 
   // a.al-logo:hover {
@@ -73,7 +65,7 @@
       border-color: rgba(255, 255, 255, 0);
       border-bottom-color: #fff;
       border-width: 10px;
-      margin-right: 28px;
+      margin-right: 50px;
     }
     a {
       display: block;

@@ -55,14 +55,14 @@ export class LoginComponent implements OnInit {
 
   loginComSucesso(nome: string) {
     this._notificacaoService.success(
-      'Logado Com Sucesso',
-      `Bem Vindo ${nome}`,
+      'Conectado',
+      `Seja bem vindo(a) ao Connecta. Tenha um excelente dia ${nome}!`,
       {
-        timeOut: 3000,
-        showProgressBar: false,
-        pauseOnHover: false,
+        timeOut: 7200,
+        showProgressBar: true,
+        pauseOnHover: true,
         clickToClose: false,
-        maxLength: 30
+        maxLength: 130
       }
     );
     setTimeout(() => this._route.navigate(['/pages/home']), 1000);
@@ -72,13 +72,13 @@ export class LoginComponent implements OnInit {
   falhaNoLogin() {
     this._notificacaoService.error(
       'Erro',
-      'Usuário ou senha incorretos!!!',
+      'Não foi possível conectar no Connecta com o usuário e senha informado.',
       {
-        timeOut: 3000,
+        timeOut: 3800,
         showProgressBar: false,
-        pauseOnHover: false,
+        pauseOnHover: true,
         clickToClose: false,
-        maxLength: 30
+        maxLength: 80
       }
     );
   }

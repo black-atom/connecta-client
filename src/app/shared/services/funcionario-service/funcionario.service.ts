@@ -9,7 +9,7 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class FuncionarioService {
 
-  private url: string = ' http://localhost:3000/api/funcionarios/';
+  private url: string = 'http://165.227.78.113:3000/api/funcionarios/';
 
   constructor( private _http: AuthHttp) { }
 

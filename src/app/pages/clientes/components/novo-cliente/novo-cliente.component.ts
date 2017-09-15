@@ -85,7 +85,11 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
         dados => {
       },
         erro => {
-        this.falhaNoCadastro();
+        if (erro === 'Ocorreu o erro 409') {
+          this.falhaCPFCNPJExistente();
+        } else {
+          this.falhaNoCadastro();
+        }
       },
         () => {
         this.sucessoNoCadastro();
@@ -105,6 +109,13 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
   falhaNoCadastro() {
     this._notificacaoService.notificarErro(
       'Não foi possível efetuar o cadastro',
+      ''
+    );
+  }
+
+  falhaCPFCNPJExistente() {
+    this._notificacaoService.notificarErro(
+      'Já existe cliente com o CPF/CNPJ informado',
       ''
     );
   }

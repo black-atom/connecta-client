@@ -1,13 +1,13 @@
 <div class="modal-header">
   <h4 class="modal-title animated slideInRight">
-    Atendimentos disponíveis para Alexandre</h4>
+    Atendimentos disponíveis para {{funcionarioSelecionado.nome}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
-
+<!--
   <div class="row">
     <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12">
       <label for="param_busca">Pesquisar por data</label>
@@ -31,7 +31,7 @@
     </div>
 
   </div>
-  <hr>
+  <hr> -->
 
   <h6 *ngIf="existeAtendimento === false">Não há atendimentos para a data informada</h6>
   <h6 *ngIf="existeAtendimento === true">Há {{atendimentos.length}} atendimento(s) para a data informada</h6>

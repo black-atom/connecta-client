@@ -1,9 +1,10 @@
 export const PAGES_MENU = [{
   path: 'pages',
-  children: [{
-      path: 'monitoramento',
+  children: [
+     {
+     path: 'monitoramento',
       data: {
-        menu: {
+         menu: {
           title: 'Monitoramento',
           icon: 'ion-arrow-graph-up-right',
           selected: false,
@@ -144,27 +145,27 @@ export const PAGES_MENU = [{
         }
       ]
     },
-    {
-      path: 'sac',
-      data: {
-        menu: {
-          title: 'SAC',
-          icon: 'ion-ios-chatboxes',
-          selected: false,
-          expanded: false,
-          order: 250
-        }
-      },
-      children: [{
-        path: 'consulta',
-        data: {
-          menu: {
-            title: 'Consulta',
-            icon: 'ion-android-search'
-          }
-        }
-      }]
-    }
+    // {
+    //   path: 'sac',
+    //   data: {
+    //     menu: {
+    //       title: 'SAC',
+    //       icon: 'ion-ios-chatboxes',
+    //       selected: false,
+    //       expanded: false,
+    //       order: 250
+    //     }
+    //   },
+    //   children: [{
+    //     path: 'consulta',
+    //     data: {
+    //       menu: {
+    //         title: 'Consulta',
+    //         icon: 'ion-android-search'
+    //       }
+    //     }
+    //   }]
+    // }
   ]
  }
 ];

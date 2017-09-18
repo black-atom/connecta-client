@@ -82,9 +82,11 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
 
      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
      funcionario.rg = funcionario.rg.replace(/\D+/g, '');
-     funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
      funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+     if (funcionario.contato.celular) {
+      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+     }
      funcionario.login.tipo = this.tipo;
 
      this.sub = this._funcionarioService.novoFuncionario(funcionario)

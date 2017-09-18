@@ -49,7 +49,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
         email: ['', [Validators.pattern(this.emailPattern)]],
         nome: ['', Validators.required],
         telefone: ['', [Validators.required]],
-        celular: ['', [Validators.required]],
+        celular: [''],
         observacao: ['']
       }),
 

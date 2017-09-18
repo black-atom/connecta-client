@@ -63,14 +63,24 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
   cadastrarCliente(cliente: Cliente) {
 
    cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
-   cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+    if (cliente.inscricao_estadual) {
+      cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+    }
 
    cliente.contatos = cliente.contatos.map((removerMascaraContato) => {
-      const novoContatos = {
-          telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
-          celular : removerMascaraContato.celular.replace(/\D+/g, '')
-      };
-     return (Object.assign({}, removerMascaraContato, novoContatos));
+     if (removerMascaraContato.celular) {
+          const novoContatos = {
+            telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
+            celular : removerMascaraContato.celular.replace(/\D+/g, '')
+          };
+          return (Object.assign({}, removerMascaraContato, novoContatos));
+     } else {
+          const novoContatos = {
+            telefone: removerMascaraContato.telefone.replace(/\D+/g, '')
+          };
+          return (Object.assign({}, removerMascaraContato, novoContatos));
+     }
+
     });
 
     cliente.enderecos = cliente.enderecos.map((removerMascaraEndereco) => {
@@ -78,7 +88,7 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
           cep: removerMascaraEndereco.cep.replace(/\D+/g, '')
       };
      return (Object.assign({}, removerMascaraEndereco, novoContatos));
-    });
+     });
 
     this.sub = this._clienteService.novoCliente(cliente)
       .subscribe(

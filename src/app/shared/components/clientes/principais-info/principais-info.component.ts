@@ -21,9 +21,6 @@ export class PrincipaisInfoComponent implements OnInit {
   @Output()
   enviaCnpj = new EventEmitter();
 
-  private inscricaoEstadual = [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/];
-
-
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService) { }
 

@@ -84,6 +84,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
+      motivo: [''],
       autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: ['', [Validators.required]],
@@ -164,9 +165,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
    atualizarAtendimento(atendimento) {
-     if (atendimento.tipo === TIPOATENDIMENTOMOCK[1]){
-
-     }
     atendimento._id = this.id;
 
     const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
@@ -174,8 +172,12 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     const dataAtual = new Date();
 
     atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+    if (atendimento.cliente.inscricao_estadual) {
+      atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
+    }
+    if (atendimento.contato.celular) {
+      atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+    }
     atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
     atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 

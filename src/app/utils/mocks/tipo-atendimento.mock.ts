@@ -12,5 +12,6 @@ export const TIPOATENDIMENTOMOCK: String[] = [
   'Garantia venda',
   'NF - Avulso local',
   'NF - Avulso online/telefone',
-  'NF - Registro de sistema'
+  'NF - Registro de sistema',
+  'Venda'
 ];

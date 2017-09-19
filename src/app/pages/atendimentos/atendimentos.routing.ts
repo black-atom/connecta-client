@@ -5,6 +5,7 @@ import { NovoAtendimentoComponent } from './components/novo-atendimento';
 import { AssociarComponent } from './components/associar';
 import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento';
+import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: 'novo', component: NovoAtendimentoComponent },
       { path: 'associar', component: AssociarComponent },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'detalhes/:id', component: DetalhesAtendimentoComponent }
+      { path: 'detalhes/:id', component: DetalhesAtendimentoComponent },
+      { path: 'dados-app/:id', component: DadosInteracaoAppComponent }
     ]
   }
 ];

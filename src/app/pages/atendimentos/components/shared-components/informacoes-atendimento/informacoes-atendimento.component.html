@@ -47,7 +47,7 @@
       <label for="descricao_atendimento">Modelo do equipamento</label>
       <select class="form-control" formControlName="modelo_equipamento">
         <option value="" disabled selected>Selecione o tipo do atendimento</option>
-        <option *ngFor="let tipo_atd of tipoAtendimento" >{{tipo_atd}}</option>
+        <option *ngFor="let equi of equipamento" >{{equi}}</option>
       </select>
     </div>
   </div>

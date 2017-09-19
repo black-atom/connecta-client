@@ -16,6 +16,7 @@ import { AssociarComponent } from './components/associar/';
 import { AtendimentosDisponiveisComponent } from './components/associar/atendimentos-disponiveis/';
 import { InformacoesAtendimentoComponent } from './components/shared-components/informacoes-atendimento/';
 import { routing } from './atendimentos.routing';
+import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { routing } from './atendimentos.routing';
     DetalhesAtendimentoComponent,
     InformacoesAtendimentoComponent,
     AssociarComponent,
-    AtendimentosDisponiveisComponent
+    AtendimentosDisponiveisComponent,
+    DadosInteracaoAppComponent
   ],
   providers: [
     SharedModule,

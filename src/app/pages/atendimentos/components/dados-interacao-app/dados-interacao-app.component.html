@@ -3,8 +3,19 @@
     <ba-card cardTitle="Dados salvo pelo técnico">
       <div class="col-md-12">
 
+        <div class="row">
+
+        <div class="col-md-6">
+            <p><strong>Dados do Cliente</strong></p>
+        </div>
+
+        <div class="col-md-6">
+            <p><strong>Data Atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</p>
+        </div>
+
+        </div>
+
       <div class="row">
-          <h6>Dados do Cliente</h6>
 
             <div class="col-md-6">
                 <p><strong>Razão Social/Nome: </strong>{{ atendimento?.cliente.nome_razao_social }}</p>
@@ -27,62 +38,87 @@
             </div>
 
           </div>
-          <hr>
+            <hr>
+          <div class="row">
+
+              <div class="col-md-6">
+                  <p><strong>Tipo Atendimento:</strong> {{ atendimento?.tipo }}</p>
+              </div>
+
+              <div class="col-md-6" *ngIf="atendimento?.valor || atendimento?.autorizado">
+                  <p><strong>Valor $</strong> {{ atendimento?.valor }}</p>
+                  <p><strong>Autorizado por</strong>{{ atendimento?.autorizado }}</p>
+              </div>
+
+              <div class="col-md-6">
+                  <p><strong>Modelo Equipamento:</strong> {{ atendimento?.modelo_equipamento }}</p>
+              </div>
+
+              <div class="col-md-6">
+                  <p><strong>Número equipamento:</strong> {{ atendimento?.numero_equipamento }}</p>
+              </div>
+
+            <div class="col-md-12">
+              <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
+              <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
+            </div>
+
+          </div>
+
+          <div class="row" *ngIf="atendimento?.imagens">
+              <h6>Imagens dos Atendimento</h6>
+              <div>
+                  <img class="img-thumbnail" src="http://165.227.78.113:3000/atendimentoimagens/{{ fotos }}" alt="" *ngFor="let fotos of atendimento?.imagens">
+              </div>
+          </div>
+
+          <div class="row">
+
+                <table class="table">
+                    <thead>
+                      <tr>
+
+                        <th>Técnico</th>
+                        <th>Km Incial</th>
+                        <th>Km Final</th>
+                        <th>Inicio Atendimento</th>
+                        <th>Final Atendimento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+
+                        <td>{{ atendimento?.tecnico.nome }}</td>
+                        <td>{{ atendimento?.km_inicio.data | date: 'HH:mm' }} -
+                          {{ atendimento?.km_inicio.km }} km
+                        </td>
+                        <td>
+                            {{ atendimento?.km_final.data | date: 'HH:mm' }} -
+                            {{ atendimento?.km_final.km }} km
+
+                        </td>
+                        <td>{{ atendimento?.inicio | date: 'hh:mm' }}</td>
+                        <td>{{ atendimento?.fim | date: 'hh:mm'}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+            </div>
+
+          <div class="row">
+              <div class="col-md-6">
+                  <p><strong>Criado Por:</strong> {{ atendimento?.createdBy }} {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+              <div class="col-md-6">
+                  <p><strong>Alterado por: </strong>{{ atendimento?.updatedBy }} {{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+            </div>
 
       </div>
+
+
     </ba-card>
   </div>
 </div>
 
-
-<!--
-<h4>Descrição</h4>
-<p>{{ atendimento?.descricao }}</p>
-<h4>Teste efetuados</h4>
-<p>{{ atendimento?.testes_efetuados }}</p>
-<h4>Modelo Equipamento</h4>
-<p>{{ atendimento?.   modelo_equipamento }}</p>
-<h4>Numero Equipamento</h4>
-<p>{{ atendimento?.numero_equipamento }}</p>
-<h4>Criado Por</h4>
-<p>{{ atendimento?.createdBy }}</p>
-<h4>Ultimo usuario que alterou</h4>
-<p>{{ atendimento?.updatedBy }}</p>
-<h4>Tipo Atendimento</h4>
-<p>{{ atendimento?.tipo }}</p>
-<h4>Valor $</h4>
-<p>{{ atendimento?.valor }}</p>
-<h4>Autorizado por</h4>
-<p>{{ atendimento?.autorizado }}</p> -->
-
-<!--
-<table class="table">
-    <thead>
-      <tr>
-        <th>Data Atendimento</th>
-        <th>Técnico</th>
-        <th>Inicio Atendimento</th>
-        <th>Final Atendimento</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</th>
-        <td>{{ atendimento?.tecnico.nome }}</td>
-        <td>{{ atendimento?.inicio | date: 'hh:mm' }}</td>
-        <td>{{ atendimento?.fim | date: 'hh:mm'}}</td>
-      </tr>
-    </tbody>
-  </table> -->
-
-
-  <!-- <h4>fotos</h4>
-  <div>
-      <img src="http://165.227.78.113:3000/atendimentoimagens/{{ fotos }}" alt="" *ngFor="let fotos of atendimento?.imagens">
-  </div>
-
-
-  <p> Hora km inicial:  {{ atendimento?.km_inicio.data | date: 'hh:mm' }} |
-      Quilometragem inicial: {{ atendimento?.km_inicio.km }} km</p>
-  <p> Hora km final:  {{ atendimento?.km_final.data | date: 'hh:mm' }} |
-      Quilometragem Final: {{ atendimento?.km_final.km }} km</p> -->

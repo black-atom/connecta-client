@@ -10,17 +10,22 @@ import { AtendimentoService } from './../../../../shared/services';
   selector: 'button-detalhes-view',
   template: `
   <div class="row">
+     <div class="col-md-12">
+      <div class="row">
 
-  <div class="col-md-4">
-    <button type="button" class="btn btn-info" title="Detalhes do atendimento"
-    routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-edit" style="margin-left: -5px;"></i></button>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-dados" title="Detalhes do atendimento"
+        routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-information-circled"></i></button>
+      </div>
 
-  <button type="button" class="btn btn-danger" title="Detalhes do atendimento"
-  routerLink="/pages/atendimentos/dados-app/{{ idAtendimento }}"><i class="ion-eye" style="margin-left: -5px;"></i></button>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-info" title="Detalhes do atendimento"
+        routerLink="/pages/atendimentos/dados-app/{{ idAtendimento }}"><i class="ion-eye"></i></button>
+      </div>
+    </div>
+
 </div>
 
-
-</div>
 `,
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 })
@@ -50,7 +55,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     noDataMessage: 'Nenhum dado encontrado',
     columns: {
       data_atendimento: {
-        title: 'Data atendimento',
+        title: 'Data',
         type: 'string',
         valuePrepareFunction: (date) => {
           const data = new Date(date);
@@ -73,13 +78,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
           return linha.cliente.cnpj_cpf;
         }
       },
-      email: {
-        title: 'E-mail',
-        type: 'string',
-        valuePrepareFunction: (coluna, linha) => {
-          return linha.contato.email;
-       }
-      },
       telefone: {
         title: 'Telefone',
         type: 'string',
@@ -87,15 +85,15 @@ export class GerenciarComponent implements OnInit, OnDestroy {
           return linha.contato.telefone;
        }
       },
-      cep: {
-        title: 'CEP',
+      tecnico: {
+        title: 'Técnico',
         type: 'string',
         valuePrepareFunction: (coluna, linha) => {
-            return linha.endereco.cep;
-        }
+          return linha.tecnico.nome.split(' ').slice(0, -1).join(' ');
+       }
       },
       createdBy: {
-        title: 'Responsável',
+        title: 'Criado por',
         type: 'string'
       },
       _id: {

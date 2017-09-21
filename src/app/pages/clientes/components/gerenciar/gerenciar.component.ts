@@ -8,7 +8,7 @@ import { ClienteService } from './../../../../shared/services';
   selector: 'button-view',
   template: `
 <button type="button" class="btn btn-info btn-block"
-routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-ios-redo"></i> Detalhes</button>
+routerLink="/pages/clientes/detalhes/{{ idCliente }}"><i class="ion-information-circled"></i></button>
 `,
   styleUrls: ['./../../../../shared/styles/smart-table.component.scss']
 

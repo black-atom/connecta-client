@@ -14,7 +14,12 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 })
 export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
-  @Input() funcionarioSelecionado: Funcionario;
+  @Input()
+  funcionarioSelecionado: Funcionario;
+
+
+  @Input()
+  dataAssociar;
 
   private sub: Subscription;
   public atendimentos: Atendimento[];
@@ -34,7 +39,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
   retornarTodosAtendimentos() {
     this.sub = this._atendimentoService
-      .retornarTodos()
+    .retornarAtendimentoPorData(this.dataAssociar)
       .subscribe((res) => {
       this.atendimentos = res.filter((atendimento) => {
           if (!atendimento.tecnico.nome) {
@@ -57,30 +62,6 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
   associarAtendimento() {
     this._activeModal.close(this.selecionados);
-  }
-
-  buscarPorData(dataInformada: any) {
-    dataInformada = this._ngbDateParserFormatter.format(this.campoData);
-
-          this.sub = this._atendimentoService
-            .retornarAtendimentoPorData(dataInformada)
-            .subscribe((dataEncontrada) => {
-              this.atendimentos = dataEncontrada;
-
-              if (dataEncontrada.length > 0) {
-                this.existeAtendimento = true;
-              } else {
-                this.existeAtendimento = false;
-              }
-            });
-  }
-
-  buscarPorNome(nome) {
-    this.atendimentos = this.atendimentos.filter(elemento => {
-      return (
-        elemento.cliente.nome_razao_social.toLowerCase().indexOf(nome.toLowerCase()) > -1
-      );
-    });
   }
 
   fecharModal() {

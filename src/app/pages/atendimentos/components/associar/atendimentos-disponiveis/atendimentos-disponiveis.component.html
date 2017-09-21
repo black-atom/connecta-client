@@ -1,37 +1,14 @@
 <div class="modal-header">
-  <h4 class="modal-title animated slideInRight">
-    Atendimentos disponíveis para {{funcionarioSelecionado.nome}}</h4>
+  <h4 class="modal-title animated flipInX">
+    Atendimentos do dia {{ dataAssociar | date: 'dd/MM/yyyy' }} disponíveis para
+    {{funcionarioSelecionado.nome}} </h4>
+
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
-<!--
-  <div class="row">
-    <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12">
-      <label for="param_busca">Pesquisar por data</label>
-      <div class="input-group">
-          <input class="form-control" name="dp"
-          ngbDatepicker #d="ngbDatepicker" name="busca_data"
-          [(ngModel)]="campoData" (ngModelChange)="buscarPorData()"
-          id="param_busca">
-          <button class="input-group-addon" (click)="d.toggle()" type="button">
-            <i class="ion-calendar"></i>
-          </button>
-      </div>
-    </div>
-
-  <div class="col-md-9 col-sm-10 col-xs-10 col-lg-9">
-    <label for="data_atendimento">Pesquisar por razão social ou nome</label>
-      <div class="form-group has-feedback">
-        <input type="search" class="form-control" name="busca_razao_social" id="pesquisa"
-         (blur)="buscarPorNome(nome)">
-      </div>
-    </div>
-
-  </div>
-  <hr> -->
 
   <h6 *ngIf="existeAtendimento === false">Não há atendimentos para a data informada</h6>
   <h6 *ngIf="existeAtendimento === true">Há {{atendimentos.length}} atendimento(s) para a data informada</h6>

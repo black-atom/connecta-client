@@ -83,6 +83,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
+    modalRef.componentInstance.dataAssociar = this.dataAssociar;
 
     modalRef.result.then((resultadoDaModal) => {
 

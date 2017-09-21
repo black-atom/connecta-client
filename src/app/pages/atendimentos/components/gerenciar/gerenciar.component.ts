@@ -14,12 +14,12 @@ import { AtendimentoService } from './../../../../shared/services';
       <div class="row">
 
       <div class="col-md-6">
-        <button type="button" class="btn btn-dados" title="Detalhes do atendimento"
+        <button type="button" class="btn btn-info" title="Edição do atendimento"
         routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-information-circled"></i></button>
       </div>
 
       <div class="col-md-6">
-        <button type="button" class="btn btn-info" title="Detalhes do atendimento"
+        <button type="button" class="btn btn-dados" title="Visualização do atendimento"
         routerLink="/pages/atendimentos/dados-app/{{ idAtendimento }}"><i class="ion-eye"></i></button>
       </div>
     </div>

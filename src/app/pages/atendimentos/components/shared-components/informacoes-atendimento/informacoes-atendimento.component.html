@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div *ngIf="disabledAutorizado" class="col-md-4 col-sm- col-lg-2">
+      <div *ngIf="desabilitaAutorizado" class="col-md-4 col-sm- col-lg-2">
         <div class="form-group">
           <label for="descricao_atendimento">Autorizado</label>
           <input type="text" class="form-control"
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div *ngIf="disabledValor" class="col-md-4 col-sm- col-lg-2">
+      <div *ngIf="desabilitaValor" class="col-md-4 col-sm- col-lg-2">
         <label for="descricao_atendimento">Valor</label>
         <div class="input-group">
           <label class="input-group-addon">R$</label>
@@ -55,7 +55,7 @@
       </div>
 
 
-      <div class="col-md-4 col-sm- col-lg-2">
+      <div [ngClass]="estilo">
         <div class="form-group">
           <label for="numero_equipamento">N° equipamento</label>
           <input type="text" class="form-control"
@@ -104,11 +104,11 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!desabilitaData">
   <div class="col-12">
     <ba-card cardTitle="Ações">
       <div class="row">
-      <div class="col-md-6 col-sm-12 col-lg-6" *ngIf="!disabledData">
+      <div class="col-md-6 col-sm-12 col-lg-6">
 
         <label class="radio-inline custom-radio nowrap" *ngFor="let act of action">
           <input type="radio" name="acao" (click)="actionAtendimento(act)" >

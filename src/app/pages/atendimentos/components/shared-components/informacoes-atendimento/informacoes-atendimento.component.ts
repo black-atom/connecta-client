@@ -18,13 +18,14 @@ export class InformacoesAtendimentoComponent implements OnInit {
   action = ['Reagendar', 'Cancelar', 'Encaixe'];
   campoData: boolean;
   campoMotivo: boolean = true;
-  disabledData: boolean;
+  desabilitaData: boolean;
+  estilo = 'col-lg-4';
 
   @Input()
   formDescricaoAtendimento: FormGroup;
 
-  disabledAutorizado: boolean;
-  disabledValor: boolean;
+  desabilitaAutorizado: boolean;
+  desabilitaValor: boolean;
   id;
   equipamentos = EQUIPAMENTOS;
 
@@ -45,10 +46,10 @@ export class InformacoesAtendimentoComponent implements OnInit {
   obterIdAtendimento() {
     this._activatedRoute.params.subscribe(params => this.id = params['id']);
     if (this.id === undefined) {
-      this.disabledData = true;
+      this.desabilitaData = true;
       this.campoData = true;
     }else {
-      this.disabledData = false;
+      this.desabilitaData = false;
     }
   }
 
@@ -57,14 +58,17 @@ export class InformacoesAtendimentoComponent implements OnInit {
     if (tipoAtendimento === TIPOATENDIMENTOMOCK[11] ||
         tipoAtendimento === TIPOATENDIMENTOMOCK[12] ||
         tipoAtendimento === TIPOATENDIMENTOMOCK[13]) {
-          this.disabledValor = true;
-          this.disabledAutorizado = false;
+          this.estilo = 'col-lg-2';
+          this.desabilitaValor = true;
+          this.desabilitaAutorizado = false;
     }else if (tipoAtendimento === TIPOATENDIMENTOMOCK[1]) {
-          this.disabledValor = false;
-          this.disabledAutorizado = true;
+          this.estilo = 'col-lg-2';
+          this.desabilitaValor = false;
+          this.desabilitaAutorizado = true;
     }else {
-          this.disabledValor = false;
-          this.disabledAutorizado = false;
+          this.desabilitaValor = false;
+          this.desabilitaAutorizado = false;
+          this.estilo = 'col-lg-4';
     }
   }
 

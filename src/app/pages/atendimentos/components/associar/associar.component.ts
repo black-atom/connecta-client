@@ -11,6 +11,7 @@ import { Atendimento } from './../../../../models';
 import { Funcionario } from './../../../../models';
 import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
 import { FuncionarioService } from './../../../../shared/services';
+import { NotificacaoService } from '../../../../shared/services/notificacao-service';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class AssociarComponent implements OnInit, OnDestroy {
   constructor(private _funcionarioService: FuncionarioService,
               private _servicoModal: NgbModal,
               private _atendimentoService: AtendimentoService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter) {}
+              private _ngbDateParserFormatter: NgbDateParserFormatter,
+              private _notificacaoService: NotificacaoService) {}
 
 
   ngOnInit() {
@@ -99,6 +101,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
            .subscribe((res) => {
              if (res) {
               this.listarAtendimentoAssociado(this.dataAssociar);
+              console.log(res);
              }
             });
   });
@@ -111,13 +114,24 @@ abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
 }
 
 removerAtendimento(atendimento) {
- const nome = '';
-atendimento.tecnico = { nome };
-this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
-  if (res) {
-     this.listarAtendimentoAssociado(this.dataAssociar);
+  if (atendimento.inicio === null && atendimento.fim === null) {
+    const nome = '';
+    atendimento.tecnico = { nome };
+    this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
+      if (res) {
+         this.listarAtendimentoAssociado(this.dataAssociar);
+      }
+    });
+  } else {
+    this.notificarAtendimentoConcluidoOuIniciado();
   }
-});
+}
+
+  notificarAtendimentoConcluidoOuIniciado() {
+    this._notificacaoService.notificarErro(
+    'Erro',
+    'Não é possível excluir um atendimento já iniciado ou concluído'
+  );
 }
 
   ngOnDestroy() {

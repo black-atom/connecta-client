@@ -23,11 +23,11 @@ export class NotificacaoService {
     this._notificacaoService.error(
       titulo, mensagem,
       {
-        timeOut: 1000,
+        timeOut: 1500,
         showProgressBar: false,
         pauseOnHover: false,
         clickToClose: false,
-        maxLength: 10
+        maxLength: 70
       }
     );
   }

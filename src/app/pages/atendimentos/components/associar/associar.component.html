@@ -48,26 +48,27 @@
 
 
 
-
 <!-- Abrir modal de confirmação de exclusão de atendimento -->
 <ng-template #conteudo let-c="close" let-d="dismiss">
-<div class="modal-header">
-<h4 class="modal-title animated flipInX">Rmover atendimento?</h4>
-<button type="button" class="close" aria-label="Close" (click)="d()">
-<span aria-hidden="true"></span>
-</button>
-</div>
-<div class="modal-body">
-<p><strong>{{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong>
-  do técnico
-  <strong>{{funcionarioSelecionado.nome}}?</strong></p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-ios-close-outline"></i> Não</button>
-<button type="button"
-class="btn btn-secondary" (click)="removerAtendimento(atendimentoASerRemovido); c()">
-  <i class="ion-ios-checkmark-outline"></i> Sim</button>
-</div>
+
+  <div class="modal-header">
+    <h4 class="modal-title animated flipInX">Rmover atendimento?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p><strong>{{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong> do técnico
+      <strong>{{funcionarioSelecionado.nome}}?</strong></p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-ios-close-outline"></i> Não</button>
+    <button type="button" class="btn btn-secondary" (click)="removerAtendimento(atendimentoASerRemovido); c()">
+    <i class="ion-ios-checkmark-outline"></i> Sim</button>
+  </div>
+
 </ng-template>
 <hr>
 

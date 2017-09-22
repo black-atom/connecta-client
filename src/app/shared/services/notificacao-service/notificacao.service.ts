@@ -23,7 +23,7 @@ export class NotificacaoService {
     this._notificacaoService.error(
       titulo, mensagem,
       {
-        timeOut: 1500,
+        timeOut: 1800,
         showProgressBar: false,
         pauseOnHover: false,
         clickToClose: false,

@@ -117,7 +117,7 @@ removerAtendimento(atendimento) {
   if (atendimento.inicio === null && atendimento.fim === null) {
     const nome = '';
     atendimento.tecnico = { nome };
-    this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
+    this.sub = this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
       if (res) {
          this.listarAtendimentoAssociado(this.dataAssociar);
       }
@@ -130,7 +130,7 @@ removerAtendimento(atendimento) {
   notificarAtendimentoConcluidoOuIniciado() {
     this._notificacaoService.notificarErro(
     'Erro',
-    'Não é possível excluir um atendimento já iniciado ou concluído'
+    'Não é possível remover um atendimento iniciado ou concluído'
   );
 }
 

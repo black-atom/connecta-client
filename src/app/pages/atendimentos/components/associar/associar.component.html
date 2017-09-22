@@ -52,14 +52,14 @@
 <ng-template #conteudo let-c="close" let-d="dismiss">
 
   <div class="modal-header">
-    <h4 class="modal-title animated flipInX">Rmover atendimento?</h4>
+    <h4 class="modal-title animated flipInX">Confirmação</h4>
     <button type="button" class="close" aria-label="Close" (click)="d()">
       <span aria-hidden="true"></span>
     </button>
   </div>
 
   <div class="modal-body">
-    <p><strong>{{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong> do técnico
+    <p>Deseja remover o atendimento para o cliente<strong> {{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong> que está vinculado ao técnico
       <strong>{{funcionarioSelecionado.nome}}?</strong></p>
   </div>
 

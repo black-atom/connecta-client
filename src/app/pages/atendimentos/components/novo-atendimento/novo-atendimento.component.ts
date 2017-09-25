@@ -67,7 +67,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
-      motivo: [''],
       autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: ['', [Validators.required]],
@@ -131,6 +130,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
       atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
       atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+
+      atendimento.data_atendimento = dataAtendimento;
 
     if ( dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()

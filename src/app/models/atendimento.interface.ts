@@ -4,7 +4,7 @@ export interface Atendimento {
     contato: ContatoAtendimento;
     tecnico: TecnicoAtendimento;
     avaliacao: Avaliacao;
-    imagens: string[];
+    imagens: Imagens[];
     data_atendimento: Date;
     estacionamento: string;
     modelo_equipamento: string;
@@ -19,7 +19,7 @@ export interface Atendimento {
     criado_em: string;
     atualizado_em: string;
     atualizado_por: string;
-    inativo?: Inativo;
+    situacao?: Situacao;
 }
 
 interface Cliente {
@@ -60,7 +60,12 @@ interface Avaliacao {
     observacao: string;
 }
 
-interface Inativo {
-    status: boolean;
+interface Situacao {
+    status: string;
     motivo: string;
+}
+
+interface Imagens {
+  tipo: string;
+  url: string;
 }

@@ -1,122 +1,121 @@
 <div class="row">
   <div class="col-md-12">
     <ba-card cardTitle="Dados salvo pelo técnico">
-      <div class="col-md-12">
 
-        <div class="row">
+      <div class="container">
+        <div class="col-md-12">
 
-        <div class="col-md-6">
-            <p><strong>Dados do Cliente</strong></p>
-        </div>
+                <div class="row">
 
-        <div class="col-md-6">
-            <p><strong>Data Atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</p>
-        </div>
+                  <div class="col-md-12">
 
-        </div>
+                      <h4>{{ atendimento?.cliente.nome_razao_social | uppercase }}</h4>
+                      <p>{{ atendimento?.cliente.cnpj_cpf }}</p>
 
-      <div class="row">
+                  </div>
 
-            <div class="col-md-6">
-                <p><strong>Razão Social/Nome: </strong>{{ atendimento?.cliente.nome_razao_social }}</p>
-                <p><strong>Endereço: </strong>
-                  {{ atendimento?.endereco.rua }},
-                  {{ atendimento?.endereco.numero }},
-                  {{ atendimento?.endereco.bairro }},
-                  {{ atendimento?.endereco.cidade }} /
-                  {{ atendimento?.endereco.uf }}
-              </p>
-              <p><strong>Contato: </strong>{{ atendimento?.contato.nome }}</p>
-              <p><strong>Telefone: </strong>{{ atendimento?.contato.telefone }}</p>
-            </div>
+                      <div class="col-md-6">
 
-            <div class="col-md-6">
-                <p><strong>Cnpj/Cpf: </strong>{{ atendimento?.cliente.cnpj_cpf }}</p>
-                <p><strong>Cep: </strong>{{ atendimento?.endereco.cep }}</p>
-                <p><strong>Email: </strong>{{ atendimento?.contato.email }}</p>
-                <p><strong>Celular: </strong>{{ atendimento?.contato.celular }}</p>
-            </div>
+                          <p><i class=" ion-person"></i> {{ atendimento?.contato.nome }}</p>
+                          <p><i class="ion-android-call"></i> {{ atendimento?.contato.celular }}</p>
+                          <p><i class="ion-location"></i> {{ atendimento?.endereco.rua }},
+                            {{ atendimento?.endereco.numero }},
+                            {{ atendimento?.endereco.bairro }},
+                            {{ atendimento?.endereco.cidade }} /
+                            {{ atendimento?.endereco.uf }}
+                          {{ atendimento?.endereco.cep }}
+                        </p>
 
-          </div>
-            <hr>
-          <div class="row">
+                      </div>
 
-              <div class="col-md-6">
-                  <p><strong>Tipo Atendimento:</strong> {{ atendimento?.tipo }}</p>
-              </div>
+                      <div class="col-md-6">
 
-              <div class="col-md-6" *ngIf="atendimento?.valor || atendimento?.autorizado">
-                  <p><strong>Valor $</strong> {{ atendimento?.valor }}</p>
-                  <p><strong>Autorizado por</strong>{{ atendimento?.autorizado }}</p>
-              </div>
+                        <p><i class="ion-email"></i> {{ atendimento?.contato.email }}</p>
+                        <p><i class="ion-android-call"></i> {{ atendimento?.contato.telefone }}</p>
 
-              <div class="col-md-6">
-                  <p><strong>Modelo Equipamento:</strong> {{ atendimento?.modelo_equipamento }}</p>
-              </div>
+                      </div>
 
-              <div class="col-md-6">
-                  <p><strong>Número equipamento:</strong> {{ atendimento?.numero_equipamento }}</p>
-              </div>
+                    </div>
+                      <!-- <hr>
+                    <div class="row">
 
-            <div class="col-md-12">
-              <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
-              <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
-            </div>
+                        <div class="col-md-6">
+                            <p><strong>Tipo Atendimento:</strong> {{ atendimento?.tipo }}</p>
+                        </div>
 
-          </div>
+                        <div class="col-md-6" *ngIf="atendimento?.valor || atendimento?.autorizado">
+                            <p><strong>Valor $</strong> {{ atendimento?.valor }}</p>
+                            <p><strong>Autorizado por</strong>{{ atendimento?.autorizado }}</p>
+                        </div>
 
-          <div class="row" *ngIf="atendimento?.imagens">
-              <h6>Imagens dos Atendimento</h6>
-              <div>
-                  <img class="img-thumbnail" src="http://165.227.78.113:3000/atendimentoimagens/{{ fotos }}" alt="" *ngFor="let fotos of atendimento?.imagens">
-              </div>
-          </div>
+                        <div class="col-md-6">
+                            <p><strong>Modelo Equipamento:</strong> {{ atendimento?.modelo_equipamento }}</p>
+                        </div>
 
-          <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Número equipamento:</strong> {{ atendimento?.numero_equipamento }}</p>
+                        </div>
 
-                <table class="table">
-                    <thead>
-                      <tr>
+                      <div class="col-md-12">
+                        <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
+                        <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
+                      </div>
 
-                        <th>Técnico</th>
-                        <th>Km Incial</th>
-                        <th>Km Final</th>
-                        <th>Inicio Atendimento</th>
-                        <th>Final Atendimento</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
+                    </div> -->
 
-                        <td>{{ atendimento?.tecnico.nome }}</td>
-                        <td>{{ atendimento?.km_inicio.data | date: 'HH:mm' }} -
-                          {{ atendimento?.km_inicio.km }} km
-                        </td>
-                        <td>
-                            {{ atendimento?.km_final.data | date: 'HH:mm' }} -
-                            {{ atendimento?.km_final.km }} km
+                    <!-- <div class="row" *ngIf="atendimento?.imagens">
+                        <h6>Imagens dos Atendimento</h6>
+                        <div>
+                            <img class="img-thumbnail" src="http://165.227.78.113:3000/atendimentoimagens/{{ fotos?.url }}" alt="" *ngFor="let fotos of atendimento?.imagens">
+                        </div>
+                    </div> -->
 
-                        </td>
-                        <td>{{ atendimento?.inicio | date: 'hh:mm' }}</td>
-                        <td>{{ atendimento?.fim | date: 'hh:mm'}}</td>
+                    <!-- <div class="row">
 
-                      </tr>
-                    </tbody>
-                  </table>
+                          <table class="table">
+                              <thead>
+                                <tr>
 
-            </div>
+                                  <th>Técnico</th>
+                                  <th>Km Incial</th>
+                                  <th>Km Final</th>
+                                  <th>Inicio Atendimento</th>
+                                  <th>Final Atendimento</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
 
-          <div class="row">
-              <div class="col-md-6">
-                  <p><strong>Criado Por:</strong> {{ atendimento?.createdBy }} {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-              </div>
-              <div class="col-md-6">
-                  <p><strong>Alterado por: </strong>{{ atendimento?.updatedBy }} {{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-              </div>
-            </div>
+                                  <td>{{ atendimento?.tecnico.nome }}</td>
+                                  <td>{{ atendimento?.km_inicio.data | date: 'HH:mm' }} -
+                                    {{ atendimento?.km_inicio.km }} km
+                                  </td>
+                                  <td>
+                                      {{ atendimento?.km_final.data | date: 'HH:mm' }} -
+                                      {{ atendimento?.km_final.km }} km
+
+                                  </td>
+                                  <td>{{ atendimento?.inicio | date: 'hh:mm' }}</td>
+                                  <td>{{ atendimento?.fim | date: 'hh:mm'}}</td>
+
+                                </tr>
+                              </tbody>
+                            </table>
+
+                      </div> -->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Criado Por:</strong> {{ atendimento?.createdBy }} {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Alterado por: </strong>{{ atendimento?.updatedBy }} {{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+                        </div>
+                      </div>
+
+                </div>
 
       </div>
-
 
     </ba-card>
   </div>

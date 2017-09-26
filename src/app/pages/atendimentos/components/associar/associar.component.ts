@@ -101,7 +101,6 @@ export class AssociarComponent implements OnInit, OnDestroy {
            .subscribe((res) => {
              if (res) {
               this.listarAtendimentoAssociado(this.dataAssociar);
-              console.log(res);
              }
             });
   });

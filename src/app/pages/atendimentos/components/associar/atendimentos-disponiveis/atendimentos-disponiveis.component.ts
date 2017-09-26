@@ -26,8 +26,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   public selecionados: any[] = [];
   public atendimentoVinculado: Atendimento[] = [];
   public campoData: NgbDateStruct;
-  public existeAtendimento: boolean;
-  atendimentoSelecionado: boolean;
+  atendimentoRemover;
 
   constructor(public _activeModal: NgbActiveModal,
               private _atendimentoService: AtendimentoService,
@@ -56,7 +55,17 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
     if (!isIgual) {
       this.selecionados.push(atendimento);
-      this.atendimentoSelecionado = true;
+    } else {
+      this.selecionados.splice(this.selecionados.indexOf(atendimento), 1);
+    }
+
+  }
+
+  dessasociarAtendimento(atendimento) {
+    if (this.selecionados.indexOf(atendimento) > -1) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -65,7 +74,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   }
 
   fecharModal() {
-    this._activeModal.dismiss();
+    this._activeModal.close();
   }
 
   ngOnDestroy() {

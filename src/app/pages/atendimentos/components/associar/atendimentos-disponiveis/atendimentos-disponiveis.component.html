@@ -10,13 +10,11 @@
 
 <div class="modal-body">
 
-  <h6 *ngIf="existeAtendimento === false">Não há atendimentos para a data informada</h6>
-  <h6 *ngIf="existeAtendimento === true">Há {{atendimentos.length}} atendimento(s) para a data informada</h6>
-
   <div class="row">
-    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos">
+    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos; let i = index">
       <ba-card  (click)="selecionarAtendimento(atendimento)">
-        <div class="card-body" [ngClass]="{'selecaoDoAtendimento': atendimentoSelecionado}">
+        <div class="card-body" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
+          <i *ngIf="dessasociarAtendimento(atendimento)" class="ion-android-checkmark-circle pull-right"></i>
           <p><strong> {{ atendimento?.cliente.nome_razao_social }} ({{ atendimento.data_atendimento | date: 'dd/MM/yyyy' }})</strong></p>
           <p class="local"><i class="ion-location">
             </i> {{ atendimento.endereco.rua + " - " + atendimento.endereco.bairro +", "+ atendimento.endereco.cidade +"
@@ -31,6 +29,6 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
-<i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}})</button>
+  <i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}}) </button>
 </div>
 

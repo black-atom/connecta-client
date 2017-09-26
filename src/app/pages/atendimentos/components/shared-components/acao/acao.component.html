@@ -1,0 +1,31 @@
+<div class="row" [formGroup]="formAcao">
+  <div class="col-12">
+    <ba-card cardTitle="Ações">
+      <div class="row">
+      <div class="col-md-6 col-sm-12 col-lg-6">
+
+        <label class="radio-inline custom-radio nowrap" *ngFor="let act of action">
+          <input type="radio" name="status" (click)="actionAtendimento(act)" value="{{act}}" formControlName="status">
+          <span translate>{{act}}</span>
+        </label>
+      </div>
+
+      <div class="col-md-6 col-sm-12 col-lg-6 motivo">
+        <div class="form-group" *ngIf="desativaCampoTecnico">
+          <label for="descricao_atendimento">Técnico </label>
+          <select class="form-control" [(ngModel)]='tec' [ngModelOptions]="{standalone: true}" (change)="emitTecnico(tec)" >
+            <option value="" disabled selected>Selecione o tecnico</option>
+            <option *ngFor="let tecnico of tecnicos; let i = index" [ngValue]="tecnico">{{tecnico.nome}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="motivo">Motivo</label>
+          <input type="text" class="form-control" id="motivo"  formControlName="motivo">
+        </div>
+      </div>
+    </div>
+    </ba-card>
+  </div>
+
+</div>

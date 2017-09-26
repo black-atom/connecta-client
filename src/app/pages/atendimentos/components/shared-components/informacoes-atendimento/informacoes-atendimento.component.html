@@ -104,27 +104,3 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!desabilitaData">
-  <div class="col-12">
-    <ba-card cardTitle="Ações">
-      <div class="row">
-      <div class="col-md-6 col-sm-12 col-lg-6">
-
-        <label class="radio-inline custom-radio nowrap" *ngFor="let act of action">
-          <input type="radio" name="acao" (click)="actionAtendimento(act)" >
-          <span translate>{{act}}</span>
-        </label>
-      </div>
-
-
-      <div class="col-md-6 col-sm-12 col-lg-6 motivo" *ngIf="!campoMotivo">
-        <div class="form-group">
-          <label for="motivo">Motivo</label>
-          <input type="text" class="form-control" formControlName="motivo" id="motivo">
-        </div>
-      </div>
-    </div>
-    </ba-card>
-  </div>
-
-</div>

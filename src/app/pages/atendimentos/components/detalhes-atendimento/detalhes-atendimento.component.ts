@@ -30,6 +30,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   public detalhesAtendimentoEditarCampos = true;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   public clienteEncontrado;
+  public tecnico;
+  private action = ['reagendar', 'cancelar', 'encaixe'];
 
   constructor(private _atendimentoService: AtendimentoService,
               private _activatedRoute: ActivatedRoute,
@@ -80,11 +82,17 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
       }),
-
+      situacao: this._fb.group({
+        status: [''],
+        motivo: ['']
+      }),
+      tecnico: this._fb.group({
+        _id: [''],
+        nome: ['']
+      }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
-      motivo: [''],
       autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: ['', [Validators.required]],
@@ -164,43 +172,91 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
 
-   atualizarAtendimento(atendimento) {
-    atendimento._id = this.id;
-
-    const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
-    const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
-    const dataAtual = new Date();
-
-    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-    if (atendimento.cliente.inscricao_estadual) {
-      atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-    }
-    if (atendimento.contato.celular) {
-      atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-    }
-    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
-
-    if ( dataAtendimento.getDate() >= dataAtual.getDate()
-      && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
-
-        atendimento.data_atendimento = dataAtendimento;
-
-    this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
-    .subscribe(
-      dados => {
-    },
-      erro => {
-      this.falhaNaEdicao();
-    },
-      () => {
-      this.sucessoNaEdicao();
-    }
-  );
-  } else {
-      this.falhaDataMenorQueAtual();
+  tecnicoRecebido(tec) {
+   this.tecnico = tec;
   }
+   atualizarAtendimento(atendimento) {
+    if (atendimento.situacao.status === this.action[2]) {
+      atendimento._id = this.id;
+      atendimento.tecnico._id = this.tecnico._id;
+      atendimento.tecnico.nome = this.tecnico.nome;
+
+
+      const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
+      const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
+      const dataAtual = new Date();
+
+      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+      if (atendimento.cliente.inscricao_estadual) {
+        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
+      }
+      if (atendimento.contato.celular) {
+        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+      }
+      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+
+      if ( dataAtendimento.getDate() >= dataAtual.getDate()
+        && dataAtendimento.getMonth() >= dataAtual.getMonth()
+        && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+
+          atendimento.data_atendimento = dataAtendimento;
+
+      this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
+      .subscribe(
+        dados => {
+      },
+        erro => {
+        this.falhaNaEdicao();
+      },
+        () => {
+        this.sucessoNaEdicao();
+      }
+    );
+    } else {
+        this.falhaDataMenorQueAtual();
+    }
+    }else {
+      atendimento._id = this.id;
+      atendimento.tecnico._id = '';
+      atendimento.tecnico.nome = '';
+
+
+      const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
+      const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
+      const dataAtual = new Date();
+
+      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+      if (atendimento.cliente.inscricao_estadual) {
+        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
+      }
+      if (atendimento.contato.celular) {
+        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+      }
+      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+
+      if ( dataAtendimento.getDate() >= dataAtual.getDate()
+        && dataAtendimento.getMonth() >= dataAtual.getMonth()
+        && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+
+          atendimento.data_atendimento = dataAtendimento;
+
+      this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
+      .subscribe(
+        dados => {
+      },
+        erro => {
+        this.falhaNaEdicao();
+      },
+        () => {
+        this.sucessoNaEdicao();
+      }
+    );
+    } else {
+        this.falhaDataMenorQueAtual();
+    }
+    }
 }
 
   sucessoNaEdicao() {

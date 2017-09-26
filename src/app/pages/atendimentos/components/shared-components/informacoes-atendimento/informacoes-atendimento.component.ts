@@ -16,8 +16,13 @@ export class InformacoesAtendimentoComponent implements OnInit {
   tipoAtendimento = TIPOATENDIMENTOMOCK;
   tipoEstacionamento = TIPOESTACIONAMENTO;
   action = ['Reagendar', 'Cancelar', 'Encaixe'];
+
+  @Input()
   campoData: boolean;
+
+  @Input()
   campoMotivo: boolean = true;
+
   desabilitaData: boolean;
   estilo = 'col-lg-4';
 
@@ -72,13 +77,4 @@ export class InformacoesAtendimentoComponent implements OnInit {
     }
   }
 
-  actionAtendimento(action) {
-      if (action === this.action[0]) {
-        this.campoData = true;
-        this.campoMotivo = false;
-      }else {
-        this.campoData = false;
-        this.campoMotivo = false;
-      }
-    }
 }

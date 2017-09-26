@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12 t">
+    <div class="col-md-6 col-sm-12 t" *ngFor="let tecnico of tecnicos | async">
       <ba-card>
         <div class="text-center">
           <!-- <img src="./../../../assets/img/app/profile/alan.jpg" alt="Pessoa"> -->
-          <h4>Alan Teixeira Lima</h4>
+          <h4>{{ tecnico.nome }}</h4>
         </div>
         <hr>
-  
+
         <div class="table table-responsive" >
             <table class="table">
               <thead>
@@ -30,5 +30,4 @@
       </ba-card>
     </div>
   </div>
-  
-  
+

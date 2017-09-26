@@ -1,6 +1,5 @@
 <form [formGroup]="formEdicaoAtendimento"
   (ngSubmit)="atualizarAtendimento(formEdicaoAtendimento.value)" novalidate>
-
     <!-- Card com os inputs de dados principais do funcionário -->
     <div class="row">
       <div class="col-12">
@@ -74,6 +73,16 @@
         </app-informacoes-atendimento>
       </div>
       </div>
+
+      <div class="row">
+        <div class="col-12">
+          <app-acao
+          (tecnicoEnviado)="tecnicoRecebido($event)"
+          [formAcao]="formEdicaoAtendimento.controls.situacao"></app-acao>
+        </div>
+        </div>
+
+
 
     <!-- Botões de cadastro e de limpeza de dados -->
     <div class="row">

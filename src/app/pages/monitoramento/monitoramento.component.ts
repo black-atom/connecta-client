@@ -48,23 +48,7 @@ export class MonitoramentoComponent implements OnInit {
             return (busca);
           }
       });
-
-
-  this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
-  .subscribe(tecnicos => {
-  tecnicos.map(tec => {
-      ver.filter(buscarTec => {
-       if ( buscarTec.tecnico._id === tec._id) {
-          tec.atendimentos.push(buscarTec);
-       }
-      });
-    });
-
-}
-);
-
   });
-
 }
 
 

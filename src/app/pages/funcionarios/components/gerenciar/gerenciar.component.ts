@@ -39,6 +39,9 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   settings = {
     actions: false,
     noDataMessage: 'Nenhum dado encontrado',
+    pager: {
+      perpage: '50'
+    },
     columns: {
       nome: {
         title: 'Nome',

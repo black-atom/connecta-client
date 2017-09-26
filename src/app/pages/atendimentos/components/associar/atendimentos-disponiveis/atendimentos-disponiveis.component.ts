@@ -14,19 +14,13 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 })
 export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
-  @Input()
-  funcionarioSelecionado: Funcionario;
+  @Input() funcionarioSelecionado: Funcionario;
 
-
-  @Input()
-  dataAssociar;
+  @Input() dataSelecionada;
 
   private sub: Subscription;
   public atendimentos: Atendimento[];
   public selecionados: any[] = [];
-  public atendimentoVinculado: Atendimento[] = [];
-  public campoData: NgbDateStruct;
-  atendimentoRemover;
 
   constructor(public _activeModal: NgbActiveModal,
               private _atendimentoService: AtendimentoService,
@@ -38,7 +32,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
   retornarTodosAtendimentos() {
     this.sub = this._atendimentoService
-    .retornarAtendimentoPorData(this.dataAssociar)
+    .retornarAtendimentoPorData(this.dataSelecionada)
       .subscribe((res) => {
       this.atendimentos = res.filter((atendimento) => {
           if (!atendimento.tecnico.nome) {
@@ -49,9 +43,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   }
 
   selecionarAtendimento(atendimento) {
-    const isIgual = this.selecionados
-                        .find(atendimentoSelecionado =>
-                              atendimentoSelecionado === atendimento);
+    const isIgual = this.selecionados.find(atendimentoSelecionado => atendimentoSelecionado === atendimento);
 
     if (!isIgual) {
       this.selecionados.push(atendimento);

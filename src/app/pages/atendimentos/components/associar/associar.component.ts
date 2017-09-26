@@ -28,7 +28,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
   public funcionario: Funcionario[];
   public funcoes = TIPOFUNCIONARIOMOCK;
   public funcao: string;
-  public dataAssociar;
+  public dataSelecionada;
 
   model: any;
 
@@ -56,7 +56,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
       const today = this.model;
       const searchDate = new Date(today.year, today.month - 1, today.day );
 
-      this.dataAssociar = searchDate;
+      this.dataSelecionada = searchDate;
 
       this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
       .switchMap(atendimentos => {
@@ -85,7 +85,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
-    modalRef.componentInstance.dataAssociar = this.dataAssociar;
+    modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
 
     modalRef.result.then((resultadoDaModal) => {
 
@@ -100,7 +100,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
            .atualizarTodosAtendimentos(arrayDeAtendimentos)
            .subscribe((res) => {
              if (res) {
-              this.listarAtendimentoAssociado(this.dataAssociar);
+              this.listarAtendimentoAssociado(this.dataSelecionada);
              }
             });
   });
@@ -118,7 +118,7 @@ removerAtendimento(atendimento) {
     atendimento.tecnico = { nome };
     this.sub = this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
       if (res) {
-         this.listarAtendimentoAssociado(this.dataAssociar);
+         this.listarAtendimentoAssociado(this.dataSelecionada);
       }
     });
   } else {

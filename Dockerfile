@@ -1,11 +1,10 @@
-FROM node:6.9.5
+FROM node
 
-RUN git clone https://github.com/akveo/ng2-admin.git /var/www \
+RUN git clone https://github.com/black-atom/connecta-client.git /var/www \
     && cd /var/www \
     && npm install --global rimraf \
-    && npm run clean \
     && npm install --global webpack webpack-dev-server typescript@2.1.5 \
-    && npm install \
+    && yarn \
     && npm run prebuild:prod && npm run build:prod
 
 EXPOSE 8080

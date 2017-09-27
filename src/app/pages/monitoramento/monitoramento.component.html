@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12 t" *ngFor="let tecnico of tecnicos | async">
+    <div class="col-md-4 col-sm-12 t" *ngFor="let tecnico of tecnicosMonitoramento; let i = index">
       <ba-card>
         <div class="text-center">
-          <!-- <img src="./../../../assets/img/app/profile/alan.jpg" alt="Pessoa"> -->
-          <h4>{{ tecnico.nome }}</h4>
+          <img src="/assets/img/avatar.png" alt="Pessoa">
+          <h4>{{ tecnico?.nome }}</h4>
         </div>
         <hr>
 
@@ -11,22 +11,25 @@
             <table class="table">
               <thead>
                 <tr class="border-top: none">
-                  <th>Avaliação</th>
+                  <!-- <th>Avaliação</th> -->
                   <th>Atendimentos</th>
                   <th>Concluídos</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="border-top: none">
-                  <td><i class="ion-ios-star-half"></i> 2.1</td>
-                  <td><i class="ion-settings"></i> 69</td>
-                  <td><i class="ion-checkmark"></i> 3/4</td>
+                  <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length }}</td>
+                  <td *ngIf="tecnico?.finalizado_hoje"><i class="ion-checkmark"></i> {{ tecnico?.finalizado_hoje }} / {{ tecnico?.atendimentos_hoje?.length }}</td>
+                  <td *ngIf="!tecnico?.finalizado_hoje"><i class="ion-checkmark"></i> 0 / {{ tecnico?.atendimentos_hoje?.length }}</td>
+
                 </tr>
               </tbody>
             </table>
+            <br>
+            <!-- <p *ngFor="let atendimento_hj of tecnico?.atendimentos_hoje; let i = index">
+              {{ atendimento_hj?.cliente?.nome_razao_social }}
+            </p> -->
             </div>
-        <button type="button" class="btn btn-circle pull-right">
-        <i class="ion-plus-round"></i></button>
       </ba-card>
     </div>
   </div>

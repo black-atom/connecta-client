@@ -16,40 +16,66 @@ export class MonitoramentoComponent implements OnInit {
   tecnicos$: Observable<Funcionario[]>;
 
   private funcao = TIPOFUNCIONARIOMOCK;
-  dataInicia = new Date('2017-09-18T03:00:00.000Z');
-  dataFinal = new Date('2017-09-25T17:17:48.032Z');
-  tecnicos;
+  private dataNata = new Date('2017-09-27T03:00:00.000Z');
+  private dataInicia = new Date('2017-09-18T03:00:00.000Z');
+  private dataFinal = new Date('2017-09-25T17:17:48.032Z');
+  public tecnicosMonitoramento;
+  contagem = 0;
 
   constructor(
     private _funcionarioService: FuncionarioService,
     private _atendimentoService: AtendimentoService) { }
 
   ngOnInit() {
-    this.listarAtendimento();
+    this.monitorarTecnicos();
   }
 
-  // listarFuncionarios() {
-  //   this._funcionarioService.retornarFuncionarioPorFuncao(this.funcao[2])
-  //   .subscribe(
-  //     res => {
-  //       console.log(res);
-  //     }
-  //   );
-  // }
-
-  listarAtendimento() {
-    const atendimentos = this._atendimentoService.retornarTodos()
+  monitorarTecnicos() {
+    this._funcionarioService.retornarFuncionarioPorFuncao(this.funcao[2])
     .subscribe(
-      res => {
-       const ver = res.filter(busca => {
-          const dataAtendimento = new Date(busca.data_atendimento);
+      tecnicos => {
+        tecnicos.map(
+          tecnico => {
+            this._atendimentoService.retornarTodos()
+            .subscribe(
+              atendimentos => {
+               const buscarPorData = atendimentos.filter(atendimento => {
+                  const dataAtendimento = new Date(atendimento.data_atendimento);
 
-          if (dataAtendimento >= this.dataInicia && dataAtendimento <= this.dataFinal) {
-            return (busca);
+                  if (dataAtendimento >= this.dataInicia && dataAtendimento >= this.dataInicia) {
+                    return (atendimento);
+                  }
+              });
+              const filtrarTecnico = buscarPorData.filter(
+                 atendimento => {
+                  const compara = tecnico._id === atendimento.tecnico._id;
+                  if (compara) {
+                   return atendimento;
+                  }
+                 }
+                );
+
+                tecnico.atendimentos = filtrarTecnico;
+                tecnico.atendimentos_hoje = filtrarTecnico.filter(
+                  atendimento => {
+                    const hoje = new Date(atendimento.data_atendimento) >= this.dataNata;
+                    if (hoje) {
+                      if (atendimento.fim) {
+                         tecnico.finalizado_hoje = this.contagem += 1;
+                      }
+                      return atendimento;
+                    }
+                  }
+                );
+
+                return tecnico;
+          });
+
           }
-      });
-  });
-}
-
+        );
+        this.tecnicosMonitoramento = tecnicos;
+      }
+    );
+  }
 
   }

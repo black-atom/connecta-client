@@ -3,7 +3,7 @@ export interface Atendimento {
     endereco: EnderecoAtendimento;
     contato: ContatoAtendimento;
     tecnico: TecnicoAtendimento;
-    avaliacao: Avaliacao;
+    avaliacao: Avaliacao[];
     imagens: Imagens[];
     data_atendimento: Date;
     estacionamento: string;
@@ -20,6 +20,8 @@ export interface Atendimento {
     atualizado_em: string;
     atualizado_por: string;
     situacao?: Situacao;
+    fim: string;
+    finalizado: number;
 }
 
 interface Cliente {

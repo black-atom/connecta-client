@@ -13,6 +13,8 @@ export interface Funcionario {
   contato: ContatoFuncionario;
   login: Login;
   atendimentos?: Atendimento[];
+  atendimentos_hoje?: Atendimento[];
+  finalizado_hoje?: number;
 }
 
 interface Login {

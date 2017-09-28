@@ -43,7 +43,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
               private _servicoModal: NgbModal,
               private _atendimentoService: AtendimentoService,
               private _ngbDateParserFormatter: NgbDateParserFormatter,
-              private _notificacaoService: NotificacaoService,
+              private _notificacaoService: NotificacaoService
               ) {}
 
 
@@ -67,7 +67,6 @@ export class AssociarComponent implements OnInit, OnDestroy {
     const hoje = ({ day: today.getDate(), month: today.getMonth(), year: today.getFullYear() } );
     const searchDate = new Date(hoje.year, hoje.month, hoje.day );
     this.model = { year: searchDate.getFullYear(), day: searchDate.getDate(), month: searchDate.getMonth() + 1 };
-
     return searchDate;
 
   }
@@ -76,7 +75,11 @@ export class AssociarComponent implements OnInit, OnDestroy {
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
 
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
-    modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
+    if (this.dataSelecionada) {
+      modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
+    }else {
+      modalRef.componentInstance.dataSelecionada = this.dataAgora();
+    }
 
     modalRef.result.then((resultadoDaModal) => {
           if (resultadoDaModal) {

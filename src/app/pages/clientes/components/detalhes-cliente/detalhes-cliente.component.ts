@@ -78,14 +78,25 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
 
     cliente._id = this.id;
     cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
-    cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+    if (cliente.inscricao_estadual) {
+      cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
+    }
 
     cliente.contatos = cliente.contatos.map((removerMascaraContato) => {
+
+      if (removerMascaraContato.celular) {
         const novoContatos = {
-            telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
-            celular : removerMascaraContato.celular.replace(/\D+/g, '')
-        };
-      return (Object.assign({}, removerMascaraContato, novoContatos));
+          telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
+          celular : removerMascaraContato.celular.replace(/\D+/g, '')
+      };
+        return (Object.assign({}, removerMascaraContato, novoContatos));
+      }else {
+        const novoContatos = {
+          telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
+          celular : ''
+      };
+        return (Object.assign({}, removerMascaraContato, novoContatos));
+      }
       });
 
       cliente.enderecos = cliente.enderecos.map((removerMascaraEndereco) => {

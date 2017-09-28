@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4 col-sm-12 t" *ngFor="let tecnico of tecnicosMonitoramento; let i = index">
+    <div class="col-md-4 col-sm-12 t" *ngFor="let tecnico of tecnicos | async; let i = index">
       <ba-card>
         <div class="text-center">
           <img src="/assets/img/avatar.png" alt="Pessoa">

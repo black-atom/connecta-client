@@ -47,7 +47,6 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-
     this.tecnicos = this._atendimentoService.funcionarios;
   }
 
@@ -67,23 +66,18 @@ export class AssociarComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
 
     modalRef.result.then((resultadoDaModal) => {
-      if (resultadoDaModal) {
-        const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
-          const tecnico = {
-            nome : funcionarioSelecionado.nome,
-            _id : funcionarioSelecionado._id
-          };
-          return (Object.assign({}, atendimento, { tecnico }));
-         });
-         this._atendimentoService
-             .atualizarTodosAtendimentos(arrayDeAtendimentos)
-             .subscribe((res) => {
-               if (res) {
-                // this.listarAtendimentoAssociado(this.dataSelecionada);
-               }
-              });
-      }
-  });
+          if (resultadoDaModal) {
+            const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
+              const tecnico = {
+                nome : funcionarioSelecionado.nome,
+                _id : funcionarioSelecionado._id
+              };
+              return (Object.assign({}, atendimento, { tecnico }));
+             });
+             this._atendimentoService
+                 .updateTodosAtendimentosAssociado(arrayDeAtendimentos);
+          }
+      });
 }
 
 abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
@@ -93,14 +87,9 @@ abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
 }
 
 removerAtendimento(atendimento) {
+
   if (atendimento.inicio === null && atendimento.fim === null) {
-    const nome = '';
-    atendimento.tecnico = { nome };
-    this.sub = this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
-      if (res) {
-        //  this.listarAtendimentoAssociado(this.dataSelecionada);
-      }
-    });
+   this._atendimentoService.removerAtendimentoAssociado(atendimento, atendimento.tecnico);
   } else {
     this.notificarAtendimentoConcluidoOuIniciado();
   }

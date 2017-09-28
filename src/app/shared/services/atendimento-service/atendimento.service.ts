@@ -1,3 +1,4 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -9,8 +10,12 @@ import { ManipuladorErro } from './..';
 import { Atendimento, Funcionario } from './../../../models';
 import { AuthHttp } from 'angular2-jwt';
 
+import { TIPOFUNCIONARIOMOCK } from './../../../utils/mocks/tipo-funcionario.mock';
+
 @Injectable()
 export class AtendimentoService {
+
+  private funcoes = TIPOFUNCIONARIOMOCK;
 
   private baseUrl: string;
 
@@ -68,7 +73,8 @@ export class AtendimentoService {
     this._http.get(`${this.baseUrl}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
-        funcionarios.map(funcionario => {
+      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > -1);
+      funcionariosFuncao.map(funcionario => {
           this._http.get(`${this.baseUrl}/api/atendimentos`)
           .map(response => response.json())
           .subscribe(atendimentos => {
@@ -91,7 +97,8 @@ export class AtendimentoService {
     this._http.get(`${this.baseUrl}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
-        funcionarios.map(funcionario => {
+      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > -1);
+          funcionariosFuncao.map(funcionario => {
           this._http.get(`${this.baseUrl}/api/atendimentos`)
           .map(response => response.json())
           .subscribe(atendimentos => {
@@ -108,6 +115,45 @@ export class AtendimentoService {
         });
        this.dataStoreTec.funcionarios = funcionarios;
        this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
+    }, ManipuladorErro.lidaComErro);
+  }
+
+
+  updateTodosAtendimentosAssociado(atendimentos: Atendimento[]) {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    this._http.patch(`${this.baseUrl}/api/atendimentos`, atendimentos)
+    .map(response => response.json())
+    .subscribe(atendimento => {
+      atendimentos.forEach((atendimentoAssociado, indexAtendimento) => {
+        this.dataStoreTec.funcionarios.forEach((tecnico, indexTecnico) => {
+          if (tecnico._id === atendimentoAssociado.tecnico._id) {
+            this.dataStoreTec.funcionarios[indexTecnico].atendimentos.push(atendimentoAssociado);
+          }
+        });
+      });
+
+    }, ManipuladorErro.lidaComErro);
+  }
+
+  removerAtendimentoAssociado(atendimento, tecnicoEnviado) {
+
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+  atendimento.tecnico = {};
+
+    this._http.put(`${this.baseUrl}/api/atendimentos/${atendimento._id}/`, atendimento, options)
+    .map(response => response.json())
+    .subscribe(atendimentoModificado => {
+      this.dataStoreTec.funcionarios.forEach((tecnico, indexTecnico) => {
+       if (tecnico._id === tecnicoEnviado._id) {
+        this.dataStoreTec.funcionarios[indexTecnico].atendimentos
+        .splice( this.dataStoreTec.funcionarios[indexTecnico].atendimentos
+        .indexOf(atendimento), 1);
+       }
+      });
     }, ManipuladorErro.lidaComErro);
   }
 
@@ -133,7 +179,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(`${this.baseUrl}/api/atendimentos`, atendimento, options)
+    return this._http.post(`${this.baseUrl}/api/atendimentos/`, atendimento, options)
                      .map((res) => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }

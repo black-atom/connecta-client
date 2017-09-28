@@ -1,4 +1,5 @@
 export interface Atendimento {
+    _id: string;
     cliente: Cliente;
     endereco: EnderecoAtendimento;
     contato: ContatoAtendimento;

@@ -1,123 +1,112 @@
-<div class="row">
-  <div class="col-md-12">
-    <ba-card cardTitle="Dados salvo pelo técnico">
+<div class="fundo row">
 
-      <div class="container">
-        <div class="col-md-12">
+  <div class="cabecalho p-3 col-12">
 
-                <div class="row">
+    <div class="row">
+      <div class="col-md col-xs-12">
+        <img src="/assets/img/logo_realponto.png" alt="">
+      </div>
 
-                  <div class="col-md-12">
+      <div class="col-md-6 col-xs-12">
+        <h3>REALPONTO COMÉRCIO E RELÓGIO DE PONTO </h3>
+        <p> <i class="ion-location"></i> Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.</p>
+        <p> <i class="ion-android-call"></i> (011) 4332-4040 | (011) 4394-2140 </p>
+      </div>
+    </div>
+    <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
+  </div>
 
-                      <h4>{{ atendimento?.cliente.nome_razao_social | uppercase }}</h4>
-                      <p>{{ atendimento?.cliente.cnpj_cpf }}</p>
+  <h2 class="text-center pb-3">Detalhes do atendimento</h2>
 
-                  </div>
+  <div class="informacao_cliente col-12">
 
-                      <div class="col-md-6">
+    <div class="row">
 
-                          <p><i class=" ion-person"></i> {{ atendimento?.contato.nome }}</p>
-                          <p><i class="ion-android-call"></i> {{ atendimento?.contato.celular }}</p>
-                          <p><i class="ion-location"></i> {{ atendimento?.endereco.rua }},
-                            {{ atendimento?.endereco.numero }},
-                            {{ atendimento?.endereco.bairro }},
-                            {{ atendimento?.endereco.cidade }} /
-                            {{ atendimento?.endereco.uf }}
-                          {{ atendimento?.endereco.cep }}
-                        </p>
+      <div class="col-md-4">
 
-                      </div>
+        <h6 class="text-center">Informações principais</h6>
 
-                      <div class="col-md-6">
-
-                        <p><i class="ion-email"></i> {{ atendimento?.contato.email }}</p>
-                        <p><i class="ion-android-call"></i> {{ atendimento?.contato.telefone }}</p>
-
-                      </div>
-
-                    </div>
-                      <!-- <hr>
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <p><strong>Tipo Atendimento:</strong> {{ atendimento?.tipo }}</p>
-                        </div>
-
-                        <div class="col-md-6" *ngIf="atendimento?.valor || atendimento?.autorizado">
-                            <p><strong>Valor $</strong> {{ atendimento?.valor }}</p>
-                            <p><strong>Autorizado por</strong>{{ atendimento?.autorizado }}</p>
-                        </div>
-
-                        <div class="col-md-6">
-                            <p><strong>Modelo Equipamento:</strong> {{ atendimento?.modelo_equipamento }}</p>
-                        </div>
-
-                        <div class="col-md-6">
-                            <p><strong>Número equipamento:</strong> {{ atendimento?.numero_equipamento }}</p>
-                        </div>
-
-                      <div class="col-md-12">
-                        <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
-                        <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
-                      </div>
-
-                    </div> -->
-
-                    <!-- <div class="row" *ngIf="atendimento?.imagens">
-                        <h6>Imagens dos Atendimento</h6>
-                        <div>
-                            <img class="img-thumbnail" src="http://165.227.78.113:3000/atendimentoimagens/{{ fotos?.url }}" alt="" *ngFor="let fotos of atendimento?.imagens">
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="row">
-
-                          <table class="table">
-                              <thead>
-                                <tr>
-
-                                  <th>Técnico</th>
-                                  <th>Km Incial</th>
-                                  <th>Km Final</th>
-                                  <th>Inicio Atendimento</th>
-                                  <th>Final Atendimento</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-
-                                  <td>{{ atendimento?.tecnico.nome }}</td>
-                                  <td>{{ atendimento?.km_inicio.data | date: 'HH:mm' }} -
-                                    {{ atendimento?.km_inicio.km }} km
-                                  </td>
-                                  <td>
-                                      {{ atendimento?.km_final.data | date: 'HH:mm' }} -
-                                      {{ atendimento?.km_final.km }} km
-
-                                  </td>
-                                  <td>{{ atendimento?.inicio | date: 'hh:mm' }}</td>
-                                  <td>{{ atendimento?.fim | date: 'hh:mm'}}</td>
-
-                                </tr>
-                              </tbody>
-                            </table>
-
-                      </div> -->
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Criado Por:</strong> {{ atendimento?.createdBy }} {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Alterado por: </strong>{{ atendimento?.updatedBy }} {{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-                        </div>
-                      </div>
-
-                </div>
+        <div class="conteudo p-2">
+          <p><strong>Cliente:</strong> {{ atendimento?.cliente.nome_razao_social }} </p>
+          <p *ngIf="atendimento?.cliente.cnpj_cpf.length > 11"><strong>CNPJ:</strong> {{ atendimento?.cliente.cnpj_cpf }} </p>
+          <p *ngIf="atendimento?.cliente.cnpj_cpf.length < 11"><strong>CPF:</strong> {{ atendimento?.cliente.cnpj_cpf }} </p>
+          <p *ngIf="atendimento?.cliente.inscricao_estadual"><strong>Inscricao estadual:</strong> {{ atendimento?.cliente.inscricao_estadual }}</p>
+          <p *ngIf="atendimento?.cliente.nome_fantasia"><strong>Nome fantasia:</strong> {{ atendimento?.cliente.nome_fantasia }}</p>
+        </div>
 
       </div>
 
-    </ba-card>
-  </div>
-</div>
+      <div class="col-md-4">
 
+        <h6 class="text-center">Contato</h6>
+
+        <div class="conteudo p-2">
+          <p><strong>Contato:</strong> {{ atendimento?.contato.nome }} </p>
+          <p><strong>E-mail:</strong> {{ atendimento?.contato.email }} </p>
+          <p><strong>Telefone:</strong> {{ atendimento?.contato.telefone }} </p>
+          <p *ngIf="atendimento?.contato.celular"><strong>Celular:</strong> {{ atendimento?.contato.celular }}</p>
+          <p *ngIf="atendimento?.contato.observacao"><strong>Observação:</strong> {{ atendimento?.contato.observacao }}</p>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <h6 class="text-center">Endereço</h6>
+
+        <div class="conteudo p-2">
+          <p style="line-height: 20px;">
+            <strong>Logradouro:</strong>
+            {{ atendimento?.endereco.rua }}, {{atendimento?.endereco.numero}}, {{ atendimento?.endereco.bairro}},
+            {{ atendimento?.endereco.cidade }}, {{ atendimento?.endereco.uf }} - {{ atendimento?.endereco.cep }}
+          </p>
+          <p><strong>Estacionamento:</strong> {{ atendimento?.estacionamento }}</p>
+        </div>
+      </div>
+
+      <div class="criacao pl-3 pt-2 text-center ">
+        <p>
+          <strong>
+            Este atendimento foi criado em {{ atendimento?.createdAt | date: 'dd/MM/yy' }} pelo usuário(a)
+          <span> {{ atendimento?.createdBy }} </span>
+          </strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 chamado mt-2">
+        <div class="row">
+
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy'}}</p>
+              <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p><strong>Tipo: </strong> {{ atendimento?.tipo }}</p>
+              <p><strong>Testes:</strong> {{ atendimento?.testes_efetuados }}</p>
+            </div>
+          </div>
+
+
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p *ngIf="atendimento?.valor"><strong>Valor: </strong> {{ atendimento?.valor }}</p>
+              <p *ngIf="atendimento?.autorizado"><strong>Valor: </strong> {{ atendimento?.autorizado }}</p>
+              <p><strong>Modelo:</strong> {{ atendimento?.modelo_equipamento }} </p>
+              <p><strong>Número:</strong> {{ atendimento?.numero_equipamento }} </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
+
+      </div>
+
+    </div>
+
+  </div>

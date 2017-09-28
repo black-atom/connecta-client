@@ -89,7 +89,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'Técnico',
         type: 'string',
         valuePrepareFunction: (coluna, linha) => {
-          return linha.tecnico.nome.split(' ').slice(0, -1).join(' ');
+          return linha.tecnico.nome;
        }
       },
       createdBy: {

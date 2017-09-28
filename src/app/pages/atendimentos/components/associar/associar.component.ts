@@ -43,11 +43,15 @@ export class AssociarComponent implements OnInit, OnDestroy {
               private _servicoModal: NgbModal,
               private _atendimentoService: AtendimentoService,
               private _ngbDateParserFormatter: NgbDateParserFormatter,
-              private _notificacaoService: NotificacaoService) {}
+              private _notificacaoService: NotificacaoService,
+              ) {}
 
 
   ngOnInit() {
+
+    this._atendimentoService.getAllAtendimentosAssociadosData(this.dataAgora());
     this.tecnicos = this._atendimentoService.funcionarios;
+
   }
 
   listarAtendimentoAssociado(dataInformada: any) {
@@ -58,6 +62,15 @@ export class AssociarComponent implements OnInit, OnDestroy {
       this._atendimentoService.getAllAtendimentosAssociadosData(searchDate);
   }
 
+  dataAgora() {
+    const today = new Date();
+    const hoje = ({ day: today.getDate(), month: today.getMonth(), year: today.getFullYear() } );
+    const searchDate = new Date(hoje.year, hoje.month, hoje.day );
+    this.model = { year: searchDate.getFullYear(), day: searchDate.getDate(), month: searchDate.getMonth() + 1 };
+
+    return searchDate;
+
+  }
   abrirModal(funcionarioSelecionado) {
        const modalRef = this._servicoModal
                     .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);

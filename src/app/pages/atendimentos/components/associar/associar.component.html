@@ -7,7 +7,7 @@
         <div class="input-group">
             <input class="form-control" name="dp"
             ngbDatepicker #d="ngbDatepicker" name="busca_data"
-            [(ngModel)]="model" (ngModelChange)="listarAtendimentoAssociado()"
+            [(ngModel)]="model"  (ngModelChange)="listarAtendimentoAssociado()"
             id="param_busca">
             <button class="input-group-addon" (click)="d.toggle()" type="button">
               <i class="ion-calendar"></i>
@@ -16,23 +16,25 @@
       </div>
     </div>
 
+
+
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos$ | async; let i = index">
-        <ba-card cardTitle="{{colaborador.nome}}">
+      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos | async; let i = index">
+        <ba-card cardTitle="{{colaborador?.nome}}">
           <button type="button" class="btn btn-primary pull-right" (click)="abrirModal(colaborador)">
             <strong>+</strong>
           </button>
 
 
-          <p *ngIf="colaborador.atendimentos?.length">
+          <p *ngIf="colaborador?.atendimentos?.length">
             <strong>Atendimentos associados : {{colaborador.atendimentos.length}}</strong></p>
-          <div class="card-body" *ngFor="let atendimento of colaborador.atendimentos">
+          <div class="card-body" *ngFor="let atendimento of colaborador?.atendimentos">
             <p class="atendimento" ngbPopover="{{
-              atendimento.endereco.rua + ', ' +
-              atendimento.endereco.numero +' - ' +
-              atendimento.endereco.bairro + ' , ' +
-              atendimento.endereco.cidade + ' - ' +
-              atendimento.endereco.cep
+              atendimento?.endereco?.rua + ', ' +
+              atendimento?.endereco?.numero +' - ' +
+              atendimento?.endereco?.bairro + ' , ' +
+              atendimento?.endereco?.cidade + ' - ' +
+              atendimento?.endereco?.cep
             }}" placement="top">
             <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, colaborador )">
             <i class="ion-close"></i>

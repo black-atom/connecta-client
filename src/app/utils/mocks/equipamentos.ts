@@ -43,5 +43,6 @@ export const EQUIPAMENTOS: String[] = [
   'SIRENE 500M',
   'TOK CERTO',
   'TOPDATA VIGGIA',
-  'VEGA'
+  'VEGA',
+  'MODULO'
 ];

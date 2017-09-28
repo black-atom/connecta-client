@@ -11,14 +11,14 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos; let i = index">
+    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos | async">
       <ba-card  (click)="selecionarAtendimento(atendimento)">
         <div class="card-body" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
           <i *ngIf="dessasociarAtendimento(atendimento)" class="ion-android-checkmark-circle pull-right"></i>
-          <p><strong> {{ atendimento?.cliente.nome_razao_social }} ({{ atendimento.data_atendimento | date: 'dd/MM/yyyy' }})</strong></p>
+          <p><strong> {{ atendimento?.cliente?.nome_razao_social }} ({{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }})</strong></p>
           <p class="local"><i class="ion-location">
-            </i> {{ atendimento.endereco.rua + " - " + atendimento.endereco.bairro +", "+ atendimento.endereco.cidade +"
-            - "+ atendimento.endereco.cep }}
+            </i> {{ atendimento?.endereco?.rua + " - " + atendimento?.endereco?.bairro +", "+ atendimento?.endereco?.cidade +"
+            - "+ atendimento?.endereco?.cep }}
           </p>
         </div>
       </ba-card>

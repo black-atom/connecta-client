@@ -32,7 +32,7 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
   model: any;
 
-  public tecnicos$: Observable<Funcionario[]>;
+  public tecnicos: Observable<Funcionario[]>;
 
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg'
@@ -48,36 +48,15 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.tecnicos = this._atendimentoService.funcionarios;
   }
 
   listarAtendimentoAssociado(dataInformada: any) {
-
     dataInformada = this._ngbDateParserFormatter.format(this.model);
       const today = this.model;
       const searchDate = new Date(today.year, today.month - 1, today.day );
-
       this.dataSelecionada = searchDate;
-
-      this.tecnicos$ = this._atendimentoService.retornarAtendimentoPorData(searchDate)
-      .switchMap(atendimentos => {
-        return this._funcionarioService.retornarFuncionarioPorFuncao(TIPOFUNCIONARIOMOCK[2])
-          .map(funcionarios => {
-
-            return funcionarios.map(funcionario => {
-              const atendimentoFuncionarios = atendimentos.filter(atendimento => atendimento.tecnico._id === funcionario._id);
-
-              funcionario.atendimentos = atendimentoFuncionarios;
-              return funcionario;
-            });
-          });
-      });
-
-  }
-
-
-  retornarTodosAtendimentos() {
-    this._atendimentoService.retornarTodos()
-                            .subscribe(res => this.atendimentos = res);
+      this._atendimentoService.getAllAtendimentosAssociadosData(searchDate);
   }
 
   abrirModal(funcionarioSelecionado) {
@@ -88,21 +67,22 @@ export class AssociarComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
 
     modalRef.result.then((resultadoDaModal) => {
-
-      const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
-        const tecnico = {
-          nome : funcionarioSelecionado.nome,
-          _id : funcionarioSelecionado._id
-        };
-        return (Object.assign({}, atendimento, { tecnico }));
-       });
-       this._atendimentoService
-           .atualizarTodosAtendimentos(arrayDeAtendimentos)
-           .subscribe((res) => {
-             if (res) {
-              this.listarAtendimentoAssociado(this.dataSelecionada);
-             }
-            });
+      if (resultadoDaModal) {
+        const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
+          const tecnico = {
+            nome : funcionarioSelecionado.nome,
+            _id : funcionarioSelecionado._id
+          };
+          return (Object.assign({}, atendimento, { tecnico }));
+         });
+         this._atendimentoService
+             .atualizarTodosAtendimentos(arrayDeAtendimentos)
+             .subscribe((res) => {
+               if (res) {
+                // this.listarAtendimentoAssociado(this.dataSelecionada);
+               }
+              });
+      }
   });
 }
 
@@ -118,7 +98,7 @@ removerAtendimento(atendimento) {
     atendimento.tecnico = { nome };
     this.sub = this._atendimentoService.atualizarAtendimento(atendimento).subscribe((res) => {
       if (res) {
-         this.listarAtendimentoAssociado(this.dataSelecionada);
+        //  this.listarAtendimentoAssociado(this.dataSelecionada);
       }
     });
   } else {

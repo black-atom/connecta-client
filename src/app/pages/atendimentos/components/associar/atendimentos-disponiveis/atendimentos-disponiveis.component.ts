@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 
 import { Funcionario } from './../../../../../models';
 import { Atendimento } from './../../../../../models';
@@ -19,27 +19,17 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   @Input() dataSelecionada;
 
   private sub: Subscription;
-  public atendimentos: Atendimento[];
+
   public selecionados: any[] = [];
+  public atendimentos: Observable<Atendimento[]>;
 
   constructor(public _activeModal: NgbActiveModal,
               private _atendimentoService: AtendimentoService,
               private _ngbDateParserFormatter: NgbDateParserFormatter) {}
 
   ngOnInit() {
-    this.retornarTodosAtendimentos();
-  }
-
-  retornarTodosAtendimentos() {
-    this.sub = this._atendimentoService
-    .retornarAtendimentoPorData(this.dataSelecionada)
-      .subscribe((res) => {
-      this.atendimentos = res.filter((atendimento) => {
-          if (!atendimento.tecnico.nome) {
-            return atendimento;
-          }
-        });
-      });
+    this._atendimentoService.getAllAtendimentosPorData(this.dataSelecionada);
+    this.atendimentos = this._atendimentoService.atendimentos;
   }
 
   selecionarAtendimento(atendimento) {

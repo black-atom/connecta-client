@@ -22,6 +22,10 @@ export interface Atendimento {
     atualizado_por: string;
     situacao?: Situacao;
     fim: string;
+    inicio: string;
+    km_inicio: Quilometragem;
+    km_final: Quilometragem;
+    estado: string;
     finalizado: number;
 }
 
@@ -71,4 +75,9 @@ interface Situacao {
 interface Imagens {
   tipo: string;
   url: string;
+}
+
+interface Quilometragem {
+    km: string;
+    data: string;
 }

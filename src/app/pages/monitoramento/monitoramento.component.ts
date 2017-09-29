@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { AnonymousSubscription } from 'rxjs/Subscription';
 
 import { AtendimentoService } from './../../shared/services';
 import { Funcionario } from './../../models';
@@ -11,16 +12,24 @@ import { Funcionario } from './../../models';
 })
 export class MonitoramentoComponent implements OnInit {
 
-  public tecnicos: Observable<Funcionario[]>;
-  private dataNata = new Date('2017-09-27T03:00:00.000Z');
-  private dataInicia = new Date('2017-09-18T03:00:00.000Z');
-  private dataFinal = new Date('2017-09-25T17:17:48.032Z');
+  public tecnicos$: Observable<Funcionario[]>;
+  private timerSubscription: AnonymousSubscription;
 
   constructor(private _atendimentoService: AtendimentoService) { }
 
   ngOnInit() {
+   this.atualizaDados();
+  }
+
+  atualizaDados() {
+
     this._atendimentoService.getAllAtendimentosAssociados();
-    this.tecnicos = this._atendimentoService.funcionarios;
+    this.tecnicos$ = this._atendimentoService.funcionarios;
+    this.refresh();
+  }
+
+  refresh() {
+    this.timerSubscription = Observable.timer(60000).first().subscribe(() => this.atualizaDados());
   }
 
   }

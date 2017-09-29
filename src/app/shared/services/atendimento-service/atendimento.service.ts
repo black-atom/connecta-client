@@ -44,6 +44,13 @@ export class AtendimentoService {
 
   }
 
+  dataAgora() {
+    const today = new Date();
+    const hoje = ({ day: today.getDate(), month: today.getMonth(), year: today.getFullYear() } );
+    const searchDate = new Date(hoje.year, hoje.month, hoje.day );
+    return searchDate;
+  }
+
   getAllAtendimentos() {
     this._http.get(`${this.baseUrl}/api/atendimentos`)
     .map(response => response.json())
@@ -78,13 +85,34 @@ export class AtendimentoService {
           this._http.get(`${this.baseUrl}/api/atendimentos`)
           .map(response => response.json())
           .subscribe(atendimentos => {
+
             const buscaAssociado = atendimentos.filter((atendimento) => {
               const busca = atendimento.tecnico._id === funcionario._id;
               if (busca) {
                 return atendimento;
               }
             });
+
+            const buscaAssociadoData = atendimentos.filter((atendimento) => {
+              const busca = atendimento.tecnico._id === funcionario._id;
+              const buscaData = atendimento.data_atendimento === this.dataAgora().toJSON();
+              if (busca && buscaData) {
+                return atendimento;
+              }
+            });
+
+            const finalizadoHoje = atendimentos.filter((atendimento) => {
+              const busca = atendimento.tecnico._id === funcionario._id;
+              const buscaData = atendimento.data_atendimento === this.dataAgora().toJSON();
+              if (busca && buscaData && atendimento.fim) {
+                return atendimento;
+              }
+            });
+
+
             funcionario.atendimentos = buscaAssociado;
+            funcionario.atendimentos_hoje = buscaAssociadoData;
+            funcionario.concluido = finalizadoHoje;
             return funcionario;
           });
         });

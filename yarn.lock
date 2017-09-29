@@ -323,6 +323,10 @@ angular2-jwt@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/angular2-jwt/-/angular2-jwt-0.2.3.tgz#54efdda3ceedba85f6a37b165f22ac22b8adf021"
 
+angular2-lightbox@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/angular2-lightbox/-/angular2-lightbox-1.2.1.tgz#5e3ddf0df60ca37d81949ade9955bfc169eeadc2"
+
 angular2-notifications@^0.7.7:
   version "0.7.7"
   resolved "https://registry.yarnpkg.com/angular2-notifications/-/angular2-notifications-0.7.7.tgz#50471d7325483cd0679eeb670c6d3a4618647a2f"

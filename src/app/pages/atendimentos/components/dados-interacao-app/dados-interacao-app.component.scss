@@ -17,23 +17,54 @@
     }
   }
 
-
-  .criacao {
-    background-color: #0093D7;
+  %estado {
     height: auto;
     color: white;
-    font-weight: strong;
     width: 100%;
-    height: 80%;
+    font-weight: bold;
+  }
 
-    span {
-      text-transform: capitalize;
-    }
+  .associado {
+    @extend %estado;
+    background-color: #292B2F;
+  }
+
+  .em_deslocamento {
+    @extend %estado;
+    background-color: #BE443B;
+  }
+
+  .chegou_ao_destino {
+    @extend %estado;
+    background-color: #215CA1;
+  }
+
+  .inicio_atendimento {
+    @extend %estado;
+    background-color: #FEC451;
+  }
+
+  .fim_do_atendimento {
+    @extend %estado;
+    background-color: #53bb96 ;
   }
 
   .chamado {
     p {
       line-height: 17px;
+    }
+  }
+
+  .imagem {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: auto;
+
+    img {
+      min-height: 100%;
+      width: 100%;
     }
   }
 

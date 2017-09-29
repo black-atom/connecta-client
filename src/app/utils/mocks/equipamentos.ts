@@ -18,6 +18,7 @@ export const EQUIPAMENTOS: String[] = [
   'CIGARRA 100M',
   'HENRY PLUS',
   'HEXA B',
+  'IDNOX',
   'INNER REP PLUS',
   'KURUMIM REP II',
   'KURUMIM REP III MAX',

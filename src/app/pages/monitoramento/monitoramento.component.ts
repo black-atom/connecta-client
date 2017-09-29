@@ -29,7 +29,7 @@ export class MonitoramentoComponent implements OnInit {
   }
 
   refresh() {
-    this.timerSubscription = Observable.timer(60000).first().subscribe(() => this.atualizaDados());
+    this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizaDados());
   }
 
   }

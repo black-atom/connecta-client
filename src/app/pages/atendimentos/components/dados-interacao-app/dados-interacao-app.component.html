@@ -56,21 +56,26 @@
 
         <div class="conteudo p-2">
           <p style="line-height: 20px;">
-            <strong>Logradouro:</strong>
-            {{ atendimento?.endereco.rua }}, {{atendimento?.endereco.numero}}, {{ atendimento?.endereco.bairro}},
+            <strong>Logradouro:</strong> {{ atendimento?.endereco.rua }}, {{atendimento?.endereco.numero}}, {{ atendimento?.endereco.bairro}},
             {{ atendimento?.endereco.cidade }}, {{ atendimento?.endereco.uf }} - {{ atendimento?.endereco.cep }}
           </p>
           <p><strong>Estacionamento:</strong> {{ atendimento?.estacionamento }}</p>
         </div>
       </div>
 
-      <div class="criacao pl-3 pt-2 text-center ">
-        <p>
-          <strong>
-            Este atendimento foi criado em {{ atendimento?.createdAt | date: 'dd/MM/yy' }} pelo usuário(a)
-          <span> {{ atendimento?.createdBy }} </span>
-          </strong>
-        </p>
+      <div class="pl-3 pt-2 text-center " [ngClass]="
+      {
+      associado: atendimento?.estado === 'associado',
+      em_deslocamento: atendimento?.estado === 'em_deslocamento',
+      chegou_ao_destino: atendimento?.estado === 'chegou_ao_destino',
+      inicio_atendimento: atendimento?.estado === 'inicio_atendimento',
+      fim_do_atendimento: atendimento?.estado === 'fim_do_atendimento'
+      }">
+        <p *ngIf="atendimento?.estado === 'associado'">STATUS DO ATENDIMENTO</p>
+        <p *ngIf="atendimento?.estado === 'em_deslocamento'">STATUS: EM DESLOCAMENTO</p>
+        <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">STATUS: CHEGOU AO DESTINO</p>
+        <p *ngIf="atendimento?.estado === 'inicio_atendimento'">STATUS: INÍCIO DO ATENDIMENTO</p>
+        <p *ngIf="atendimento?.estado === 'fim_do_atendimento'">STATUS: CONCLUÍDO</p>
       </div>
     </div>
 
@@ -80,6 +85,7 @@
 
           <div class="col-4">
             <div class="conteudo p-2">
+              <p><strong>Criado em:</strong> {{ atendimento?.createdAt | date: 'dd/MM/yy'}}</p>
               <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy'}}</p>
               <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
             </div>
@@ -87,11 +93,11 @@
 
           <div class="col-4">
             <div class="conteudo p-2">
+              <p style="text-transform: capitalize"><strong>Aberto por: </strong> {{ atendimento?.createdBy }}</p>
               <p><strong>Tipo: </strong> {{ atendimento?.tipo }}</p>
               <p><strong>Testes:</strong> {{ atendimento?.testes_efetuados }}</p>
             </div>
           </div>
-
 
           <div class="col-4">
             <div class="conteudo p-2">
@@ -104,9 +110,70 @@
         </div>
 
         <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
-
       </div>
-
     </div>
-
   </div>
+
+
+  <div class="fotos-inicio col-12" *ngIf="fotosInicioAtendimento.length > 0">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4 class="mt-2"> Fotos do início do atendimento </h4>
+        <div class="row">
+          <div class="col-md-2 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
+            <div class="imagem">
+              <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="fotos-final col-12" *ngIf="fotosFinalAtendimento.length > 0">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4 class="mt-2"> Fotos do final do atendimento </h4>
+        <div class="row">
+          <div class="col-md-2 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
+            <div class="imagem">
+              <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="informacoes-km col-12">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p *ngIf="atendimento?.tecnico.nome"><strong>Técnico:</strong> {{ atendimento?.tecnico.nome}}</p>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p *ngIf="atendimento?.inicio"><strong>Início:</strong> {{ atendimento?.inicio | date: 'HH:mm' }}</p>
+              <p *ngIf="atendimento?.km_inicio.km"><strong>KM início:</strong> {{atendimento?.km_inicio.km }} - {{ atendimento?.km_inicio.data | date: 'HH:mm'}}</p>
+            </div>
+
+          </div>
+
+          <div class="col-4">
+            <div class="conteudo p-2">
+              <p *ngIf="atendimento?.fim"><strong>Fim:</strong> {{ atendimento?.fim | date: 'HH:mm' }}</p>
+              <p *ngIf="atendimento?.km_final.km"><strong>KM fim:</strong> {{atendimento?.km_final.km }} - {{ atendimento?.km_final.data | date: 'HH:mm'}}</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

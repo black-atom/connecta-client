@@ -16,10 +16,10 @@ export interface Atendimento {
     observacao: string;
     valor: string;
     autorizado: string;
-    criado_por: string;
-    criado_em: string;
-    atualizado_em: string;
-    atualizado_por: string;
+    createdBy: string;
+    createdAt: string;
+    updatedAt: string;
+    updatedBy: string;
     situacao?: Situacao;
     fim: string;
     inicio: string;

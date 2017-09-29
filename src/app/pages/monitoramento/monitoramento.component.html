@@ -18,7 +18,7 @@
               </thead>
               <tbody>
                 <tr class="border-top: none">
-                  <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length }}</td>
+                  <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
                   <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-star"></i> {{ tecnico?.concluido?.length || 0 }}</td>
                   <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</td>
                 </tr>

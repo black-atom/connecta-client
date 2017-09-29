@@ -133,11 +133,11 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
       atendimento.data_atendimento = dataAtendimento;
 
-    if ( dataAtendimento.getDate() >= dataAtual.getDate()
-      && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+    // if ( dataAtendimento.getDate() >= dataAtual.getDate()
+    //   && dataAtendimento.getMonth() >= dataAtual.getMonth()
+    //   && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
-        atendimento.data_atendimento = dataAtendimento;
+    //     atendimento.data_atendimento = dataAtendimento;
 
         this.sub = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
@@ -148,9 +148,9 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
               this.sucessoNoCadastro();
           }
         );
-      } else {
-        this.falhaDataMenorQueAtual();
-      }
+      // } else {
+      //   this.falhaDataMenorQueAtual();
+      // }
   }
 
 

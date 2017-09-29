@@ -40,7 +40,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     actions: false,
     noDataMessage: 'Nenhum dado encontrado',
     pager: {
-      perpage: '50'
+      perPage: 30
     },
     columns: {
       nome: {

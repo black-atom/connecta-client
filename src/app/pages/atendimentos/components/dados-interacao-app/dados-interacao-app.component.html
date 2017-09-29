@@ -126,7 +126,7 @@
 
           <div class="col-4">
             <div class="conteudo p-2">
-              <p *ngIf="atendimento?.inicio"><strong>Iniciado:</strong> {{ atendimento?.inicio | date: 'HH:mm' }}</p>
+              <p *ngIf="atendimento?.inicio"><strong>Atendimento iniciado às:</strong> {{ atendimento?.inicio | date: 'HH:mm' }}</p>
               <p *ngIf="atendimento?.km_inicio.data"><strong>KM inicial às:</strong> {{ atendimento?.km_inicio.data | date: 'HH:mm'}}</p>
               <p *ngIf="atendimento?.km_inicio.km"><strong>KM inicial:</strong> {{atendimento?.km_inicio.km }} km</p>
             </div>
@@ -134,7 +134,7 @@
 
           <div class="col-4">
             <div class="conteudo p-2">
-              <p *ngIf="atendimento?.fim"><strong>Finalizado:</strong> {{ atendimento?.fim | date: 'HH:mm' }}</p>
+              <p *ngIf="atendimento?.fim"><strong>Atendimento finalizado às:</strong> {{ atendimento?.fim | date: 'HH:mm' }}</p>
               <p *ngIf="atendimento?.km_final.data"><strong>KM final às:</strong> {{ atendimento?.km_final.data | date: 'HH:mm' }}</p>
               <p *ngIf="atendimento?.km_final.km"><strong>KM final:</strong> {{atendimento?.km_final.km }} km</p>
             </div>

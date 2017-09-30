@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-12 col-sm-12">
 
+
     <div class="row">
      <div class="col-md-6 col-sm-12 col-lg-4 col-xs-12">
         <label for="param_busca">Pesquisar por data</label>
@@ -15,8 +16,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos | async; let i = index">
@@ -67,7 +66,7 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-ios-close-outline"></i> Não</button>
-    <button type="button" class="btn btn-secondary" (click)="removerAtendimento(atendimentoASerRemovido); c()">
+    <button type="button" class="btn btn-danger" (click)="removerAtendimento(atendimentoASerRemovido); c()">
     <i class="ion-ios-checkmark-outline"></i> Sim</button>
   </div>
 

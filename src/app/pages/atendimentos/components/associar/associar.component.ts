@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbDateStruct, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { NotificationsService } from 'angular2-notifications';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
 import { AtendimentoService } from '../../../../shared/services/atendimento-service';
@@ -19,16 +19,14 @@ import { NotificacaoService } from '../../../../shared/services/notificacao-serv
   templateUrl: './associar.component.html',
   styleUrls: ['./associar.component.scss']
 })
-export class AssociarComponent implements OnInit, OnDestroy {
+export class AssociarComponent implements OnInit {
 
-  private sub: Subscription;
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
   public funcionarioSelecionado;
   public funcionario: Funcionario[];
   public funcoes = TIPOFUNCIONARIOMOCK;
-  public funcao: string;
-  public dataSelecionada;
+  public dataSelecionada: any;
 
   model: any;
 
@@ -51,7 +49,6 @@ export class AssociarComponent implements OnInit, OnDestroy {
 
     this._atendimentoService.getAllAtendimentosAssociadosData(this.dataAgora());
     this.tecnicos = this._atendimentoService.funcionarios;
-
   }
 
   listarAtendimentoAssociado(dataInformada: any) {
@@ -117,11 +114,5 @@ removerAtendimento(atendimento) {
     'Não é possível remover um atendimento iniciado ou concluído'
   );
 }
-
-  ngOnDestroy() {
-    if (this.sub) {
-    this.sub.unsubscribe();
-    }
-  }
 
 }

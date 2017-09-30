@@ -19,7 +19,6 @@ export class DadosInteracaoAppComponent implements OnInit {
   public atendimento: Atendimento;
   public fotosInicioAtendimento = [];
   public fotosFinalAtendimento = [];
-  public corDoEstado: any;
 
 
   constructor(private _activatedRoute: ActivatedRoute,

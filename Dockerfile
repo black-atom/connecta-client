@@ -1,11 +1,9 @@
-FROM node:6.9.5
+FROM nginx:1.13.3-alpine
 
-RUN git clone https://github.com/black-atom/connecta-client.git /var/www \
-    && cd /var/www \
-    && npm install --global rimraf \
-    && npm run clean \
-    && npm install --global webpack webpack-dev-server typescript@2.1.5 \
-    && npm install \
-    && npm run build:prod:aot
+COPY nginx/default.conf /etc/nginx/conf.d/
 
-EXPOSE 8080
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY dist /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]

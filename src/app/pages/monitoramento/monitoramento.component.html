@@ -19,7 +19,7 @@
               <tbody>
                 <tr class="border-top: none">
                   <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
-                  <td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-star': tecnico?.media > 2.5, 'ion-ios-star-half': tecnico?.media < 2.5}"></i> {{ tecnico?.media || 0  | number: '1.2-2'}}</td>
+                  <td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-star': tecnico?.media > 2.5, 'ion-ios-star-half': tecnico?.media < 2.5, 'ion-trophy': tecnico?.media === 5}"></i> {{ tecnico?.media || 0  | number: '1.2-2'}}</td>
                   <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</td>
                 </tr>
               </tbody>

@@ -79,7 +79,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
     }
    }
    cadastrarTecnico(funcionario: Funcionario) {
-
+    funcionario.login.tipo = this.tipo;
      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
      funcionario.rg = funcionario.rg.replace(/\D+/g, '');
      funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');

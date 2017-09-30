@@ -109,8 +109,31 @@ export class AtendimentoService {
               }
             });
 
+            atendimentos.map(atendimento => {
+              const media = atendimento.avaliacao.reduce((soma, nota) => nota.valor + soma, 0);
+              if (!media) {
+                atendimento.media = 0;
+              }else {
+                atendimento.media = (media / atendimento.avaliacao.length);
+              }
+              return atendimento;
+            });
 
             funcionario.atendimentos = buscaAssociado;
+
+           const media = funcionario.atendimentos.reduce((soma, mediaIndividual) => mediaIndividual.media + soma, 0);
+           const divisorMedia = funcionario.atendimentos.map(atendimentoMedia => {
+              if (atendimentoMedia.media > 0) {
+                  return atendimentoMedia;
+              }
+           });
+
+           if (!media) {
+            funcionario.media = 0;
+           }else {
+            funcionario.media = (media / divisorMedia.length);
+           }
+
             funcionario.atendimentos_hoje = buscaAssociadoData;
             funcionario.concluido = finalizadoHoje;
             return funcionario;

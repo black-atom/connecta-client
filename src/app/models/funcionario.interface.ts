@@ -15,6 +15,7 @@ export interface Funcionario {
   atendimentos?: Atendimento[];
   atendimentos_hoje?: Atendimento[];
   concluido: Atendimento[];
+  media: number;
 }
 
 interface Login {

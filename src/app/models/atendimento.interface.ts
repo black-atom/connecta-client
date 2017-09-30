@@ -65,6 +65,7 @@ interface Avaliacao {
     resposta: string;
     nota: number;
     observacao: string;
+    media: number;
 }
 
 interface Situacao {

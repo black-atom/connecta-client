@@ -32,10 +32,10 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
               private _ngbDateParserFormatter: NgbDateParserFormatter) { }
 
   ngOnInit() {
-    this.formInit();
+    this.formulario();
   }
 
-  formInit() {
+  formulario() {
     this.formAtendimento = this._fb.group({
       cliente: this._fb.group({
         nome_razao_social: ['', Validators.required],
@@ -87,7 +87,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
           this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
           this.clienteEncontrado = res;
           } else {
-            this.falhaAoEncontrarCliente();
+            this.notificarFalhaEncontrarCliente();
           }
       }
     );
@@ -142,45 +142,33 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
         this.sub = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
           erro => {
-              this.falhaNoCadastro();
+              this.notificarFalhaCadastro();
           },
           () => {
-              this.sucessoNoCadastro();
+              this.notificarSucesso();
           }
         );
       } else {
-        this.falhaDataMenorQueAtual();
+        this.notificarFalhaDataMenorQueAtual();
       }
   }
 
 
-  sucessoNoCadastro() {
-    this._notificacaoService.notificarSucesso(
-      'Cadastro efetuado com sucesso!',
-      ''
-    );
+  notificarSucesso() {
+    this._notificacaoService.notificarSucesso('Cadastro efetuado com sucesso!', '');
     this.formAtendimento.reset();
   }
 
-  falhaNoCadastro() {
-    this._notificacaoService.notificarErro(
-      'Não foi possível efetuar o cadastro',
-      ''
-    );
+  notificarFalhaCadastro() {
+    this._notificacaoService.notificarErro('Não foi possível efetuar o cadastro', '');
   }
 
-  falhaAoEncontrarCliente() {
-    this._notificacaoService.notificarAviso(
-      'Cliente não encontrado!',
-      ''
-    );
+  notificarFalhaEncontrarCliente() {
+    this._notificacaoService.notificarAviso('Cliente não encontrado!', '');
   }
 
-  falhaDataMenorQueAtual() {
-    this._notificacaoService.notificarErro(
-      'Data informada inferior a data atual',
-      ''
-    );
+  notificarFalhaDataMenorQueAtual() {
+    this._notificacaoService.notificarErro('Data informada inferior a data atual', '');
   }
 
   ngOnDestroy() {

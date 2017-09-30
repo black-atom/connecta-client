@@ -7,7 +7,6 @@
     }
     img {
       max-width: 340px;
-      margin-left: 5%;
     }
   }
 
@@ -68,5 +67,15 @@
     }
   }
 
+
+}
+
+@media screen and (max-width: 768px) {
+  .fundo{
+    .imagem {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
 
 }

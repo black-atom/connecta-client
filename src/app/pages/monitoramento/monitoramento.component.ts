@@ -25,10 +25,10 @@ export class MonitoramentoComponent implements OnInit {
 
     this._atendimentoService.getAllAtendimentosAssociados();
     this.tecnicos$ = this._atendimentoService.funcionarios;
-    this.refresh();
+    this.atualizaPagina();
   }
 
-  refresh() {
+  atualizaPagina() {
     this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizaDados());
   }
 

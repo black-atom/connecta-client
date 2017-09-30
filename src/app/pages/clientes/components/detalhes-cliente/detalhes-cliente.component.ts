@@ -18,13 +18,13 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 export class DetalhesClienteComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
-  public formEdicaoCliente: FormGroup;
-  private id: string;
   private cliente: Cliente;
+  public formDetalhesCliente: FormGroup;
+  private id: string;
   public dadosClienteCadastrado: Cliente;
 
-  get contatos(): FormArray { return this.formEdicaoCliente.get('contatos') as FormArray; }
-  get enderecos(): FormArray { return this.formEdicaoCliente.get('enderecos') as FormArray; }
+  get contatos(): FormArray { return this.formDetalhesCliente.get('contatos') as FormArray; }
+  get enderecos(): FormArray { return this.formDetalhesCliente.get('enderecos') as FormArray; }
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _clienteService: ClienteService,
@@ -33,7 +33,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
               private _router: Router) { }
 
   ngOnInit() {
-    this.iniciarForm();
+    this.formulario();
     this.obterIdCliente();
   }
 
@@ -44,8 +44,8 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   });
 }
 
-  iniciarForm() {
-    this.formEdicaoCliente = this._fb.group({
+  formulario() {
+    this.formDetalhesCliente = this._fb.group({
       cnpj_cpf: ['', [Validators.required]],
       nome_razao_social: ['', [Validators.required]],
       inscricao_estadual: [''],
@@ -57,19 +57,19 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
 
   recuperarCliente() {
     this.sub = this._clienteService.retornarUm(this.id).subscribe((res) => {
-      this.formEdicaoCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
-      this.formEdicaoCliente.get('nome_razao_social').patchValue(res.nome_razao_social);
-      this.formEdicaoCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
-      this.formEdicaoCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
+      this.formDetalhesCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
+      this.formDetalhesCliente.get('nome_razao_social').patchValue(res.nome_razao_social);
+      this.formDetalhesCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
+      this.formDetalhesCliente.get('nome_fantasia').patchValue(res.nome_fantasia);
       /**
        *  Add the number of necessary contacts according to the number of contacts that comes
        *  from the server
       */
       res.contatos.forEach( () => this.adicionarContato() );
-      this.formEdicaoCliente.controls['contatos'].patchValue(res.contatos);
+      this.formDetalhesCliente.controls['contatos'].patchValue(res.contatos);
 
       res.enderecos.forEach( () => this.adicionarEndereco() );
-      this.formEdicaoCliente.controls['enderecos'].patchValue(res.enderecos);
+      this.formDetalhesCliente.controls['enderecos'].patchValue(res.enderecos);
       this.dadosClienteCadastrado = res;
     });
   }
@@ -110,10 +110,10 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
       .subscribe(dados => {
       },
       erro => {
-        this.falhaNaEdicao();
+        this.notificarFalha();
       },
       () => {
-        this.sucessoNaEdicao();
+        this.notificarSucesso();
       });
 
   }
@@ -127,25 +127,25 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   adicionarContato() {
-    const contatos: FormArray = <FormArray> this.formEdicaoCliente.get('contatos');
+    const contatos: FormArray = <FormArray> this.formDetalhesCliente.get('contatos');
     contatos.push(this._fb.group(formContatoControls));
   }
 
   adicionarEndereco() {
-    const enderecos: FormArray = <FormArray> this.formEdicaoCliente.get('enderecos');
+    const enderecos: FormArray = <FormArray> this.formDetalhesCliente.get('enderecos');
     enderecos.push(this._fb.group(formEnderecoControls));
   }
 
 
-  sucessoNaEdicao() {
+  notificarSucesso() {
     this._notificacaoService.notificarSucesso(
       'Edição efetuada com sucesso!',
       ''
     );
-    this.formEdicaoCliente.reset();
+    this.formDetalhesCliente.reset();
   }
 
-  falhaNaEdicao() {
+  notificarFalha() {
     this._notificacaoService.notificarErro(
       'Não foi possível efetuar a edição',
       ''

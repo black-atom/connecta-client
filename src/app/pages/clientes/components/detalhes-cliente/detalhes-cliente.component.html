@@ -1,12 +1,12 @@
-<form [formGroup]="formEdicaoCliente"
-(ngSubmit)="atualizarCliente(formEdicaoCliente.value)" novalidate>
+<form [formGroup]="formDetalhesCliente"
+(ngSubmit)="atualizarCliente(formDetalhesCliente.value)" novalidate>
 
   <!-- Card com os inputs de dados principais do cliente -->
   <div class="row">
     <div class="col-md-12">
       <ba-card cardTitle="Dados principais">
         <app-principais-info-cliente
-        [formDadosPrincipais]="formEdicaoCliente">
+        [formDadosPrincipais]="formDetalhesCliente">
         </app-principais-info-cliente>
       </ba-card>
     </div>
@@ -70,7 +70,7 @@
 
           <div class="col-md-6 col-sm-12">
             <button type="submit" class="btn btn-primary btn-with-icon"
-            [disabled]="formEdicaoCliente.pristine">
+            [disabled]="formDetalhesCliente.pristine">
               <i class="ion-android-checkmark-circle"></i>Salvar</button>
           </div>
 

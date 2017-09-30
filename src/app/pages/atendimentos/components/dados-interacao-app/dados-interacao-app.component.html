@@ -82,7 +82,7 @@
       <div class="col-12 chamado mt-2">
         <div class="row">
 
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p><strong>Criado em:</strong> {{ atendimento?.createdAt | date: 'dd/MM/yy' }}</p>
               <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy'}}</p>
@@ -90,7 +90,7 @@
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p><strong>Aberto por: </strong> <span style="text-transform: capitalize">{{ atendimento?.createdBy }}</span></p>
               <p><strong>Tipo: </strong> {{ atendimento?.tipo }}</p>
@@ -98,7 +98,7 @@
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p *ngIf="atendimento?.valor"><strong>Valor: </strong> {{ atendimento?.valor }}</p>
               <p *ngIf="atendimento?.autorizado"><strong>Valor: </strong> {{ atendimento?.autorizado }}</p>
@@ -118,13 +118,13 @@
     <div class="row">
       <div class="col-12">
         <div class="row">
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p *ngIf="atendimento?.tecnico.nome"><strong>Técnico:</strong> {{ atendimento?.tecnico.nome }}</p>
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p *ngIf="atendimento?.inicio"><strong>Atendimento iniciado às:</strong> {{ atendimento?.inicio | date: 'HH:mm' }}</p>
               <p *ngIf="atendimento?.km_inicio.data"><strong>KM inicial às:</strong> {{ atendimento?.km_inicio.data | date: 'HH:mm'}}</p>
@@ -132,7 +132,7 @@
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p *ngIf="atendimento?.fim"><strong>Atendimento finalizado às:</strong> {{ atendimento?.fim | date: 'HH:mm' }}</p>
               <p *ngIf="atendimento?.km_final.data"><strong>KM final às:</strong> {{ atendimento?.km_final.data | date: 'HH:mm' }}</p>
@@ -148,7 +148,7 @@
             <div class="col-12 text-center">
               <h4 class="mt-2"> Fotos do início do atendimento </h4>
               <div class="row">
-                <div class="col-md-2 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
+                <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
                   <div class="imagem">
                     <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
                   </div>
@@ -164,7 +164,7 @@
             <div class="col-12 text-center">
               <h4 class="mt-2"> Fotos do final do atendimento </h4>
               <div class="row">
-                <div class="col-md-2 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
+                <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
                   <div class="imagem">
                     <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
                   </div>

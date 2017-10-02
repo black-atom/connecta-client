@@ -80,7 +80,7 @@ export class AtendimentoService {
     this._http.get(`${this.baseUrl}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
-      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > -1);
+      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
       funcionariosFuncao.map(funcionario => {
           this._http.get(`${this.baseUrl}/api/atendimentos`)
           .map(response => response.json())
@@ -136,11 +136,12 @@ export class AtendimentoService {
 
             funcionario.atendimentos_hoje = buscaAssociadoData;
             funcionario.concluido = finalizadoHoje;
-            return funcionario;
+
+
           });
         });
-       this.dataStoreTec.funcionarios = funcionarios;
-       this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
+        this.dataStoreTec.funcionarios = funcionariosFuncao;
+        this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
     }, ManipuladorErro.lidaComErro);
   }
 
@@ -148,7 +149,7 @@ export class AtendimentoService {
     this._http.get(`${this.baseUrl}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
-      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > -1);
+      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
           funcionariosFuncao.map(funcionario => {
           this._http.get(`${this.baseUrl}/api/atendimentos`)
           .map(response => response.json())
@@ -164,7 +165,7 @@ export class AtendimentoService {
             return funcionario;
           });
         });
-       this.dataStoreTec.funcionarios = funcionarios;
+       this.dataStoreTec.funcionarios = funcionariosFuncao;
        this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
     }, ManipuladorErro.lidaComErro);
   }

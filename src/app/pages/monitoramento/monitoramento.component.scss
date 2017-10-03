@@ -10,6 +10,28 @@ img {
     border: 1.8px solid #fff;
 }
 
+.teste {
+  text-decoration: line-through;
+}
+
+%estado {
+  height: 2px;
+}
+.em_deslocamento {
+  @extend %estado;
+  background-color: #BE443B;
+}
+
+.chegou_ao_destino {
+  @extend %estado;
+  background-color: #215CA1;
+}
+
+.inicio_atendimento {
+  @extend %estado;
+  background-color: #53bb96;
+}
+
 table {
   background: transparent !important;
 }

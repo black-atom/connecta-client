@@ -66,7 +66,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
       contato: this._fb.group({
         email: ['', [Validators.pattern(this.emailPattern)]],
-        nome: ['', Validators.required],
+        nome: [''],
         telefone: ['', [Validators.required]],
         celular: ['', [Validators.required]],
         observacao: ['']

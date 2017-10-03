@@ -42,7 +42,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
         login: this._fb.group({
           username: ['', [Validators.required]],
           password: ['', [Validators.required]],
-          tipo: ['', [Validators.required]]
+          tipo: ['']
         }),
 
         habilitacao: this._fb.group({

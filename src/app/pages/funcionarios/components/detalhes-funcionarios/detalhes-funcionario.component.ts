@@ -53,7 +53,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
       login: this._fb.group({
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
-        tipo: ['', [Validators.required]]
+        tipo: ['']
       }),
       habilitacao: this._fb.group({
         numero: [''],

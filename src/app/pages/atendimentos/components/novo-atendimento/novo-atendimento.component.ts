@@ -69,7 +69,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       valor: [''],
       autorizado: [''],
       modelo_equipamento: ['', [Validators.required]],
-      numero_equipamento: ['', [Validators.required]],
+      numero_equipamento: [''],
       descricao: ['', [Validators.required]],
       testes_efetuados: ['', [Validators.required]],
       observacao: [''],

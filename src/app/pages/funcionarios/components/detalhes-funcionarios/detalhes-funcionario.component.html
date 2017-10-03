@@ -50,6 +50,9 @@
         <ba-card cardTitle="Login">
           <app-login-funcionario
           [disabled]="editarCamposTipo"
+          (tipoSelecionado)="permissao($event)"
+          [tipoEscolhido]="funcionarioRecebido?.login?.tipo[0]"
+          [tipoEscolhido2]="funcionarioRecebido?.login?.tipo[1]"
           [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>

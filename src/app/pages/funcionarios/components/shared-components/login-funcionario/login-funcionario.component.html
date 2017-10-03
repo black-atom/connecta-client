@@ -12,17 +12,32 @@
     formControlName="password" id="password">
   </div>
 
-  <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-12">
-
-    <div *ngIf="!disabled">
-        <label class="checkbox-inline custom-checkbox nowrap permissao"
-        *ngFor="let permissaoFuncionario of tipoFuncionario">
-            <input type="checkbox" formControlName="tipo"
-            (click)="permissao(permissaoFuncionario)">
-            <span>{{ permissaoFuncionario | uppercase }}</span>
-          </label>
-      </div>
-
+  <div class="col-md-8 col-sm- col-lg-6" *ngIf="disabled">
+    <div class="form-group">
+      <label for="descricao_atendimento">Permissão 1</label>
+      <select class="form-control" name="permissao1"
+      [(ngModel)]="tipoEscolhido"
+      [ngModelOptions]="{standalone: true}"
+      (change)="permissao1(tipoEscolhido)">
+        <option value="" disabled selected>Selecione</option>
+        <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
+      </select>
+    </div>
   </div>
+
+
+  <div class="col-md-8 col-sm- col-lg-6" *ngIf="disabled">
+    <div class="form-group">
+      <label for="descricao_atendimento">Permissão 2</label>
+      <select class="form-control" name="permissao2"
+      [(ngModel)]="tipoEscolhido2"
+      [ngModelOptions]="{standalone: true}"
+      (change)="permissao2(tipoEscolhido2)">
+        <option value="" selected>Selecione</option>
+        <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
+      </select>
+    </div>
+  </div>
+
 
 </div>

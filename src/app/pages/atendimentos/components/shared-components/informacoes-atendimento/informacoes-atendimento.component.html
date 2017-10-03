@@ -46,7 +46,7 @@
 
       <div class="col-md-8 col-sm- col-lg-3">
         <div class="form-group">
-          <label for="descricao_atendimento">Modelo do equipamento <small>(opc.)</small></label>
+          <label for="descricao_atendimento">Modelo do equipamento</label>
           <select class="form-control" formControlName="modelo_equipamento">
             <option value="" disabled selected>Selecione o tipo do atendimento</option>
             <option *ngFor="let equipamento of equipamentos" >{{equipamento}}</option>
@@ -57,7 +57,7 @@
 
       <div [ngClass]="estilo">
         <div class="form-group">
-          <label for="numero_equipamento">N° equipamento</label>
+          <label for="numero_equipamento">N° equipamento  <small>(opc.)</small></label>
           <input type="text" class="form-control"
           formControlName="numero_equipamento" id="numero_equipamento">
         </div>

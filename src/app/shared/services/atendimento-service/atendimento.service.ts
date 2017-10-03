@@ -137,7 +137,12 @@ export class AtendimentoService {
             funcionario.atendimentos_hoje = buscaAssociadoData;
             funcionario.concluido = finalizadoHoje;
 
-
+           const estadoAtendimento = buscaAssociadoData.map(atendimentoEstado => {
+              if (atendimentoEstado.km_inicio.km && atendimentoEstado.fim === null) {
+                return atendimentoEstado.estado;
+              }
+            });
+            funcionario.estado = estadoAtendimento[0];
           });
         });
         this.dataStoreTec.funcionarios = funcionariosFuncao;

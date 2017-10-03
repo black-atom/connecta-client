@@ -2,9 +2,10 @@
     <div class="col-md-4 col-sm-12 t" *ngFor="let tecnico of tecnicos$ | async; let i = index">
       <ba-card>
         <div class="text-center">
-          <img *ngIf="tecnico?.foto_url !== null" [src]="tecnico?.foto_url" alt="Foto técnico">
-          <img *ngIf="tecnico?.foto_url === null" src="/assets/img/avatar.png" alt="Foto técnico">
+          <img *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url" alt="Foto técnico">
+          <img *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
           <h4>{{ tecnico?.nome }}</h4>
+          <h6>{{ tecnico?.estado }}</h6>
         </div>
         <hr>
         <div class="table table">

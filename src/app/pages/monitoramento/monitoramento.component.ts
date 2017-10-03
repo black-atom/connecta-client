@@ -22,7 +22,6 @@ export class MonitoramentoComponent implements OnInit {
   }
 
   atualizaDados() {
-
     this._atendimentoService.getAllAtendimentosAssociados();
     this.tecnicos$ = this._atendimentoService.funcionarios;
     this.atualizaPagina();

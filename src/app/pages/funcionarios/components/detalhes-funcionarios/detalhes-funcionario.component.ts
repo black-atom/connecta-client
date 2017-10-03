@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
@@ -37,16 +37,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     this.obterIdFuncionario();
   }
 
-
-  // permissao(permissao) {
-  //   const index = this.tipo.indexOf(permissao);
-  //   if (index === -1) {
-  //     this.tipo.push(permissao);
-  //   }else {
-  //     this.tipo.splice(this.tipo.indexOf(permissao), 1);
-  //   }
-  //  }
-
   obterIdFuncionario() {
      this._activatedRoute.params.subscribe(params => this.id = params['id']);
      this.recuperarFuncionario();
@@ -65,7 +55,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         password: ['', [Validators.required]],
         tipo: ['', [Validators.required]]
       }),
-
       habilitacao: this._fb.group({
         numero: [''],
         validade: ['']
@@ -104,10 +93,13 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     recuperarFuncionario() {
       this.sub = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
         this.formEdicaoFuncionario.patchValue(dados);
-        this.tipo = dados.login.tipo;
         this.funcionarioRecebido = dados;
-
       });
+    }
+
+
+   permissao(perm) {
+    this.tipo = perm;
     }
 
     atualizarTecnico(funcionario: Funcionario) {

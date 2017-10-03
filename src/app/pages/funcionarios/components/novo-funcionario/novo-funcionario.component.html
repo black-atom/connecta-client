@@ -53,6 +53,7 @@ carteira de habilitação do funcionário -->
         <div class="col-md-12 col-lg-6 col-sm-12">
           <ba-card cardTitle="Login">
             <app-login-funcionario
+            [disabled]="editarCamposTipo"
             (tipoSelecionado)="permissao($event)"
             [formLoginFuncionario]="formFuncionario.controls.login">
             </app-login-funcionario>

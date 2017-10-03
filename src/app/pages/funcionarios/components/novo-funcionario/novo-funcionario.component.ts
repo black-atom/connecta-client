@@ -20,6 +20,8 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   public tipo: string[] = [];
+  public editarCamposTipo = true;
+  public permissaoRecebida;
 
    constructor(private _fb: FormBuilder,
                private _funcionarioService: FuncionarioService,
@@ -70,14 +72,10 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
    }
 
 
-  permissao(permissao) {
-    const index = this.tipo.indexOf(permissao);
-    if (index === -1) {
-      this.tipo.push(permissao);
-    }else {
-      this.tipo.splice(this.tipo.indexOf(permissao), 1);
-    }
+   permissao(perm) {
+     this.tipo = perm;
    }
+
    cadastrarTecnico(funcionario: Funcionario) {
     funcionario.login.tipo = this.tipo;
      funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');

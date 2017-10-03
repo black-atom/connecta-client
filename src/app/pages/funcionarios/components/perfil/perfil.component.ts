@@ -24,7 +24,7 @@ export class PerfilComponent implements OnInit {
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   private jwtHelper: JwtHelper = new JwtHelper();
   private id: string;
-  public editarCamposTipo: boolean = true;
+  public editarCamposTipo: boolean = false;
   public funcionarioRecebido;
 
   constructor(private _funcionarioService: FuncionarioService,

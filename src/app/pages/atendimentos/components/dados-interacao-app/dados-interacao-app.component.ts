@@ -45,20 +45,26 @@ export class DadosInteracaoAppComponent implements OnInit {
   }
 
   carregarFotosAtendimento () {
-    if (this.atendimento.imagens) {
-      for (let i = 1; i <= this.atendimento.imagens.length; i++) {
+    if (this.atendimento) {
 
-        const img = this.atendimento.imagens[i].url;
-        const src = `http://165.227.78.113:3000/atendimentoimagens/${img}`;
-        const thumb = src;
-        const fotosAtendimento = Object.assign({ src, thumb });
+      if (this.atendimento.imagens) {
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.atendimento.imagens.length; i++) {
 
-        if (this.atendimento.imagens[i].tipo === 'inicio_atendimento') {
-          this.fotosInicioAtendimento.push(fotosAtendimento);
-        }else {
-          this.fotosFinalAtendimento.push(fotosAtendimento);
+          const img = this.atendimento.imagens[i].url;
+          const src = `http://165.227.78.113:3000/atendimentoimagens/${img}`;
+          const thumb = src;
+          const fotosAtendimento = Object.assign({ src, thumb });
+
+          if (this.atendimento.imagens[i].tipo === 'inicio_atendimento') {
+            this.fotosInicioAtendimento.push(fotosAtendimento);
+          }else {
+            this.fotosFinalAtendimento.push(fotosAtendimento);
+          }
         }
       }
+    }else {
+      this.carregarFotosAtendimento();
     }
   }
 

@@ -20,6 +20,7 @@
             </i> {{ atendimento?.endereco?.rua + " - " + atendimento?.endereco?.bairro +", "+ atendimento?.endereco?.cidade +"
             - "+ atendimento?.endereco?.cep }}
           </p>
+          <p class="pull-right"><small><strong>Criado por:</strong> {{atendimento?.createdBy | uppercase}} </small></p>
         </div>
       </ba-card>
     </div>

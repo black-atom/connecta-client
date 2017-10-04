@@ -28,7 +28,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   public contatoEscolhido: any;
   public enderecoEscolhido: any;
   public detalhesAtendimentoEditarCampos = true;
-  public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   public clienteEncontrado;
   public tecnico;
   private action = ['reagendar', 'cancelar', 'encaixe'];
@@ -65,7 +64,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
       }),
 
       contato: this._fb.group({
-        email: ['', [Validators.pattern(this.emailPattern)]],
+        email: ['', [Validators.required]],
         nome: [''],
         telefone: ['', [Validators.required]],
         celular: ['', [Validators.required]],

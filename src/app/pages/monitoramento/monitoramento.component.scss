@@ -10,6 +10,22 @@ img {
     border: 1.8px solid #fff;
 }
 
+.em_deslocamento_imagem {
+  border: 2px solid #BE443B;
+}
+
+.chegou_ao_destino_imagem{
+  border: 2px solid #215CA1;
+}
+
+.inicio_atendimento_imagem {
+  border: 2px solid #53bb96;
+}
+
+.atendimento {
+  cursor: pointer;
+}
+
 .atendimento_concluido {
   color: green;
 }
@@ -17,25 +33,19 @@ img {
 %estado {
   height: 2px;
 }
-.em_deslocamento {
+.em_deslocamento_linha {
   @extend %estado;
-  background-color: #BE443B !important;
+  background-color: #BE443B;
 }
 
-.chegou_ao_destino {
+.chegou_ao_destino_linha {
   @extend %estado;
-  background-color: #215CA1 !important;
+  background-color: #215CA1;
 }
 
-.inicio_atendimento {
+.inicio_atendimento_linha {
   @extend %estado;
-  background-color: #53bb96 !important;
-}
-
-p {
-  .ion-checkmark, .ion-model-s, .ion-location, .ion-wrench, .ion-bookmark {
-    font-size: 1.5em;
-  }
+  background-color: #53bb96;
 }
 
 table {

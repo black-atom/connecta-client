@@ -5,6 +5,10 @@
           <img *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url" alt="Foto técnico">
           <img *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
           <h4>{{ tecnico?.nome }}</h4>
+          <h6 *ngIf="tecnico?.estado === 'em_deslocamento'" >Em deslocamento</h6>
+          <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'" >Chegou no cliente</h6>
+          <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
+          <h6 *ngIf="!tecnico?.estado">Disponível</h6>
         </div>
         <hr [ngClass]="{'em_deslocamento': tecnico?.estado === 'em_deslocamento',
                         'chegou_ao_destino': tecnico?.estado === 'chegou_ao_destino',
@@ -26,8 +30,12 @@
                 </tr>
               </tbody>
             </table>
-            <div class="p-3" *ngFor="let atendimento of tecnico?.atendimentos_hoje" >
-              <p [ngClass]="{'teste': atendimento?.estado === 'fim_do_atendimento'}">{{atendimento.cliente.nome_razao_social}}</p>
+            <div class="m-3" *ngFor="let atendimento of tecnico?.atendimentos_hoje" >
+              <p><i [ngClass]="{'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
+                                'ion-model-s': atendimento?.estado === 'em_deslocamento',
+                                'ion-location': atendimento?.estado === 'chegou_ao_destino',
+                                'ion-wrench': atendimento?.estado === 'inicio_atendimento',
+                                'ion-bookmark': atendimento?.estado === 'associado'}"></i> {{atendimento.cliente.nome_razao_social}}</p>
             </div>
           </div>
       </ba-card>

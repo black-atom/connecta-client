@@ -23,7 +23,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
   public enderecoEscolhido;
   public formAtendimento: FormGroup;
   public novoAtendimentoEditarCampos: Boolean = true;
-  public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
@@ -46,7 +45,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       }),
 
       contato: this._fb.group({
-        email: ['', [Validators.pattern(this.emailPattern)]],
+        email: ['', [Validators.required]],
         nome: [''],
         telefone: ['', [Validators.required]],
         celular: [''],

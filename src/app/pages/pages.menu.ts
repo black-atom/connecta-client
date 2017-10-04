@@ -130,6 +130,14 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Associar',
+              icon: 'ion-person'
+            }
+          }
+        }, {
+          path: 'abertura-chamado',
+          data: {
+            menu: {
+              title: 'Chamado',
               icon: 'ion-person-stalker'
             }
           }

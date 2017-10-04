@@ -6,6 +6,7 @@ import { AssociarComponent } from './components/associar';
 import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
+import { AberturaChamadosComponent } from './components/abertura-chamados/abertura-chamados.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: 'associar', component: AssociarComponent },
       { path: 'gerenciar', component: GerenciarComponent },
       { path: 'detalhes/:id', component: DetalhesAtendimentoComponent },
-      { path: 'dados-app/:id', component: DadosInteracaoAppComponent }
+      { path: 'dados-app/:id', component: DadosInteracaoAppComponent },
+      { path: 'abertura-chamado', component: AberturaChamadosComponent }
     ]
   }
 ];

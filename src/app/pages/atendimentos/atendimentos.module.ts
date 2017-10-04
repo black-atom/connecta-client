@@ -19,6 +19,7 @@ import { InformacoesAtendimentoComponent } from './components/shared-components/
 import { routing } from './atendimentos.routing';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { AcaoComponent } from './components/shared-components/acao/acao.component';
+import { AberturaChamadosComponent } from './components/abertura-chamados/abertura-chamados.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { AcaoComponent } from './components/shared-components/acao/acao.componen
     AssociarComponent,
     AtendimentosDisponiveisComponent,
     DadosInteracaoAppComponent,
-    AcaoComponent
+    AcaoComponent,
+    AberturaChamadosComponent
   ],
   providers: [
     SharedModule,

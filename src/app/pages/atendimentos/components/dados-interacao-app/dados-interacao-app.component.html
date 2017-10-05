@@ -45,7 +45,6 @@
           <p><strong>E-mail:</strong> {{ atendimento?.contato.email }} </p>
           <p><strong>Telefone:</strong> {{ atendimento?.contato.telefone }} </p>
           <p *ngIf="atendimento?.contato.celular"><strong>Celular:</strong> {{ atendimento?.contato.celular }}</p>
-          <p *ngIf="atendimento?.contato.observacao"><strong>Observação:</strong> {{ atendimento?.contato.observacao }}</p>
         </div>
 
       </div>
@@ -104,7 +103,7 @@
               <p *ngIf="atendimento?.autorizado"><strong>Valor: </strong> {{ atendimento?.autorizado }}</p>
               <p><strong>Modelo:</strong> {{ atendimento?.modelo_equipamento }} </p>
               <p><strong>Número:</strong> {{ atendimento?.numero_equipamento }} </p>
-              <p><strong>Observação:</strong> {{ atendimento?.observacao }} </p>
+              <p *ngIf="atendimento?.observacao" ><strong>Observação:</strong> {{ atendimento?.observacao }} </p>
             </div>
           </div>
         </div>

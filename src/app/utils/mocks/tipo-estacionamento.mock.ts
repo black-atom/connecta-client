@@ -1,5 +1,5 @@
 export const TIPOESTACIONAMENTO: String[] = [
-   'Cliente não informou',
+   'Não tem estacionamento no local',
    'Estacionamento no local',
    'Zona azul',
    'Valor aproximado por 1h R$ 10,00',

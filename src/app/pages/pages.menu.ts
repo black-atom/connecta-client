@@ -138,7 +138,7 @@ export const PAGES_MENU = [{
           data: {
             menu: {
               title: 'Chamado',
-              icon: 'ion-person-stalker'
+              icon: 'ion-ios-box-outline'
             }
           }
         },

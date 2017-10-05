@@ -48,7 +48,20 @@ export class AberturaChamadosComponent implements OnInit {
   }
 
   selecionaAtendimento(id) {
-    this._atendimentoService.retornarUm(id).subscribe(res => this.atendimentoSelecionado = res);
+    this._atendimentoService.retornarUm(id).subscribe(res => {
+      if (res.cliente.cnpj_cpf.length === 14) {
+        // 00.000.000/0000-00
+        const cnpj = res.cliente.cnpj_cpf;
+        const formatado = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+        res.cliente.cnpj_cpf = formatado;
+      }else {
+        // 000.000.000-00
+        const cpf = res.cliente.cnpj_cpf;
+        const formatado = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+        res.cliente.cnpj_cpf = formatado;
+      }
+      this.atendimentoSelecionado = res;
+    });
   }
 
 }

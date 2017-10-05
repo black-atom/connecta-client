@@ -68,6 +68,17 @@ export class AtendimentoService {
         const busca = atendimento.data_atendimento === data.toJSON();
         if (busca) {
           if (!atendimento.tecnico.nome) {
+            if (atendimento.cliente.cnpj_cpf.length === 14) {
+              // 00.000.000/0000-00
+              const cnpj = atendimento.cliente.cnpj_cpf;
+              const formatado = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+              atendimento.cliente.cnpj_cpf = formatado;
+            }else {
+              // 000.000.000-00
+              const cpf = atendimento.cliente.cnpj_cpf;
+              const formatado = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+              atendimento.cliente.cnpj_cpf = formatado;
+            }
               return atendimento;
           }
         }

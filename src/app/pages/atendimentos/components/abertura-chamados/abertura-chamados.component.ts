@@ -25,6 +25,7 @@ export class AberturaChamadosComponent implements OnInit {
 
   ngOnInit() {
     this._atendimentoService.getAllAtendimentosPorData(this.dataAgora());
+    this.atendimentos = this._atendimentoService.atendimentos;
   }
 
   listaAtendimentoData(dataInformada: any) {

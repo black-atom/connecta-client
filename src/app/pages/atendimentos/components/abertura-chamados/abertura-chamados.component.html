@@ -82,7 +82,7 @@
                     <p>
                     <p><strong>Aberto por: </strong>
                       <span style="text-transform: capitalize">
-                        {{ atendimentoSelecionado?.createdBy }} {{ atendimentoSelecionado?.createdAt | date: 'HH:mm' }}
+                        {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'HH:mm' }}
                       </span>
                     </p>
                     <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy }} {{ atendimentoSelecionado?.updatedAt | date: 'HH:mm' }}</p>
@@ -116,7 +116,7 @@
                 <th scope="row">{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }} - {{ atendimento?.createdAt | date: 'HH:mm' }}</th>
                 <td>{{ atendimento?.cliente?.nome_razao_social }}</td>
                 <td>{{ atendimento?.cliente?.cnpj_cpf }}</td>
-                <td>{{ atendimento?.createdBy }}</td>
+                <td>{{ atendimento?.createdBy | uppercase }}</td>
                 <td>
                   <button type="button" class="btn btn-info" title="Edição do atendimento" (click)="selecionaAtendimento(atendimento?._id)">
                       <i class="ion-information-circled"></i>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, Input, ElementRef } from '@angular/core';
 import { Subscription, Observable } from 'rxjs/Rx';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { AtendimentoService } from './../../../../shared/services/atendimento-service/atendimento.service';
@@ -63,5 +63,18 @@ export class AberturaChamadosComponent implements OnInit {
       this.atendimentoSelecionado = res;
     });
   }
+
+  @Input() position: number = 0;
+  @Input() showSpeed: number = 500;
+  @Input() moveSpeed: number = 1000;
+
+  @ViewChild('baBackTop') _selector: ElementRef;
+
+  @HostListener('click')
+  _onClick(): boolean {
+    jQuery('html, body').animate( { scrollTop: 75 }, { duration: this.moveSpeed });
+    return false;
+  }
+
 
 }

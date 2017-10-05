@@ -118,7 +118,7 @@
                 <td>{{ atendimento?.cliente?.cnpj_cpf }}</td>
                 <td>{{ atendimento?.createdBy | uppercase }}</td>
                 <td>
-                  <button type="button" class="btn btn-info" title="Edição do atendimento" (click)="selecionaAtendimento(atendimento?._id)">
+                  <button #baBackTop type="button" class="btn btn-info" title="Edição do atendimento" (click)="selecionaAtendimento(atendimento?._id)">
                       <i class="ion-information-circled"></i>
                     </button>
                 </td>

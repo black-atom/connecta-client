@@ -15,13 +15,15 @@ export class AcaoComponent implements OnInit {
   action = ['reagendar', 'cancelar', 'encaixe'];
   tecnicos = [];
   tipoFuncao = TIPOFUNCIONARIOMOCK;
-  tec;
 
   @Input()
   formAcao: FormGroup;
 
   @Output()
   tecnicoEnviado = new EventEmitter();
+
+  @Output()
+  actionEnviada = new EventEmitter();
 
   constructor(private funcionarioService: FuncionarioService) { }
 
@@ -37,8 +39,13 @@ export class AcaoComponent implements OnInit {
   actionAtendimento(action) {
     if (action === this.action[2]) {
        this.desativaCampoTecnico = true;
+       this.actionEnviada.emit(true);
+    }else if (action === this.action[0]) {
+      this.desativaCampoTecnico = false;
+      this.actionEnviada.emit(true);
     }else {
        this.desativaCampoTecnico = false;
+       this.actionEnviada.emit(false);
     }
   }
 

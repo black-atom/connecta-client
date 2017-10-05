@@ -23,6 +23,7 @@ export class InformacoesAtendimentoComponent implements OnInit {
   @Input()
   campoMotivo: boolean = true;
 
+  @Input()
   desabilitaData: boolean;
   estilo = 'col-lg-4';
 
@@ -31,7 +32,6 @@ export class InformacoesAtendimentoComponent implements OnInit {
 
   desabilitaAutorizado: boolean;
   desabilitaValor: boolean;
-  id;
   equipamentos = EQUIPAMENTOS;
 
   private mascaraDataAtendimento = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
@@ -39,23 +39,11 @@ export class InformacoesAtendimentoComponent implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.formDescricaoAtendimento.get('tipo').valueChanges
     .subscribe((values) => {
       this.tipoAtendimentoSelecionado(values);
     });
-    this.obterIdAtendimento();
-  }
 
-
-  obterIdAtendimento() {
-    this._activatedRoute.params.subscribe(params => this.id = params['id']);
-    if (this.id === undefined) {
-      this.desabilitaData = true;
-      this.campoData = true;
-    }else {
-      this.desabilitaData = false;
-    }
   }
 
   tipoAtendimentoSelecionado(tipoAtendimento) {

@@ -31,6 +31,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   public clienteEncontrado;
   public tecnico;
   private action = ['reagendar', 'cancelar', 'encaixe'];
+  public desativaData = false;
+  public actionSelecionada;
 
   constructor(private _atendimentoService: AtendimentoService,
               private _activatedRoute: ActivatedRoute,
@@ -174,7 +176,12 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   tecnicoRecebido(tec) {
    this.tecnico = tec;
   }
+
+  actionRecevida(acao) {
+    this.actionSelecionada = acao;
+  }
    atualizarAtendimento(atendimento) {
+
     if (atendimento.situacao.status === this.action[2]) {
       atendimento._id = this.id;
       atendimento.tecnico._id = this.tecnico._id;
@@ -200,7 +207,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
           atendimento.data_atendimento = dataAtendimento;
-
       this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
       .subscribe(
         dados => {
@@ -217,8 +223,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     }
     }else {
       atendimento._id = this.id;
-      atendimento.tecnico._id = '';
-      atendimento.tecnico.nome = '';
+      atendimento.tecnico = {};
 
 
       const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
@@ -240,7 +245,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
           atendimento.data_atendimento = dataAtendimento;
-
       this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
       .subscribe(
         dados => {

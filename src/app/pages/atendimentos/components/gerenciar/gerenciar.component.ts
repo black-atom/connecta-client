@@ -1,3 +1,4 @@
+import { NotificacaoService } from './../../../../shared/services/notificacao-service/notificacao.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { Subscription } from 'rxjs/Rx';
@@ -13,12 +14,12 @@ import { AtendimentoService } from './../../../../shared/services';
      <div class="col-md-12">
       <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-12">
         <button type="button" class="btn btn-info" title="Edição do atendimento"
         routerLink="/pages/atendimentos/detalhes/{{ idAtendimento }}"><i class="ion-information-circled"></i></button>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-12">
         <button type="button" class="btn btn-dados" title="Visualização do atendimento"
         routerLink="/pages/atendimentos/dados-app/{{ idAtendimento }}"><i class="ion-eye"></i></button>
       </div>
@@ -31,12 +32,12 @@ import { AtendimentoService } from './../../../../shared/services';
 })
 export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
 
+  rowData: any;
   public idAtendimento: string;
 
   @Input()
   value: string | number;
 
-  constructor() {}
 
   ngOnInit() {
     this.idAtendimento = this.value.toString().toUpperCase();
@@ -52,9 +53,18 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   public settings = {
     actions: false,
-    noDataMessage: 'Nenhum dado encontrado',
+    noDataMessage: 'Nenhum atendimento encontrado. Tente mais tarde!',
     pager: {
       perPage: 15
+    },
+    rowClassFunction: (row) => {
+      if (row.data.situacao.status === 'reagendar') {
+        return 'reagendamento';
+      } else if (row.data.situacao.status === 'cancelar') {
+        return 'cancelado';
+      } else if (row.data.tipo === 'Aberto por técnica') {
+        return 'aberto-por-tecnica ';
+      }
     },
     columns: {
       data_atendimento: {
@@ -71,33 +81,45 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'Empresa',
         type: 'string',
         valuePrepareFunction: (coluna, linha) => {
-          return linha.cliente.nome_razao_social;
+          return `${linha.cliente.nome_razao_social.slice(0, 17)} .`;
         }
       },
       cnpj_cpf: {
         title: 'CNPJ/CPF',
         type: 'number',
         valuePrepareFunction: (coluna, linha) => {
+          if (linha.cliente.cnpj_cpf.length === 14) {
+            const cnpj = linha.cliente.cnpj_cpf.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+            linha.cliente.cnpj_cpf = cnpj;
+          }else {
+            const cpf = linha.cliente.cnpj_cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            linha.cliente.cnpj_cpf = cpf;
+          }
           return linha.cliente.cnpj_cpf;
         }
-      },
-      telefone: {
-        title: 'Telefone',
-        type: 'string',
-        valuePrepareFunction: (coluna, linha) => {
-          return linha.contato.telefone;
-       }
       },
       tecnico: {
         title: 'Técnico',
         type: 'string',
         valuePrepareFunction: (coluna, linha) => {
-          return linha.tecnico.nome;
+          return linha.tecnico.nome.split(' ')[0];
        }
       },
       createdBy: {
         title: 'Criado por',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: (coluna, linha) => {
+          return linha.createdBy.split(' ')[0];
+        }
+      },
+      imagens: {
+        type: 'html',
+        filter: false,
+        valuePrepareFunction: (cell, row) => {
+          if (row.imagens.length > 0) {
+          return `<span><i class="fa fa-camera" style="color: red; margin-right: 15px;"></i></span>`;
+        }
+      }
       },
       _id: {
         type: 'custom',
@@ -110,13 +132,17 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   source: LocalDataSource;
   private sub: Subscription;
 
-  constructor(private _atendimentoService: AtendimentoService, private datePipe: DatePipe) {
-    this.source = new LocalDataSource();
+  constructor(private _atendimentoService: AtendimentoService,
+              private datePipe: DatePipe,
+              private _notificacaoService: NotificacaoService) {
+                this.source = new LocalDataSource();
+                console.log(this.source);
   }
 
   ngOnInit() {
     this.sub = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
       this.source.load(atendimentos);
+      this.source.setSort([{ field: 'data_atendimento', direction: 'desc' }]);
     });
   }
 

@@ -23,3 +23,20 @@ span {
     }
   }
 }
+
+.reagendamento {
+  background: #26FB66 !important;
+}
+
+.cancelado {
+  background: #FF2A2A !important;
+
+  ng2-smart-table-cell {
+    color: white !important;
+  }
+}
+
+.aberto-por-tecnica {
+  background: rgb(252, 255, 58) !important;
+}
+

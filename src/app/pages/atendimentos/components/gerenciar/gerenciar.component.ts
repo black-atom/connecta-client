@@ -32,8 +32,11 @@ import { AtendimentoService } from './../../../../shared/services';
 })
 export class BtnDetalhesAtdComponent implements ViewCell, OnInit {
 
-  rowData: any;
+
   public idAtendimento: string;
+
+  @Input()
+  rowData: any;
 
   @Input()
   value: string | number;
@@ -136,7 +139,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
               private datePipe: DatePipe,
               private _notificacaoService: NotificacaoService) {
                 this.source = new LocalDataSource();
-                console.log(this.source);
   }
 
   ngOnInit() {

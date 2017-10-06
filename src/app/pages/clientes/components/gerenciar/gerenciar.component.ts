@@ -17,6 +17,9 @@ export class BtnDetalhesCliComponent implements ViewCell, OnInit {
 
   public idCliente: string;
 
+  @Input()
+  rowData: any;
+
   @Input() value: string | number;
 
   constructor() {}

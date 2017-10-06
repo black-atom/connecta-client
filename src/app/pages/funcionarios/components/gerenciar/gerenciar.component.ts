@@ -17,6 +17,9 @@ export class BtnDetalhesTecComponent implements ViewCell, OnInit {
 
   idFuncionario: string;
 
+  @Input()
+  rowData: any;
+
   @Input() value: string | number;
 
   constructor() {}

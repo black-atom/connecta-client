@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class NovoClienteComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public formCliente: FormGroup;
   public desabilitaElemento: boolean = true;
 
@@ -90,7 +90,7 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
      return (Object.assign({}, removerMascaraEndereco, novoContatos));
      });
 
-    this.sub = this._clienteService.novoCliente(cliente)
+    this.subscription = this._clienteService.novoCliente(cliente)
       .subscribe(
         dados => {
       },
@@ -131,8 +131,8 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

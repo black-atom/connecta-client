@@ -16,7 +16,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 })
 export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public formEdicaoFuncionario: FormGroup;
   private id: string;
   private funcionarioRecebido: Funcionario;
@@ -82,7 +82,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
  }
 
     buscaPorCep(cep: string) {
-     this.sub = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+     this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
          this.formEdicaoFuncionario.get('rua').patchValue(dados.logradouro);
          this.formEdicaoFuncionario.get('bairro').patchValue(dados.bairro);
          this.formEdicaoFuncionario.get('cidade').patchValue(dados.localidade);
@@ -91,7 +91,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
    }
 
     recuperarFuncionario() {
-      this.sub = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
+      this.subscription = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
         this.formEdicaoFuncionario.patchValue(dados);
         this.funcionarioRecebido = dados;
       });
@@ -112,7 +112,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
         funcionario.login.tipo = this.tipo;
         funcionario._id = this.id;
-             this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
+             this.subscription = this._funcionarioService.atualizarFuncionario(funcionario)
               .subscribe(
              dados => {
           },
@@ -142,7 +142,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-      this.sub.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
 }

@@ -133,7 +133,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   };
 
   source: LocalDataSource;
-  private sub: Subscription;
+  subscription: Subscription;
 
   constructor(private _atendimentoService: AtendimentoService,
               private datePipe: DatePipe,
@@ -142,13 +142,13 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
+    this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
       this.source.load(atendimentos);
       this.source.setSort([{ field: 'data_atendimento', direction: 'desc' }]);
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

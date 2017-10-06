@@ -38,7 +38,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   public settings = {
     actions: false,
-    noDataMessage: 'Nenhum dado encontrado',
+    noDataMessage: 'Nenhum cliente encontrado. Tente mais tarde!',
     pager: {
       perPage: 15
     },
@@ -49,7 +49,17 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       },
       cnpj_cpf: {
         title: 'CNPJ/CPF',
-        type: 'number'
+        type: 'number',
+        valuePrepareFunction: (coluna, linha) => {
+          if (linha.cnpj_cpf.length === 14) {
+            const cnpj = linha.cnpj_cpf.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+            linha.cnpj_cpf = cnpj;
+          }else {
+            const cpf = linha.cnpj_cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            linha.cnpj_cpf = cpf;
+          }
+          return linha.cnpj_cpf;
+        }
       },
       contatos: {
         title: 'Telefone',
@@ -65,7 +75,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     }
   };
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public source: LocalDataSource;
 
   constructor(private clienteService: ClienteService) {
@@ -73,12 +83,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this.clienteService.retornarTodos().subscribe(clientes => {
+    this.subscription = this.clienteService.retornarTodos().subscribe(clientes => {
       this.source.load(clientes);
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

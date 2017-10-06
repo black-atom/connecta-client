@@ -22,7 +22,7 @@ import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.
 export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   public formEdicaoAtendimento: FormGroup;
-  private sub: Subscription;
+  private subscription: Subscription;
   private id: string;
   public atendimentoRecebido: Atendimento;
   public contatoEscolhido: any;
@@ -105,7 +105,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
    buscaPorCep(cep: string) {
-    this.sub = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+    this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
         this.formEdicaoAtendimento.get('endereco.rua').patchValue(dados.logradouro);
         this.formEdicaoAtendimento.get('endereco.bairro').patchValue(dados.bairro);
         this.formEdicaoAtendimento.get('endereco.cidade').patchValue(dados.localidade);
@@ -115,7 +115,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
 
   recuperarAtendimento() {
 
-      this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
+      this.subscription = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
       this.formEdicaoAtendimento.get('cliente.nome_razao_social').patchValue(res.cliente.nome_razao_social);
       this.formEdicaoAtendimento.get('cliente.cnpj_cpf').patchValue(res.cliente.cnpj_cpf);
       this.formEdicaoAtendimento.get('cliente.inscricao_estadual').patchValue(res.cliente.inscricao_estadual);
@@ -207,7 +207,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
           atendimento.data_atendimento = dataAtendimento;
-      this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
+      this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)
       .subscribe(
         dados => {
       },
@@ -245,7 +245,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
         && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
           atendimento.data_atendimento = dataAtendimento;
-      this.sub = this._atendimentoService.atualizarAtendimento(atendimento)
+      this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)
       .subscribe(
         dados => {
       },
@@ -285,8 +285,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-    this.sub.unsubscribe();
+    if (this.subscription) {
+    this.subscription.unsubscribe();
     }
   }
 }

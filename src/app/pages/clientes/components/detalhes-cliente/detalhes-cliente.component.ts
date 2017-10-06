@@ -17,7 +17,7 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
 })
 export class DetalhesClienteComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   private cliente: Cliente;
   public formDetalhesCliente: FormGroup;
   private id: string;
@@ -38,7 +38,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   obterIdCliente() {
-    this.sub = this._activatedRoute.params.subscribe(params => {
+    this.subscription = this._activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.recuperarCliente();
   });
@@ -56,7 +56,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   recuperarCliente() {
-    this.sub = this._clienteService.retornarUm(this.id).subscribe((res) => {
+    this.subscription = this._clienteService.retornarUm(this.id).subscribe((res) => {
       this.formDetalhesCliente.get('cnpj_cpf').patchValue(res.cnpj_cpf);
       this.formDetalhesCliente.get('nome_razao_social').patchValue(res.nome_razao_social);
       this.formDetalhesCliente.get('inscricao_estadual').patchValue(res.inscricao_estadual);
@@ -106,7 +106,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
       return (Object.assign({}, removerMascaraEndereco, novoContatos));
       });
 
-    this.sub = this._clienteService.atualizarCliente(cliente)
+    this.subscription = this._clienteService.atualizarCliente(cliente)
       .subscribe(dados => {
       },
       erro => {
@@ -153,7 +153,7 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

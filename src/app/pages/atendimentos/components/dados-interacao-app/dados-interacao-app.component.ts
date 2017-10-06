@@ -15,7 +15,7 @@ import { Atendimento } from './../../../../models';
 export class DadosInteracaoAppComponent implements OnInit {
 
   private id: string;
-  private sub: Subscription;
+  private subscription: Subscription;
   public atendimento: Atendimento;
   public fotosInicioAtendimento = [];
   public fotosFinalAtendimento = [];
@@ -37,7 +37,7 @@ export class DadosInteracaoAppComponent implements OnInit {
   }
 
   recuperarAtendimento() {
-    this.sub = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
+    this.subscription = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
       this.atendimento = res;
       this.carregarFotosAtendimento();
     });

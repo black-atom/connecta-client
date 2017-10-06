@@ -17,7 +17,7 @@ import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
 
 export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public clienteEncontrado;
   public contatoEscolhido;
   public enderecoEscolhido;
@@ -78,7 +78,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
   buscarCliente(cnpj) {
     if (cnpj) {
-     this.sub = this._clienteService.retornarUm(cnpj)
+     this.subscription = this._clienteService.retornarUm(cnpj)
       .subscribe((res) => {
           if (res) {
           this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
@@ -138,7 +138,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
 
         atendimento.data_atendimento = dataAtendimento;
 
-        this.sub = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
+        this.subscription = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
           erro => {
               this.notificarFalhaCadastro();
@@ -171,8 +171,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

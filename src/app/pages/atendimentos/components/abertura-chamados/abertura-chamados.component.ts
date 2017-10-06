@@ -12,7 +12,7 @@ import { Atendimento } from './../../../../models/atendimento.interface';
 export class AberturaChamadosComponent implements OnInit {
 
 
-  private sub: Subscription;
+  private subscription: Subscription;
 
     public selecionados: any[] = [];
     public atendimentos: Observable<Atendimento[]>;

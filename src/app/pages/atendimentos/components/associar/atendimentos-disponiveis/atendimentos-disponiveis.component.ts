@@ -18,7 +18,7 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
 
   @Input() dataSelecionada;
 
-  private sub: Subscription;
+  private subscription: Subscription;
 
   public selecionados: any[] = [];
   public atendimentos: Observable<Atendimento[]>;
@@ -60,8 +60,8 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

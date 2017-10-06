@@ -16,7 +16,7 @@ import { Funcionario } from './../../../../models';
 })
 export class NovoFuncionarioComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   public tipo: string[] = [];
@@ -87,7 +87,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
      }
      funcionario.login.tipo = this.tipo;
 
-     this.sub = this._funcionarioService.novoFuncionario(funcionario)
+     this.subscription = this._funcionarioService.novoFuncionario(funcionario)
     .subscribe(
       dados => {
     },
@@ -116,8 +116,8 @@ falhaNoCadastro() {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

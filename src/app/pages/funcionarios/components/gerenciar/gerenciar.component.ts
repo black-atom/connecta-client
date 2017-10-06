@@ -41,7 +41,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   settings = {
     actions: false,
-    noDataMessage: 'Nenhum dado encontrado',
+    noDataMessage: 'Nenhum funcionário encontrado! Tente mais tarde!',
     pager: {
       perPage: 15
     },
@@ -73,7 +73,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     }
   };
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public source: LocalDataSource;
 
   constructor(private _funcionarioService: FuncionarioService) {
@@ -81,13 +81,13 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this._funcionarioService.retornarTodos().subscribe(funcionarios => {
+    this.subscription = this._funcionarioService.retornarTodos().subscribe(funcionarios => {
         this.source.load(funcionarios);
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }
 

@@ -19,7 +19,7 @@ import { JwtHelper } from 'angular2-jwt';
 })
 export class PerfilComponent implements OnInit {
 
-  private sub: Subscription;
+  private subscription: Subscription;
   public formEdicaoFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   private jwtHelper: JwtHelper = new JwtHelper();
@@ -92,7 +92,7 @@ export class PerfilComponent implements OnInit {
  }
 
     buscaPorCep(cep: string) {
-     this.sub = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+     this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
          this.formEdicaoFuncionario.get('rua').patchValue(dados.logradouro);
          this.formEdicaoFuncionario.get('bairro').patchValue(dados.bairro);
          this.formEdicaoFuncionario.get('cidade').patchValue(dados.localidade);
@@ -111,7 +111,7 @@ export class PerfilComponent implements OnInit {
       funcionario._id = this.id;
       funcionario.login.tipo = this.funcionarioRecebido.login.tipo;
 
-      this.sub = this._funcionarioService.atualizarFuncionario(funcionario)
+      this.subscription = this._funcionarioService.atualizarFuncionario(funcionario)
       .subscribe(
         dados => {
       },

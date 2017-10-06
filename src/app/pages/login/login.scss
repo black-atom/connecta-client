@@ -4,3 +4,17 @@
   background: url('./../../../assets/img/Fundo_Connect_Web.jpg') no-repeat center;
   background-size: cover;
 }
+
+input, input:active, input:focus {
+ background: transparent;
+ color: #fff;
+
+}
+
+::-webkit-input-placeholder {
+  color: #fff;
+}
+
+::-moz-placeholder {
+  color: #fff;
+}

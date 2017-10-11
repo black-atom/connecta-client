@@ -17,7 +17,7 @@
           <i *ngIf="dessasociarAtendimento(atendimento)" class="ion-android-checkmark-circle pull-right"></i>
           <p><strong> {{ atendimento?.cliente?.nome_razao_social }} ({{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }})</strong></p>
           <p class="local"><i class="ion-location">
-            </i> {{ atendimento?.endereco?.rua + " - " + atendimento?.endereco?.bairro +", "+ atendimento?.endereco?.cidade +"
+            </i> {{ atendimento?.endereco?.rua + ", " + atendimento?.endereco?.numero + " - " +atendimento?.endereco?.bairro +", "+ atendimento?.endereco?.cidade +"
             - "+ atendimento?.endereco?.cep }}
           </p>
           <p class="pull-right"><small><strong>Criado por:</strong> {{atendimento?.createdBy | uppercase}} </small></p>

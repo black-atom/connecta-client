@@ -74,7 +74,7 @@
 
               <div class="col-md-6">
                 <div class="coutendo p-2">
-                    <p *ngIf="atendimentoSelecionado?.valor" style="color: blue"><strong>Valor:</strong> {{ atendimentoSelecionado?.valor }}</p>
+                    <p *ngIf="atendimentoSelecionado?.valor" style="color: blue"><strong style="color: #2C2C2C">Valor:</strong> {{ atendimentoSelecionado?.valor }}</p>
                     <p *ngIf="atendimentoSelecionado?.observacao"><strong>Observação:</strong> {{ atendimentoSelecionado?.observacao }}</p>
                     <p>
                       <strong>Estacionamento:</strong>
@@ -86,7 +86,7 @@
                         {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
                       </span>
                     </p>
-                    <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy }} {{ atendimentoSelecionado?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+                    <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy | uppercase }} {{ atendimentoSelecionado?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
 
                 </div>
               </div>
@@ -105,6 +105,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
+                <th>Aberto Em</th>
                 <th>Data Atendimento</th>
                 <th>Razão Social / Nome</th>
                 <th>Cnpj/CPF</th>
@@ -114,7 +115,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let atendimento of atendimentos | async">
-                <th scope="row">{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }} - {{ atendimento?.createdAt | date: 'HH:mm' }}</th>
+                <th scope="row">{{ atendimento?.createdAt | date: 'dd/MM/yyyy' }} - {{ atendimento?.createdAt | date: 'HH:mm' }}</th>
+                <th>{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</th>
                 <td>{{ atendimento?.cliente?.nome_razao_social }}</td>
                 <td>{{ atendimento?.cliente?.cnpj_cpf }}</td>
                 <td>{{ atendimento?.createdBy | uppercase }}</td>

@@ -90,7 +90,8 @@ export class AssociarComponent implements OnInit {
              this._atendimentoService
                  .updateTodosAtendimentosAssociado(arrayDeAtendimentos);
           }
-      });
+      })
+          .catch(() => {});;
 }
 
 abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {

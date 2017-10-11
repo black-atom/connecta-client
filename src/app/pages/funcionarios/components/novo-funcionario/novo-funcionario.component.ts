@@ -100,12 +100,15 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
   );
 }
 
- podeDesativar() {
+podeDesativar() {
   if(this.formFuncionario.touched) {
-    confirm('Deseja sair da página? Todos os dados serão perdidos!')
-   }
-   return true;
- }
+    if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+      return true;
+    } else {
+      return false;
+      }
+  }
+}
 
 sucessoNoCadastro() {
   this._notificacaoService.notificarSucesso(

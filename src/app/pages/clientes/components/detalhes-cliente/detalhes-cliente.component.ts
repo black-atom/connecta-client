@@ -139,9 +139,12 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy, IFormCanDeac
 
   podeDesativar() {
     if(this.formDetalhesCliente.touched) {
-    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+        }
     }
-    return true;
   }
 
 

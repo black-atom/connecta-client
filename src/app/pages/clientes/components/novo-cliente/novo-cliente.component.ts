@@ -108,11 +108,15 @@ export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactiva
     );
 }
 
+
   podeDesativar() {
     if(this.formCliente.touched) {
-    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+        }
     }
-    return true;
   }
 
   sucessoNoCadastro() {

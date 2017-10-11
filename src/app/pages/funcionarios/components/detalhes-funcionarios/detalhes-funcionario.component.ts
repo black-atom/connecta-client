@@ -128,12 +128,16 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
   }
 
 
- podeDesativar() {
+ 
+  podeDesativar() {
   if(this.formEdicaoFuncionario.touched) {
-    confirm('Deseja sair da página? Todos os dados serão perdidos!')
-   }
-   return true;
- }
+    if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+      return true;
+    } else {
+      return false;
+       }
+    }
+  }
 
    sucessoNaEdicao() {
     this._notificacaoService.notificarSucesso(

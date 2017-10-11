@@ -14,6 +14,6 @@ export class FormCanDeactivateGuard implements CanDeactivate<IFormCanDeactivate>
         ): 
         
         Observable<boolean>|Promise<boolean>|boolean {
-            return component.podeDesativar();
+            return component.podeDesativar ? component.podeDesativar() : true;            
     }
 }

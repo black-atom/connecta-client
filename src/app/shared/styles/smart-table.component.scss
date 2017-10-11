@@ -80,7 +80,15 @@
     ng2-smart-table-pager {
       display: flex;
       justify-content: center;
-      }
+    
+      .ng2-smart-pagination-nav {
+        .pagination {
+          .page-link {
+            font-size: 15px;
+           }
+         }
+       }
+     }
     }
   }
 
@@ -101,4 +109,8 @@ button{
   background: black !important;
   background-color: red !important;
   color: red;
+}
+
+.aberto-por {
+  text-align: center;
 }

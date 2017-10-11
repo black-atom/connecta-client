@@ -134,6 +134,8 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   source: LocalDataSource;
   subscription: Subscription;
+  // abertoPelaTecnica: any[] = [];
+  // abertoPeloSuporte: any[] = [];
 
   constructor(private _atendimentoService: AtendimentoService,
               private datePipe: DatePipe,
@@ -142,10 +144,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+   
     this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
       this.source.load(atendimentos);
-      this.source.setSort([{ field: 'data_atendimento', direction: 'desc' }]);
-    });
+      this.source.setSort([{ field: 'createdAt', direction: 'desc' }]);
+
+    })
   }
 
   ngOnDestroy() {

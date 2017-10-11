@@ -1,9 +1,29 @@
 <div class="widgets">
 
-      <div class="row">
-        <ba-card baCardClass="with-scroll" class="smart-table-container">
-          <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
-        </ba-card>
-      </div>
+  <!-- <div class="row">
 
+    <div class="col-md-12">
+      <ba-card>
+        <div class="row">
+
+          <div class="col-md-6 col-xs-12">
+            <h4 class="aberto-por">Aberto pelo suporte: {{ abertoPeloSuporte.length }} <small>atendimentos</small></h4>
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <h4 class="aberto-por">Aberto pela técnica: {{ abertoPelaTecnica.length }} <small>atendimentos</small></h4>
+          </div>
+
+        </div>
+      </ba-card>
     </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll" class="smart-table-container">
+        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+      </ba-card>
+    </div>
+  </div>
+</div>

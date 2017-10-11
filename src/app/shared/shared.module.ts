@@ -1,3 +1,4 @@
+
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,9 @@ import { LoginService } from './services';
 import { AtendimentoService } from './services';
 import { NotificacaoService } from './services';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
+import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
+import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -46,10 +50,19 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     FuncionarioService,
     AtendimentoService,
     NotificacaoService,
+    I18n,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
+    },
+    {
+      provide: NgbDateParserFormatter,
+      useFactory: () => new CustomNgbDateParserFormatter('dd/MM/yyyy')
+    },
+    {
+      provide: NgbDatepickerI18n,
+      useClass: CustomDatepickerI18n
     }
   ],
   exports: [

@@ -145,8 +145,8 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy, IFormCanDeac
         return false;
         }
     }
+      return true;
   }
-
 
   notificarSucesso() {
     this._notificacaoService.notificarSucesso(

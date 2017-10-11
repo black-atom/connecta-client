@@ -108,6 +108,7 @@ podeDesativar() {
       return false;
       }
   }
+    return true;
 }
 
 sucessoNoCadastro() {

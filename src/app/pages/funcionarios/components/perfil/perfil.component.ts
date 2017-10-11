@@ -133,6 +133,7 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
         return false;
         }
     }
+      return true;
   }
   
    sucessoNaEdicao() {

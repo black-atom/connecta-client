@@ -156,13 +156,14 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   
   podeDesativar() {
     if(this.formAtendimento.touched) {
-    if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+        }
+    }
       return true;
-    } else {
-      return false;
-      }
   }
-}
 
   notificarSucesso() {
     this._notificacaoService.notificarSucesso('Cadastro efetuado com sucesso!', '');

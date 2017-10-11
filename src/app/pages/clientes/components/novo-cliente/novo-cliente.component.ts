@@ -117,6 +117,7 @@ export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactiva
         return false;
         }
     }
+      return true;
   }
 
   sucessoNoCadastro() {

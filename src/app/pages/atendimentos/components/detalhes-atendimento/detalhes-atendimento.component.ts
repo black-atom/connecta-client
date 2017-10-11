@@ -266,12 +266,14 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 podeDesativar() {
   if(this.formEdicaoAtendimento.touched) {
     if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
-    return true;
-  } else {
-    return false;
-    }
+      return true;
+    } else {
+      return false;
+      }
   }
+    return true;
 }
+
 
   sucessoNaEdicao() {
   this._notificacaoService.notificarSucesso(

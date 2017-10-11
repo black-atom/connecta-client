@@ -74,6 +74,7 @@
 
               <div class="col-md-6">
                 <div class="coutendo p-2">
+                    <p *ngIf="atendimentoSelecionado?.valor" style="color: blue"><strong>Valor:</strong> {{ atendimentoSelecionado?.valor }}</p>
                     <p *ngIf="atendimentoSelecionado?.observacao"><strong>Observação:</strong> {{ atendimentoSelecionado?.observacao }}</p>
                     <p>
                       <strong>Estacionamento:</strong>
@@ -82,10 +83,10 @@
                     <p>
                     <p><strong>Aberto por: </strong>
                       <span style="text-transform: capitalize">
-                        {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'HH:mm' }}
+                        {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
                       </span>
                     </p>
-                    <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy }} {{ atendimentoSelecionado?.updatedAt | date: 'HH:mm' }}</p>
+                    <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy }} {{ atendimentoSelecionado?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
 
                 </div>
               </div>

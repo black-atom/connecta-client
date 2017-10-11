@@ -28,6 +28,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   }), http, options);
 }
 
+export function formatacaoDaData () {
+  return new CustomNgbDateParserFormatter('dd/MM/yyyy');
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -58,7 +62,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     },
     {
       provide: NgbDateParserFormatter,
-      useFactory: () => new CustomNgbDateParserFormatter('dd/MM/yyyy')
+      useFactory: formatacaoDaData
     },
     {
       provide: NgbDatepickerI18n,

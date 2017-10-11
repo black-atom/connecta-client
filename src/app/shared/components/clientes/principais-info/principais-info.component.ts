@@ -21,6 +21,8 @@ export class PrincipaisInfoComponent implements OnInit {
   @Output()
   enviaCnpj = new EventEmitter();
 
+  formMudou: boolean = false;
+
   constructor(private _fb: FormBuilder,
               private _clienteService: ClienteService) { }
 
@@ -42,5 +44,10 @@ export class PrincipaisInfoComponent implements OnInit {
   emiteEventoCnpj(cnpj) {
     const removerCaracteres = cnpj.replace(/\D+/g, '');
     this.enviaCnpj.emit(removerCaracteres);
+  }
+
+  onInput(input) {
+     this.formMudou = true;
+     console.log('mudou');
   }
 }

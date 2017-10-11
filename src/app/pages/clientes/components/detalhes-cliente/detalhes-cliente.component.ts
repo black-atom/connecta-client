@@ -9,13 +9,14 @@ import { formEnderecoControls } from './../../../../shared/components/endereco';
 import { formContatoControls } from './../../../../shared/components/contato';
 import { NotificationsService } from 'angular2-notifications';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 @Component({
   selector: 'app-detalhes-cliente',
   templateUrl: './detalhes-cliente.component.html',
   styleUrls: ['./detalhes-cliente.component.scss']
 })
-export class DetalhesClienteComponent implements OnInit, OnDestroy {
+export class DetalhesClienteComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
   private cliente: Cliente;
@@ -134,6 +135,13 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy {
   adicionarEndereco() {
     const enderecos: FormArray = <FormArray> this.formDetalhesCliente.get('enderecos');
     enderecos.push(this._fb.group(formEnderecoControls));
+  }
+
+  podeDesativar() {
+    if(this.formDetalhesCliente.touched) {
+    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+    }
+    return true;
   }
 
 

@@ -1,3 +1,4 @@
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -22,7 +23,8 @@ import { routing } from './clientes.routing';
     FormsModule
   ],
   providers: [
-    SharedModule
+    SharedModule,
+    FormCanDeactivateGuard
   ],
   entryComponents: [
     BtnDetalhesCliComponent

@@ -5,16 +5,17 @@ import { NovoFuncionarioComponent } from './components/novo-funcionario';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
 import { DetalhesFuncionarioComponent } from './components/detalhes-funcionarios';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: FuncionariosComponent,
     children: [
-      { path: 'novo', component: NovoFuncionarioComponent },
-      { path: 'detalhes/:id', component: DetalhesFuncionarioComponent },
+      { path: 'novo', component: NovoFuncionarioComponent,  canDeactivate: [FormCanDeactivateGuard] },
+      { path: 'detalhes/:id', component: DetalhesFuncionarioComponent,  canDeactivate: [FormCanDeactivateGuard] },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'perfil', component: PerfilComponent }
+      { path: 'perfil', component: PerfilComponent, canDeactivate: [FormCanDeactivateGuard] }
     ]
   }
 ];

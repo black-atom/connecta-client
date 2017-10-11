@@ -16,6 +16,7 @@ import { PrincipaisInformacoesComponent } from './components/shared-components/p
 import { LoginFuncionarioComponent } from './components/shared-components/login-funcionario/';
 import { routing } from './funcionarios.routing';
 import { PerfilComponent } from './components/perfil';
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { PerfilComponent } from './components/perfil';
     BtnDetalhesTecComponent
   ],
   providers: [
-    SharedModule
+    SharedModule,
+    FormCanDeactivateGuard
    ],
    exports: [
     PrincipaisInformacoesComponent,

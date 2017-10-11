@@ -8,6 +8,7 @@ import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { TextMaskModule } from 'angular2-text-mask';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { LightboxModule } from 'angular2-lightbox';
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
@@ -55,7 +56,8 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
   ],
   providers: [
     SharedModule,
-    DatePipe
+    DatePipe,
+    FormCanDeactivateGuard
   ]
 })
 export class AtendimentosModule { }

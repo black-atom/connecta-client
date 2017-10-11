@@ -12,6 +12,7 @@ import { DadosEndereco } from './../../../../models';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.mock';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.
   templateUrl: './detalhes-atendimento.component.html',
   styleUrls: ['./detalhes-atendimento.component.scss']
 })
-export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
+export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   public formEdicaoAtendimento: FormGroup;
   private subscription: Subscription;
@@ -261,6 +262,14 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy {
     }
     }
 }
+
+  podeDesativar() {
+    if(this.formEdicaoAtendimento.touched) {
+      confirm('Deseja sair da página? Todos os dados serão perdidos!')
+     }
+     return true;
+  }
+
 
   sucessoNaEdicao() {
   this._notificacaoService.notificarSucesso(

@@ -8,6 +8,7 @@ import { formContatoControls } from './../../../../shared/components/contato';
 import { formEnderecoControls } from './../../../../shared/components/endereco';
 import { NotificacaoService } from '../../../../shared/services';
 import { Router } from '@angular/router';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './novo-cliente.component.html',
   styleUrls: ['./novo-cliente.component.scss']
 })
-export class NovoClienteComponent implements OnInit, OnDestroy {
+export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
   public formCliente: FormGroup;
@@ -107,6 +108,12 @@ export class NovoClienteComponent implements OnInit, OnDestroy {
     );
 }
 
+  podeDesativar() {
+    if(this.formCliente.touched) {
+    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+    }
+    return true;
+  }
 
   sucessoNoCadastro() {
     this._notificacaoService.notificarSucesso(

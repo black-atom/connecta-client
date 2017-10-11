@@ -1,3 +1,4 @@
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClientesComponent } from './clientes.component';
@@ -10,9 +11,9 @@ const routes: Routes = [
     path: '',
     component: ClientesComponent,
     children: [
-      { path: 'novo', component: NovoClienteComponent },
+      { path: 'novo', component: NovoClienteComponent , canDeactivate: [FormCanDeactivateGuard] },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'detalhes/:id', component: DetalhesClienteComponent }
+      { path: 'detalhes/:id', component: DetalhesClienteComponent, canDeactivate: [FormCanDeactivateGuard] }
     ]
   }
 ];

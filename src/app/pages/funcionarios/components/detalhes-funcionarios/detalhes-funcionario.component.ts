@@ -8,13 +8,14 @@ import { Funcionario } from './../../../../models';
 import { FuncionarioService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 @Component({
   selector: 'app-detalhes-funcionario',
   templateUrl: './detalhes-funcionario.component.html',
   styleUrls: ['./detalhes-funcionario.component.scss']
 })
-export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
+export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
   public formEdicaoFuncionario: FormGroup;
@@ -125,6 +126,14 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy {
         );
 
   }
+
+
+ podeDesativar() {
+  if(this.formEdicaoFuncionario.touched) {
+    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+   }
+   return true;
+ }
 
    sucessoNaEdicao() {
     this._notificacaoService.notificarSucesso(

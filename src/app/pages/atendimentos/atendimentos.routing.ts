@@ -7,6 +7,7 @@ import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { AberturaChamadosComponent } from './components/abertura-chamados/abertura-chamados.component';
+import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 
 
 const routes: Routes = [
@@ -14,10 +15,10 @@ const routes: Routes = [
     path: '',
     component: AtendimentosComponent,
     children: [
-      { path: 'novo', component: NovoAtendimentoComponent },
+      { path: 'novo', component: NovoAtendimentoComponent,  canDeactivate: [FormCanDeactivateGuard] },
       { path: 'associar', component: AssociarComponent },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'detalhes/:id', component: DetalhesAtendimentoComponent },
+      { path: 'detalhes/:id', component: DetalhesAtendimentoComponent,  canDeactivate: [FormCanDeactivateGuard] },
       { path: 'dados-app/:id', component: DadosInteracaoAppComponent },
       { path: 'abertura-chamado', component: AberturaChamadosComponent }
     ]

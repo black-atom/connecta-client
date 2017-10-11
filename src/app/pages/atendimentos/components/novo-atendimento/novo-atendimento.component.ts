@@ -6,6 +6,7 @@ import { Atendimento } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
 
@@ -15,7 +16,7 @@ import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
   styleUrls: ['./novo-atendimento.component.scss']
 })
 
-export class NovoAtendimentoComponent implements OnInit, OnDestroy {
+export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
   public clienteEncontrado;
@@ -152,6 +153,12 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy {
       }
   }
 
+  podeDesativar() {
+    if(this.formAtendimento.touched) {
+      confirm('Deseja sair da página? Todos os dados serão perdidos!')
+     }
+     return true;
+  }
 
   notificarSucesso() {
     this._notificacaoService.notificarSucesso('Cadastro efetuado com sucesso!', '');

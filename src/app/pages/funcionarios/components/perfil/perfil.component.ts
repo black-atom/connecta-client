@@ -11,13 +11,14 @@ import { FuncionarioService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { JwtHelper } from 'angular2-jwt';
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss']
 })
-export class PerfilComponent implements OnInit {
+export class PerfilComponent implements OnInit, IFormCanDeactivate {
 
   private subscription: Subscription;
   public formEdicaoFuncionario: FormGroup;
@@ -124,6 +125,13 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  podeDesativar() {
+    if(this.formEdicaoFuncionario.touched) {
+      confirm('Deseja sair da página? Todos os dados serão perdidos!')
+     }
+     return true;
+   }
+  
    sucessoNaEdicao() {
     this._notificacaoService.notificarSucesso(
       'Edição efetuada com sucesso!',

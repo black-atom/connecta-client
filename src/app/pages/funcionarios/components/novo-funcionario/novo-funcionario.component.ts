@@ -7,14 +7,14 @@ import { DadosEndereco } from './../../../../models';
 import { CepService } from './../../../../shared/services';
 import { FuncionarioService } from './../../../../shared/services';
 import { Funcionario } from './../../../../models';
-
+import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 @Component({
   selector: 'app-novo-funcionario',
   templateUrl: './novo-funcionario.component.html',
   styleUrls: ['./novo-funcionario.component.scss']
 })
-export class NovoFuncionarioComponent implements OnInit, OnDestroy {
+export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
   public formFuncionario: FormGroup;
@@ -99,6 +99,13 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy {
     }
   );
 }
+
+ podeDesativar() {
+  if(this.formFuncionario.touched) {
+    confirm('Deseja sair da página? Todos os dados serão perdidos!')
+   }
+   return true;
+ }
 
 sucessoNoCadastro() {
   this._notificacaoService.notificarSucesso(

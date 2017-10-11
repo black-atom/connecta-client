@@ -67,7 +67,7 @@ export class AtendimentoService {
       this.dataStore.atendimentos = res.filter(atendimento => {
         const busca = atendimento.data_atendimento === data.toJSON();
         if (busca) {
-          if (!atendimento.tecnico.nome) {
+          if (!atendimento.tecnico.nome && atendimento.situacao.status !== 'cancelar') {
             if (atendimento.cliente.cnpj_cpf.length === 14) {
               // 00.000.000/0000-00
               const cnpj = atendimento.cliente.cnpj_cpf;

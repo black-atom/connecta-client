@@ -25,4 +25,9 @@ export class LoginService {
     return tokenNotExpired();
   }
 
+
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
 }

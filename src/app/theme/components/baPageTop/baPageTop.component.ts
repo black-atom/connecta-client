@@ -1,3 +1,4 @@
+import { LoginService } from './../../../shared/services/login-service/login.service';
 import {Component} from '@angular/core';
 
 import {GlobalState} from '../../../global.state';
@@ -12,7 +13,7 @@ export class BaPageTop {
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState) {
+  constructor(public loginService: LoginService, private _state:GlobalState) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });

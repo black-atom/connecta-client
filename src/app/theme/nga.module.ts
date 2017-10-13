@@ -1,3 +1,4 @@
+import { LoginService } from './../shared/services/login-service/login.service';
 import { NgModule, ModuleWithProviders }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -118,6 +119,9 @@ const NGA_VALIDATORS = [
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
     ...NGA_COMPONENTS
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class NgaModule {

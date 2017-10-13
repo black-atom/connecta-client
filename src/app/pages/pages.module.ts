@@ -1,3 +1,4 @@
+import { LoginService } from './../shared/services/login-service/login.service';
 import { LoggedGuardService } from './../shared/guards/logged-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,7 @@ import { Pages } from './pages.component';
   ],
   providers: [
     LoggedGuardService
+
   ],
   declarations: [Pages]
 })

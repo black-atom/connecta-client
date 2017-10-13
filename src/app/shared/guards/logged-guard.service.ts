@@ -26,5 +26,4 @@ export class LoggedGuardService implements CanActivate {
     }
   }
 
-
 }

@@ -3,23 +3,24 @@ import { DatePipe } from '@angular/common';
 
 export class CustomNgbDateParserFormatter extends NgbDateParserFormatter {
     datePipe = new DatePipe('pt-BR');
-    
+
 	constructor(
 		private dateFormatString: string) {
 		super();
     }
-    
+
 	format(date: NgbDateStruct): string {
 		if (date === null) {
 			return '';
 		}
 		try {
-			return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), this.dateFormatString);
+      //return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), this.dateFormatString);
+      return date.day +"/"+(date.month)+"/"+date.year
 		} catch (e) {
 			return '';
 		}
     }
-    
+
 	parse(value: string): NgbDateStruct {
 		let returnVal: NgbDateStruct;
 		if (!value) {

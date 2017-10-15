@@ -95,7 +95,7 @@
     "ngx-uploader": "2.2.5",
     "normalize.css": "6.0.0",
     "roboto-fontface": "0.7.0",
-    "rxjs": "5.4.0",
+    "rxjs": "5.4.3",
     "zone.js": "0.8.11"
   },
   "devDependencies": {
@@ -127,7 +127,7 @@
     "tslint": "5.2.0",
     "tslint-eslint-rules": "4.0.0",
     "tslint-language-service": "0.9.6",
-    "typescript": "2.3.2",
+    "typescript": "2.3",
     "typogr": "0.6.6",
     "underscore": "1.8.3",
     "wintersmith": "2.2.5",

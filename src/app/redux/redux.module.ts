@@ -1,18 +1,27 @@
+import { reducers } from './index';
 import { SharedModule } from '../shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoginEffects } from './../pages/login/redux/loging.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { reducer } from './';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({ keys: ['login'], rehydrate: true })(reducer);
+}
+const metaReducers: [MetaReducer<any, any>] = [localStorageSyncReducer];
 
 @NgModule({
   imports: [
-    EffectsModule.run(LoginEffects),
-    StoreModule.provideStore(reducer),
-    StoreDevtoolsModule.instrumentOnlyWithExtension({
-      maxAge: 5
+    EffectsModule.forRoot([LoginEffects]),
+    StoreModule.forRoot(
+      reducers,
+      { metaReducers }
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
     }),
     SharedModule
   ]

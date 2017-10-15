@@ -1,7 +1,9 @@
-import { LoginService } from './../../../shared/services/login-service/login.service';
-import {Component} from '@angular/core';
+import { LoginActions } from './../../../pages/login/redux/login.actions';
+import { AppState } from './../../../redux/index';
+import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
 
-import {GlobalState} from '../../../global.state';
+import { GlobalState } from '../../../global.state';
 
 @Component({
   selector: 'ba-page-top',
@@ -10,10 +12,10 @@ import {GlobalState} from '../../../global.state';
 })
 export class BaPageTop {
 
-  public isScrolled:boolean = false;
-  public isMenuCollapsed:boolean = false;
+  public isScrolled: boolean = false;
+  public isMenuCollapsed: boolean = false;
 
-  constructor(public loginService: LoginService, private _state:GlobalState) {
+  constructor(public store: Store<AppState>, private _state: GlobalState) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
@@ -25,6 +27,9 @@ export class BaPageTop {
     return false;
   }
 
+  public logout() {
+    this.store.dispatch({ type: LoginActions.LOGOUT });
+  }
   public scrolledChanged(isScrolled) {
     this.isScrolled = isScrolled;
   }

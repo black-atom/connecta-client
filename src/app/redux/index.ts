@@ -9,10 +9,3 @@ export interface AppState {
 export const reducers = {
     login: loginReducer
 };
-
-const productionReducer: ActionReducer<any> = combineReducers(reducers);
-
-export function reducer(state: any, action: Action) {
-    return productionReducer(state, action);
-}
-

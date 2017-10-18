@@ -65,6 +65,11 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         return 'reagendamento';
       } else if (row.data.situacao.status === 'cancelar') {
         return 'cancelado';
+
+        /* esse filtro precisa ser aplicado para o tipo do login do usuario
+         * caso for técnica receberá essa classe
+         * implementação atual provisória
+        */
       } else if (row.data.tipo === 'Aberto por técnica') {
         return 'aberto-por-tecnica ';
       }
@@ -107,6 +112,10 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         valuePrepareFunction: (coluna, linha) => {
           return linha.tecnico.nome.split(' ')[0];
        }
+      },
+      tipo: {
+        title: 'Tipo',
+        type: 'string'
       },
       createdBy: {
         title: 'Criado por',

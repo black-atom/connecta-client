@@ -3,16 +3,17 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SharedModule } from './../../shared/shared.module';
+import { ModuloCompartilhado } from './../../shared/shared.module';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { TextMaskModule } from 'angular2-text-mask';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { LightboxModule } from 'angular2-lightbox';
 import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
+import { DataTableModule,SharedModule, ButtonModule } from 'primeng/primeng';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
-import { GerenciarComponent, BtnDetalhesAtdComponent } from './components/gerenciar';
+import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento';
 import { AssociarComponent } from './components/associar/';
 import { AtendimentosDisponiveisComponent } from './components/associar/atendimentos-disponiveis/';
@@ -30,20 +31,21 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
+    ModuloCompartilhado,
     NgxErrorsModule,
     Ng2SmartTableModule,
     TextMaskModule,
     LightboxModule,
+    DataTableModule,
+    SharedModule,
+    ButtonModule,
     routing
   ],
   entryComponents: [
-    AtendimentosDisponiveisComponent,
-    BtnDetalhesAtdComponent
+    AtendimentosDisponiveisComponent
   ],
   declarations: [
     AtendimentosComponent,
-    BtnDetalhesAtdComponent,
     NovoAtendimentoComponent,
     GerenciarComponent,
     DetalhesAtendimentoComponent,
@@ -55,7 +57,7 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
     AberturaChamadosComponent
   ],
   providers: [
-    SharedModule,
+    ModuloCompartilhado,
     DatePipe,
     FormCanDeactivateGuard
   ]

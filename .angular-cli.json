@@ -31,6 +31,8 @@
         "../node_modules/ng2-slim-loading-bar/style.css",
         "../node_modules/dragula/dist/dragula.css",
         "../node_modules/angular2-lightbox/lightbox.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
         "app/theme/theme.scss",
         "styles.scss"
       ],
@@ -74,9 +76,6 @@
   "defaults": {
     "styleExt": "scss",
     "component": {
-    },
-    "build": {
-      "showCircularDependencies": false
     }
   }
 }

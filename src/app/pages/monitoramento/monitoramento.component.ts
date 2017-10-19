@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { AnonymousSubscription } from 'rxjs/Subscription';
-
 import { AtendimentoService } from './../../shared/services';
 import { Funcionario } from './../../models';
 

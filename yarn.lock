@@ -2056,6 +2056,10 @@ dom-serializer@0:
     domelementtype "~1.1.1"
     entities "~1.1.1"
 
+dom7@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.0.1.tgz#a8a2c802cf17c20b051d9414143061472201a233"
+
 domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
@@ -4719,6 +4723,12 @@ ngrx-store-localstorage@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-0.2.3.tgz#3b90d70d7abeb1e60ed24935224564a1126d7a69"
 
+ngx-swiper-wrapper@^4.6.6:
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/ngx-swiper-wrapper/-/ngx-swiper-wrapper-4.6.6.tgz#51d6da9edfd73b870ee548e703ca985aad3f2804"
+  dependencies:
+    swiper "^3.0.0"
+
 ngx-uploader@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/ngx-uploader/-/ngx-uploader-2.2.5.tgz#e25826cc005892f2795bff729d4282a1b0d28c0b"
@@ -7121,6 +7131,16 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+swiper@^3.0.0:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-3.4.2.tgz#39d6b410b1a39833e1f72d3b72999df5f5e38392"
+
+swiper@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.0.2.tgz#105947316e253971496f7420d3f56cb146a7c648"
+  dependencies:
+    dom7 "^2.0.1"
 
 symbol-observable@^1.0.1:
   version "1.0.4"

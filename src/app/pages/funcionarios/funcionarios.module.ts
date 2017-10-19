@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SharedModule } from './../../shared/shared.module';
+import { ModuloCompartilhado } from './../../shared/shared.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
@@ -25,7 +25,7 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
      Ng2SmartTableModule,
      ReactiveFormsModule,
      FormsModule,
-     SharedModule,
+     ModuloCompartilhado,
      TextMaskModule,
      NgxErrorsModule,
      routing
@@ -45,7 +45,7 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
     BtnDetalhesTecComponent
   ],
   providers: [
-    SharedModule,
+    ModuloCompartilhado,
     FormCanDeactivateGuard
    ],
    exports: [

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgaModule } from '../../theme/nga.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SharedModule } from './../../shared/shared.module';
+import { ModuloCompartilhado } from './../../shared/shared.module';
 
 import { ClientesComponent } from './clientes.component';
 import { NovoClienteComponent } from './components/novo-cliente';
@@ -19,11 +19,11 @@ import { routing } from './clientes.routing';
     NgaModule,
     routing,
     ReactiveFormsModule,
-    SharedModule,
+    ModuloCompartilhado,
     FormsModule
   ],
   providers: [
-    SharedModule,
+    ModuloCompartilhado,
     FormCanDeactivateGuard
   ],
   entryComponents: [

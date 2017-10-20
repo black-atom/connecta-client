@@ -17,8 +17,11 @@
   </div>
 
   <h2 class="text-center pb-3">Detalhes do atendimento</h2>
+  <h5 *ngIf="atendimento?.situacao.status === 'cancelar'" class="text-danger text-center">Este atendimento foi cancelado</h5>
+  <h5 *ngIf="atendimento?.situacao.status === 'reagendar'" class="text-center" style="color: rgb(0, 161, 48)">Este atendimento foi reagendado</h5>
+  <h5 *ngIf="atendimento?.situacao.motivo" class="text-center">Motivo:<span style="text-transform: lowercase"> {{atendimento?.situacao.motivo}}</span></h5>
 
-  <div class="informacao_cliente col-12">
+  <div class="informacao_cliente col-12 mt-3">
 
     <div class="row">
 
@@ -68,7 +71,7 @@
         chegou_ao_destino: atendimento?.estado === 'chegou_ao_destino',
         inicio_atendimento: atendimento?.estado === 'inicio_atendimento',
         fim_do_atendimento: atendimento?.estado === 'fim_do_atendimento'}">
-
+        
         <p *ngIf="atendimento?.estado === 'associado'">STATUS DO ATENDIMENTO</p>
         <p *ngIf="atendimento?.estado === 'em_deslocamento'">STATUS: EM DESLOCAMENTO</p>
         <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">STATUS: CHEGOU AO DESTINO</p>
@@ -83,8 +86,9 @@
 
           <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
-              <p><strong>Criado em:</strong> {{ atendimento?.createdAt | date: 'dd/MM/yy' }}</p>
-              <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy'}}</p>
+              <p><strong>Criado em:</strong> {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+              <p *ngIf="atendimento?.updatedAt"><strong>Alterado em: </strong> <span style="text-transform: capitalize">{{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</span></p>                            
+              <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy' }}</p>
               <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
             </div>
           </div>
@@ -92,6 +96,7 @@
           <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
             <div class="conteudo p-2">
               <p><strong>Aberto por: </strong> <span style="text-transform: capitalize">{{ atendimento?.createdBy }}</span></p>
+              <p *ngIf="atendimento?.updatedBy"><strong>Alterado por: </strong> <span style="text-transform: capitalize">{{ atendimento?.updatedBy }}</span></p>              
               <p><strong>Tipo: </strong> {{ atendimento?.tipo }}</p>
               <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
             </div>

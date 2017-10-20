@@ -1,29 +1,71 @@
-<div class="widgets">
+<p-dataTable 
+[value]="atendimentos" 
+[responsive]="true" 
+[rows]="25" 
+[paginator]="true"
+[pageLinks]="3" 
+[rowsPerPageOptions]="[5,10,25]"
+[rowStyleClass]="mudarEstiloDasLinhas" 
+ sortField="createdAt" 
+[sortOrder]="-1">
 
-  <!-- <div class="row">
+  <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.data_atendimento | date: 'dd/MM/yyyy'}}
+    </ng-template>
+  </p-column>
 
-    <div class="col-md-12">
-      <ba-card>
-        <div class="row">
+  <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [sortable]="true" [filter]="true" [style]="{'width':'150px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.cliente.nome_razao_social }}
+    </ng-template>
+  </p-column>
 
-          <div class="col-md-6 col-xs-12">
-            <h4 class="aberto-por">Aberto pelo suporte: {{ abertoPeloSuporte.length }} <small>atendimentos</small></h4>
-          </div>
+  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.cliente.cnpj_cpf | rgCnpjCpf }}
+    </ng-template>
+  </p-column>
 
-          <div class="col-md-6 col-xs-12">
-            <h4 class="aberto-por">Aberto pela técnica: {{ abertoPelaTecnica.length }} <small>atendimentos</small></h4>
-          </div>
+  <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'70px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.tecnico.nome | split: 0 }}
+    </ng-template>
+  </p-column>
 
-        </div>
-      </ba-card>
-    </div>
-  </div> -->
 
-  <div class="row">
-    <div class="col-md-12">
-      <ba-card baCardClass="with-scroll" class="smart-table-container">
-        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
-      </ba-card>
-    </div>
-  </div>
-</div>
+  <p-column field="tipo" header="Tipo" [sortable]="true" [filter]="true" [style]="{'width':'150px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.tipo | uppercase }}
+    </ng-template>
+  </p-column>
+
+  <p-column field="createdBy" header="Criado por" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.createdBy | split: 0 | uppercase }}
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'27px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+     <span *ngIf="atendimento.imagens.length  > 0"><i class="fa fa-camera" style="color: rgb(44, 44, 44)"></i></span>
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'30px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/atendimentos/detalhes/{{ atendimento._id }}"></button>
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'30px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      <button type="button" class="detalhes" pButton icon="fa-eye" routerLink="/pages/atendimentos/dados-app/{{ atendimento._id }}"></button>
+    </ng-template>
+  </p-column>
+
+  <ng-template pTemplate="emptymessage">
+    Nenhum atendimento encontrado
+  </ng-template>
+
+</p-dataTable>

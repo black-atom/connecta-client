@@ -21,6 +21,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
 import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
 import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -40,13 +41,15 @@ export function formatacaoDaData () {
     NgaModule,
     SimpleNotificationsModule,
     TextMaskModule,
-    NgxErrorsModule
+    NgxErrorsModule,
+    DataTableModule,
+    SharedModule
   ],
   declarations: [
     EnderecoComponent,
     ContatoComponent,
     PrincipaisInfoComponent
-],
+  ],
   providers: [
     CepService,
     LoginService,
@@ -75,4 +78,4 @@ export function formatacaoDaData () {
     PrincipaisInfoComponent
    ]
 })
-export class SharedModule { }
+export class ModuloCompartilhado { }

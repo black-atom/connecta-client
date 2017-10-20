@@ -6,10 +6,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModuloCompartilhado } from './../../shared/shared.module';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { TextMaskModule } from 'angular2-text-mask';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { LightboxModule } from 'angular2-lightbox';
 import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
-import { DataTableModule,SharedModule, ButtonModule } from 'primeng/primeng';
 
 import { AtendimentosComponent } from './atendimentos.component';
 import { NovoAtendimentoComponent } from './components/novo-atendimento';
@@ -33,12 +31,11 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
     FormsModule,
     ModuloCompartilhado,
     NgxErrorsModule,
-    Ng2SmartTableModule,
     TextMaskModule,
     LightboxModule,
-    DataTableModule,
-    SharedModule,
-    ButtonModule,
+    // DataTableModule,
+    // SharedModule,
+    // ButtonModule,
     routing
   ],
   entryComponents: [

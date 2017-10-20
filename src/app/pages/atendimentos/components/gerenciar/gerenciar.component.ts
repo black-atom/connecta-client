@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { AtendimentoService } from './../../../../shared/services';
@@ -7,17 +7,16 @@ import { Atendimento } from './../../../../models/atendimento.interface';
 @Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html'
-  // styleUrls: ['./gerenciar.component.scss']
 })
 export class GerenciarComponent implements OnInit {
     
-    atendimentos: Atendimento[] = [];
+  subscription: Subscription;
+    atendimentos: Atendimento[];
   
     constructor(private _atendimentoService: AtendimentoService) {}
   
     ngOnInit() {
-      
-      this._atendimentoService.retornarTodos().subscribe(atendimentos => {
+      this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
        this.atendimentos = atendimentos
       })  
     }
@@ -30,6 +29,10 @@ export class GerenciarComponent implements OnInit {
 
     irParaEdicao(atendimento: Atendimento) {
       console.log(atendimento);
+    }
+
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
     }
   }
   

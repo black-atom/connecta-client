@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import './app/theme/sass/conf/conf.scss';
 
 .btn {
@@ -30,13 +31,23 @@ span {
 
 .cancelado {
   background: #FF2A2A !important;
+  color: white !important;
+}
 
-  ng2-smart-table-cell {
-    color: white !important;
-  }
+.reagendamento {
+  background: #26FB66;
+}
+
+.cancelado {
+  background: #FF2A2A;
+  color: white;
 }
 
 .aberto-por-tecnica {
-  background: rgb(252, 255, 58) !important;
+  background: rgb(252, 255, 58);
 }
 
+.ui-button.detalhes {
+  background-color: #1B42B0;
+  border: 1px solid blue;
+}

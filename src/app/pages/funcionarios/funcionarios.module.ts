@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModuloCompartilhado } from './../../shared/shared.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 import { FuncionariosComponent } from './funcionarios.component';
-import { GerenciarComponent, BtnDetalhesTecComponent } from './components/gerenciar';
+import { GerenciarComponent } from './components/gerenciar';
 import { NovoFuncionarioComponent } from './components/novo-funcionario';
 import { DetalhesFuncionarioComponent } from './components/detalhes-funcionarios';
 import { HabilitacaoComponent } from './components/shared-components/habilitacao';
@@ -22,7 +21,6 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
   imports: [
      CommonModule,
      NgaModule,
-     Ng2SmartTableModule,
      ReactiveFormsModule,
      FormsModule,
      ModuloCompartilhado,
@@ -37,12 +35,8 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
     DetalhesFuncionarioComponent,
     PrincipaisInformacoesComponent,
     HabilitacaoComponent,
-    BtnDetalhesTecComponent,
     LoginFuncionarioComponent,
     PerfilComponent
-  ],
-  entryComponents: [
-    BtnDetalhesTecComponent
   ],
   providers: [
     ModuloCompartilhado,

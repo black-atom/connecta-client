@@ -24,6 +24,10 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     });
   }
 
+  mudarEstiloLinha(dadosLinha: Funcionario) {
+    return 'padrao';
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

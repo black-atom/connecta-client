@@ -51,7 +51,7 @@ span {
 
 .ui-datatable {
   input {
-    border: 1px solid #878889;
+    border: 1px solid rgba(184, 184, 184, 0.5);
     border-radius: 03px;
     height: 30px;
   }
@@ -64,22 +64,38 @@ span {
         color: #fff;
     }
   }
-  .ui-datatable-thead>td {
-    background: red !important;
-    background-color: red !important;
-  }
   .ui-datatable-emptymessage	{
     text-align: center;
+    color: #0093D7;
   }
   .ui-column-title {
     text-transform: uppercase;
-    color: #212121;
+    color: #737474;
     font-weight: bold;
   }
   .ui-paginator {
     background: #fff;
-    .ui-button {
-      background: red;
+    border: none;
+    .ui-corner-all {
+      border: 1px solid rgba(184, 184, 184, 0.5);
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border-radius: 4px;
+      &:hover {
+        background: none !important;
+        border: 1px solid #0093D7 !important;
+        color: #707070 !important;
+      }
+    }
+    .ui-state-active {
+      background: #0093D7;
+      border: 1px solid #0093D7;
+    }
+    .ui-widget {
+      width: 50px;
+      height: 30px;
+      border-radius:4px;
     }
   }
   .ui-cell-data {
@@ -88,7 +104,7 @@ span {
   }
   .ui-column-filter	{
     text-align: center;
-    color: grey;
+    color: #737474;
   }
 }
 

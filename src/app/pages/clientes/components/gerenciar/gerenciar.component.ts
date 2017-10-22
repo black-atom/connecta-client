@@ -1,8 +1,8 @@
-import { Cliente } from './../../../../models/cliente.interface';
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { ClienteService } from './../../../../shared/services';
+import { Cliente } from './../../../../models/cliente.interface';
 
 @Component({
   selector: 'app-gerenciar',
@@ -24,11 +24,11 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  mudarEstiloLinha(dadosLinha: Cliente) {
+    return 'padrao';
   }
 
-  teste(c) {
-    console.log(c)
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

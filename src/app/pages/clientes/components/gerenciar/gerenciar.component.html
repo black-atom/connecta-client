@@ -4,8 +4,11 @@
 [rows]="25" 
 [paginator]="true" 
 [pageLinks]="5" 
+[rowStyleClass]="mudarEstiloLinha"
 [rowsPerPageOptions]="[5,10,25]"
 [loading]="carregando"
+ loadingIcon="ion-load-a"
+ rowHover="true"
  styleClass="borderless">
 
   <p-column field="nome_razao_social" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">

@@ -8,7 +8,9 @@
 [rowStyleClass]="mudarEstiloLinha" 
  sortField="createdAt" styleClass="borderless"
 [sortOrder]="-1" 
-[loading]="carregando">
+[loading]="carregando"
+ loadingIcon="ion-load-a"
+ rowHover="true">
 
   <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">

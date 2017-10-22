@@ -74,7 +74,11 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         title: 'Data',
         type: 'string',
         valuePrepareFunction: (date) => {
-          const data = new Date(date);
+          const dataFromServer = new Date(date);
+          const data = new Date();
+          data.setDate(dataFromServer.getDate());
+          data.setFullYear(dataFromServer.getFullYear());
+          data.setMonth(dataFromServer.getMonth());
           const novaData = new DatePipe('pt-BR').transform(data, 'dd/MM/yyyy');
 
           return novaData;
@@ -144,7 +148,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   
+
     this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
       this.source.load(atendimentos);
       this.source.setSort([{ field: 'createdAt', direction: 'desc' }]);

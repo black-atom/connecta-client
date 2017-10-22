@@ -33,6 +33,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
     mudarEstiloLinha(dadosLinha: Atendimento) {
 
+
       if(dadosLinha.tipo === 'Aberto por técnica') {
         return 'aberto-por-tecnica'
       }
@@ -51,10 +52,10 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   }
 
-    abrirModal(atendimentoSelecionado) {
+  abrirModal(atendimentoSelecionado) {
       const referenciaModal = this._servicoModal.open(VisualizacaoModalComponent, this.opcoesModal);
       referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
-    }
+  }
 
     ngOnDestroy() {
       this.subscription.unsubscribe();

@@ -1,133 +1,133 @@
 <div class="row">
-
-    <div class="col-md-12 col-sm-12 col-lg-12">
-        <ba-card cardTitle="Dados Atendimentos">
-
-
-
-            <div class="row">
-                <div class="col-md-2 col-sm-2 col-lg-2">
-                  <label for="param_busca">Pesquisar por data</label>
-                  <div class="input-group">
-                    <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="model" (ngModelChange)="listaAtendimentoData()"
-                      id="param_busca">
-                    <button class="input-group-addon" (click)="d.toggle()" type="button">
-                      <i class="ion-calendar"></i>
-                    </button>
+  
+      <div class="col-md-12 col-sm-12 col-lg-12">
+          <ba-card cardTitle="Dados do atendimento">
+            
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-lg-2">
+                    <label for="param_busca">Pesquisar por data</label>
+                    <div class="input-group">
+                      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="model" (ngModelChange)="listaAtendimentoData()"
+                        id="param_busca">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <i class="ion-calendar"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-
-          <div>
-            <h6>Informações do cliente</h6>
-
-            <div class="row">
-
-              <div class="col-md-6">
-                  <div class="conteudo p-2">
-                      <p><strong>Cliente:</strong> {{ atendimentoSelecionado?.cliente.nome_razao_social }} </p>
-                      <p *ngIf="atendimentoSelecionado?.cliente.cnpj_cpf.length > 15"><strong>CNPJ:</strong> {{ atendimentoSelecionado?.cliente.cnpj_cpf }} </p>
-                      <p *ngIf="atendimentoSelecionado?.cliente.cnpj_cpf.length < 15"><strong>CPF:</strong> {{ atendimentoSelecionado?.cliente.cnpj_cpf }} </p>
-                      <p *ngIf="atendimentoSelecionado?.cliente.inscricao_estadual"><strong>Inscricao estadual:</strong> {{ atendimentoSelecionado?.cliente.inscricao_estadual }}</p>
-                      <p *ngIf="atendimentoSelecionado?.cliente.nome_fantasia"><strong>Nome fantasia:</strong> {{ atendimentoSelecionado?.cliente.nome_fantasia }}</p>
-
-
-                      <p style="line-height: 20px;">
-                          <strong>Endereço de Atendimento:</strong> {{ atendimentoSelecionado?.endereco.rua }}, {{atendimentoSelecionado?.endereco.numero}},
-                          {{ atendimentoSelecionado?.endereco.bairro}}, {{ atendimentoSelecionado?.endereco.cidade }}, {{ atendimentoSelecionado?.endereco.uf
-                          }} - {{ atendimentoSelecionado?.endereco.cep }}
-                        </p>
+  
+            <div>
+              <h6>Informações do cliente</h6>
+  
+              <div class="row">
+  
+                <div class="col-md-6">
+                    <div class="conteudo p-2">
+                        <p><strong>Cliente:</strong> {{ atendimentoSelecionado?.cliente.nome_razao_social }} </p>
+                        <p *ngIf="atendimentoSelecionado?.cliente.cnpj_cpf.length > 15"><strong>CNPJ:</strong> {{ atendimentoSelecionado?.cliente.cnpj_cpf }} </p>
+                        <p *ngIf="atendimentoSelecionado?.cliente.cnpj_cpf.length < 15"><strong>CPF:</strong> {{ atendimentoSelecionado?.cliente.cnpj_cpf }} </p>
+                        <p *ngIf="atendimentoSelecionado?.cliente.inscricao_estadual"><strong>Inscricao estadual:</strong> {{ atendimentoSelecionado?.cliente.inscricao_estadual }}</p>
+                        <p *ngIf="atendimentoSelecionado?.cliente.nome_fantasia"><strong>Nome fantasia:</strong> {{ atendimentoSelecionado?.cliente.nome_fantasia }}</p>
+  
                         <p style="line-height: 20px;">
-                          <strong>Ponto de Referencia:</strong> {{ atendimentoSelecionado?.endereco.ponto_referencia }} </p>
-
-                  </div>
-
-
-              </div>
-
-
-              <div class="col-md-6">
+                            <strong>Endereço do atendimento:</strong> 
+                            {{ atendimentoSelecionado?.endereco.rua }}, 
+                            {{atendimentoSelecionado?.endereco.numero}},
+                            {{ atendimentoSelecionado?.endereco.bairro}}, 
+                            {{ atendimentoSelecionado?.endereco.cidade }}, 
+                            {{ atendimentoSelecionado?.endereco.uf }} - 
+                            {{ atendimentoSelecionado?.endereco.cep }}
+                        </p>
+  
+                          <p style="line-height: 20px;">
+                            <strong>Ponto de referência:</strong> 
+                            {{ atendimentoSelecionado?.endereco.ponto_referencia }}
+                          </p>
+                    </div>
+                </div>
+  
+  
+                <div class="col-md-6">
+                    <div class="conteudo p-2">
+                        <p><strong>Contato:</strong> {{ atendimentoSelecionado?.contato.nome }} </p>
+                        <p><strong>E-mail:</strong> {{ atendimentoSelecionado?.contato.email }} </p>
+                        <p><strong>Telefone:</strong> {{ atendimentoSelecionado?.contato.telefone }} </p>
+                        <p *ngIf="atendimentoSelecionado?.contato.celular"><strong>Celular:</strong> {{ atendimentoSelecionado?.contato.celular }}</p>
+                        <p><strong>Criado em:</strong> {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy' }}</p>
+                        <p><strong>Data do atendimento:</strong> {{ atendimentoSelecionado?.data_atendimento | date: 'dd/MM/yyyy'}}</p>
+                    </div>
+                </div>
+  
+                <div class="col-12">
+                  <hr>
+                  <h6>Informações do atendimento</h6>
+  
+               </div>
+  
+                <div class="col-md-6">
                   <div class="conteudo p-2">
-                      <p><strong>Contato:</strong> {{ atendimentoSelecionado?.contato.nome }} </p>
-                      <p><strong>E-mail:</strong> {{ atendimentoSelecionado?.contato.email }} </p>
-                      <p><strong>Telefone:</strong> {{ atendimentoSelecionado?.contato.telefone }} </p>
-                      <p *ngIf="atendimentoSelecionado?.contato.celular"><strong>Celular:</strong> {{ atendimentoSelecionado?.contato.celular }}</p>
-                      <p><strong>Criado em:</strong> {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy' }}</p>
-                      <p><strong>Data do atendiemento:</strong> {{ atendimentoSelecionado?.data_atendimento | date: 'dd/MM/yyyy'}}</p>
+                      <p><strong>Tipo: </strong> {{ atendimentoSelecionado?.tipo }}</p>
+                      <p><strong>Problema:</strong> {{ atendimentoSelecionado?.descricao }}</p>
+                      <p><strong>Equipamento:</strong> {{ atendimentoSelecionado?.modelo_equipamento }}</p>
+                      <p><strong>Número equipamento:</strong> {{ atendimentoSelecionado?.numero_equipamento }}</p>                    
+                      <p><strong>Testes efetuados:</strong> {{ atendimentoSelecionado?.testes_efetuados }}</p>
                   </div>
-              </div>
-
-             <div class="col-12">
-                   <hr>
-                <h6>Informações do Chamado</h6>
-
-             </div>
-
-              <div class="col-md-6">
-                <div class="conteudo p-2">
-                    <p><strong>Tipo: </strong> {{ atendimentoSelecionado?.tipo }}</p>
-                    <p><strong>Problema:</strong> {{ atendimentoSelecionado?.descricao }}</p>
-                    <p><strong>Testes efetuados:</strong> {{ atendimentoSelecionado?.testes_efetuados }}</p>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="coutendo p-2">
+                      <p *ngIf="atendimentoSelecionado?.valor" style="color: blue"><strong style="color: #2C2C2C">Valor:</strong> {{ atendimentoSelecionado?.valor }}</p>
+                      <p *ngIf="atendimentoSelecionado?.observacao"><strong>Observação:</strong> {{ atendimentoSelecionado?.observacao }}</p>
+                      <p>
+                        <strong>Estacionamento:</strong>
+                        {{ atendimentoSelecionado?.estacionamento }}
+                      </p>
+                      <p>
+                      <p><strong>Aberto por: </strong>
+                        <span style="text-transform: capitalize">
+                          {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+                        </span>
+                      </p>
+                      <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy | uppercase }} {{ atendimentoSelecionado?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+  
+                  </div>
                 </div>
               </div>
-
-              <div class="col-md-6">
-                <div class="coutendo p-2">
-                    <p *ngIf="atendimentoSelecionado?.valor" style="color: blue"><strong style="color: #2C2C2C">Valor:</strong> {{ atendimentoSelecionado?.valor }}</p>
-                    <p *ngIf="atendimentoSelecionado?.observacao"><strong>Observação:</strong> {{ atendimentoSelecionado?.observacao }}</p>
-                    <p>
-                      <strong>Estacionamento:</strong>
-                      {{ atendimentoSelecionado?.estacionamento }}
-                    </p>
-                    <p>
-                    <p><strong>Aberto por: </strong>
-                      <span style="text-transform: capitalize">
-                        {{ atendimentoSelecionado?.createdBy | uppercase }} {{ atendimentoSelecionado?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
-                      </span>
-                    </p>
-                    <p><strong>Alterado por:</strong> {{ atendimentoSelecionado?.updatedBy | uppercase }} {{ atendimentoSelecionado?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-
-                </div>
-              </div>
-
-
             </div>
-
-          </div>
-        </ba-card>
-      </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-        <ba-card cardTitle="Atendimentos">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Aberto Em</th>
-                <th>Data Atendimento</th>
-                <th>Razão Social / Nome</th>
-                <th>Cnpj/CPF</th>
-                <th>Criado Por</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let atendimento of atendimentos | async">
-                <th scope="row">{{ atendimento?.createdAt | date: 'dd/MM/yyyy' }} - {{ atendimento?.createdAt | date: 'HH:mm' }}</th>
-                <th>{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</th>
-                <td>{{ atendimento?.cliente?.nome_razao_social }}</td>
-                <td>{{ atendimento?.cliente?.cnpj_cpf }}</td>
-                <td>{{ atendimento?.createdBy | uppercase }}</td>
-                <td>
-                  <button #baBackTop type="button" class="btn btn-info" title="Edição do atendimento" (click)="selecionaAtendimento(atendimento?._id)">
-                      <i class="ion-information-circled"></i>
-                    </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </ba-card>
-      </div>
-</div>
+          </ba-card>
+        </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+          <ba-card cardTitle="Atendimentos">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Aberto em</th>
+                  <th>Data do atendimento</th>
+                  <th>Razão Social/Nome</th>
+                  <th>CNPJ/CPF</th>
+                  <th>Criado por</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let atendimento of atendimentos | async">
+                  <th scope="row">{{ atendimento?.createdAt | date: 'dd/MM/yyyy' }} - {{ atendimento?.createdAt | date: 'HH:mm' }}</th>
+                  <th>{{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</th>
+                  <td>{{ atendimento?.cliente?.nome_razao_social }}</td>
+                  <td>{{ atendimento?.cliente?.cnpj_cpf }}</td>
+                  <td>{{ atendimento?.createdBy | uppercase }}</td>
+                  <td>
+                    <button #baBackTop type="button" class="btn btn-info" title="Edição do atendimento" (click)="selecionaAtendimento(atendimento?._id)">
+                        <i class="ion-information-circled"></i>
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ba-card>
+        </div>
+  </div>
+  

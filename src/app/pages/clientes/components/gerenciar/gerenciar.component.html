@@ -1,9 +1,34 @@
-<div class="widgets">
+<p-dataTable 
+[value]="clientes" 
+[responsive]="true" 
+[rows]="25" 
+[paginator]="true" 
+[pageLinks]="5" 
+[rowsPerPageOptions]="[5,10,25]"
+[loading]="carregando"
+ styleClass="borderless">
 
-  <div class="row">
-    <ba-card baCardClass="with-scroll" class="smart-table-container">
-      <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
-    </ba-card>
-  </div>
+  <p-column field="nome_razao_social" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+  </p-column>
 
-</div>
+  <p-column field="cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'100px', 'text-align': 'center'}">
+  </p-column>
+
+  <p-column field="cliente.contatos[0].telefone" header="Telefone" [sortable]="true" [filter]="true" [style]="{'width':'120px', 'text-align': 'center'}">
+    <ng-template let-cliente="rowData" pTemplate="body">
+      {{ cliente.contatos[0].telefone }}
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-cliente="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/clientes/detalhes/{{ cliente._id }}"></button>
+    </ng-template>
+  </p-column>
+
+  <ng-template pTemplate="emptymessage">
+      <p *ngIf="carregando" >Buscando clientes...</p>
+      <p *ngIf="!carregando">Nenhum cliente foi encontrado</p>
+  </ng-template>
+
+</p-dataTable>

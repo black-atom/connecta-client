@@ -89,11 +89,11 @@
     "ng2-dragula": "^1.5.0",
     "ng2-handsontable": "0.48.0",
     "ng2-slim-loading-bar": "4.0.0",
-    "ng2-smart-table": "^1.2.2",
     "ng2-tree": "2.0.0-alpha.5",
     "ngrx-store-localstorage": "^0.2.3",
     "ngx-uploader": "2.2.5",
     "normalize.css": "6.0.0",
+    "primeng": "^4.2.2",
     "roboto-fontface": "0.7.0",
     "rxjs": "5.4.3",
     "zone.js": "0.8.11"

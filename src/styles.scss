@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import './app/theme/sass/conf/conf.scss';
 
 .btn {
@@ -24,19 +25,76 @@ span {
   }
 }
 
-.reagendamento {
-  background: #26FB66 !important;
+.padrao {
+  color: #707070;
 }
 
 .cancelado {
-  background: #FF2A2A !important;
+  font-weight: bold;
+  color: #FF2A2A !important;
+}
 
-  ng2-smart-table-cell {
-    color: white !important;
-  }
+.reagendamento {
+  color: green;
+  font-weight: bold;
 }
 
 .aberto-por-tecnica {
-  background: rgb(252, 255, 58) !important;
+  color: #FFB200;
+  font-weight: bold;
 }
 
+.ui-button.info {
+  background-color: #0093D7;
+  border: 1px solid #0093D7;
+}
+
+.ui-datatable {
+  input {
+    border: 1px solid #878889;
+    border-radius: 03px;
+    height: 30px;
+  }
+  .ui-datatable-thead> tr > th {
+    background: #fafafa;
+    height: 55px;
+    color: white;
+      &:hover {
+        background: #fafafa !important;
+        color: #fff;
+    }
+  }
+  .ui-datatable-thead>td {
+    background: red !important;
+    background-color: red !important;
+  }
+  .ui-datatable-emptymessage	{
+    text-align: center;
+  }
+  .ui-column-title {
+    text-transform: uppercase;
+    color: #212121;
+    font-weight: bold;
+  }
+  .ui-paginator {
+    background: #fff;
+    .ui-button {
+      background: red;
+    }
+  }
+  .ui-cell-data {
+    text-transform: uppercase;
+    font-size: 1em;
+  }
+  .ui-column-filter	{
+    text-align: center;
+    color: grey;
+  }
+}
+
+.ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none !important;
+}

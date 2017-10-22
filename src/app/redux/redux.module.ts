@@ -1,5 +1,5 @@
 import { reducers } from './index';
-import { SharedModule } from '../shared/shared.module';
+import { ModuloCompartilhado } from '../shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoginEffects } from './../pages/login/redux/loging.effects';
 import { EffectsModule } from '@ngrx/effects';
@@ -23,7 +23,7 @@ const metaReducers: [MetaReducer<any, any>] = [localStorageSyncReducer];
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),
-    SharedModule
+    ModuloCompartilhado
   ]
 })
 export class ReduxModule { }

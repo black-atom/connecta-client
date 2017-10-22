@@ -8,6 +8,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
+
 import { FuncionarioService } from './services';
 import { ClienteService } from './services';
 import { EnderecoComponent } from './components/endereco';
@@ -21,6 +22,10 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
 import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
 import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import { DataTableModule, SharedModule, ButtonModule } from 'primeng/primeng';
+import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
+import { SplitPipe } from './pipes/split.pipe';
+import { CepPipe } from './pipes/cep.pipe';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -40,13 +45,19 @@ export function formatacaoDaData () {
     NgaModule,
     SimpleNotificationsModule,
     TextMaskModule,
-    NgxErrorsModule
+    NgxErrorsModule,
+    DataTableModule,
+    ButtonModule,
+    SharedModule
   ],
   declarations: [
     EnderecoComponent,
     ContatoComponent,
-    PrincipaisInfoComponent
-],
+    PrincipaisInfoComponent,
+    CnpjCpfPipe,
+    SplitPipe,
+    CepPipe
+  ],
   providers: [
     CepService,
     LoginService,
@@ -72,7 +83,13 @@ export function formatacaoDaData () {
   exports: [
     EnderecoComponent,
     ContatoComponent,
-    PrincipaisInfoComponent
+    PrincipaisInfoComponent,
+    CnpjCpfPipe,
+    SplitPipe,
+    CepPipe,
+    DataTableModule,
+    ButtonModule,
+    SharedModule
    ]
 })
-export class SharedModule { }
+export class ModuloCompartilhado { }

@@ -4,34 +4,37 @@
 [rows]="25" 
 [paginator]="true" 
 [pageLinks]="3" 
-[rowsPerPageOptions]="[5,10,25]">
+[rowsPerPageOptions]="[5,10,25]"
+[loading]="carregando"
+ styleClass="borderless">
 
   <p-column field="nome" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
   </p-column>
 
-  <p-column field="cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px'}">
+  <p-column field="cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       {{ funcionario.cpf }}
     </ng-template>
   </p-column>
 
-  <p-column field="rg" header=" RG" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'60px'}">
+  <p-column field="rg" header=" RG" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'60px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       {{ funcionario.rg }}
     </ng-template>
   </p-column>
 
-  <p-column field="contato.celular" header="Celular" [sortable]="true" [filter]="true" [style]="{'width':'60px'}">
+  <p-column field="contato.celular" header="Celular" [sortable]="true" [filter]="true" [style]="{'width':'60px', 'text-align': 'center'}">
   </p-column>
 
-  <p-column styleClass="col-button" [style]="{'width':'20px'}">
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/funcionarios/detalhes/{{ funcionario._id }}"></button>
     </ng-template>
   </p-column>
 
   <ng-template pTemplate="emptymessage">
-    Nenhum funcionário encontrado
+      <p *ngIf="carregando" >Buscando funcionários...</p>
+      <p *ngIf="!carregando">Nenhum funcionário foi encontrado</p>
   </ng-template>
 
 </p-dataTable>

@@ -2,12 +2,13 @@
 [value]="atendimentos" 
 [responsive]="true" 
 [rows]="25" 
-[paginator]="true"
-[pageLinks]="3" 
+[paginator]="true" 
+[pageLinks]="5" 
 [rowsPerPageOptions]="[5,10,25]"
-[rowStyleClass]="mudarEstiloDasLinhas" 
- sortField="createdAt" 
-[sortOrder]="-1">
+[rowStyleClass]="mudarEstiloLinha" 
+ sortField="createdAt" styleClass="borderless"
+[sortOrder]="-1" 
+[loading]="carregando">
 
   <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
@@ -21,13 +22,13 @@
     </ng-template>
   </p-column>
 
-  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px'}">
+  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento.cliente.cnpj_cpf | rgCnpjCpf }}
     </ng-template>
   </p-column>
 
-  <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'70px'}">
+  <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento.tecnico.nome | split: 0 }}
     </ng-template>
@@ -36,36 +37,33 @@
 
   <p-column field="tipo" header="Tipo" [sortable]="true" [filter]="true" [style]="{'width':'150px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-      {{ atendimento.tipo | uppercase }}
+      {{ atendimento.tipo }}
     </ng-template>
   </p-column>
 
-  <p-column field="createdBy" header="Criado por" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
+  <p-column field="createdBy" header="Criado por" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-      {{ atendimento.createdBy | split: 0 | uppercase }}
+      {{ atendimento.createdBy | split: 0 }}
     </ng-template>
   </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'27px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-     <span *ngIf="atendimento.imagens.length  > 0"><i class="fa fa-camera" style="color: rgb(44, 44, 44)"></i></span>
+      <span *ngIf="atendimento.imagens.length  > 0">
+        <i class="animated infinite pulse fa fa-camera" style="color: #212235"></i>
+      </span>
     </ng-template>
   </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'30px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/atendimentos/detalhes/{{ atendimento._id }}"></button>
-    </ng-template>
-  </p-column>
-
-  <p-column styleClass="col-button" [style]="{'width':'30px'}">
-    <ng-template let-atendimento="rowData" pTemplate="body">
-      <button type="button" class="detalhes" pButton icon="fa-eye" routerLink="/pages/atendimentos/dados-app/{{ atendimento._id }}"></button>
+      <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModal(atendimento)"></button>
     </ng-template>
   </p-column>
 
   <ng-template pTemplate="emptymessage">
-    Nenhum atendimento encontrado
+    <p *ngIf="carregando" >Buscando atendimentos...</p>
+    <p *ngIf="!carregando">Nenhum atendimento foi encontrado</p>
   </ng-template>
 
 </p-dataTable>

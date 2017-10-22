@@ -13,12 +13,14 @@ export class GerenciarComponent implements OnInit, OnDestroy {
  
   private subscription: Subscription;
   public clientes: Cliente[];
-
+  carregando: boolean = true;
+  
   constructor(private clienteService: ClienteService) {}
 
   ngOnInit() {
     this.subscription = this.clienteService.retornarTodos().subscribe(clientes => {
       this.clientes = clientes
+      this.carregando = false;
     });
   }
 

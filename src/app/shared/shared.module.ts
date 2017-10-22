@@ -25,6 +25,7 @@ import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-boot
 import { DataTableModule, SharedModule, ButtonModule } from 'primeng/primeng';
 import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
 import { SplitPipe } from './pipes/split.pipe';
+import { CepPipe } from './pipes/cep.pipe';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -54,7 +55,8 @@ export function formatacaoDaData () {
     ContatoComponent,
     PrincipaisInfoComponent,
     CnpjCpfPipe,
-    SplitPipe
+    SplitPipe,
+    CepPipe
   ],
   providers: [
     CepService,
@@ -84,6 +86,7 @@ export function formatacaoDaData () {
     PrincipaisInfoComponent,
     CnpjCpfPipe,
     SplitPipe,
+    CepPipe,
     DataTableModule,
     ButtonModule,
     SharedModule

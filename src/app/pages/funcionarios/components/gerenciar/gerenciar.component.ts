@@ -11,8 +11,7 @@ import { Funcionario } from './../../../../models';
 export class GerenciarComponent implements OnInit, OnDestroy {
 
   funcionarios: Funcionario[];
-  tecnicoSelecionado;
-
+  carregando: boolean = true;
   
   private subscription: Subscription;
 
@@ -21,6 +20,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this._funcionarioService.retornarTodos().subscribe(funcionarios => {
        this.funcionarios = funcionarios
+       this.carregando = false;
     });
   }
 

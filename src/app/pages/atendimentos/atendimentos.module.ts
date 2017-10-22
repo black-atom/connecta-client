@@ -20,6 +20,7 @@ import { routing } from './atendimentos.routing';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { AcaoComponent } from './components/shared-components/acao/acao.component';
 import { AberturaChamadosComponent } from './components/abertura-chamados/abertura-chamados.component';
+import { VisualizacaoModalComponent } from './components/visualizacao-modal/visualizacao-modal.component';
 
 
 @NgModule({
@@ -33,13 +34,11 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
     NgxErrorsModule,
     TextMaskModule,
     LightboxModule,
-    // DataTableModule,
-    // SharedModule,
-    // ButtonModule,
     routing
   ],
   entryComponents: [
-    AtendimentosDisponiveisComponent
+    AtendimentosDisponiveisComponent,
+    VisualizacaoModalComponent
   ],
   declarations: [
     AtendimentosComponent,
@@ -51,7 +50,8 @@ import { AberturaChamadosComponent } from './components/abertura-chamados/abertu
     AtendimentosDisponiveisComponent,
     DadosInteracaoAppComponent,
     AcaoComponent,
-    AberturaChamadosComponent
+    AberturaChamadosComponent,
+    VisualizacaoModalComponent
   ],
   providers: [
     ModuloCompartilhado,

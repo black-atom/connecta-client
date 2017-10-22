@@ -142,6 +142,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       this.formEdicaoAtendimento.get('numero_equipamento').patchValue(res.numero_equipamento);
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
+      this.formEdicaoAtendimento.get('situacao').patchValue(res.situacao);
 
       const date = new Date(res.data_atendimento);
       const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };

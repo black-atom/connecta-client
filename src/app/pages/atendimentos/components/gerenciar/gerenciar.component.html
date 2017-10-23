@@ -77,7 +77,7 @@
     <div class="modal-header">
       <h4 class="modal-title">
         {{ imagensInicioAtendimento.length + imagensFinalAtendimento.length }} 
-        imagem(s) foram capturadas pelo técnico {{ atendimentoSelecionado.tecnico.nome | split: 0 }}
+        imagem(s) capturada(s) pelo técnico {{ atendimentoSelecionado.tecnico.nome | split: 0 }}
         no dia {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">

@@ -174,6 +174,16 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     this.formEdicaoAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
 
+
+  limparMascara(atendimento) {
+    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '') || '';
+    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '') || '';
+    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+    return atendimento;
+  }
+
   tecnicoRecebido(tec) {
    this.tecnico = tec;
   }
@@ -181,27 +191,17 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   actionRecevida(acao) {
     this.actionSelecionada = acao;
   }
-   atualizarAtendimento(atendimento) {
+   atualizarAtendimento(atendimentoForm) {
+    const atendimento = this.limparMascara(atendimentoForm);
 
     if (atendimento.situacao.status === this.action[2]) {
       atendimento._id = this.id;
       atendimento.tecnico._id = this.tecnico._id;
       atendimento.tecnico.nome = this.tecnico.nome;
 
-
       const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
       const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
       const dataAtual = new Date();
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
       if ( dataAtendimento.getDate() >= dataAtual.getDate()
         && dataAtendimento.getMonth() >= dataAtual.getMonth()
@@ -226,20 +226,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       atendimento._id = this.id;
       atendimento.tecnico = {};
 
-
       const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
       const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
       const dataAtual = new Date();
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
       if ( dataAtendimento.getDate() >= dataAtual.getDate()
         && dataAtendimento.getMonth() >= dataAtual.getMonth()

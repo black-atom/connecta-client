@@ -113,23 +113,20 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     this.formAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
 
+  limparMascara(atendimento) {
+    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '') || '';
+    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '') || '';
+    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+    return atendimento;
+  }
 
-  cadastrarAtendimento(atendimento: Atendimento) {
-
+  cadastrarAtendimento(atendimentoForm: Atendimento) {
     const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
     const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
     const dataAtual = new Date();
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+    const atendimento = this.limparMascara(atendimentoForm);
 
       atendimento.data_atendimento = dataAtendimento;
 
@@ -153,7 +150,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
       }
   }
 
-  
+
   podeDesativar() {
     if(this.formAtendimento.touched) {
       if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {

@@ -82,4 +82,14 @@ h4, th {
   background-color: $primary;
   color: white;
 }
+.card {
+  min-height: 100vh !important;
+}
+.text-client {
+  font-size: 16px;
+  color: #7C7C7C;
+}
 
+.content {
+  margin: auto;
+}

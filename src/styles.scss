@@ -31,7 +31,7 @@ span {
 
 .cancelado {
   font-weight: bold;
-  color: #FF2A2A !important;
+  color: #FF2A2A;
 }
 
 .reagendamento {
@@ -113,12 +113,4 @@ span {
 .ui-datatable.borderless tbody tr,
 .ui-datatable.borderless tbody td {
     border-style: none !important;
-}
-
-.ui-overlaypanel {
-  img {
-    height: 250px;
-    width: 250px;
-    padding: 10px;
-  }
 }

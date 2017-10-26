@@ -134,11 +134,10 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
 
       atendimento.data_atendimento = dataAtendimento;
 
-    if ( dataAtendimento.getDate() >= dataAtual.getDate()
+      if ( (dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear() ||
-         dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() >= dataAtual.getMonth()
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
 
         atendimento.data_atendimento = dataAtendimento;
 

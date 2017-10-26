@@ -33,6 +33,6 @@ export class MonitoramentoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.timerSubscription.unsubscribe();
   }
 }

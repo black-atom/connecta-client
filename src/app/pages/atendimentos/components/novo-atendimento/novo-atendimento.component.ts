@@ -120,6 +120,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
     const dataAtual = new Date();
 
+
       atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
       if (atendimento.cliente.inscricao_estadual) {
         atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
@@ -135,6 +136,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
 
     if ( dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear() ||
+         dataAtendimento.getMonth() >= dataAtual.getMonth()
       && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
 
         atendimento.data_atendimento = dataAtendimento;

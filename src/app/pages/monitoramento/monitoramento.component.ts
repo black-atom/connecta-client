@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { AnonymousSubscription } from 'rxjs/Subscription';
 
 import { AtendimentoService } from './../../shared/services';
@@ -10,8 +10,9 @@ import { Funcionario } from './../../models';
   templateUrl: './monitoramento.component.html',
   styleUrls: ['./monitoramento.component.scss']
 })
-export class MonitoramentoComponent implements OnInit {
+export class MonitoramentoComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public tecnicos$: Observable<Funcionario[]>;
   private timerSubscription: AnonymousSubscription;
 
@@ -31,4 +32,7 @@ export class MonitoramentoComponent implements OnInit {
     this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizaDados());
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+}

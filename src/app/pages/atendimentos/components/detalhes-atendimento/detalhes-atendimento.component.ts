@@ -246,11 +246,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
       atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
 
-      if ( dataAtendimento.getDate() >= dataAtual.getDate()
+      if ( (dataAtendimento.getDate() >= dataAtual.getDate()
       && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear() ||
-         dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) {
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() > dataAtual.getMonth()
+      && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
 
           atendimento.data_atendimento = dataAtendimento;
       this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)

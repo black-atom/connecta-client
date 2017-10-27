@@ -27,6 +27,10 @@ export interface Atendimento {
     km_final: Quilometragem;
     estado: string;
     finalizado: number;
+    retorno: Retorno;
+    relatorio_tecnico: RelatorioTecnico;
+    treinamento: Treinamento;
+    remocao_relogio: RemocaoRelogio;
 }
 
 interface Cliente {
@@ -82,3 +86,34 @@ interface Quilometragem {
     km: string;
     data: string;
 }
+
+interface Retorno {
+    retornar: boolean;
+    motivo: string;
+  }
+  
+interface RelatorioTecnico {
+    relatorio: string
+  }
+  
+interface Treinamento {
+    interrupcoes: boolean;
+    cadastros: boolean;
+    relatorios: boolean;
+    importacao_dados: boolean;
+    parametros_gerais: boolean;
+    abonos_justificativas: boolean;
+    backup_sistema: boolean;
+    software: boolean;
+    caminho: string
+  }
+  
+interface RemocaoRelogio {
+    retirado: boolean;
+    chave: boolean;
+    bateria: boolean;
+    bobina: boolean;
+    fonte: boolean;
+    pino: boolean;
+    impressora: boolean;
+  }

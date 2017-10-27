@@ -76,7 +76,7 @@
         </div>
 
         <div *ngIf="atendimentoSelecionado.valor" class="col-md-6 col-lg-6 col-xs-12">
-            <p><strong><i class="fa fa-money" aria-hidden="true"></i> Valor:</strong> 
+            <p class="valor animated bounceInRight"><strong><i class="ion-cash"></i> Valor:</strong> 
               R$ {{ atendimentoSelecionado.valor }}</p>
         </div>
 
@@ -99,14 +99,19 @@
             {{ atendimentoSelecionado.descricao }}
           </p>
 
+          <p *ngIf="atendimentoSelecionado.observacao" >
+              <strong><i class="fa fa-comment-o" aria-hidden="true"></i> Observação:</strong> 
+              {{ atendimentoSelecionado.observacao }}
+          </p>
+
           <p>
             <strong><i class="ion-wrench"></i> Testes efetuados:</strong> 
             {{ atendimentoSelecionado.testes_efetuados }}
           </p>
 
-          <p *ngIf="atendimentoSelecionado.imagens.length !== 0" >
-            <strong><i class="fa fa-camera" aria-hidden="true"></i> Fotos:</strong> 
-            Este atendimento possui {{ atendimentoSelecionado.imagens.length }} foto(s)
+          <p *ngIf="atendimentoSelecionado.imagens.length !== 0">
+            <strong><i class="fa fa-camera" aria-hidden="true"></i> Imagem(s):</strong> 
+            Este atendimento possui {{ atendimentoSelecionado.imagens.length }} imagem(s)
           </p>  
 
         </div>
@@ -139,6 +144,11 @@
             {{ atendimentoSelecionado.endereco.ponto_referencia }}
           </p>
 
+          <p *ngIf="atendimentoSelecionado.endereco.complemento">
+              <strong><i class="fa fa-exchange" aria-hidden="true"></i> Complemento:</strong> 
+              {{ atendimentoSelecionado.endereco.complemento }}
+          </p>
+
         </div>
       </div>
     </div>
@@ -162,13 +172,6 @@
                <span *ngIf="atendimentoSelecionado.situacao.status === 'encaixe'">Encaixe</span>
             </p>
 
-            <p *ngIf="atendimentoSelecionado.tecnico.nome"><strong><i class="fa fa-user-circle" aria-hidden="true"></i> Técnico: </strong> 
-              <span *ngIf="atendimentoSelecionado.estado === 'associado'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} está associado </span>
-              <span *ngIf="atendimentoSelecionado.estado === 'em_deslocamento'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} está em deslocamento</span>
-              <span *ngIf="atendimentoSelecionado.estado === 'chegou_ao_destino'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} chegou ao destino</span>              
-              <span *ngIf="atendimentoSelecionado.estado === 'inicio_atendimento'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} iniciou o atendimento</span>
-              <span *ngIf="atendimentoSelecionado.estado === 'fim_do_atendimento'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} concluiu o atendimento</span>                 
-            </p>
 
          </div>
 
@@ -186,6 +189,22 @@
                 {{ atendimentoSelecionado.situacao.motivo }} 
               </p>
               
+          </div>
+
+          <div class="col-md-12 col-lg-12 col-xs-12">
+
+              <p *ngIf="atendimentoSelecionado.tecnico.nome"><strong><i class="fa fa-user-circle" aria-hidden="true"></i> Técnico: </strong> 
+                <span class="animated zoomInUp" *ngIf="atendimentoSelecionado.estado === 'associado'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} está associado </span>
+                <span class="animated zoomInUp" *ngIf="atendimentoSelecionado.estado === 'em_deslocamento'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} está em deslocamento</span>
+                <span class="animated zoomInUp" *ngIf="atendimentoSelecionado.estado === 'chegou_ao_destino'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} chegou ao destino</span>              
+                <span class="animated zoomInUp" *ngIf="atendimentoSelecionado.estado === 'inicio_atendimento'">{{ atendimentoSelecionado.tecnico.nome | split: 0 }} iniciou o atendimento</span>
+                <span class="animated zoomInUp" *ngIf="atendimentoSelecionado.estado === 'fim_do_atendimento'">
+                  {{ atendimentoSelecionado.tecnico.nome | split: 0 }} concluiu o atendimento no dia 
+                  {{ atendimentoSelecionado.fim | date: 'dd'}} às
+                  {{ atendimentoSelecionado.fim | date: 'HH:MM'}}
+                </span>                 
+              </p>
+
           </div>
 
         </div>     

@@ -133,15 +133,7 @@ export const PAGES_MENU = [{
               icon: 'ion-person'
             }
           }
-        }, {
-          path: 'abertura-chamado',
-          data: {
-            menu: {
-              title: 'Chamado',
-              icon: 'ion-ios-box-outline'
-            }
-          }
-        },
+        }, 
         {
           path: 'gerenciar',
           data: {

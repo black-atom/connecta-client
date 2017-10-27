@@ -1,11 +1,22 @@
-// p {
-//     text-transform: uppercase;
-//     color: #686868;
-//     strong {
-//         color: #212121;
-//     }
-// }
+.titulo {
+    color: #0093D7;
+    font-size: 0.9em;
+}
 
-// h4, h6 {
-//     text-transform: uppercase;
-// }
+h4 {
+    text-transform: uppercase;
+}
+
+.fa-camera {
+    color: #212235;
+}
+
+img {
+    height: 200px; 
+    width: 200px; 
+    margin-top: 14px;
+    &:hover {
+        transform: scale(1.080);
+        transition: transition(all 800ms linear);
+    }
+}

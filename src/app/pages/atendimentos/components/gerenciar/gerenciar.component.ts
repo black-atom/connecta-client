@@ -5,6 +5,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
+import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 
 @Component({
   selector: 'app-gerenciar',
@@ -13,10 +14,12 @@ import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao
 })
 export class GerenciarComponent implements OnInit, OnDestroy {
     
-    subscription: Subscription;
-    atendimentos: Atendimento[];
-    atendimentoSelecionado: Atendimento;    
-    carregando: boolean = true;
+    private subscription: Subscription;
+    public atendimentos: Atendimento[];
+    public atendimentoSelecionado: Atendimento;    
+    public carregando: boolean = true;
+    public imagensInicioAtendimento: any[] = [];
+    public imagensFinalAtendimento: any[] = [];
   
     constructor(private _atendimentoService: AtendimentoService, private _servicoModal: NgbModal) {}
 
@@ -52,9 +55,28 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   }
 
-  abrirModal(atendimentoSelecionado) {
+  abrirModalDeDetalhes(atendimentoSelecionado) {
       const referenciaModal = this._servicoModal.open(VisualizacaoModalComponent, this.opcoesModal);
       referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
+  }
+
+  abrirModalDeFotos(conteudo, atendimento) {
+    this.atendimentoSelecionado = atendimento;
+    this._servicoModal.open(conteudo, this.opcoesModal)
+
+  }
+
+  carregarFotos(atendimento: Atendimento) {
+    this.atendimentoSelecionado = atendimento;
+
+    this.imagensInicioAtendimento = atendimento.imagens
+      .filter(imagem => imagem.tipo === 'inicio_atendimento')
+      .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
+
+    this.imagensFinalAtendimento = atendimento.imagens
+      .filter(imagem => imagem.tipo === 'fim_atendimento')
+      .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
+  
   }
 
     ngOnDestroy() {

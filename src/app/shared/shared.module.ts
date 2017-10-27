@@ -1,10 +1,8 @@
-
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
@@ -43,7 +41,6 @@ export function formatacaoDaData () {
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    SimpleNotificationsModule,
     TextMaskModule,
     NgxErrorsModule,
     DataTableModule,

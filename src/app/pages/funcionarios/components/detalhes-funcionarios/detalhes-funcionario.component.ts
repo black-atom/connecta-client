@@ -52,7 +52,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
       data_nasc: ['', [Validators.required]],
 
       login: this._fb.group({
-        username: ['', [Validators.required]],
+        username: [''],
         password: ['', [Validators.required]],
         tipo: ['']
       }),
@@ -93,6 +93,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
 
     recuperarFuncionario() {
       this.subscription = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
+        dados.login.password = '';
         this.formEdicaoFuncionario.patchValue(dados);
         this.funcionarioRecebido = dados;
       });
@@ -113,17 +114,21 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
         funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
         funcionario.login.tipo = this.tipo;
         funcionario._id = this.id;
-             this.subscription = this._funcionarioService.atualizarFuncionario(funcionario)
-              .subscribe(
-             dados => {
+
+        if (funcionario.login.password.length <= 0) {
+          delete funcionario.login.password;
+        }
+
+        this.subscription = this._funcionarioService.atualizarFuncionario(funcionario)
+          .subscribe(
+            dados => {
           },
-             erro => {
-               this.falhaNaEdicao();
+            erro => {
+            this.falhaNaEdicao();
           },
-             () => {
+          () => {
             this.sucessoNaEdicao();
-          }
-        );
+          });
 
   }
 

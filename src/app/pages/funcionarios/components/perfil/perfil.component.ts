@@ -47,6 +47,7 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
     const loggedFunc: Funcionario = this.jwtHelper.decodeToken(token)._doc;
     this._funcionarioService.retornarUm(loggedFunc._id)
       .subscribe((funcionario) => {
+        funcionario.login.password = '';
         this.formEdicaoFuncionario.patchValue(funcionario);
         this.id = funcionario._id;
         this.funcionarioRecebido = funcionario;
@@ -62,7 +63,7 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
 
       login: this._fb.group({
         username: ['', [Validators.required]],
-        password: ['', [Validators.required]],
+        password: [''],
         tipo: ['', [Validators.required]]
       }),
 
@@ -112,6 +113,10 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
       funcionario._id = this.id;
       funcionario.login.tipo = this.funcionarioRecebido.login.tipo;
 
+      if (funcionario.login.password.length <= 0) {
+        delete funcionario.login.password;
+      }
+
       this.subscription = this._funcionarioService.atualizarFuncionario(funcionario)
       .subscribe(
         dados => {
@@ -135,7 +140,7 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
     }
       return true;
   }
-  
+
    sucessoNaEdicao() {
     this._notificacaoService.notificarSucesso(
       'Edição efetuada com sucesso!',

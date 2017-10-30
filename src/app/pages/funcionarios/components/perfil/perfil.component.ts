@@ -146,7 +146,6 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
       'Edição efetuada com sucesso!',
       ''
     );
-    this.formEdicaoFuncionario.reset();
   }
 
   falhaNaEdicao() {

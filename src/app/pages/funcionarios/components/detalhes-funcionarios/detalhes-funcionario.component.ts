@@ -149,7 +149,6 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
       'Edição efetuada com sucesso!',
       ''
     );
-    this.formEdicaoFuncionario.reset();
   }
 
   falhaNaEdicao() {

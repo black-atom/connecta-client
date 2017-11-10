@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 
 import { NotificacaoService } from './../../../../shared/services';
-import { DadosEndereco } from './../../../../models';
 import { CepService } from './../../../../shared/services';
 import { FuncionarioService } from './../../../../shared/services';
 import { Funcionario } from './../../../../models';

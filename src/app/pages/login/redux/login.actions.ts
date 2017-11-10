@@ -1,5 +1,4 @@
-import { ActionWithPayload } from '../../../models/action';
-import { LoginData } from '../../../models/login-data.interface';
+import { ActionWithPayload, DadosLogin } from '../../../models';
 import { LoginState } from './login.reducer';
 
 export class LoginActions {
@@ -10,7 +9,7 @@ export class LoginActions {
   static LOGOUT_FAILED = 'LOGOUT_FAILED';
   static LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-  static login(user: LoginData): ActionWithPayload {
+  static login(user: DadosLogin): ActionWithPayload {
     return { type: this.LOGIN, payload: user };
   }
 

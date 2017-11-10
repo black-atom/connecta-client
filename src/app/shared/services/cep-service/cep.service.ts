@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Rx';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
-import { DadosEndereco } from './../../../models';
+import { EnderecoViaCep } from './../../../models';
 import { ManipuladorErro } from './../';
 
 
@@ -12,12 +12,12 @@ export class CepService {
 
   constructor(private http: Http) { }
 
-  obterInfoEndereco(cep: string): Observable<DadosEndereco> {
+  obterInfoEndereco(cep: string): Observable<EnderecoViaCep> {
 
     const url = `${this.url}/${this.removerCaracteresEspeciais(cep)}/json`;
     return this.http.get(url)
                     .map((response) => response
-                    .json() as DadosEndereco)
+                    .json() as EnderecoViaCep)
                     .catch(ManipuladorErro.lidaComErro);
 
   }

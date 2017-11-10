@@ -1,9 +1,10 @@
-import { ManipuladorErro } from './../app-manipulador-erro';
-import { LoginState } from '../../../pages/login/redux/login.reducer';
-import { Observable } from 'rxjs/Rx';
-import { LoginData } from './../../../models/login-data.interface';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+
+import { DadosLogin } from './../../../models';
+import { ManipuladorErro } from './../app-manipulador-erro';
+import { LoginState } from '../../../pages/login/redux/login.reducer';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
@@ -15,8 +16,8 @@ export class LoginService {
     private http: Http
   ) { }
 
-  logar(loginData: LoginData ): Observable<LoginState> {
-    return this.http.post(this.url, loginData)
+  logar(dadosLogin: DadosLogin ): Observable<LoginState> {
+    return this.http.post(this.url, dadosLogin)
     .map( response => response.json() as LoginState)
     .catch(ManipuladorErro.lidaComErro);
   }

@@ -1,9 +1,8 @@
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Cliente } from './../../../models';
+import { Cliente, EnderecoViaCep } from './../../../models';
 import { CepService } from './../../services';
-import { DadosEndereco } from './../../../models';
 
 @Component({
   selector: 'app-endereco',
@@ -27,7 +26,7 @@ export class EnderecoComponent implements OnInit {
   buscaPorCep(cep: string) {
    const removeCaracteresCep = cep.replace(/\D+/g, '');
       if (removeCaracteresCep.length === 8) {
-        this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+        this._cepService.obterInfoEndereco(cep).subscribe((dados: EnderecoViaCep) => {
           this.formEndereco.get('cidade').patchValue(dados.localidade);
           this.formEndereco.get('complemento').patchValue(dados.complemento);
           this.formEndereco.get('uf').patchValue(dados.uf);

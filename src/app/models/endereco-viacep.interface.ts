@@ -1,4 +1,4 @@
-export interface DadosEndereco {
+export interface EnderecoViaCep {
   cep: string;
   logradouro: string;
   complemento: string;

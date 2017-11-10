@@ -1,8 +1,10 @@
+import { Contato, Endereco, IdentificacaoCliente, HistoricoUsuario } from './utils';
+
 export interface Atendimento {
     _id: string;
-    cliente: Cliente;
-    endereco: EnderecoAtendimento;
-    contato: ContatoAtendimento;
+    cliente: IdentificacaoCliente;
+    endereco: Endereco;
+    contato: Contato;
     tecnico: TecnicoAtendimento;
     avaliacao: Avaliacao[];
     imagens: Imagens[];
@@ -16,10 +18,6 @@ export interface Atendimento {
     observacao: string;
     valor: string;
     autorizado: string;
-    createdBy: string;
-    createdAt: string;
-    updatedAt: string;
-    updatedBy: string;
     situacao?: Situacao;
     fim: string;
     inicio: string;
@@ -27,33 +25,8 @@ export interface Atendimento {
     km_final: Quilometragem;
     estado: string;
     finalizado: number;
-}
+    HistoricoUsuario;
 
-interface Cliente {
-    _id: number;
-    cnpj_cpf: string;
-    nome_razao_social: string;
-    nome_fantasia?: string;
-    inscricao_estadual?: string;
-}
-
-interface EnderecoAtendimento {
-    cep: string;
-    rua: string;
-    numero: string;
-    bairro: string;
-    cidade: string;
-    uf: string;
-    ponto_referencia: string;
-    complemento: string;
-}
-
-interface ContatoAtendimento {
-    nome: string;
-    email: string;
-    telefone: string;
-    celular: string;
-    observacao: string;
 }
 
 interface TecnicoAtendimento {

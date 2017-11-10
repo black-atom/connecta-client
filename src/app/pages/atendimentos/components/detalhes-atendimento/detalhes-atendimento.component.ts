@@ -6,13 +6,13 @@ import { Subscription } from 'rxjs/Rx';
 import { AtendimentoService } from './../../../../shared/services';
 import { CepService } from '../../../../shared/services';
 import { ClienteService } from '../../../../shared/services/cliente-service';
-
 import { Atendimento } from './../../../../models';
-import { DadosEndereco } from './../../../../models';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.mock';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
+import { EnderecoViaCep } from '../../../../models';
+
 
 
 @Component({
@@ -106,7 +106,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   }
 
    buscaPorCep(cep: string) {
-    this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+    this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: EnderecoViaCep) => {
         this.formEdicaoAtendimento.get('endereco.rua').patchValue(dados.logradouro);
         this.formEdicaoAtendimento.get('endereco.bairro').patchValue(dados.bairro);
         this.formEdicaoAtendimento.get('endereco.cidade').patchValue(dados.localidade);
@@ -212,7 +212,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
 
       atendimento.data_atendimento = dataAtendimento;
-        
+
       this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)
       .subscribe(
         dados => {

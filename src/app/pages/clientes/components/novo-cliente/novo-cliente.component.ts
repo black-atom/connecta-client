@@ -63,6 +63,8 @@ export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactiva
 
   cadastrarCliente(cliente: Cliente) {
 
+    console.log(cliente);
+
    cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
     if (cliente.inscricao_estadual) {
       cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');

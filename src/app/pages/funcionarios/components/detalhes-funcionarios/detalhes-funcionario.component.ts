@@ -3,8 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { DadosEndereco } from './../../../../models';
-import { Funcionario } from './../../../../models';
+import { Funcionario, EnderecoViaCep } from './../../../../models';
 import { FuncionarioService } from './../../../../shared/services';
 import { CepService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
@@ -83,7 +82,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
  }
 
     buscaPorCep(cep: string) {
-     this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+     this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: EnderecoViaCep) => {
          this.formEdicaoFuncionario.get('rua').patchValue(dados.logradouro);
          this.formEdicaoFuncionario.get('bairro').patchValue(dados.bairro);
          this.formEdicaoFuncionario.get('cidade').patchValue(dados.localidade);

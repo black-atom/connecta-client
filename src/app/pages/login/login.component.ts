@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { getLogin } from './redux/login.reducer';
-import { LoginData } from './../../models/login-data.interface';
+import { DadosLogin } from './../../models';
 import { LoginActions } from './redux/login.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../redux';
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public onSubmit(values: LoginData): void {
+  public onSubmit(values: DadosLogin): void {
     this.submitted = true;
     if (this.form.valid) {
       this.store.dispatch(LoginActions.login(values));

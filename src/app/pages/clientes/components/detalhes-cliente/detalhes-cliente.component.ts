@@ -153,7 +153,6 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy, IFormCanDeac
       'Edição efetuada com sucesso!',
       ''
     );
-    this.formDetalhesCliente.reset();
   }
 
   notificarFalha() {

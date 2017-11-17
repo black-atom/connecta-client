@@ -58,10 +58,10 @@ export class LoginComponent implements OnInit {
       'Conectado',
       `Seja bem vindo(a) ao Connecta. Tenha um excelente dia ${nome}!`,
       {
-        timeOut: 7200,
+        timeOut: 5200,
         showProgressBar: true,
         pauseOnHover: true,
-        clickToClose: false,
+        clickToClose: true,
         maxLength: 130
       }
     );

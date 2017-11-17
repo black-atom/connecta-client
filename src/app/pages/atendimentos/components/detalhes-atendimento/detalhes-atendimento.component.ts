@@ -286,7 +286,6 @@ podeDesativar() {
     'Edição efetuada com sucesso!',
     ''
   );
-  this.formEdicaoAtendimento.reset();
 }
 
   falhaNaEdicao() {

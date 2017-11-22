@@ -1,98 +1,22 @@
-<!-- <div class="row">
-<div class="col-md-4 col-sm-12 t" *ngFor="let tecnico of tecnicos$ | async; let i = index">
-<ba-card>
-<div class="text-center">
-<img [ngClass]="{
-'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}"
-*ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url" alt="Foto técnico">
-
-<img [ngClass]="{
-'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}"
-*ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
-
-<h4>{{ tecnico?.nome }}</h4>
-<h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
-<h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
-<h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
-<h6 *ngIf="!tecnico?.estado">Disponível</h6>
-</div>
-<hr [ngClass]="{
-'em_deslocamento_linha': tecnico?.estado === 'em_deslocamento',
-'chegou_ao_destino_linha': tecnico?.estado === 'chegou_ao_destino',
-'inicio_atendimento_linha': tecnico?.estado === 'inicio_atendimento' }">
-<div class="table table">
-<table class="table">
-<thead>
-<tr class="border-top: none">
-<th>Atendimentos</th>
-<th>Avaliação</th>
-<th>Concluídos</th>
-</tr>
-</thead>
-<tbody>
-<tr class="border-top: none">
-<td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
-<td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-ios-star-half': tecnico?.media > 0, 'ion-star': tecnico?.media >= 3, 'ion-trophy': tecnico?.media === 5, 'ion-ios-star-outline': tecnico?.media === 0}"></i>                {{ tecnico?.media || 0 | number: '1.2-2'}}</td>
-<td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length
-}}</td>
-</tr>
-</tbody>
-</table>
-<div class="row" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-<div class="col-12 mt-2">
-<div class="row">
-<div class="col-10">
-<h5 class="text-center">Atendimento</h5>
-<p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}"
-class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-<i
-[ngClass]="{
-'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
-'ion-model-s': atendimento?.estado === 'em_deslocamento',
-'ion-location': atendimento?.estado === 'chegou_ao_destino',
-'ion-wrench': atendimento?.estado === 'inicio_atendimento',
-'ion-load-a': atendimento?.estado === 'associado'}">
-</i>
-{{atendimento.cliente.nome_razao_social | slice: 0:25}}.</p>
-</div>
-
-<div class="col-2">
-<h5>Nota</h5>
-<p class="text-center">{{ atendimento?.media}}</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</ba-card>
-</div>
-</div> -->
-
-
-<section class="carousel slide" data-ride="carousel" id="postsCarousel">
-
-  <div class="container p-t-0 m-t-2 carousel-inner">
-    <div class="row row-equal carousel-item active m-t-0">
-      <div class="col-md-4" *ngFor="let tecnico of tecnicos$ | async; let i = index">
-        <div class="card-img-top card-img-top-500">
-          <div *ngIf="i < 3">
-            <ba-card>
-              <div class="text-center">
+<swiper>
+    
+      <div class="tecnicos" *ngFor="let tecnico of tecnicos$ | async; let i = index">
+        <ba-card>
+          <div class="tecnico" fxLayout fxLayout.lg="column" fxLayoutAlign="center" fxLayoutGap="50px" fxLayoutGap.xs="0px">
+    
+            <div class="dados-cliente" fxFlex="30%">
+              <div class=" text-center">
                 <img [ngClass]="{
-          'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-          'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-          'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url"
+                    'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
+                    'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
+                    'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url"
                   alt="Foto técnico">
-
+    
                 <img [ngClass]="{
-    'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-    'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-    'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
-
+                    'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
+                    'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
+                    'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
+    
                 <h4>{{ tecnico?.nome }}</h4>
                 <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
                 <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
@@ -100,9 +24,11 @@ class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ ate
                 <h6 *ngIf="!tecnico?.estado">Disponível</h6>
               </div>
               <hr [ngClass]="{
-          'em_deslocamento_linha': tecnico?.estado === 'em_deslocamento',
-          'chegou_ao_destino_linha': tecnico?.estado === 'chegou_ao_destino',
-          'inicio_atendimento_linha': tecnico?.estado === 'inicio_atendimento' }">
+                    'em_deslocamento_linha': tecnico?.estado === 'em_deslocamento',
+                    'chegou_ao_destino_linha': tecnico?.estado === 'chegou_ao_destino',
+                    'inicio_atendimento_linha': tecnico?.estado === 'inicio_atendimento'
+                        }">
+    
               <div class="table table">
                 <table class="table">
                   <thead>
@@ -114,204 +40,46 @@ class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ ate
                   </thead>
                   <tbody>
                     <tr class="border-top: none">
-                      <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-ios-star-half': tecnico?.media > 0, 'ion-star': tecnico?.media >= 3, 'ion-trophy': tecnico?.media === 5, 'ion-ios-star-outline': tecnico?.media === 0}"></i>                        {{ tecnico?.media || 0 | number: '1.2-2'}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length
-                        }}
+                      <td>
+                        <i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
+                      <td *ngIf="tecnico?.atendimentos_hoje">
+                        <i [ngClass]="{'ion-ios-star-half': tecnico?.media > 0, 'ion-star': tecnico?.media >= 3, 'ion-trophy': tecnico?.media === 5, 'ion-ios-star-outline': tecnico?.media === 0}"></i> {{ tecnico?.media || 0 | number: '1.2-2'}}</td>
+                      <td *ngIf="tecnico?.atendimentos_hoje">
+                        <i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="row" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <div class="col-12 mt-2">
-                    <div class="row">
-                      <div class="col-10">
-                        <h5 class="text-center">Atendimento</h5>
-                        <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-                          <i [ngClass]="{
-                  'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
-                  'ion-model-s': atendimento?.estado === 'em_deslocamento',
-                  'ion-location': atendimento?.estado === 'chegou_ao_destino',
-                  'ion-wrench': atendimento?.estado === 'inicio_atendimento',
-                  'ion-load-a': atendimento?.estado === 'associado'}">
-            </i> {{atendimento.cliente.nome_razao_social | slice: 0:25}}.</p>
-                      </div>
-
-                      <div class="col-2">
-                        <h5>Nota</h5>
-                        <p class="text-center">{{ atendimento?.media}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </ba-card>
-
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row row-equal carousel-item m-t-0">
-      <div class="col-md-4" *ngFor="let tecnico of tecnicos$ | async; let i = index">
-        <div class="card-img-top card-img-top-500">
-          <div *ngIf="i > 2 && i < 6">
-            <ba-card>
-              <div class="text-center">
-                <img [ngClass]="{
-          'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-          'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-          'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url"
-            alt="Foto técnico">
-
-                <img [ngClass]="{
-          'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-          'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-          'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
-
-                <h4>{{ tecnico?.nome }}</h4>
-                <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
-                <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
-                <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
-                <h6 *ngIf="!tecnico?.estado">Disponível</h6>
-              </div>
-              <hr [ngClass]="{
-                'em_deslocamento_linha': tecnico?.estado === 'em_deslocamento',
-                'chegou_ao_destino_linha': tecnico?.estado === 'chegou_ao_destino',
-                'inicio_atendimento_linha': tecnico?.estado === 'inicio_atendimento' }">
-              <div class="table table">
-                <table class="table">
-                  <thead>
-                    <tr class="border-top: none">
-                      <th>Atendimentos</th>
-                      <th>Avaliação</th>
-                      <th>Concluídos</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-top: none">
-                      <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-ios-star-half': tecnico?.media > 0, 'ion-star': tecnico?.media >= 3, 'ion-trophy': tecnico?.media === 5, 'ion-ios-star-outline': tecnico?.media === 0}"></i>                        {{ tecnico?.media || 0 | number: '1.2-2'}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length
-                        }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="row" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <div class="col-12 mt-2">
-                    <div class="row">
-                      <div class="col-10">
-                        <h5 class="text-center">Atendimento</h5>
-                        <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-                          <i [ngClass]="{
-                        'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
-                        'ion-model-s': atendimento?.estado === 'em_deslocamento',
-                        'ion-location': atendimento?.estado === 'chegou_ao_destino',
-                        'ion-wrench': atendimento?.estado === 'inicio_atendimento',
-                        'ion-load-a': atendimento?.estado === 'associado'}">
+            </div>
+    
+            <div class="ass" fxFlex="70%">
+              <div class="assossiamentos" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px" fxLayoutGap.xs="0px">
+                <div class="atendimentos" fxFlex="90%">
+                  <h5 class="text-center">Atendimentos</h5>
+                  <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+                    <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
+                      <i [ngClass]="{
+                    'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
+                    'ion-model-s': atendimento?.estado === 'em_deslocamento',
+                    'ion-location': atendimento?.estado === 'chegou_ao_destino',
+                    'ion-wrench': atendimento?.estado === 'inicio_atendimento',
+                    'ion-load-a': atendimento?.estado === 'associado'}">
                       </i> {{atendimento.cliente.nome_razao_social | slice: 0:25}}.</p>
-                      </div>
-
-                      <div class="col-2">
-                        <h5>Nota</h5>
-                        <p class="text-center">{{ atendimento?.media}}</p>
-                      </div>
-                    </div>
+                  </div>
+    
+                </div>
+                <div class="notas" fxFlex="10%">
+                  <h5>Avaliações</h5>
+                  <div class="notas" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+                    <p class="text-center">{{ atendimento?.media}}</p>
                   </div>
                 </div>
               </div>
-            </ba-card>
-
+            </div>
           </div>
-        </div>
-
+    
+        </ba-card>
       </div>
-    </div>
-
-    <div class="row row-equal carousel-item m-t-0">
-      <div class="col-md-4" *ngFor="let tecnico of tecnicos$ | async; let i = index">
-        <div class="card-img-top card-img-top-500">
-          <div *ngIf="i > 5 && i < 10">
-            <ba-card>
-              <div class="text-center">
-                <img [ngClass]="{
-                  'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-                  'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-                  'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="tecnico?.foto_url" [src]="tecnico?.foto_url"
-                                  alt="Foto técnico">
-
-                <img [ngClass]="{
-                'em_deslocamento_imagem': tecnico?.estado === 'em_deslocamento',
-                'chegou_ao_destino_imagem': tecnico?.estado === 'chegou_ao_destino',
-                'inicio_atendimento_imagem': tecnico?.estado === 'inicio_atendimento'}" *ngIf="!tecnico?.foto_url" src="/assets/img/avatar.png">
-
-                <h4>{{ tecnico?.nome }}</h4>
-                <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
-                <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
-                <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
-                <h6 *ngIf="!tecnico?.estado">Disponível</h6>
-              </div>
-              <hr [ngClass]="{
-                'em_deslocamento_linha': tecnico?.estado === 'em_deslocamento',
-                'chegou_ao_destino_linha': tecnico?.estado === 'chegou_ao_destino',
-                'inicio_atendimento_linha': tecnico?.estado === 'inicio_atendimento' }">
-              <div class="table table">
-                <table class="table">
-                  <thead>
-                    <tr class="border-top: none">
-                      <th>Atendimentos</th>
-                      <th>Avaliação</th>
-                      <th>Concluídos</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-top: none">
-                      <td><i class="ion-settings"></i> {{ tecnico?.atendimentos?.length || 0}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i [ngClass]="{'ion-ios-star-half': tecnico?.media > 0, 'ion-star': tecnico?.media >= 3, 'ion-trophy': tecnico?.media === 5, 'ion-ios-star-outline': tecnico?.media === 0}"></i>                        {{ tecnico?.media || 0 | number: '1.2-2'}}</td>
-                      <td *ngIf="tecnico?.atendimentos_hoje"><i class="ion-checkmark"></i> {{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length
-                        }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="row" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <div class="col-12 mt-2">
-                    <div class="row">
-                      <div class="col-10">
-                        <h5 class="text-center">Atendimento</h5>
-                        <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento text-center" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-                          <i [ngClass]="{
-          'ion-checkmark': atendimento?.estado === 'fim_do_atendimento',
-          'ion-model-s': atendimento?.estado === 'em_deslocamento',
-          'ion-location': atendimento?.estado === 'chegou_ao_destino',
-          'ion-wrench': atendimento?.estado === 'inicio_atendimento',
-          'ion-load-a': atendimento?.estado === 'associado'}">
-        </i> {{atendimento.cliente.nome_razao_social | slice: 0:25}}.</p>
-                      </div>
-
-                      <div class="col-2">
-                        <h5>Nota</h5>
-                        <p class="text-center">{{ atendimento?.media}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ba-card>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-
-
-
-</section>
+    </swiper>
+    

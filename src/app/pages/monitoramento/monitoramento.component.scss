@@ -1,24 +1,62 @@
-
-
-
 @import './../../theme/sass/conf/conf.scss';
-
 img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    border: 1.8px solid #fff;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border: 1.8px solid #fff;
 }
 
-.em_deslocamento_imagem {
+.container{
+  width: 1100px;
+  min-width: 450px;
+  justify-content: right;
+
+}
+
+.card{
+  min-height: 45vh;
+  padding: 40px;
+}
+
+
+.dados-cliente {
+
+}
+
+.associamentos{
+
+}
+
+.atendimentos{
+  text-align: center;
+}
+
+.estado-atendimento{
+  text-align: center;
+}
+
+.metricas-tecnico{
+  text-align: center;
+}
+
+p{
+  padding: 7px;
+}
+
+.avaliacoes{
+  text-align: center;
+  min-width: 50px;
+}
+
+.em_deslocamento_cor {
   border: 2px solid #BE443B;
 }
 
-.chegou_ao_destino_imagem{
+.chegou_ao_destino_cor {
   border: 2px solid #215CA1;
 }
 
-.inicio_atendimento_imagem {
+.inicio_atendimento_cor {
   border: 2px solid #53bb96;
 }
 
@@ -26,13 +64,14 @@ img {
   cursor: pointer;
 }
 
-.atendimento_concluido {
+.atendimento_concluido_cor {
   color: green;
 }
 
 %estado {
   height: 2px;
 }
+
 .em_deslocamento_linha {
   @extend %estado;
   background-color: #BE443B;
@@ -52,18 +91,21 @@ table {
   background: transparent !important;
 }
 
-table > tbody > tr > td, th {
-    border-top: none;
-    text-align: center;
+table>tbody>tr>td,
+th {
+  border-top: none;
+  text-align: center;
 }
 
-td {
-    font-size: 22px;
-    color: $primary;
+li {
+  list-style: none;
+  font-size: 40px;
+  color: $primary;
 }
 
-h4, th {
-    color: #878787;
+h4,
+th {
+  color: #878787;
 }
 
 .list-group-item {

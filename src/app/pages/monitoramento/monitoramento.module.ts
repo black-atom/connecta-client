@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { ModuloCompartilhado } from '../../shared/shared.module';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -21,6 +22,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     CommonModule,
     NgaModule,
     FlexLayoutModule,
+    ModuloCompartilhado,
     SwiperModule.forRoot(SWIPER_CONFIG),
     routing
   ],

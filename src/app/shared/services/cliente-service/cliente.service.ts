@@ -6,24 +6,22 @@ import { Cliente } from './../../../models';
 import { ManipuladorErro } from './../';
 import { AuthHttp } from 'angular2-jwt';
 
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class ClienteService {
-
-  private url: string = 'http://165.227.78.113:3000/api/clientes';
-
 
   constructor(private _http: AuthHttp) { }
 
   retornarTodos(cnpjCpf?: any): Observable <Cliente[]> {
 
-    return this._http.get(this.url, { params: { cnpj_cpf: cnpjCpf } })
+    return this._http.get(`${environment.API_ENDPOINT}/api/clientes`, { params: { cnpj_cpf: cnpjCpf } })
                      .map(res => res.json() as Cliente[])
                      .catch(ManipuladorErro.lidaComErro);
   }
 
   retornarUm(_id): Observable <Cliente> {
-    return this._http.get(`${this.url}/${_id}`)
+    return this._http.get(`${environment.API_ENDPOINT}/api/clientes/${_id}`)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -32,7 +30,7 @@ export class ClienteService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(this.url, cliente, options)
+    return this._http.post(`${environment.API_ENDPOINT}/api/clientes`, cliente, options)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -41,7 +39,7 @@ export class ClienteService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}/${cliente._id}/`, cliente, options)
+    return this._http.put(`${environment.API_ENDPOINT}/api/clientes/${cliente._id}/`, cliente, options)
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }

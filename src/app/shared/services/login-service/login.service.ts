@@ -6,17 +6,17 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 
+import { environment } from 'environments/environment';
+
 @Injectable()
 export class LoginService {
-
-  url = 'http://165.227.78.113:3000/login';
 
   constructor(
     private http: Http
   ) { }
 
   logar(loginData: LoginData ): Observable<LoginState> {
-    return this.http.post(this.url, loginData)
+    return this.http.post(`${environment.API_ENDPOINT}/login`, loginData)
     .map( response => response.json() as LoginState)
     .catch(ManipuladorErro.lidaComErro);
   }

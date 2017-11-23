@@ -12,12 +12,12 @@ import { AuthHttp } from 'angular2-jwt';
 
 import { TIPOFUNCIONARIOMOCK } from './../../../utils/mocks/tipo-funcionario.mock';
 
+import { environment } from 'environments/environment';
+
 @Injectable()
 export class AtendimentoService {
 
   private funcoes = TIPOFUNCIONARIOMOCK;
-
-  private baseUrl: string;
 
   atendimentos: Observable<Atendimento[]>;
   private _atendimentos: BehaviorSubject<Atendimento[]>;
@@ -32,7 +32,6 @@ export class AtendimentoService {
   };
 
   constructor(private _http: AuthHttp) {
-    this.baseUrl  = 'http://165.227.78.113:3000';
 
     this.dataStore = { atendimentos: [] };
     this._atendimentos = <BehaviorSubject<Atendimento[]>>new BehaviorSubject([]);
@@ -52,7 +51,7 @@ export class AtendimentoService {
   }
 
   getAllAtendimentos() {
-    this._http.get(`${this.baseUrl}/api/atendimentos`)
+    this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
     .map(response => response.json())
     .subscribe(res => {
       this.dataStore.atendimentos = res;
@@ -61,7 +60,7 @@ export class AtendimentoService {
   }
 
   getAllAtendimentosPorData(data: Date) {
-    this._http.get(`${this.baseUrl}/api/atendimentos`)
+    this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
     .map(response => response.json())
     .subscribe(res => {
       this.dataStore.atendimentos = res.filter(atendimento => {
@@ -88,12 +87,12 @@ export class AtendimentoService {
   }
 
   getAllAtendimentosAssociados() {
-    this._http.get(`${this.baseUrl}/api/funcionarios`)
+    this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
       const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
       funcionariosFuncao.map(funcionario => {
-          this._http.get(`${this.baseUrl}/api/atendimentos`)
+          this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
           .map(response => response.json())
           .subscribe(atendimentos => {
 
@@ -161,12 +160,12 @@ export class AtendimentoService {
   }
 
   getAllAtendimentosAssociadosData(data: Date) {
-    this._http.get(`${this.baseUrl}/api/funcionarios`)
+    this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
       .map(response => response.json())
       .subscribe(funcionarios => {
       const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
           funcionariosFuncao.map(funcionario => {
-          this._http.get(`${this.baseUrl}/api/atendimentos`)
+          this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
           .map(response => response.json())
           .subscribe(atendimentos => {
             const buscaAssociado = atendimentos.filter((atendimento) => {
@@ -190,7 +189,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    this._http.patch(`${this.baseUrl}/api/atendimentos`, atendimentos)
+    this._http.patch(`${environment.API_ENDPOINT}/api/atendimentos`, atendimentos)
     .map(response => response.json())
     .subscribe(atendimento => {
       atendimentos.forEach((atendimentoAssociado, indexAtendimento) => {
@@ -211,7 +210,7 @@ export class AtendimentoService {
 
   atendimento.tecnico = {};
 
-    this._http.put(`${this.baseUrl}/api/atendimentos/${atendimento._id}/`, atendimento, options)
+    this._http.put(`${environment.API_ENDPOINT}/api/atendimentos/${atendimento._id}/`, atendimento, options)
     .map(response => response.json())
     .subscribe(atendimentoModificado => {
       this.dataStoreTec.funcionarios.forEach((tecnico, indexTecnico) => {
@@ -225,19 +224,19 @@ export class AtendimentoService {
   }
 
   retornarTodos(): Observable <Atendimento[]> {
-    return this._http.get(`${this.baseUrl}/api/atendimentos`)
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
                      .map((res) => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
 
   retornarUm(id): Observable <Atendimento> {
-    return this._http.get(`${this.baseUrl}/api/atendimentos/${id}`)
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos/${id}`)
                      .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }
 
   retornarAtendimentoPorData(data: Date): Observable <Atendimento[]> {
-    return this._http.get(this.baseUrl, { params: { data_atendimento : data.toJSON() } })
+    return this._http.get(environment.API_ENDPOINT, { params: { data_atendimento : data.toJSON() } })
                      .map((res) => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -246,7 +245,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(`${this.baseUrl}/api/atendimentos/`, atendimento, options)
+    return this._http.post(`${environment.API_ENDPOINT}/api/atendimentos/`, atendimento, options)
                      .map((res) => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -255,7 +254,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.baseUrl}/api/atendimentos/${atendimento._id}/`, atendimento, options)
+    return this._http.put(`${environment.API_ENDPOINT}/api/atendimentos/${atendimento._id}/`, atendimento, options)
                      .map(res => res.json() as Atendimento)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -264,7 +263,7 @@ export class AtendimentoService {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.patch(`${this.baseUrl}/api/atendimentos`, atendimentos)
+    return this._http.patch(`${environment.API_ENDPOINT}/api/atendimentos`, atendimentos)
                      .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }

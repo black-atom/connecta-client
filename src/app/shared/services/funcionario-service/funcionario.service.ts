@@ -6,15 +6,15 @@ import { Funcionario } from '../../../models/';
 import { ManipuladorErro } from './../';
 import { AuthHttp } from 'angular2-jwt';
 
+import { environment } from 'environments/environment';
+
 @Injectable()
 export class FuncionarioService {
-
-  private url: string = 'http://165.227.78.113:3000/api/funcionarios/';
 
   constructor( private _http: AuthHttp) { }
 
   retornarTodos(): Observable<Funcionario[]> {
-    return this._http.get(this.url)
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
                      .map((res) => res.json() as Funcionario[] )
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -26,7 +26,7 @@ export class FuncionarioService {
   }
 
   retornarUm(_id: string): Observable<Funcionario> {
-    return this._http.get(`${this.url}${_id}`)
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios/${_id}`)
                      .map((res) => res.json() )
                      .catch(ManipuladorErro.lidaComErro);
  }
@@ -35,7 +35,7 @@ export class FuncionarioService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.post(this.url, funcionario, options)
+    return this._http.post(`${environment.API_ENDPOINT}/api/funcionarios`, funcionario, options)
                      .map((res) => res.json() as Funcionario)
                      .catch(ManipuladorErro.lidaComErro);
   }
@@ -44,7 +44,7 @@ export class FuncionarioService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    return this._http.put(`${this.url}${funcionario._id}/`, funcionario, options)
+    return this._http.put(`${environment.API_ENDPOINT}/api/funcionarios/${funcionario._id}/`, funcionario, options)
                      .map((res) => res.json() as Funcionario)
                      .catch(ManipuladorErro.lidaComErro);
   }

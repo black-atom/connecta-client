@@ -1,69 +1,135 @@
 <div class="container">
   <swiper>
-    <div class="tecnicos" *ngFor="let tecnico of tecnicos$ | async; let i = index">
-      <div class="card">
-        <div class="tecnico" fxLayout fxLayout.lt-sm="column" fxLayoutAlign="center">
-          <div class="dados-cliente" fxFlex="8%">
-            <div class="text-center">
-              <img [ngClass]="alterarCorAtendimento(tecnico)" [src]="tecnico?.foto_url ? tecnico.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
-              <h4>{{ tecnico?.nome | split: 0 }}</h4>
-              <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
-              <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
-              <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
-              <h6 *ngIf="!tecnico?.estado">Disponível</h6>
-            </div>
-            <div class="metricas-tecnico">
-              <ul>
-                <li>
-                  <i class="ion-settings"></i>
-                  <h4>{{ tecnico?.atendimentos?.length || 0}}</h4>
-                </li>
-                <li>
-                  <i [ngClass]="aplicarIcones(tecnico)"></i>
-                  <h4>{{ tecnico?.media || 0 | number: '1.2-2'}}</h4>
-                </li>
-                <li>
-                  <i class="ion-checkmark"></i>
-                  <h4>{{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</h4>
-                </li>
-              </ul>
-            </div>
+    <div class="card tecnicos" *ngFor="let tecnico of tecnicos$ | async; let i = index">
+      <div class="tecnico" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap.xs="0">
+        <div class="dados-cliente text-center pt-3" fxFlex="20%">
+          <img [ngClass]="alterarCorAtendimento(tecnico)" [src]="tecnico?.foto_url ? tecnico.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
+          <h4>{{ tecnico?.nome | split: 0 }}</h4>
+          <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
+          <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
+          <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
+          <h5 *ngIf="!tecnico?.estado">Disponível</h5>
+          <ul>
+            <li>
+              <i class="ion-settings"></i>
+              <h4>{{ tecnico?.atendimentos?.length || 0}}</h4>
+            </li>
+            <li>
+              <i [ngClass]="aplicarIcones(tecnico)"></i>
+              <h4>{{ tecnico?.media || 0 | number: '1.2-2'}}</h4>
+            </li>
+            <li>
+              <i class="ion-checkmark"></i>
+              <h4>{{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</h4>
+            </li>
+          </ul>
+        </div>
+        <div class="atendimentos text-center pt-3" fxFlex="30%">
+          <h5>ATENDIMENTOS</h5>
+          <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+            <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
+              {{atendimento.cliente.nome_razao_social | slice: 0:25}}.
+            </p>
           </div>
-          <div class="ass" fxFlex="92%">
-            <div class="associamentos" fxLayout fxLayout.lt-sm="column" fxLayoutAlign="center">
-              <div class="atendimentos" fxFlex="40%">
-                <h5>ATENDIMENTOS</h5>
-                <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-                    {{atendimento.cliente.nome_razao_social | slice: 0:25}}.
-                  </p>
-                </div>
+        </div>
+        <div class="estado-atendimento text-center pt-3" fxFlex="35%">
+          <h5>ESTADOS</h5>
+          <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+            <p *ngIf="atendimento?.estado === 'associado'">ASSOCIADO
+              <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+            </p>
+            <p *ngIf="atendimento?.estado === 'em_deslocamento'">EM DESLOCAMENTO
+              <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+            </p>
+            <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">CHEGOU NO CLIENTE
+              <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+            </p>
+            <p *ngIf="atendimento?.estado === 'inicio_atendimento'">INICIOU O ATENDIMENTO
+              <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+            </p>
+            <p *ngIf="atendimento?.estado === 'fim_do_atendimento'">CONCLUIU
+              <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+            </p>
+          </div>
+        </div>
+        <div class="avaliacoes text-center pt-3" fxFlex="15%">
+          <h5>AVALIAÇÕES</h5>
+          <div *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+            <p>{{ atendimento?.media}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </swiper>
+</div>
+
+<!-- <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div class=" item-1" fxFlex="15%">Item 1</div>
+  <div class=" item-2" fxFlex="20%">Item 2</div>
+  <div class=" item-3" fxFlex>Item 3</div>
+</div> -->
+
+<!-- <div class="vertical-container">
+  <swiper>
+    <div class="card tecnicos" *ngFor="let tecnico of tecnicos$ | async; let i = index">
+
+      <div class="tecnico horizontal-container" fxLayout.lt.sm="row" fxLayout.lt-sm="column" fxLayoutAlign="center">
+        <div class="dados-cliente" fxFlex="14%">
+          <img [ngClass]="alterarCorAtendimento(tecnico)" [src]="tecnico?.foto_url ? tecnico.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
+          <h4>{{ tecnico?.nome | split: 0 }}</h4>
+          <h6 *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
+          <h6 *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
+          <h6 *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
+          <h5 *ngIf="!tecnico?.estado">Disponível</h5>
+          <ul>
+            <li>
+              <i class="ion-settings"></i>
+              <h4>{{ tecnico?.atendimentos?.length || 0}}</h4>
+            </li>
+            <li>
+              <i [ngClass]="aplicarIcones(tecnico)"></i>
+              <h4>{{ tecnico?.media || 0 | number: '1.2-2'}}</h4>
+            </li>
+            <li>
+              <i class="ion-checkmark"></i>
+              <h4>{{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</h4>
+            </li>
+          </ul>
+        </div>
+        <div class="ass" fxFlex="86%">
+          <div class="associamentos" fxLayout fxLayout.lt-sm="column" fxLayoutAlign="center">
+            <div class="atendimentos" fxFlex="40%">
+              <h5>ATENDIMENTOS</h5>
+              <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+                <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" class="atendimento" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
+                  {{atendimento.cliente.nome_razao_social | slice: 0:25}}.
+                </p>
               </div>
-              <div class="estado-atendimento" fxFlex="40%">
-                <h5>ESTADOS</h5>
-                <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <p *ngIf="atendimento?.estado === 'associado'">ASSOCIADO
-                    <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
-                  </p>
-                  <p *ngIf="atendimento?.estado === 'em_deslocamento'">EM DESLOCAMENTO
-                    <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
-                  </p>
-                  <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">CHEGOU NO CLIENTE
-                    <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
-                  </p>
-                  <p *ngIf="atendimento?.estado === 'inicio_atendimento'">INICIOU O ATENDIMENTO
-                    <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
-                  </p>
-                  <p *ngIf="atendimento?.estado === 'fim_do_atendimento'">CONCLUIU
-                    <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
-                  </p>
-                </div>
+            </div>
+            <div class="estado-atendimento" fxFlex="40%">
+              <h5>ESTADOS</h5>
+              <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+                <p *ngIf="atendimento?.estado === 'associado'">ASSOCIADO
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+                </p>
+                <p *ngIf="atendimento?.estado === 'em_deslocamento'">EM DESLOCAMENTO
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+                </p>
+                <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">CHEGOU NO CLIENTE
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+                </p>
+                <p *ngIf="atendimento?.estado === 'inicio_atendimento'">INICIOU O ATENDIMENTO
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+                </p>
+                <p *ngIf="atendimento?.estado === 'fim_do_atendimento'">CONCLUIU
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i>
+                </p>
               </div>
-              <div class="avaliacoes" fxFlex="20%">
-                <h5>AVALIAÇÕES</h5>
-                <div *ngFor="let atendimento of tecnico?.atendimentos_hoje">
-                  <p>{{ atendimento?.media}}</p>
-                </div>
+            </div>
+            <div class="avaliacoes" fxFlex="20%">
+              <h5>AVALIAÇÕES</h5>
+              <div *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+                <p>{{ atendimento?.media}}</p>
               </div>
             </div>
           </div>
@@ -71,4 +137,4 @@
       </div>
     </div>
   </swiper>
-</div>
+</div> -->

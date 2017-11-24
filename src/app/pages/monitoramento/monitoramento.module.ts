@@ -4,7 +4,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { routing } from './monitoramento.routing';
 import { MonitoramentoComponent } from './monitoramento.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule, toAlignContentValue } from '@angular/flex-layout';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -12,7 +12,9 @@ import { ModuloCompartilhado } from '../../shared/shared.module';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
-  slidesPerView: 'auto',
+  slidesPerView: 1,
+  // slidesPerColumn: 1,
+  centeredSlides: true,
   keyboardControl: true,
   autoplay: 5000
 };

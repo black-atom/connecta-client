@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgaModule } from '../../theme/nga.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './monitoramento.routing';
 import { MonitoramentoComponent } from './monitoramento.component';
@@ -12,11 +13,10 @@ import { ModuloCompartilhado } from '../../shared/shared.module';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
-  slidesPerView: 1,
-  // slidesPerColumn: 1,
-  centeredSlides: true,
+  setWrapperSize: true,
   keyboardControl: true,
-  autoplay: 5000
+  autoplay: 7000,
+  autoplayDisableOnInteraction: false
 };
 
 @NgModule({
@@ -25,6 +25,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     NgaModule,
     FlexLayoutModule,
     ModuloCompartilhado,
+    NgbModule,
     SwiperModule.forRoot(SWIPER_CONFIG),
     routing
   ],

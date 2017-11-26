@@ -1,70 +1,59 @@
 @import './../../theme/sass/conf/conf.scss';
-img {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  border: 1.8px solid #fff;
-}
 
 .container {
-  min-width: 70vw;
+  min-width: 80vw;
+  min-height: 65vh;
 }
 
-.dados-cliente {
+.card  {
+  min-height: 65vh;
+}
+
+%sombra-perfil-tecnico {
+  text-shadow: 1px 1px 1px #3B3B3B;
+}
+
+.perfil-tecnico {
   background: #0093D7;
   text-align: center;
   box-shadow: 3px 0 6px 1px rgb(174, 173, 173);
+  height: 65vh;
+
+  #estado, #nome-tecnico, #media-avaliacao {
+    @extend %sombra-perfil-tecnico;
+  }
+
+  .foto-tecnico {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 4px solid #fff;
+    box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .metricas {
+    margin-top: 40px;
+    margin-right: 30px;
+    li {
+      list-style: none;
+      font-size: 40px;
+      text-decoration-color: white;
+      color: white;
+      i {
+        @extend %sombra-perfil-tecnico;
+      }
+    }
+  }
 }
 
-.em_deslocamento_cor {
-  border: 2px solid #BE443B;
+#atendimento, #avaliacao {
+  cursor: pointer;
+  &:hover {
+    color: #0093D7;
+  }
 }
 
-.chegou_ao_destino_cor {
-  border: 2px solid #215CA1;
+.sem-atendimentos {
+  margin-top: 20%;
+  color: #E5E1FF;
 }
-
-.inicio_atendimento_cor {
-  border: 2px solid #53bb96;
-}
-
-.atendimento_concluido_cor {
-  color: green;
-}
-
-%estado {
-  height: 3px;
-}
-
-.em_deslocamento_linha {
-  @extend %estado;
-  background-color: #BE443B;
-}
-
-.chegou_ao_destino_linha {
-  @extend %estado;
-  background-color: #215CA1;
-}
-
-.inicio_atendimento_linha {
-  @extend %estado;
-  background-color: #53bb96;
-}
-
-li {
-  list-style: none;
-  font-size: 40px;
-  text-decoration-color: white;
-  color: white;
-}
-
-h5{
-  color: rgb(114, 114, 114);
-}
-
-
-h4{
-  color: white;
-  text-shadow: 1px 1px 2px #3B3B3B;
-}
-

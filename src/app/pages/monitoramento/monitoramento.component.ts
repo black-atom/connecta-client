@@ -1,25 +1,10 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
-import {
-  Observable,
-  Subscription
-} from 'rxjs/Rx';
-import {
-  AnonymousSubscription
-} from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx';
+import { AnonymousSubscription } from 'rxjs/Subscription';
 
-import {
-  AtendimentoService
-} from './../../shared/services';
-import {
-  Funcionario
-} from './../../models';
-import {
-  Atendimento
-} from '../../models/atendimento.interface';
+import { AtendimentoService } from './../../shared/services';
+import { Funcionario } from './../../models';
+import { Atendimento  } from '../../models/atendimento.interface';
 
 @Component({
   selector: 'app-monitoramento',
@@ -35,10 +20,10 @@ export class MonitoramentoComponent implements OnInit, OnDestroy {
   constructor(private _atendimentoService: AtendimentoService) {}
 
   ngOnInit() {
-    this.atualizaDados();
+    this.atualizarDadosTecnico();
   }
 
-  aplicarIcones(tecnico) {
+  aplicarIconesMetricas(tecnico) {
     if (tecnico.media === 0) {
       return 'ion-ios-star-outline';
     } else if (tecnico.media > 0) {
@@ -71,28 +56,14 @@ export class MonitoramentoComponent implements OnInit, OnDestroy {
     }
   }
 
-  alterarCorAtendimento(tecnico) {
-    switch (tecnico.estado) {
-
-      case 'em_deslocamento':
-        return 'em_deslocamento_cor';
-
-      case 'chegou_ao_destino':
-        return 'chegou_ao_destino_cor';
-
-      case 'inicio_atendimento':
-        return 'inicio_atendimento_cor';
-    }
-  }
-
-  atualizaDados() {
+  atualizarDadosTecnico() {
     this._atendimentoService.getAllAtendimentosAssociados();
     this.tecnicos$ = this._atendimentoService.funcionarios;
-    this.atualizaPagina();
+    this.atualizarPagina();
   }
 
-  atualizaPagina() {
-    this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizaDados());
+  atualizarPagina() {
+    this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizarDadosTecnico());
   }
 
   ngOnDestroy() {

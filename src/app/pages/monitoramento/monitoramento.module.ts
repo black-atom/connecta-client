@@ -17,7 +17,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   keyboardControl: true,
   effect: 'fade',
   autoplay: 7000,
-  autoplayDisableOnInteraction: false
+  autoplayDisableOnInteraction: false,
+  slidesPerView: 1
 };
 
 @NgModule({

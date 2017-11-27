@@ -15,6 +15,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   setWrapperSize: true,
   keyboardControl: true,
+  effect: 'fade',
   autoplay: 7000,
   autoplayDisableOnInteraction: false
 };

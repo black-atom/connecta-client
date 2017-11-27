@@ -56,22 +56,21 @@
 
             <div class="text-center pt-3" fxFlex="40%" *ngIf="tecnico?.atendimentos_hoje?.length !== 0">
               <h5>SITUAÇÃO</h5>
-              <div class="mt-2" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+              <div class="progresso-atendimento" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
 
-                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'associado'" [striped]="true" [animated]=true value="0">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i> ASSOCIADO</ngb-progressbar>
+                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'associado'" [striped]="true" [animated]=true value="0"></ngb-progressbar>
 
-                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'em_deslocamento'" [striped]="true" [animated]=true value="25">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i> EM DESLOCAMENTO</ngb-progressbar>
+                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'em_deslocamento'" [striped]="true" [animated]=true value="25">
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
 
-                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'chegou_ao_destino'" [striped]="true" [animated]=true value="50">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i> CHEGOU NO CLIENTE</ngb-progressbar>
+                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'chegou_ao_destino'" [striped]="true" [animated]=true value="50">
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
 
-                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'inicio_atendimento'" [striped]="true" [animated]=true value="75">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i> ATENDENDO</ngb-progressbar>
+                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'inicio_atendimento'" [striped]="true" [animated]=true value="75">
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
 
-                <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'fim_do_atendimento'" [striped]="true" [animated]=true value="100">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i> CONCLUIU</ngb-progressbar>
+                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'fim_do_atendimento'" [striped]="true" [animated]=true value="100">
+                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
 
               </div>
             </div>

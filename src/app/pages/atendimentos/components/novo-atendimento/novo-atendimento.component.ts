@@ -134,12 +134,12 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
 
       atendimento.data_atendimento = dataAtendimento;
 
-      if ( (dataAtendimento.getDate() >= dataAtual.getDate()
-      && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() > dataAtual.getMonth()
-      && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
+      // if ( (dataAtendimento.getDate() >= dataAtual.getDate()
+      // && dataAtendimento.getMonth() >= dataAtual.getMonth()
+      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() > dataAtual.getMonth()
+      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
 
-        atendimento.data_atendimento = dataAtendimento;
+        // atendimento.data_atendimento = dataAtendimento;
 
         this.subscription = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
           dados => {},
@@ -150,12 +150,12 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
               this.notificarSucesso();
           }
         );
-      } else {
-        this.notificarFalhaDataMenorQueAtual();
-      }
+      // } else {
+      //   this.notificarFalhaDataMenorQueAtual();
+      // }
   }
 
-  
+
   podeDesativar() {
     if(this.formAtendimento.touched) {
       if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {

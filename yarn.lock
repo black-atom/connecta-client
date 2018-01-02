@@ -110,6 +110,10 @@
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.1.3.tgz#285498eb86ab7d0b6f982f8f9f487ef610013b35"
 
+"@angular/flex-layout@2.0.0-beta.3":
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-2.0.0-beta.3.tgz#8f2630c9882943a8280071d8a2ca88ea0f5e95e8"
+
 "@angular/forms@4.1.3":
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.1.3.tgz#380ab4c3af84c5d1d748c2a7d04151c7dc8e4982"
@@ -4708,6 +4712,12 @@ ngrx-store-localstorage@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-0.2.3.tgz#3b90d70d7abeb1e60ed24935224564a1126d7a69"
 
+ngx-swiper-wrapper@4.6.5:
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/ngx-swiper-wrapper/-/ngx-swiper-wrapper-4.6.5.tgz#67792335c30b2ed6591b2fc37afd600ac31f6797"
+  dependencies:
+    swiper "^3.0.0"
+
 ngx-uploader@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/ngx-uploader/-/ngx-uploader-2.2.5.tgz#e25826cc005892f2795bff729d4282a1b0d28c0b"
@@ -7114,6 +7124,10 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+swiper@^3.0.0:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-3.4.2.tgz#39d6b410b1a39833e1f72d3b72999df5f5e38392"
 
 symbol-observable@^1.0.1:
   version "1.0.4"

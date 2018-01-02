@@ -106,13 +106,13 @@
 
           <p>
             <strong><i class="ion-wrench"></i> Testes efetuados:</strong>
-            {{ atendimentoSelecionado.testes_efetuados }}
+            {{ atendimentoSelecionado?.testes_efetuados }}
           </p>
-
+<!--
           <p >
             <strong><i class="fa fa-camera" aria-hidden="true"></i> Imagem(s):</strong>
-            Este atendimento possui {{ atendimentoSelecionado.imagens.length || 0 }} imagem(s)
-          </p>
+            Este atendimento possui {{ atendimentoSelecionado?.imagens.length || 0 }} imagem(s)
+          </p> -->
 
         </div>
       </div>

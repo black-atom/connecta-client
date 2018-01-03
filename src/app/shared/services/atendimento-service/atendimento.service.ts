@@ -19,208 +19,7 @@ export class AtendimentoService {
 
   private funcoes = TIPOFUNCIONARIOMOCK;
 
-  atendimentos: Observable<Atendimento[]>;
-  private _atendimentos: BehaviorSubject<Atendimento[]>;
-  private dataStore: {
-    atendimentos: Atendimento[]
-  };
-
-  funcionarios: Observable<Funcionario[]>;
-  private _funcionarios: BehaviorSubject<Funcionario[]>;
-  private dataStoreTec: {
-    funcionarios: Funcionario[]
-  };
-
   constructor(private _http: AuthHttp) {
-
-    this.dataStore = { atendimentos: [] };
-    this._atendimentos = <BehaviorSubject<Atendimento[]>>new BehaviorSubject([]);
-    this.atendimentos = this._atendimentos.asObservable();
-
-    this.dataStoreTec = { funcionarios: [] };
-    this._funcionarios = <BehaviorSubject<Funcionario[]>>new BehaviorSubject([]);
-    this.funcionarios = this._funcionarios.asObservable();
-
-  }
-
-  dataAgora() {
-    const today = new Date();
-    const hoje = ({ day: today.getDate(), month: today.getMonth(), year: today.getFullYear() } );
-    const searchDate = new Date(hoje.year, hoje.month, hoje.day );
-    return searchDate;
-  }
-
-  getAllAtendimentos() {
-    this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
-    .map(response => response.json())
-    .subscribe(res => {
-      this.dataStore.atendimentos = res;
-      this._atendimentos.next(Object.assign({}, this.dataStore).atendimentos);
-    }, ManipuladorErro.lidaComErro);
-  }
-
-  getAllAtendimentosPorData(data: Date) {
-    this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
-    .map(response => response.json())
-    .subscribe(res => {
-      this.dataStore.atendimentos = res.filter(atendimento => {
-        const busca = atendimento.data_atendimento === data.toJSON();
-        if (busca) {
-          if (!atendimento.tecnico.nome && atendimento.situacao.status !== 'cancelar') {
-            if (atendimento.cliente.cnpj_cpf.length === 14) {
-              // 00.000.000/0000-00
-              const cnpj = atendimento.cliente.cnpj_cpf;
-              const formatado = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
-              atendimento.cliente.cnpj_cpf = formatado;
-            }else {
-              // 000.000.000-00
-              const cpf = atendimento.cliente.cnpj_cpf;
-              const formatado = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
-              atendimento.cliente.cnpj_cpf = formatado;
-            }
-              return atendimento;
-          }
-        }
-      });
-      this._atendimentos.next(Object.assign({}, this.dataStore).atendimentos);
-    }, ManipuladorErro.lidaComErro);
-  }
-
-  getAllAtendimentosAssociados() {
-    this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
-      .map(response => response.json())
-      .subscribe(funcionarios => {
-      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
-      funcionariosFuncao.map(funcionario => {
-          this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
-          .map(response => response.json())
-          .subscribe(atendimentos => {
-
-            const buscaAssociado = atendimentos.filter((atendimento) => {
-              const busca = atendimento.tecnico._id === funcionario._id;
-              if (busca) {
-                return atendimento;
-              }
-            });
-
-            const buscaAssociadoData = atendimentos.filter((atendimento) => {
-              const busca = atendimento.tecnico._id === funcionario._id;
-              const buscaData = atendimento.data_atendimento === this.dataAgora().toJSON();
-              if (busca && buscaData) {
-                return atendimento;
-              }
-            });
-
-            const finalizadoHoje = atendimentos.filter((atendimento) => {
-              const busca = atendimento.tecnico._id === funcionario._id;
-              const buscaData = atendimento.data_atendimento === this.dataAgora().toJSON();
-              if (busca && buscaData && atendimento.fim) {
-                return atendimento;
-              }
-            });
-
-            atendimentos.map(atendimento => {
-              const media = atendimento.avaliacao.reduce((soma, nota) => nota.valor + soma, 0);
-              if (!media) {
-                atendimento.media = 0;
-              }else {
-                atendimento.media = (media / atendimento.avaliacao.length);
-              }
-              return atendimento;
-            });
-
-            funcionario.atendimentos = buscaAssociado;
-
-           const media = funcionario.atendimentos.reduce((soma, mediaIndividual) => mediaIndividual.media + soma, 0);
-           const divisorMedia = funcionario.atendimentos.map(atendimentoMedia => {
-              if (atendimentoMedia.media > 0) {
-                  return atendimentoMedia;
-              }
-           });
-
-           if (!media) {
-            funcionario.media = 0;
-           }else {
-            funcionario.media = (media / divisorMedia.length);
-           }
-
-            funcionario.atendimentos_hoje = buscaAssociadoData;
-            funcionario.concluido = finalizadoHoje;
-
-         const estadoAtendimento = buscaAssociadoData.map(atendimentoEstado => {
-              if (atendimentoEstado.km_inicio.km && atendimentoEstado.fim === null ) {
-                return funcionario.estado = atendimentoEstado.estado;
-              }
-            });
-          });
-        });
-        this.dataStoreTec.funcionarios = funcionariosFuncao;
-        this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
-    }, ManipuladorErro.lidaComErro);
-  }
-
-  getAllAtendimentosAssociadosData(data: Date) {
-    this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
-      .map(response => response.json())
-      .subscribe(funcionarios => {
-      const funcionariosFuncao = funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(this.funcoes[2]) > - 1);
-          funcionariosFuncao.map(funcionario => {
-          this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
-          .map(response => response.json())
-          .subscribe(atendimentos => {
-            const buscaAssociado = atendimentos.filter((atendimento) => {
-              const busca = atendimento.tecnico._id === funcionario._id;
-              const buscaData = atendimento.data_atendimento === data.toJSON();
-              if (busca && buscaData) {
-                return atendimento;
-              }
-            });
-            funcionario.atendimentos = buscaAssociado;
-            return funcionario;
-          });
-        });
-       this.dataStoreTec.funcionarios = funcionariosFuncao;
-       this._funcionarios.next(Object.assign({}, this.dataStoreTec).funcionarios);
-    }, ManipuladorErro.lidaComErro);
-  }
-
-
-  updateTodosAtendimentosAssociado(atendimentos: Atendimento[]) {
-    const headers = new Headers({ 'Content-Type' : 'application/json' });
-    const options = new RequestOptions({ headers });
-
-    this._http.patch(`${environment.API_ENDPOINT}/api/atendimentos`, atendimentos)
-    .map(response => response.json())
-    .subscribe(atendimento => {
-      atendimentos.forEach((atendimentoAssociado, indexAtendimento) => {
-        this.dataStoreTec.funcionarios.forEach((tecnico, indexTecnico) => {
-          if (tecnico._id === atendimentoAssociado.tecnico._id) {
-            this.dataStoreTec.funcionarios[indexTecnico].atendimentos.push(atendimentoAssociado);
-          }
-        });
-      });
-
-    }, ManipuladorErro.lidaComErro);
-  }
-
-  removerAtendimentoAssociado(atendimento, tecnicoEnviado) {
-
-    const headers = new Headers({ 'Content-Type' : 'application/json' });
-    const options = new RequestOptions({ headers });
-
-  atendimento.tecnico = {};
-
-    this._http.put(`${environment.API_ENDPOINT}/api/atendimentos/${atendimento._id}/`, atendimento, options)
-    .map(response => response.json())
-    .subscribe(atendimentoModificado => {
-      this.dataStoreTec.funcionarios.forEach((tecnico, indexTecnico) => {
-       if (tecnico._id === tecnicoEnviado._id) {
-        this.dataStoreTec.funcionarios[indexTecnico].atendimentos
-        .splice( this.dataStoreTec.funcionarios[indexTecnico].atendimentos
-        .indexOf(atendimento), 1);
-       }
-      });
-    }, ManipuladorErro.lidaComErro);
   }
 
   retornarTodos(): Observable <Atendimento[]> {
@@ -232,12 +31,6 @@ export class AtendimentoService {
   retornarUm(id): Observable <Atendimento> {
     return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos/${id}`)
                      .map(res => res.json() as Atendimento)
-                     .catch(ManipuladorErro.lidaComErro);
-  }
-
-  retornarAtendimentoPorData(data: Date): Observable <Atendimento[]> {
-    return this._http.get(environment.API_ENDPOINT, { params: { data_atendimento : data.toJSON() } })
-                     .map((res) => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
 
@@ -273,4 +66,11 @@ export class AtendimentoService {
                      .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
+
+  getAtendimentosPorData(data) {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?tecnico.nome&data_atendimento=${data}`)
+                     .map(res => res.json() as Atendimento[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

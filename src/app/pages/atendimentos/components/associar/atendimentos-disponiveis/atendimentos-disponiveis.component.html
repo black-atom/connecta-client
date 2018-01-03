@@ -11,7 +11,7 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos | async">
+    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos$ | async">
       <ba-card  (click)="selecionarAtendimento(atendimento)">
         <div class="card-body" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
           <i *ngIf="dessasociarAtendimento(atendimento)" class="ion-android-checkmark-circle pull-right"></i>

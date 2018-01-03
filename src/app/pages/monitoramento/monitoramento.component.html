@@ -27,7 +27,7 @@
               </li>
               <li>
                 <i class="ion-checkmark"></i>
-                <h4 id="media-avaliacao">{{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos_hoje?.length }}</h4>
+                <h4 id="media-avaliacao">{{ tecnico?.concluido?.length || 0 }} / {{ tecnico?.atendimentos?.length }}</h4>
               </li>
             </ul>
           </div>
@@ -38,15 +38,15 @@
         <!-- atendimentos-->
         <section fxFlex="80%">
           <div fxLayout fxLayout.xs="column">
-            <div fxFlex="100%" *ngIf="tecnico?.atendimentos_hoje?.length === 0">
+            <div fxFlex="100%" *ngIf="tecnico?.atendimentos?.length === 0">
               <div class="sem-atendimentos text-center">
                 <h1>Não há atendimentos</h1>
               </div>
             </div>
 
-            <div class="atendimentos text-center pt-3" fxFlex="40%" *ngIf="tecnico?.atendimentos_hoje?.length !== 0">
+            <div class="atendimentos text-center pt-3" fxFlex="40%" *ngIf="tecnico?.atendimentos?.length !== 0">
               <h5>ATENDIMENTO</h5>
-              <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+              <div class="atendimentos-itens" *ngFor="let atendimento of tecnico?.atendimentos">
                 <p [ngClass]="{'atendimento_concluido': atendimento?.estado === 'fim_do_atendimento'}" id="atendimento" class="animated fadeIn"
                   routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
                   {{atendimento.cliente.nome_razao_social | slice: 0:25}}.
@@ -54,9 +54,9 @@
               </div>
             </div>
 
-            <div class="text-center pt-3" fxFlex="40%" *ngIf="tecnico?.atendimentos_hoje?.length !== 0">
+            <div class="text-center pt-3" fxFlex="40%" *ngIf="tecnico?.atendimentos?.length !== 0">
               <h5>SITUAÇÃO</h5>
-              <div class="progresso-atendimento" *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+              <div class="progresso-atendimento" *ngFor="let atendimento of tecnico?.atendimentos">
 
                 <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'associado'" [striped]="true" [animated]=true value="0"></ngb-progressbar>
 
@@ -75,9 +75,9 @@
               </div>
             </div>
 
-            <div class="text-center pt-3" fxFlex="20%" *ngIf="tecnico?.atendimentos_hoje?.length !== 0">
+            <div class="text-center pt-3" fxFlex="20%" *ngIf="tecnico?.atendimentos?.length !== 0">
               <h5>AVALIAÇÃO</h5>
-              <div *ngFor="let atendimento of tecnico?.atendimentos_hoje">
+              <div *ngFor="let atendimento of tecnico?.atendimentos">
                 <p class="animated fadeIn" id="avaliacao" routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">{{ atendimento?.media}}</p>
               </div>
             </div>

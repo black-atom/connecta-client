@@ -1,35 +1,35 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription, Observable } from 'rxjs/Rx';
 
-import { Funcionario } from './../../../../../models';
-import { Atendimento } from './../../../../../models';
+import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+import { Atendimento, Funcionario } from './../../../../../models';
 import { AtendimentoService } from './../../../../../shared/services';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 
 @Component({
   selector: 'app-atendimentos-disponiveis',
   templateUrl: './atendimentos-disponiveis.component.html',
   styleUrls: ['./atendimentos-disponiveis.component.scss']
 })
-export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
+export class AtendimentosDisponiveisComponent implements OnInit {
 
-  @Input() funcionarioSelecionado: Funcionario;
+  @Input()
+  funcionarioSelecionado: Funcionario;
 
-  @Input() dataSelecionada;
+  @Input()
+  dataSelecionada;
 
   private subscription: Subscription;
 
   public selecionados: any[] = [];
-  public atendimentos: Observable<Atendimento[]>;
+  public atendimentos$: Observable<Atendimento[]>;
 
   constructor(public _activeModal: NgbActiveModal,
-              private _atendimentoService: AtendimentoService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter) {}
+              private _atendimentoService: AtendimentoService
+             ) {}
 
   ngOnInit() {
-    this._atendimentoService.getAllAtendimentosPorData(this.dataSelecionada);
-    this.atendimentos = this._atendimentoService.atendimentos;
+   this.atendimentos$ = this._atendimentoService.getAtendimentosPorData(this.dataSelecionada);
   }
 
   selecionarAtendimento(atendimento) {
@@ -59,9 +59,4 @@ export class AtendimentosDisponiveisComponent implements OnInit, OnDestroy {
     this._activeModal.close();
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
 }

@@ -1,16 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, NgbModalOptions, NgbDateStruct, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import { NotificationsService } from 'angular2-notifications';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
-import { AtendimentoService } from '../../../../shared/services/atendimento-service';
+import { NotificationsService } from 'angular2-notifications';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
+import { AtendimentoService, FuncionarioService } from '../../../../shared/services';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
-import { Atendimento } from './../../../../models';
-import { Funcionario } from './../../../../models';
+import { Atendimento, Funcionario } from './../../../../models';
 import { AtendimentosDisponiveisComponent } from './atendimentos-disponiveis';
-import { FuncionarioService } from './../../../../shared/services';
 import { NotificacaoService } from '../../../../shared/services/notificacao-service';
 
 
@@ -20,100 +18,114 @@ import { NotificacaoService } from '../../../../shared/services/notificacao-serv
   styleUrls: ['./associar.component.scss']
 })
 export class AssociarComponent implements OnInit {
-
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
   public funcionarioSelecionado;
-  public funcionario: Funcionario[];
-  public funcoes = TIPOFUNCIONARIOMOCK;
+
+  private funcao = TIPOFUNCIONARIOMOCK[2];
   public dataSelecionada: any;
+  private date = new Date();
+  public inputDate: any;
 
-  model: any;
-
-  public tecnicos: Observable<Funcionario[]>;
+  public tecnicos$: Observable<Funcionario[]>;
 
   opcoesModalAtendimentos: NgbModalOptions = {
     size: 'lg'
   };
 
-
-  constructor(private _funcionarioService: FuncionarioService,
-              private _servicoModal: NgbModal,
-              private _atendimentoService: AtendimentoService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter,
-              private _notificacaoService: NotificacaoService
-              ) {}
-
+  constructor(
+    private _funcionarioService: FuncionarioService,
+    private _servicoModal: NgbModal,
+    private _atendimentoService: AtendimentoService,
+    private _notificacaoService: NotificacaoService
+  ) {}
 
   ngOnInit() {
-
-    this._atendimentoService.getAllAtendimentosAssociadosData(this.dataAgora());
-    this.tecnicos = this._atendimentoService.funcionarios;
+    this.inputDate = {
+      year: this.date.getFullYear(),
+      day: this.date.getDate(),
+      month: this.date.getMonth() + 1
+    };
+    this.getFuncionariosEAtendimentos();
   }
 
-  listarAtendimentoAssociado(dataInformada: any) {
-    dataInformada = this._ngbDateParserFormatter.format(this.model);
-      const today = this.model;
-      const searchDate = new Date(today.year, today.month - 1, today.day );
-      this.dataSelecionada = searchDate;
-      this._atendimentoService.getAllAtendimentosAssociadosData(searchDate);
+  getFuncionariosEAtendimentos() {
+    this.tecnicos$ = this._funcionarioService
+      .retornarFuncionarioPorFuncao(this.funcao)
+      .switchMap(tecnicos =>
+        this._atendimentoService
+          .getAtendimentosAssociadoPorData(
+            this.dataPassadoPeloUsuario(this.inputDate)
+          )
+          .map(atendimentos =>
+            tecnicos.map(funcionario => {
+              const atendimentoTecnico = atendimentos.filter(
+                atendimento => atendimento.tecnico._id === funcionario._id
+              );
+
+              return { ...funcionario, atendimentos: atendimentoTecnico };
+            })
+          )
+      );
   }
 
-  dataAgora() {
-    const today = new Date();
-    const hoje = ({ day: today.getDate(), month: today.getMonth(), year: today.getFullYear() } );
-    const searchDate = new Date(hoje.year, hoje.month, hoje.day );
-    this.model = { year: searchDate.getFullYear(), day: searchDate.getDate(), month: searchDate.getMonth() + 1 };
-    return searchDate;
-
+  dataPassadoPeloUsuario(dataSelecionada) {
+    const dataFormatada = new Date(
+      dataSelecionada.year,
+      dataSelecionada.month - 1,
+      dataSelecionada.day
+    );
+    return dataFormatada;
   }
+
   abrirModal(funcionarioSelecionado) {
-       const modalRef = this._servicoModal
-                    .open(AtendimentosDisponiveisComponent, this.opcoesModalAtendimentos);
+    const modalRef = this._servicoModal.open(
+      AtendimentosDisponiveisComponent,
+      this.opcoesModalAtendimentos
+    );
 
     modalRef.componentInstance.funcionarioSelecionado = funcionarioSelecionado;
-    if (this.dataSelecionada) {
-      modalRef.componentInstance.dataSelecionada = this.dataSelecionada;
-    }else {
-      modalRef.componentInstance.dataSelecionada = this.dataAgora();
-    }
+    modalRef.componentInstance.dataSelecionada = this.dataPassadoPeloUsuario(
+      this.inputDate
+    );
 
-    modalRef.result.then((resultadoDaModal) => {
-          if (resultadoDaModal) {
-            const arrayDeAtendimentos = resultadoDaModal.map((atendimento) => {
-              const tecnico = {
-                nome : funcionarioSelecionado.nome,
-                _id : funcionarioSelecionado._id
-              };
-              return (Object.assign({}, atendimento, { tecnico }));
-             });
-             this._atendimentoService
-                 .updateTodosAtendimentosAssociado(arrayDeAtendimentos);
-          }
+    modalRef.result
+      .then(resultadoDaModal => {
+        if (resultadoDaModal) {
+          const arrayDeAtendimentos = resultadoDaModal.map(atendimento => {
+            const tecnico = {
+              nome: funcionarioSelecionado.nome,
+              _id: funcionarioSelecionado._id
+            };
+            return Object.assign({}, atendimento, { tecnico });
+          });
+          this._atendimentoService
+            .atualizarTodosAtendimentos(arrayDeAtendimentos)
+            .subscribe(() => this.getFuncionariosEAtendimentos());
+        }
       })
-          .catch(() => {});;
-}
-
-abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
-  this.funcionarioSelecionado = funcionario;
-  this.atendimentoASerRemovido = atendimento;
-  this._servicoModal.open(conteudo);
-}
-
-removerAtendimento(atendimento) {
-
-  if (atendimento.inicio === null && atendimento.fim === null) {
-   this._atendimentoService.removerAtendimentoAssociado(atendimento, atendimento.tecnico);
-  } else {
-    this.notificarAtendimentoConcluidoOuIniciado();
+      .catch(() => {});
   }
-}
+
+  abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
+    this.funcionarioSelecionado = funcionario;
+    this.atendimentoASerRemovido = atendimento;
+    this._servicoModal.open(conteudo);
+  }
+
+  removerAtendimento(atendimentoSelecionadoParaRemover) {
+    const tecnico = { nome: '' };
+    const atendimento = { ...atendimentoSelecionadoParaRemover, tecnico };
+    this._atendimentoService
+      .atualizarAtendimento(atendimento)
+      .subscribe(() => this.getFuncionariosEAtendimentos());
+  }
 
   notificarAtendimentoConcluidoOuIniciado() {
     this._notificacaoService.notificarErro(
-    'Erro',
-    'Não é possível remover um atendimento iniciado ou concluído'
-  );
-}
+      'Erro',
+      'Não é possível remover um atendimento iniciado ou concluído'
+    );
+  }
 
 }

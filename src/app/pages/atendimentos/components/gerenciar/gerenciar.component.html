@@ -1,12 +1,12 @@
-<p-dataTable 
-[value]="atendimentos" 
-[responsive]="true" 
-[rows]="25" 
-[paginator]="true" 
-[pageLinks]="5" 
+<p-dataTable
+[value]="atendimentos"
+[responsive]="true"
+[rows]="25"
+[paginator]="true"
+[pageLinks]="5"
 [rowsPerPageOptions]="[5,10,25]"
-[rowStyleClass]="mudarEstiloLinha" 
-[sortOrder]="-1" 
+[rowStyleClass]="mudarEstiloLinha"
+[sortOrder]="-1"
 [loading]="carregando"
 [rowTrackBy]="rowTrackBy"
  loadingIcon="ion-load-a"
@@ -31,6 +31,19 @@
     </ng-template>
   </p-column>
 
+
+  <p-column field="bairro" header="Bairro" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.endereco.bairro | slice: 0:20 }}.
+    </ng-template>
+  </p-column>
+
+  <p-column field="cidade" header="Cidade" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento.endereco.cidade }}
+    </ng-template>
+  </p-column>
+
   <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento.tecnico.nome | split: 0 }}
@@ -50,17 +63,9 @@
     </ng-template>
   </p-column>
 
-  <p-column styleClass="col-button" [style]="{'width':'27px'}">
-    <ng-template let-atendimento="rowData" pTemplate="body">
-      <span *ngIf="atendimento.imagens.length  > 0">
-        <i class="animated infinite pulse fa fa-camera" (click)="abrirModalDeFotos(modalimagens , atendimento); carregarFotos(atendimento)"></i>
-      </span>
-    </ng-template>
-  </p-column>
-
   <p-column styleClass="col-button" [style]="{'width':'30px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-      <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(atendimento)"></button>
+      <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(atendimento._id)"></button>
     </ng-template>
   </p-column>
 
@@ -76,14 +81,14 @@
 
     <div class="modal-header">
       <h4 class="modal-title">
-        {{ imagensInicioAtendimento.length + imagensFinalAtendimento.length }} 
+        {{ imagensInicioAtendimento.length + imagensFinalAtendimento.length }}
         imagem(s) capturada(s) pelo técnico {{ atendimentoSelecionado.tecnico.nome | split: 0 }}
         no dia {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>   
+    </div>
 
     <div class="modal-body">
 
@@ -96,8 +101,8 @@
           <div class="row">
 
             <div class="col-4" *ngFor="let img of imagensInicioAtendimento" >
-              <img class="img-thumbnail" src="{{img}}" alt="" 
-              routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}" 
+              <img class="img-thumbnail" src="{{img}}" alt=""
+              routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
               (click)="d()">
             </div>
 
@@ -111,8 +116,8 @@
           <div class="row">
 
             <div class="col-4" *ngFor="let img of imagensFinalAtendimento" >
-              <img class="img-thumbnail" src="{{img}}" alt="" 
-              routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}" 
+              <img class="img-thumbnail" src="{{img}}" alt=""
+              routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
               (click)="d()">
             </div>
 
@@ -124,13 +129,12 @@
 
     <div class="modal-footer">
 
-      <button class="btn btn-info" 
-      routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}" 
+      <button class="btn btn-info"
+      routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
       (click)="d()">
       Detalhes
     </button>
 
     </div>
-    
+
   </ng-template>
-  

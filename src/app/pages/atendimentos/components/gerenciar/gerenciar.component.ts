@@ -13,25 +13,25 @@ import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
   styleUrls: ['./gerenciar.component.scss']
 })
 export class GerenciarComponent implements OnInit, OnDestroy {
-    
+
     private subscription: Subscription;
     public atendimentos: Atendimento[];
-    public atendimentoSelecionado: Atendimento;    
+    public atendimentoSelecionado: Atendimento;
     public carregando: boolean = true;
     public imagensInicioAtendimento: any[] = [];
     public imagensFinalAtendimento: any[] = [];
-  
+
     constructor(private _atendimentoService: AtendimentoService, private _servicoModal: NgbModal) {}
 
     opcoesModal: NgbModalOptions = {
       size: 'lg'
     };
-  
+
     ngOnInit() {
       this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
        this.atendimentos = atendimentos
        this.carregando = false;
-      })  
+      })
     }
 
     mudarEstiloLinha(dadosLinha: Atendimento) {
@@ -47,8 +47,8 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
       else if (dadosLinha.situacao.status === 'reagendar') {
         return 'reagendamento'
-      } 
-      
+      }
+
       else {
         return 'padrao'
       }
@@ -56,15 +56,18 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
+    this._atendimentoService.retornarUm(atendimentoSelecionado).subscribe(res => {
       const referenciaModal = this._servicoModal.open(VisualizacaoModalComponent, this.opcoesModal);
-      referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
-  }
-
-  abrirModalDeFotos(conteudo, atendimento) {
-    this.atendimentoSelecionado = atendimento;
-    this._servicoModal.open(conteudo, this.opcoesModal)
+      referenciaModal.componentInstance.atendimentoSelecionado = res;
+    });
 
   }
+
+  // abrirModalDeFotos(conteudo, atendimento) {
+  //   this.atendimentoSelecionado = atendimento;
+  //   this._servicoModal.open(conteudo, this.opcoesModal)
+
+  // }
 
   carregarFotos(atendimento: Atendimento) {
     this.atendimentoSelecionado = atendimento;
@@ -76,13 +79,13 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     this.imagensFinalAtendimento = atendimento.imagens
       .filter(imagem => imagem.tipo === 'fim_atendimento')
       .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
-  
+
   }
 
     ngOnDestroy() {
       this.subscription.unsubscribe();
     }
   }
-  
-  
-  
+
+
+

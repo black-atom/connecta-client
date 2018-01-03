@@ -1,26 +1,60 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
-import { AnonymousSubscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Rx';
 
-import { AtendimentoService } from './../../shared/services';
-import { Funcionario } from './../../models';
-import { Atendimento  } from '../../models/atendimento.interface';
+import { AtendimentoService, FuncionarioService } from './../../shared/services';
+import { Funcionario, Atendimento } from './../../models';
+import { TIPOFUNCIONARIOMOCK } from './../../utils/mocks/tipo-funcionario.mock';
 
 @Component({
   selector: 'app-monitoramento',
   templateUrl: './monitoramento.component.html',
   styleUrls: ['./monitoramento.component.scss']
 })
-export class MonitoramentoComponent implements OnInit, OnDestroy {
+export class MonitoramentoComponent implements OnInit {
 
-  private subscription: Subscription;
-  public tecnicos$: Observable < Funcionario[] > ;
-  private timerSubscription: AnonymousSubscription;
+  public tecnicos$: Observable<Funcionario[]>;
+  private funcao = TIPOFUNCIONARIOMOCK[2];
+  private date = new Date();
 
-  constructor(private _atendimentoService: AtendimentoService) {}
+  constructor(
+    private _atendimentoService: AtendimentoService,
+    private _funcionarioService: FuncionarioService
+  ) {}
 
   ngOnInit() {
-    this.atualizarDadosTecnico();
+    this.getFuncionariosEAtendimentos();
+  }
+
+  getFuncionariosEAtendimentos() {
+
+    this.tecnicos$ = this._funcionarioService
+      .retornarFuncionarioPorFuncao(this.funcao)
+      .switchMap(tecnicos =>
+
+        this._atendimentoService
+          .getAtendimentosAssociadoPorData(this.getDateToday())
+          .map(atendimentos =>
+
+            tecnicos.map(funcionario => {
+              const atendimentoTecnico = atendimentos.filter(
+                atendimento => atendimento.tecnico._id === funcionario._id
+              );
+
+              return { ...funcionario, atendimentos: atendimentoTecnico };
+
+            })
+          )
+
+      );
+  }
+
+  getDateToday() {
+    const date = this.date;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const today = new Date(2017, 11, 5);
+    return today;
   }
 
   aplicarIconesMetricas(tecnico) {
@@ -54,19 +88,5 @@ export class MonitoramentoComponent implements OnInit, OnDestroy {
       case 'fim_do_atendimento':
         return 'ion-checkmark';
     }
-  }
-
-  atualizarDadosTecnico() {
-    this._atendimentoService.getAllAtendimentosAssociados();
-    this.tecnicos$ = this._atendimentoService.funcionarios;
-    this.atualizarPagina();
-  }
-
-  atualizarPagina() {
-    this.timerSubscription = Observable.timer(10000 * 6).first().subscribe(() => this.atualizarDadosTecnico());
-  }
-
-  ngOnDestroy() {
-    this.timerSubscription.unsubscribe();
   }
 }

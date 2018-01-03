@@ -53,7 +53,7 @@ export class MonitoramentoComponent implements OnInit {
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    const today = new Date(2017, 11, 5);
+    const today = new Date(year, month, day);
     return today;
   }
 

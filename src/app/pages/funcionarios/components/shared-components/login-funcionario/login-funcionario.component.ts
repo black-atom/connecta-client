@@ -20,40 +20,20 @@ export class LoginFuncionarioComponent implements OnInit {
   @Output()
   tipoSelecionado = new EventEmitter();
 
-  permissoesSelecionadas = [];
-
-  tipoFuncionario = TIPOFUNCIONARIOMOCK;
-
   @Input()
   tipoEscolhido;
   @Input()
   tipoEscolhido2;
+
+  public tipoFuncionario: String[] = TIPOFUNCIONARIOMOCK;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-
-  permissao1(tipo) {
-    const index = this.permissoesSelecionadas.indexOf(tipo);
-    if (index === -1) {
-      this.permissoesSelecionadas.splice(0, 1, tipo);
-    }
-
-    this.tipoSelecionado.emit(this.permissoesSelecionadas);
-  }
-
-  permissao2(tipo) {
-    const index = this.permissoesSelecionadas.indexOf(tipo);
-    if (tipo) {
-      if (index === -1 && tipo !== '') {
-        this.permissoesSelecionadas.splice(1, 1, tipo);
-      }
-    }else {
-      this.permissoesSelecionadas.splice(1, 1);
-    }
-    this.tipoSelecionado.emit(this.permissoesSelecionadas);
+  permissao(tipo) {
+   this.tipoSelecionado.emit(tipo);
   }
 
 }

@@ -51,8 +51,8 @@
           <app-login-funcionario
           [disabled]="editarCamposTipo"
           (tipoSelecionado)="permissao($event)"
-          [tipoEscolhido]="funcionarioRecebido?.login?.tipo[0]"
-          [tipoEscolhido2]="funcionarioRecebido?.login?.tipo[1]"
+          [tipoEscolhido]="tipo[0]"
+          [tipoEscolhido2]="tipo[1]"
           [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
           </app-login-funcionario>
         </ba-card>
@@ -67,7 +67,7 @@
           <div class="col-md-6 col-sm-12">
 
             <button type="submit" class="btn btn-primary btn-with-icon"
-            [disabled]="formEdicaoFuncionario.touched">
+            [disabled]="formEdicaoFuncionario.invalid">
             <i class="ion-android-checkmark-circle"></i>Salvar</button>
           </div>
 

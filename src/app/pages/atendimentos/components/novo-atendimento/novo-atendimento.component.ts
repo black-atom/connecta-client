@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import { Atendimento } from './../../../../models';
+import { Atendimento, Cliente, ContatoCliente, EnderecoCliente } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
@@ -19,9 +19,9 @@ import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
 export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
-  public clienteEncontrado;
-  public contatoEscolhido;
-  public enderecoEscolhido;
+  public clienteEncontrado: Cliente;
+  public contatoEscolhido: ContatoCliente;
+  public enderecoEscolhido: EnderecoCliente;
   public formAtendimento: FormGroup;
   public novoAtendimentoEditarCampos: Boolean = true;
 
@@ -80,19 +80,18 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   buscarCliente(cnpj) {
     if (cnpj) {
      this.subscription = this._clienteService.retornarUm(cnpj)
-      .subscribe((res) => {
+      .subscribe(res => {
           if (res) {
-          this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
-          this.formAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
-          this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
-          this.clienteEncontrado = res;
+            this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
+            this.formAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
+            this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
+            this.clienteEncontrado = res;
           } else {
             this.notificarFalhaEncontrarCliente();
           }
-      }
-    );
+      });
+    }
   }
-}
 
   contatoSelecionado(contato) {
     this.formAtendimento.get('contato.nome').patchValue(contato.nome);
@@ -113,48 +112,31 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     this.formAtendimento.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
   }
 
-
-  cadastrarAtendimento(atendimento: Atendimento) {
-
-    const dataFormulario = this.formAtendimento.controls['data_atendimento'].value;
-    const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
-    const dataAtual = new Date();
-
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
-
-      atendimento.data_atendimento = dataAtendimento;
-
-      // if ( (dataAtendimento.getDate() >= dataAtual.getDate()
-      // && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() > dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
-
-        // atendimento.data_atendimento = dataAtendimento;
-
-        this.subscription = this._atendimentoServiceService.novoAtendimento(atendimento).subscribe(
-          dados => {},
-          erro => {
-              this.notificarFalhaCadastro();
-          },
-          () => {
-              this.notificarSucesso();
-          }
-        );
-      // } else {
-      //   this.notificarFalhaDataMenorQueAtual();
-      // }
+  replaceFieldsAtendimento(atendimento) {
+    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
+    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+    return atendimento;
   }
 
+  cadastrarAtendimento(atendimento: Atendimento) {
+    this.formAtendimento.reset();
+    const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
+    atendimentoFormatado.data_atendimento = new Date(
+     atendimentoFormatado.data_atendimento.year,
+     atendimentoFormatado.data_atendimento.month - 1,
+     atendimentoFormatado.data_atendimento.day
+    );
+
+    this.subscription = this._atendimentoServiceService.novoAtendimento(atendimentoFormatado).subscribe(
+      () => {},
+          erro => this.notificarFalhaCadastro(),
+            () => this.notificarSucesso()
+    );
+
+  }
 
   podeDesativar() {
     if(this.formAtendimento.touched) {

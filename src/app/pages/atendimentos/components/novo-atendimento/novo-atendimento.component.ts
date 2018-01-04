@@ -24,7 +24,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   public enderecoEscolhido: EnderecoCliente;
   public formAtendimento: FormGroup;
   public novoAtendimentoEditarCampos: Boolean = true;
-  public disabledButtonForm = true;
 
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,

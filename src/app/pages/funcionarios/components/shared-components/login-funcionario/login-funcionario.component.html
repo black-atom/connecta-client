@@ -18,7 +18,7 @@
       <select class="form-control" name="permissao1"
       [(ngModel)]="tipoEscolhido"
       [ngModelOptions]="{standalone: true}"
-      (change)="permissao1(tipoEscolhido)">
+      (change)="permissao(tipoEscolhido)">
         <option value="" disabled selected>Selecione</option>
         <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
       </select>
@@ -32,7 +32,7 @@
       <select class="form-control" name="permissao2"
       [(ngModel)]="tipoEscolhido2"
       [ngModelOptions]="{standalone: true}"
-      (change)="permissao2(tipoEscolhido2)">
+      (change)="permissao(tipoEscolhido2)">
         <option value="" selected>Selecione</option>
         <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
       </select>

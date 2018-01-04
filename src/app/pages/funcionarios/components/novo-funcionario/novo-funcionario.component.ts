@@ -27,103 +27,107 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
                private _funcionarioService: FuncionarioService,
                private _notificacaoService: NotificacaoService) {}
 
-   ngOnInit() {
+  ngOnInit() {
     this.iniciarFormFuncionario();
-   }
-
-   iniciarFormFuncionario() {
-      this.formFuncionario = this._fb.group({
-
-        nome: ['', [Validators.required]],
-        rg: ['', [Validators.required]],
-        cpf: ['', [Validators.required]],
-        data_nasc: ['', [Validators.required]],
-
-        login: this._fb.group({
-          username: ['', [Validators.required]],
-          password: ['', [Validators.required]],
-          tipo: ['']
-        }),
-
-        habilitacao: this._fb.group({
-          numero: [''],
-          validade: ['']
-        }),
-
-        contato: this._fb.group({
-          nome: ['', Validators.required],
-          email: ['', [Validators.pattern(this.emailPattern)]],
-          telefone: ['', [Validators.required]],
-          celular: [''],
-          observacao: ['']
-        }),
-
-        endereco: this._fb.group({
-          cep: ['', [Validators.required]],
-          rua: ['', [Validators.required]],
-          numero: ['', [Validators.required]],
-          bairro: ['', [Validators.required]],
-          complemento: [''],
-          cidade: ['', [Validators.required]],
-          uf: ['', [Validators.required]],
-          ponto_referencia: ['']
-        })
-      });
-   }
-
-
-   permissao(perm) {
-     this.tipo = perm;
-   }
-
-   cadastrarTecnico(funcionario: Funcionario) {
-    funcionario.login.tipo = this.tipo;
-     funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
-     funcionario.rg = funcionario.rg.replace(/\D+/g, '');
-     funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
-     funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
-     if (funcionario.contato.celular) {
-      funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
-     }
-     funcionario.login.tipo = this.tipo;
-
-     this.subscription = this._funcionarioService.novoFuncionario(funcionario)
-    .subscribe(
-      dados => {
-    },
-      erro => {
-      this.falhaNoCadastro();
-    },
-      () => {
-      this.sucessoNoCadastro();
-    }
-  );
-}
-
-podeDesativar() {
-  if(this.formFuncionario.touched) {
-    if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
-      return true;
-    } else {
-      return false;
-      }
   }
-    return true;
-}
 
-sucessoNoCadastro() {
-  this._notificacaoService.notificarSucesso(
-    'Cadastro efetuado com sucesso!',
-    ''
-  );
-    this.formFuncionario.reset();
-}
+  iniciarFormFuncionario() {
+    this.formFuncionario = this._fb.group({
 
-falhaNoCadastro() {
-  this._notificacaoService.notificarErro(
-    'Não foi possível efetuar o cadastro',
-    ''
+      nome: ['', [Validators.required]],
+      rg: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
+      data_nasc: ['', [Validators.required]],
+
+      login: this._fb.group({
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        tipo: ['']
+      }),
+
+      habilitacao: this._fb.group({
+        numero: [''],
+        validade: ['']
+      }),
+
+      contato: this._fb.group({
+        nome: ['', Validators.required],
+        email: ['', [Validators.pattern(this.emailPattern)]],
+        telefone: ['', [Validators.required]],
+        celular: [''],
+        observacao: ['']
+      }),
+
+      endereco: this._fb.group({
+        cep: ['', [Validators.required]],
+        rua: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        bairro: ['', [Validators.required]],
+        complemento: [''],
+        cidade: ['', [Validators.required]],
+        uf: ['', [Validators.required]],
+        ponto_referencia: ['']
+      })
+    });
+  }
+
+
+  permissao(perm) {
+    const index = this.tipo.indexOf(perm);
+    if (perm && index === -1) {
+      this.tipo.push(perm);
+    }else if (index !== -1) {
+      this.tipo.splice(index, 1, perm);
+    }
+  }
+
+
+  replaceFieldsFuncionario(funcionario) {
+    funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
+    funcionario.rg = funcionario.rg.replace(/\D+/g, '');
+    funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
+    funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
+    funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
+    return funcionario;
+  }
+
+  cadastrarTecnico(funcionario: Funcionario) {
+
+    const funcionarioFormatado = this.replaceFieldsFuncionario(funcionario);
+    funcionarioFormatado.login.tipo = this.tipo;
+
+    this.subscription = this._funcionarioService.novoFuncionario(funcionarioFormatado)
+      .subscribe(
+        () => {},
+          erro => this.falhaNoCadastro(),
+            () => this.sucessoNoCadastro()
+      );
+  }
+
+  podeDesativar() {
+    if(this.formFuncionario.touched) {
+      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+        }
+    }
+      return true;
+  }
+
+  sucessoNoCadastro() {
+    this._notificacaoService.notificarSucesso(
+      'Cadastro efetuado com sucesso!',
+      ''
     );
+      this.formFuncionario.reset();
+  }
+
+  falhaNoCadastro() {
+    this._notificacaoService.notificarErro(
+      'Não foi possível efetuar o cadastro',
+      ''
+      );
   }
 
   ngOnDestroy() {
@@ -131,5 +135,6 @@ falhaNoCadastro() {
       this.subscription.unsubscribe();
     }
   }
+
 }
 

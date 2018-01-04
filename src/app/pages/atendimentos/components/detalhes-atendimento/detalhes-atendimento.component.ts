@@ -3,17 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import { AtendimentoService } from './../../../../shared/services';
-import { CepService } from '../../../../shared/services';
-import { ClienteService } from '../../../../shared/services/cliente-service';
-
-import { Atendimento } from './../../../../models';
-import { DadosEndereco } from './../../../../models';
-import { NotificacaoService } from './../../../../shared/services/notificacao-service';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.mock';
+import { Atendimento, DadosEndereco, ContatoCliente, EnderecoCliente, Cliente } from './../../../../models';
+import { AtendimentoService, ClienteService, CepService, NotificacaoService } from './../../../../shared/services';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
-
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -26,10 +19,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   private subscription: Subscription;
   private id: string;
   public atendimentoRecebido: Atendimento;
-  public contatoEscolhido: any;
-  public enderecoEscolhido: any;
+  public contatoEscolhido: ContatoCliente;
+  public enderecoEscolhido: EnderecoCliente;
   public detalhesAtendimentoEditarCampos = true;
-  public clienteEncontrado;
+  public clienteEncontrado: Cliente;
   public tecnico;
   private action = ['reagendar', 'cancelar', 'encaixe'];
   public desativaData = false;
@@ -41,7 +34,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
               private _fb: FormBuilder,
               private _router: Router,
               private _notificacaoService: NotificacaoService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter,
               private _clienteService: ClienteService
   ) { }
 
@@ -103,15 +95,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       observacao: [''],
       estacionamento: ['', Validators.required]
    });
-  }
-
-   buscaPorCep(cep: string) {
-    this.subscription = this._cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-        this.formEdicaoAtendimento.get('endereco.rua').patchValue(dados.logradouro);
-        this.formEdicaoAtendimento.get('endereco.bairro').patchValue(dados.bairro);
-        this.formEdicaoAtendimento.get('endereco.cidade').patchValue(dados.localidade);
-        this.formEdicaoAtendimento.get('endereco.uf').patchValue(dados.uf);
-    });
   }
 
   recuperarAtendimento() {
@@ -182,129 +165,101 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   actionRecevida(acao) {
     this.actionSelecionada = acao;
   }
-   atualizarAtendimento(atendimento) {
 
-    if (atendimento.situacao.status === this.action[2]) {
-      atendimento._id = this.id;
-      atendimento.tecnico._id = this.tecnico._id;
-      atendimento.tecnico.nome = this.tecnico.nome;
-
-
-      const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
-      const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
-      const dataAtual = new Date();
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
-
-
-      // if ( (dataAtendimento.getDate() >= dataAtual.getDate()
-      // && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() >= dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
-
-
-      atendimento.data_atendimento = dataAtendimento;
-
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)
-      .subscribe(
-        dados => {
-      },
-        erro => {
-        this.falhaNaEdicao();
-      },
-        () => {
-        this.sucessoNaEdicao();
-      }
-    );
-    // } else {
-    //     this.falhaDataMenorQueAtual();
-    // }
-    }else {
-      atendimento._id = this.id;
-      atendimento.tecnico = {};
-
-
-      const dataFormulario = this.formEdicaoAtendimento.controls['data_atendimento'].value;
-      const dataAtendimento = new Date(dataFormulario.year, dataFormulario.month - 1, dataFormulario.day );
-      const dataAtual = new Date();
-
-      atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-      if (atendimento.cliente.inscricao_estadual) {
-        atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-      }
-      if (atendimento.contato.celular) {
-        atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-      }
-      atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-      atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
-
-      // if ( (dataAtendimento.getDate() >= dataAtual.getDate()
-      // && dataAtendimento.getMonth() >= dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear()) || (dataAtendimento.getMonth() > dataAtual.getMonth()
-      // && dataAtendimento.getFullYear() >= dataAtual.getFullYear())) {
-
-          atendimento.data_atendimento = dataAtendimento;
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimento)
-      .subscribe(
-        dados => {
-      },
-        erro => {
-        this.falhaNaEdicao();
-      },
-        () => {
-        this.sucessoNaEdicao();
-      }
-    );
-    // } else {
-    //     this.falhaDataMenorQueAtual();
-    // }
-    }
-}
-
-podeDesativar() {
-  if(this.formEdicaoAtendimento.touched) {
-    if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
-      return true;
-    } else {
-      return false;
-      }
+  replaceFieldsAtendimento(atendimento) {
+    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
+    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
+    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
+    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
+    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
+    return atendimento;
   }
-    return true;
-}
 
+  atualizarAtendimento(atendimento) {
+
+    const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
+    atendimentoFormatado._id = this.id;
+    atendimentoFormatado.data_atendimento = new Date(
+     atendimentoFormatado.data_atendimento.year,
+     atendimentoFormatado.data_atendimento.month - 1,
+     atendimentoFormatado.data_atendimento.day
+    );
+
+    if (atendimentoFormatado.situacao.status === this.action[2]) {
+     atendimentoFormatado.tecnico._id = this.tecnico._id;
+     atendimentoFormatado.tecnico.nome = this.tecnico.nome;
+
+      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
+         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
+         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
+        }else {
+         atendimentoFormatado.avaliacao = [];
+         atendimentoFormatado.imagens = [];
+        }
+
+      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
+        .subscribe(
+          () => {},
+            erro => this.falhaNaEdicao(),
+                () => this.sucessoNaEdicao()
+      );
+    }else {
+
+     atendimentoFormatado.tecnico = { nome: '' };
+
+      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
+         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
+         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
+        }else {
+         atendimentoFormatado.avaliacao = [];
+         atendimentoFormatado.imagens = [];
+        }
+
+      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
+        .subscribe(
+          () => {},
+            erro => this.falhaNaEdicao(),
+                () => this.sucessoNaEdicao()
+      );
+    }
+  }
+
+  podeDesativar() {
+    if (this.formEdicaoAtendimento.touched) {
+      if ( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+        }
+    }
+      return true;
+  }
 
   sucessoNaEdicao() {
-  this._notificacaoService.notificarSucesso(
-    'Edição efetuada com sucesso!',
-    ''
-  );
-}
-
-  falhaNaEdicao() {
-  this._notificacaoService.notificarErro(
-    'Não foi possível efetuar a edição',
-    ''
-    );
-  }
-
-  falhaDataMenorQueAtual() {
-    this._notificacaoService.notificarErro(
-      'Data informada inferior a data atual',
+    this._notificacaoService.notificarSucesso(
+      'Edição efetuada com sucesso!',
       ''
     );
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-    this.subscription.unsubscribe();
-    }
+  falhaNaEdicao() {
+    this._notificacaoService.notificarErro(
+      'Não foi possível efetuar a edição',
+      ''
+      );
   }
+
+  falhaDataMenorQueAtual() {
+      this._notificacaoService.notificarErro(
+        'Data informada inferior a data atual',
+        ''
+      );
+  }
+
+  ngOnDestroy() {
+      if (this.subscription) {
+      this.subscription.unsubscribe();
+      }
+  }
+
 }

@@ -2,12 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 
-import { NotificacaoService } from './../../../../shared/services';
-import { DadosEndereco } from './../../../../models';
-import { CepService } from './../../../../shared/services';
-import { FuncionarioService } from './../../../../shared/services';
-import { Funcionario } from './../../../../models';
+import { NotificacaoService, FuncionarioService, CepService } from './../../../../shared/services';
+import { DadosEndereco, Funcionario } from './../../../../models';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-novo-funcionario',
@@ -81,15 +79,27 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
     }
   }
 
+  replaceFieldsFuncionario(funcionario: Funcionario) {
 
-  replaceFieldsFuncionario(funcionario) {
-    funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
-    funcionario.rg = funcionario.rg.replace(/\D+/g, '');
-    funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
-    funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
-    funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
-    return funcionario;
+    const functionarioFormatado = {
+      cpf : removeMaskFromProp('cpf')(funcionario),
+      rg : removeMaskFromProp('rg')(funcionario)
+    };
+
+    const contato = {
+      ...funcionario.contato,
+      telefone : removeMaskFromProp('telefone')(funcionario.contato),
+      celular : removeMaskFromProp('celular')(funcionario.contato)
+    };
+
+    const endereco = {
+      ...funcionario.endereco,
+      cep : removeMaskFromProp('cep')(funcionario.endereco)
+    };
+
+    return { ...funcionario, ...functionarioFormatado, contato, endereco };
   }
+
 
   cadastrarTecnico(funcionario: Funcionario) {
 

@@ -1,18 +1,20 @@
 <p-dataTable
 [value]="atendimentos"
-[responsive]="true"
-[rows]="25"
+[lazy]="true"
+[rows]="10"
 [paginator]="true"
+[rowsPerPageOptions]="[10,15,25]"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadAtendimentosLazy($event)"
 [pageLinks]="5"
-[rowsPerPageOptions]="[5,10,25]"
+[responsive]="true"
 [rowStyleClass]="mudarEstiloLinha"
 [sortOrder]="-1"
 [loading]="carregando"
-[rowTrackBy]="rowTrackBy"
  loadingIcon="ion-load-a"
  rowHover="true"
  sortField="createdAt" styleClass="borderless">
-
+ <!-- [rowTrackBy]="rowTrackBy" -->
   <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'140px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento.data_atendimento | date: 'dd/MM/yyyy'}}

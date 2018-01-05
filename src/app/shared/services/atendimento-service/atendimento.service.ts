@@ -73,4 +73,10 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  atendimentosLazyLoad(skip: number = 0, limit: number = 10): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?skip=${skip}&limit=${limit}`)
+                     .map((res) => res.json() as any[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

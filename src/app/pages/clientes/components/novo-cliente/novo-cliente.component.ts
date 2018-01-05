@@ -9,6 +9,7 @@ import { formEnderecoControls } from './../../../../shared/components/endereco';
 import { NotificacaoService } from '../../../../shared/services';
 import { Router } from '@angular/router';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 
 @Component({
@@ -16,31 +17,36 @@ import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactiva
   templateUrl: './novo-cliente.component.html',
   styleUrls: ['./novo-cliente.component.scss']
 })
-export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactivate {
-
+export class NovoClienteComponent
+  implements OnInit, OnDestroy, IFormCanDeactivate {
   private subscription: Subscription;
   public formCliente: FormGroup;
   public desabilitaElemento: boolean = true;
 
-  get contatos(): FormArray { return this.formCliente.get('contatos') as FormArray; }
-  get enderecos(): FormArray { return this.formCliente.get('enderecos') as FormArray; }
+  get contatos(): FormArray {
+    return this.formCliente.get('contatos') as FormArray;
+  }
+  get enderecos(): FormArray {
+    return this.formCliente.get('enderecos') as FormArray;
+  }
 
-  constructor(private _fb: FormBuilder,
-              private _clienteService: ClienteService,
-              private _notificacaoService: NotificacaoService) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _clienteService: ClienteService,
+    private _notificacaoService: NotificacaoService
+  ) {}
 
   ngOnInit() {
-
-      this.formCliente = this._fb.group({
-              cnpj_cpf: ['', [Validators.required]],
-              nome_razao_social: ['', [Validators.required]],
-              inscricao_estadual: [''],
-              nome_fantasia: [''],
-              contatos: this._fb.array([]),
-              enderecos: this._fb.array([])
-      });
-      this.adicionarContato();
-      this.adicionarEndereco();
+    this.formCliente = this._fb.group({
+      cnpj_cpf: ['', [Validators.required]],
+      nome_razao_social: ['', [Validators.required]],
+      inscricao_estadual: [''],
+      nome_fantasia: [''],
+      contatos: this._fb.array([]),
+      enderecos: this._fb.array([])
+    });
+    this.adicionarContato();
+    this.adicionarEndereco();
   }
 
   removerContato(index) {
@@ -52,78 +58,74 @@ export class NovoClienteComponent implements OnInit, OnDestroy, IFormCanDeactiva
   }
 
   adicionarContato() {
-    const contatos: FormArray = <FormArray> this.formCliente.get('contatos');
+    const contatos: FormArray = <FormArray>this.formCliente.get('contatos');
     contatos.push(this._fb.group(formContatoControls));
   }
 
   adicionarEndereco() {
-    const enderecos: FormArray = <FormArray> this.formCliente.get('enderecos');
+    const enderecos: FormArray = <FormArray>this.formCliente.get('enderecos');
     enderecos.push(this._fb.group(formEnderecoControls));
   }
 
-  cadastrarCliente(cliente: Cliente) {
+  replaceFieldsCliente(cliente: Cliente) {
 
-   cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
-    if (cliente.inscricao_estadual) {
-      cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
-    }
+    const dadosClienteFormatado = {
+      cnpj_cpf: removeMaskFromProp('cnpj_cpf')(cliente),
+      inscricao_estadual: removeMaskFromProp('inscricao_estadual')(cliente)
+    };
 
-   cliente.contatos = cliente.contatos.map((removerMascaraContato) => {
-     if (removerMascaraContato.celular) {
-          const novoContatos = {
-            telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
-            celular : removerMascaraContato.celular.replace(/\D+/g, '')
-          };
-          return (Object.assign({}, removerMascaraContato, novoContatos));
-     } else {
-          const novoContatos = {
-            telefone: removerMascaraContato.telefone.replace(/\D+/g, '')
-          };
-          return (Object.assign({}, removerMascaraContato, novoContatos));
-     }
-
+    const contatos = cliente.contatos.map(contato => {
+      const telefonesFormatado = {
+        telefone: removeMaskFromProp('telefone')(contato),
+        celular: removeMaskFromProp('celular')(contato)
+      };
+      return { ...contato, ...telefonesFormatado };
     });
 
-    cliente.enderecos = cliente.enderecos.map((removerMascaraEndereco) => {
-      const novoContatos = {
-          cep: removerMascaraEndereco.cep.replace(/\D+/g, '')
+    const enderecos = cliente.enderecos.map(endereco => {
+      const cepFormatado = {
+        cep: removeMaskFromProp('cep')(endereco)
       };
-     return (Object.assign({}, removerMascaraEndereco, novoContatos));
-     });
+      return { ...endereco, ...cepFormatado };
+    });
 
-    this.subscription = this._clienteService.novoCliente(cliente)
-      .subscribe(
-        dados => {
-      },
-        erro => {
-        if (erro === 'Ocorreu o erro 409') {
-          this.falhaCPFCNPJExistente();
-        } else {
-          this.falhaNoCadastro();
+    return { ...cliente, ...dadosClienteFormatado, contatos, enderecos };
+  }
+
+  cadastrarCliente(cliente: Cliente) {
+   const clienteFormatado = this.replaceFieldsCliente(cliente);
+      this.subscription = this._clienteService.novoCliente(clienteFormatado)
+        .subscribe(
+          dados => {
+        },
+          erro => {
+          if (erro === 'Ocorreu o erro 409') {
+            this.falhaCPFCNPJExistente();
+          } else {
+            this.falhaNoCadastro();
+          }
+        },
+          () => {
+          this.sucessoNoCadastro();
         }
-      },
-        () => {
-        this.sucessoNoCadastro();
-      }
-    );
-}
-
+      );
+  }
 
   podeDesativar() {
-    if(this.formCliente.touched) {
-      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+    if (this.formCliente.touched) {
+      if (confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
         return true;
       } else {
         return false;
-        }
+      }
     }
-      return true;
+    return true;
   }
 
   sucessoNoCadastro() {
     this._notificacaoService.notificarSucesso(
-       'Cliente cadastrado com sucesso',
-       ''
+      'Cliente cadastrado com sucesso',
+      ''
     );
     this.formCliente.reset();
   }

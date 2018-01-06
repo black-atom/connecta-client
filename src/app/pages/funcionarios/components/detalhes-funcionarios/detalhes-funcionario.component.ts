@@ -7,6 +7,7 @@ import { DadosEndereco, Funcionario } from './../../../../models';
 import { CepService, FuncionarioService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-detalhes-funcionario',
@@ -98,14 +99,25 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
     }
   }
 
+  replaceFieldsFuncionario(funcionario: Funcionario) {
 
-  replaceFieldsFuncionario(funcionario) {
-    funcionario.cpf = funcionario.cpf.replace(/\D+/g, '');
-    funcionario.rg = funcionario.rg.replace(/\D+/g, '');
-    funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
-    funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
-    funcionario.contato.celular = funcionario.contato.celular.replace(/\D+/g, '');
-    return funcionario;
+    const functionarioFormatado = {
+      cpf : removeMaskFromProp('cpf')(funcionario),
+      rg : removeMaskFromProp('rg')(funcionario)
+    };
+
+    const contato = {
+      ...funcionario.contato,
+      telefone : removeMaskFromProp('telefone')(funcionario.contato),
+      celular : removeMaskFromProp('celular')(funcionario.contato)
+    };
+
+    const endereco = {
+      ...funcionario.endereco,
+      cep : removeMaskFromProp('cep')(funcionario.endereco)
+    };
+
+    return { ...funcionario, ...functionarioFormatado, contato, endereco };
   }
 
   atualizarTecnico(funcionario: Funcionario) {

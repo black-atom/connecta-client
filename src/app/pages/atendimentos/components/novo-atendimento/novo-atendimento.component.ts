@@ -9,6 +9,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/da
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
 
 import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -113,16 +114,29 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   }
 
   replaceFieldsAtendimento(atendimento) {
-    atendimento.cliente.cnpj_cpf = atendimento.cliente.cnpj_cpf.replace(/\D+/g, '');
-    atendimento.cliente.inscricao_estadual = atendimento.cliente.inscricao_estadual.replace(/\D+/g, '');
-    atendimento.contato.celular = atendimento.contato.celular.replace(/\D+/g, '');
-    atendimento.contato.telefone = atendimento.contato.telefone.replace(/\D+/g, '');
-    atendimento.endereco.cep = atendimento.endereco.cep.replace(/\D+/g, '');
-    return atendimento;
+
+    const cliente = {
+      ...atendimento.cliente,
+      cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
+      inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+    };
+
+    const contato = {
+      ...atendimento.contato,
+      telefone: removeMaskFromProp('telefone')(atendimento.contato),
+      celular: removeMaskFromProp('celular')(atendimento.contato)
+    };
+
+    const endereco = {
+      ...atendimento.endereco,
+      cep: removeMaskFromProp('cep')(atendimento.endereco)
+    };
+
+    return { ...atendimento, cliente, contato, endereco };
   }
 
   cadastrarAtendimento(atendimento: Atendimento) {
-    this.formAtendimento.reset();
+
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
     atendimentoFormatado.data_atendimento = new Date(
      atendimentoFormatado.data_atendimento.year,

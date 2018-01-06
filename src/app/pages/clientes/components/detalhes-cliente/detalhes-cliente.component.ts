@@ -10,6 +10,7 @@ import { formContatoControls } from './../../../../shared/components/contato';
 import { NotificationsService } from 'angular2-notifications';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-detalhes-cliente',
@@ -75,48 +76,44 @@ export class DetalhesClienteComponent implements OnInit, OnDestroy, IFormCanDeac
     });
   }
 
+
+  replaceFieldsCliente(cliente: Cliente) {
+
+    const dadosClienteFormatado = {
+      cnpj_cpf: removeMaskFromProp('cnpj_cpf')(cliente),
+      inscricao_estadual: removeMaskFromProp('inscricao_estadual')(cliente)
+    };
+
+    const contatos = cliente.contatos.map(contato => {
+      const telefonesFormatado = {
+        telefone: removeMaskFromProp('telefone')(contato),
+        celular: removeMaskFromProp('celular')(contato)
+      };
+      return { ...contato, ...telefonesFormatado };
+    });
+
+    const enderecos = cliente.enderecos.map(endereco => {
+      const cepFormatado = {
+        cep: removeMaskFromProp('cep')(endereco)
+      };
+      return { ...endereco, ...cepFormatado };
+    });
+
+    return { ...cliente, ...dadosClienteFormatado, contatos, enderecos };
+  }
+
+
   atualizarCliente(cliente) {
+    const clienteFormatado = this.replaceFieldsCliente(cliente);
+    clienteFormatado._id = this.id;
 
-    cliente._id = this.id;
-    cliente.cnpj_cpf = cliente.cnpj_cpf.replace(/\D+/g, '');
-    if (cliente.inscricao_estadual) {
-      cliente.inscricao_estadual = cliente.inscricao_estadual.replace(/\D+/g, '');
-    }
-
-    cliente.contatos = cliente.contatos.map((removerMascaraContato) => {
-
-      if (removerMascaraContato.celular) {
-        const novoContatos = {
-          telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
-          celular : removerMascaraContato.celular.replace(/\D+/g, '')
-      };
-        return (Object.assign({}, removerMascaraContato, novoContatos));
-      }else {
-        const novoContatos = {
-          telefone: removerMascaraContato.telefone.replace(/\D+/g, ''),
-          celular : ''
-      };
-        return (Object.assign({}, removerMascaraContato, novoContatos));
-      }
-      });
-
-      cliente.enderecos = cliente.enderecos.map((removerMascaraEndereco) => {
-        const novoContatos = {
-            cep: removerMascaraEndereco.cep.replace(/\D+/g, '')
-        };
-      return (Object.assign({}, removerMascaraEndereco, novoContatos));
-      });
-
-    this.subscription = this._clienteService.atualizarCliente(cliente)
-      .subscribe(dados => {
-      },
-      erro => {
-        this.notificarFalha();
-      },
-      () => {
-        this.notificarSucesso();
-      });
-
+    this.subscription = this._clienteService.atualizarCliente(clienteFormatado)
+    .subscribe(dados => {},
+      erro =>
+      this.notificarFalha(),
+      () =>
+      this.notificarSucesso()
+    );
   }
 
   removerContato(index) {

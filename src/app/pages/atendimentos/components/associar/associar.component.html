@@ -1,53 +1,71 @@
 <div class="row">
-  <div class="col-md-12 col-sm-12">
-
+  <div class="col">
 
     <div class="row">
       <div class="col-md-6 col-sm-12 col-lg-4 col-xs-12">
-         <label for="param_busca">Pesquisar por data</label>
-         <div class="input-group">
-             <input class="form-control" name="dp"
-             ngbDatepicker #d="ngbDatepicker" name="busca_data"
-             [(ngModel)]="inputDate"  (ngModelChange)="getFuncionariosEAtendimentos()"
-             id="param_busca">
-             <button class="input-group-addon" (click)="d.toggle()" type="button">
-               <i class="ion-calendar"></i>
-             </button>
-         </div>
-       </div>
-     </div>
+        <label for="param_busca">Pesquisar por data</label>
+        <div class="input-group">
+          <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" (ngModelChange)="getFuncionariosEAtendimentos()"
+            id="param_busca">
+          <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <i class="ion-calendar"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-4" *ngFor="let colaborador of tecnicos$ | async; let i = index">
-        <ba-card cardTitle="{{colaborador?.nome}}">
-          <button type="button" class="btn btn-primary pull-right" (click)="abrirModal(colaborador)">
-            <strong>+</strong>
-          </button>
-
-
-          <p *ngIf="colaborador?.atendimentos?.length">
-            <strong>Atendimentos associados : {{colaborador.atendimentos.length}}</strong></p>
-          <div class="card-body" *ngFor="let atendimento of colaborador?.atendimentos">
-            <p class="atendimento" ngbPopover="{{
-              atendimento?.endereco?.rua + ', ' +
-              atendimento?.endereco?.numero +' - ' +
-              atendimento?.endereco?.bairro + ' , ' +
-              atendimento?.endereco?.cidade + ' - ' +
-              atendimento?.endereco?.cep
-            }}" placement="top">
-            <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, colaborador )">
-            <i class="ion-close"></i>
-          </a>{{atendimento.cliente.nome_razao_social}}
-        </p>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 " *ngFor="let colaborador of tecnicos$ | async; let i = index">
+        <div class="card">
+          <div class="card-header pt-2">
+            <div class="row">
+              <div class="col-1">
+                <img class="foto-tecnico" [src]="tecnico?.foto_url ? tecnico.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
+              </div>
+              <div class="col-6 pt-2">
+                <strong class="nome-tecnico">{{colaborador?.nome | split: 0}} </strong>
+              </div>
+              <div class="col-5 pt-2 text-right">
+                <h6> Quantidade: {{colaborador.atendimentos.length}} </h6>
+              </div>
+            </div>
           </div>
-        </ba-card>
-      </div>
+          <div class="card-body">
+            <div class="row" *ngFor="let atendimento of colaborador?.atendimentos">
+              <div class="col">
+                <div class="row">
+                  <div class="col-1">
+                    <a (click)="abrirModalDeConfirmacao(conteudo, atendimento, colaborador )">
+                      <i class="ion-close"></i>
+                    </a>
+                  </div>
+                  <div class="col-11">
+                    <h6 class="atendimento" ngbPopover="{{
+                        atendimento?.endereco?.rua + ', ' +
+                        atendimento?.endereco?.numero +' - ' +
+                        atendimento?.endereco?.bairro + ' , ' +
+                        atendimento?.endereco?.cidade + ' - ' +
+                        atendimento?.endereco?.cep
+                      }}" placement="top">
+                      {{atendimento.cliente.nome_razao_social | slice: 0:25}}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary " (click)="abrirModal(colaborador)">Associar</button>
+              </div>
+            </div>
+          </div>
 
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
-
-
 
 <!-- Abrir modal de confirmação de exclusão de atendimento -->
 <ng-template #conteudo let-c="close" let-d="dismiss">
@@ -60,16 +78,16 @@
   </div>
 
   <div class="modal-body">
-    <p>Deseja remover o atendimento para o cliente<strong> {{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong> que está vinculado ao técnico
-      <strong>{{funcionarioSelecionado.nome}}?</strong></p>
+    <p>Deseja remover o atendimento para o cliente
+      <strong> {{ atendimentoASerRemovido.cliente.nome_razao_social }}</strong> que está vinculado ao técnico
+      <strong>{{funcionarioSelecionado.nome}}?</strong>
+    </p>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="d()"><i class="ion-ios-close-outline"></i> Não</button>
-    <button type="button" class="btn btn-danger" (click)="removerAtendimento(atendimentoASerRemovido); c()">
-    <i class="ion-ios-checkmark-outline"></i> Sim</button>
+    <button type="button" class="btn btn-secondary" (click)="d()">Não</button>
+    <button type="button" class="btn btn-danger" (click)="removerAtendimento(atendimentoASerRemovido); c()">Sim</button>
   </div>
 
 </ng-template>
 <hr>
-

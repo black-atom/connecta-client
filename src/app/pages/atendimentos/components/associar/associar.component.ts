@@ -61,9 +61,15 @@ export class AssociarComponent implements OnInit {
             tecnicos.map(funcionario => {
               const atendimentoTecnico = atendimentos.filter(
                 atendimento => atendimento.tecnico._id === funcionario._id
-              );
-
+              )
               return { ...funcionario, atendimentos: atendimentoTecnico };
+            }).sort((a, b) => {
+              if (a.atendimentos.length > b.atendimentos.length) {
+                return -1;
+              }if (a.atendimentos.length < b.atendimentos.length) {
+                return 1;
+              }
+              return 0;
             })
           )
       );

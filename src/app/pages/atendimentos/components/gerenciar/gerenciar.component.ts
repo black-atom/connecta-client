@@ -8,6 +8,14 @@ import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
 import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 
+const propNameQuery = filter => propName => {
+  if (filter[propName] !== null && filter[propName] !== undefined) {
+    const newFilter = new Object();
+    newFilter[propName] = filter[propName].value;
+    return newFilter;
+  }
+};
+
 @Component({
   selector: 'app-gerenciar',
   templateUrl: './gerenciar.component.html',
@@ -65,10 +73,32 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       });
   }
 
+  filterEvents(query) {
+    propNameQuery(query);
+    const newQuery = {
+      ...propNameQuery('cliente.nome_razao_social'),
+      ...propNameQuery('cliente.cnpj_cpf'),
+      ...propNameQuery('data_atendimento'),
+      ...propNameQuery('contato.telefone'),
+      ...propNameQuery('contato.celular'),
+      ...propNameQuery('endereco.bairro'),
+      ...propNameQuery('endereco.cidade'),
+      ...propNameQuery('endereco.cep'),
+      ...propNameQuery('tipo'),
+      ...propNameQuery('tecnico.nome'),
+      ...propNameQuery('createdBy'),
+         first: query.first,
+         rows: query.rows
+    };
+    return console.log(newQuery);
+  }
+
   loadAtendimentosLazy(event) {
+    const query = this.filterEvents(event);
     this.carregando = true;
+    const query = this.filterEvents(event);
     this.subscription = this._atendimentoService
-      .atendimentosLazyLoad(event.first, event.rows)
+      .atendimentosLazyLoad(query.first, query.rows)
       .subscribe(res => {
         this.atendimentos = res.atendimentos;
         this.carregando = false;

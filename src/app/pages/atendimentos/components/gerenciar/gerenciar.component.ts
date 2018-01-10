@@ -9,10 +9,10 @@ import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao
 import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 
 const propNameQuery = filter => propName => {
-  if (filter[propName] !== null && filter[propName] !== undefined) {
-    const newFilter = new Object();
-    newFilter[propName] = filter[propName].value;
-    return newFilter;
+  if (filter[propName]) {
+    const newObj = new Object();
+    newObj[propName] = filter[propName].value;
+    return newObj;
   }
 };
 
@@ -74,31 +74,28 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   filterEvents(query) {
-    propNameQuery(query);
+   const queryFormatter = propNameQuery(query.filters);
     const newQuery = {
-      ...propNameQuery('cliente.nome_razao_social'),
-      ...propNameQuery('cliente.cnpj_cpf'),
-      ...propNameQuery('data_atendimento'),
-      ...propNameQuery('contato.telefone'),
-      ...propNameQuery('contato.celular'),
-      ...propNameQuery('endereco.bairro'),
-      ...propNameQuery('endereco.cidade'),
-      ...propNameQuery('endereco.cep'),
-      ...propNameQuery('tipo'),
-      ...propNameQuery('tecnico.nome'),
-      ...propNameQuery('createdBy'),
-         first: query.first,
-         rows: query.rows
+         search: {
+          ...queryFormatter('data_atendimento'),
+          ...queryFormatter('cliente.nome_razao_social'),
+          ...queryFormatter('cliente.cnpj_cpf'),
+          ...queryFormatter('endereco.bairro'),
+          ...queryFormatter('endereco.cidade'),
+          ...queryFormatter('tipo'),
+          ...queryFormatter('tecnico.nome'),
+          ...queryFormatter('createdBy')
+         },
+         first : query.first,
+         rows : query.rows
     };
-    return console.log(newQuery);
+    return newQuery;
   }
 
   loadAtendimentosLazy(event) {
     const query = this.filterEvents(event);
-    this.carregando = true;
-    const query = this.filterEvents(event);
     this.subscription = this._atendimentoService
-      .atendimentosLazyLoad(query.first, query.rows)
+      .atendimentosLazyLoad(query.first, query.rows, query.search)
       .subscribe(res => {
         this.atendimentos = res.atendimentos;
         this.carregando = false;
@@ -127,6 +124,3 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 }
-
-
-

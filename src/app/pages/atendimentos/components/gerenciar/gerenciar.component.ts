@@ -1,4 +1,3 @@
-// import { LazyLoadEvent } from 'primeng';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
@@ -7,14 +6,8 @@ import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
 import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
+import { removeMaskFromProp, propNameQuery } from 'app/shared/utils/StringUtils';
 
-const propNameQuery = filter => propName => {
-  if (filter[propName]) {
-    const newObj = new Object();
-    newObj[propName] = filter[propName].value;
-    return newObj;
-  }
-};
 
 @Component({
   selector: 'app-gerenciar',
@@ -74,7 +67,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   filterEvents(query) {
-   const queryFormatter = propNameQuery(query.filters);
+    const queryFormatter = propNameQuery(query.filters);
     const newQuery = {
          search: {
           ...queryFormatter('data_atendimento'),

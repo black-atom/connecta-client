@@ -1,25 +1,34 @@
 @import '../../../../theme/sass/conf/conf';
+.card {
+  border-radius: 5px;
+  .nome-tecnico {
+    padding-left: 10px !important;
+  }
+  .foto-tecnico {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+h6 {
+  font-size: 14px;
+}
 
 a {
-    padding: 10px;
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 i {
-    &:hover {
-        color: $danger;
-    }
+  &:hover {
+    color: $danger;
+  }
 }
 
 .atendimento {
-    &:hover {
-        color: $primary;
-        cursor: pointer;
-    }
-}
-
-button {
-    width: 15%;
+  &:hover {
+    color: $primary;
+    cursor: pointer;
+  }
 }

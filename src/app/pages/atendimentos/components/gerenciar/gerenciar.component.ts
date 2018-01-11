@@ -68,7 +68,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   filterEvents(query) {
     const queryFormatter = propNameQuery(query.filters);
-    const newQuery = {
+    const newQuery: any = {
          search: {
           ...queryFormatter('data_atendimento'),
           ...queryFormatter('cliente.nome_razao_social'),
@@ -86,11 +86,20 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   }
 
   loadAtendimentosLazy(event) {
+    this.carregando = true;
     const query = this.filterEvents(event);
+    if (query.search.data_atendimento) {
+      const dataFormatada = query.search.data_atendimento.split('/');
+      query.search.data_atendimento = new Date(dataFormatada[2], dataFormatada[1] - 1, dataFormatada[0]);
+    }
+    if (query.search['cliente.cnpj_cpf']) {
+      query.search['cliente.cnpj_cpf'] = query.search['cliente.cnpj_cpf'].replace(/\D+/g, '');
+    }
     this.subscription = this._atendimentoService
       .atendimentosLazyLoad(query.first, query.rows, query.search)
       .subscribe(res => {
         this.atendimentos = res.atendimentos;
+        this.totalRecords = res.count;
         this.carregando = false;
       });
   }

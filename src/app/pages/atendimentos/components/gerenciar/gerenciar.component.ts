@@ -6,6 +6,8 @@ import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
 import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
+import { removeMaskFromProp, propNameQuery } from 'app/shared/utils/StringUtils';
+
 
 @Component({
   selector: 'app-gerenciar',
@@ -13,54 +15,93 @@ import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
   styleUrls: ['./gerenciar.component.scss']
 })
 export class GerenciarComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+  public atendimentos: Atendimento[];
+  public atendimentoSelecionado: Atendimento;
+  public carregando: boolean = true;
+  public imagensInicioAtendimento: any[] = [];
+  public imagensFinalAtendimento: any[] = [];
+  public totalRecords;
 
-    private subscription: Subscription;
-    public atendimentos: Atendimento[];
-    public atendimentoSelecionado: Atendimento;
-    public carregando: boolean = true;
-    public imagensInicioAtendimento: any[] = [];
-    public imagensFinalAtendimento: any[] = [];
+  constructor(
+    private _atendimentoService: AtendimentoService,
+    private _servicoModal: NgbModal
+  ) {}
 
-    constructor(private _atendimentoService: AtendimentoService, private _servicoModal: NgbModal) {}
+  opcoesModal: NgbModalOptions = {
+    size: 'lg'
+  };
 
-    opcoesModal: NgbModalOptions = {
-      size: 'lg'
-    };
+  ngOnInit() {
+    this.subscription = this._atendimentoService
+      .atendimentosLazyLoad()
+      .subscribe(res => {
+        this.atendimentos = res.atendimentos;
+        this.totalRecords = res.count;
+        this.carregando = false;
+      });
+  }
 
-    ngOnInit() {
-      this.subscription = this._atendimentoService.retornarTodos().subscribe(atendimentos => {
-       this.atendimentos = atendimentos
-       this.carregando = false;
-      })
+  mudarEstiloLinha(dadosLinha: Atendimento) {
+    if (dadosLinha.tipo === 'Aberto por técnica') {
+      return 'aberto-por-tecnica';
+    } else if (dadosLinha.situacao.status === 'cancelar') {
+      return 'cancelado';
+    } else if (dadosLinha.situacao.status === 'reagendar') {
+      return 'reagendamento';
+    } else {
+      return 'padrao';
     }
-
-    mudarEstiloLinha(dadosLinha: Atendimento) {
-
-
-      if(dadosLinha.tipo === 'Aberto por técnica') {
-        return 'aberto-por-tecnica'
-      }
-
-      else if (dadosLinha.situacao.status === 'cancelar') {
-        return 'cancelado'
-      }
-
-      else if (dadosLinha.situacao.status === 'reagendar') {
-        return 'reagendamento'
-      }
-
-      else {
-        return 'padrao'
-      }
-
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
-    this._atendimentoService.retornarUm(atendimentoSelecionado).subscribe(res => {
-      const referenciaModal = this._servicoModal.open(VisualizacaoModalComponent, this.opcoesModal);
-      referenciaModal.componentInstance.atendimentoSelecionado = res;
-    });
+    this._atendimentoService
+      .retornarUm(atendimentoSelecionado)
+      .subscribe(res => {
+        const referenciaModal = this._servicoModal.open(
+          VisualizacaoModalComponent,
+          this.opcoesModal
+        );
+        referenciaModal.componentInstance.atendimentoSelecionado = res;
+      });
+  }
 
+  filterEvents(query) {
+    const queryFormatter = propNameQuery(query.filters);
+    const newQuery: any = {
+         search: {
+          ...queryFormatter('data_atendimento'),
+          ...queryFormatter('cliente.nome_razao_social'),
+          ...queryFormatter('cliente.cnpj_cpf'),
+          ...queryFormatter('endereco.bairro'),
+          ...queryFormatter('endereco.cidade'),
+          ...queryFormatter('tipo'),
+          ...queryFormatter('tecnico.nome'),
+          ...queryFormatter('createdBy')
+         },
+         first : query.first,
+         rows : query.rows
+    };
+    return newQuery;
+  }
+
+  loadAtendimentosLazy(event) {
+    this.carregando = true;
+    const query = this.filterEvents(event);
+    if (query.search.data_atendimento) {
+      const dataFormatada = query.search.data_atendimento.split('/');
+      query.search.data_atendimento = new Date(dataFormatada[2], dataFormatada[1] - 1, dataFormatada[0]);
+    }
+    if (query.search['cliente.cnpj_cpf']) {
+      query.search['cliente.cnpj_cpf'] = query.search['cliente.cnpj_cpf'].replace(/\D+/g, '');
+    }
+    this.subscription = this._atendimentoService
+      .atendimentosLazyLoad(query.first, query.rows, query.search)
+      .subscribe(res => {
+        this.atendimentos = res.atendimentos;
+        this.totalRecords = res.count;
+        this.carregando = false;
+      });
   }
 
   // abrirModalDeFotos(conteudo, atendimento) {
@@ -79,13 +120,9 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     this.imagensFinalAtendimento = atendimento.imagens
       .filter(imagem => imagem.tipo === 'fim_atendimento')
       .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
-
   }
 
-    ngOnDestroy() {
-      this.subscription.unsubscribe();
-    }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
-
-
-
+}

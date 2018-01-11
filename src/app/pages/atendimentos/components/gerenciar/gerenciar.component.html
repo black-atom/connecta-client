@@ -1,9 +1,8 @@
 <p-dataTable
 [value]="atendimentos"
 [lazy]="true"
-[rows]="10"
+[rows]="25"
 [paginator]="true"
-[rowsPerPageOptions]="[10,15,25]"
 [totalRecords]="totalRecords"
 (onLazyLoad)="loadAtendimentosLazy($event)"
 [pageLinks]="5"

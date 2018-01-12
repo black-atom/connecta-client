@@ -1,12 +1,17 @@
 @import '../../../../theme/sass/conf/conf';
 .card {
   border-radius: 5px;
-  .nome-tecnico {
-    padding-left: 10px !important;
-  }
-  .foto-tecnico {
-    height: 30px;
-    width: 30px;
+  .card-header {
+    height: 60px;  
+    .nome-tecnico {
+      padding-left: 10px !important;
+    }
+    .foto-tecnico {
+      height: 40px;
+      width: 40px;
+      border-radius: 40px !important;
+      box-shadow: 1px 1px 5px 1px #A1A1A1 !important;
+    }
   }
 }
 

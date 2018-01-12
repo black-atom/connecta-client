@@ -1,21 +1,24 @@
-<p-dataTable 
-[value]="funcionarios" 
+<p-dataTable
+[value]="funcionarios"
+[lazy]="true"
+[rows]="25"
+[paginator]="true"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadFuncionariosLazy($event)"
+[pageLinks]="5"
 [responsive]="true"
-[rows]="25" 
-[paginator]="true" 
-[pageLinks]="3" 
 [rowStyleClass]="mudarEstiloLinha"
-[rowsPerPageOptions]="[5,10,25]"
+[sortOrder]="-1"
 [loading]="carregando"
-[rowTrackBy]="rowTrackBy"
  loadingIcon="ion-load-a"
  rowHover="true"
- styleClass="borderless">
+ sortField="nome" styleClass="borderless"
+>
 
   <p-column field="nome" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
   </p-column>
 
-  <p-column field="cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px', 'text-align': 'center'}">
+  <p-column field="cpf" header="CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       {{ funcionario.cpf }}
     </ng-template>

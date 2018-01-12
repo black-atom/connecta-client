@@ -48,4 +48,10 @@ export class FuncionarioService {
                      .map((res) => res.json() as Funcionario)
                      .catch(ManipuladorErro.lidaComErro);
   }
+
+  funcionariosLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
+                     .map((res) => res.json() as any[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
 }

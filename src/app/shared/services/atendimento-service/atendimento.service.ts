@@ -61,8 +61,8 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  getAtendimentosAssociadoPorData(data) {
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?associado=true&data=${data}`)
+  getAtendimentosAssociadoPorData(data, searchAll = {}) {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?associado=true&data=${data}`, { params: { search: searchAll } })
                      .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }

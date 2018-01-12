@@ -1,16 +1,18 @@
-<p-dataTable 
-[value]="clientes" 
-[responsive]="true" 
-[rows]="25" 
-[paginator]="true" 
-[pageLinks]="5" 
+<p-dataTable
+[value]="clientes"
+[lazy]="true"
+[rows]="25"
+[paginator]="true"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadClientesLazy($event)"
+[pageLinks]="5"
+[responsive]="true"
 [rowStyleClass]="mudarEstiloLinha"
-[rowsPerPageOptions]="[5,10,25]"
+[sortOrder]="-1"
 [loading]="carregando"
-[rowTrackBy]="rowTrackBy"
  loadingIcon="ion-load-a"
  rowHover="true"
- styleClass="borderless">
+ sortField="createdAt" styleClass="borderless">
 
   <p-column field="nome_razao_social" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
   </p-column>
@@ -18,7 +20,7 @@
   <p-column field="cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'100px', 'text-align': 'center'}">
   </p-column>
 
-  <p-column field="cliente.contatos[0].telefone" header="Telefone" [sortable]="true" [filter]="true" [style]="{'width':'120px', 'text-align': 'center'}">
+  <p-column field="cliente.contatos[0].telefone" header="Telefone" [sortable]="true" [filter]="false" [style]="{'width':'120px', 'text-align': 'center'}">
     <ng-template let-cliente="rowData" pTemplate="body">
       {{ cliente.contatos[0].telefone }}
     </ng-template>

@@ -43,5 +43,11 @@ export class ClienteService {
                      .map(res => res.json() as Cliente)
                      .catch(ManipuladorErro.lidaComErro);
   }
+
+  clientesLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/clientes?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
+                     .map((res) => res.json() as any[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
 }
 

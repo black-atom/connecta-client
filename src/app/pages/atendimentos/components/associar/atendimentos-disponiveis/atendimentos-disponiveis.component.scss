@@ -1,32 +1,71 @@
-@import '../../../../../theme/sass/conf/conf.scss';
-
-label {
-    font-size: 12px;
-    color: grey;
-    font-weight: 300;
-}
-
-i {
-    &:hover {
+@import '../../../../../theme/sass/conf/conf';
+.content {
+  height: 500px;
+  padding-left: 10px;
+  font-family: "Roboto", sans-serif;
+  text-transform: capitalize;
+  .atendimentos {
+    color: #828282;
+    .atendimento {
+      padding-left: 15px;
+      img {
+        height: 30px;
+        width: 30px;
+      }
+      .razao-social:hover {
         color: $primary;
-        cursor: pointer;
+      }
+      hr {
+        padding: none;
+      }
     }
-}
-
-.input-group {
-    height: 35px;
-}
-
-h6 {
-    color: grey;
-}
-
-ba-card {
-    &:hover {
-        cursor: pointer;
+    .atendimento:hover {}
+  }
+  .tecnico {
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #0395d7;
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: white;
+      width: 90%;
     }
+    .nome-tecnico {
+      width: 100%;
+      color: #ffffff;
+    }
+    .data {
+      width: 100%;
+      color: #ffffff;
+    }
+    .qtd-atendimentos {
+      width: 100%;
+      color: #ffffff;
+    }
+    .btn:hover {
+      size: 50px !important;
+    }
+  }
 }
 
-.selecaoDoAtendimento {
-    color: $primary;
+.scrollbar {
+  float: left;
+  height: 450px;
+  margin-bottom: 25px;
+  margin-left: 0px;
+  width: 65px;
+  overflow-y: scroll;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 2px;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  background-color: #838383;
+}
+
+#style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #838383(214, 100, 199, 0.3);
 }

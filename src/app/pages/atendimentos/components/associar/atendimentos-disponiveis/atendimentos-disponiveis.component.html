@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
   <h4 class="modal-title animated flipInX">
     Atendimentos do dia {{ dataSelecionada | date: 'dd/MM/yyyy' }} disponíveis para
     {{funcionarioSelecionado.nome}} </h4>
@@ -31,5 +31,109 @@
 <div class="modal-footer">
   <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
   <i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}}) </button>
-</div>
+</div> -->
 
+
+
+<!-- <div class="content">
+  ..
+  <div class="row">
+    <div class="col-8">
+      <div class="atendimentos">
+        <div class="row">
+          <div class="col">
+            ..
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="tecnico">
+        <div class="row">
+          <div class="col">
+            ..
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="content row">
+  <div class="atendimentos col-8 mt-4 scrollbar" id="style-1">
+    <div class="col-12">
+      <h3>Atendimentos Disponíveis</h3>
+      <hr>
+    </div>
+
+    <div class="atendimento col-12" *ngFor="let atendimento of atendimentos$ | async">
+      <div (click)="selecionarAtendimento(atendimento)">
+        <div class="row" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
+          <div class="col-11">
+            <h6 class="razao-social text-truncate">{{ atendimento?.cliente?.nome_razao_social }}</h6>
+            <p class="sub-title mb-2">
+              <i class="ion-location"></i>
+              <small>
+                {{ atendimento?.endereco?.rua }}, {{ atendimento?.endereco?.numero }} - {{ atendimento?.endereco?.bairro }}, {{ atendimento?.endereco?.cidade
+                }} - {{ atendimento?.endereco?.cep }}
+              </small>
+            </p>
+            <h6 class="pull-right">
+              <small>
+                <strong>Criado por:</strong> {{atendimento?.createdBy | uppercase}} </small>
+            </h6>
+          </div>
+          <i class="col-1" *ngIf="dessasociarAtendimento(atendimento)" class="pull-right">
+            <img src="assets/icons/check.png" alt="check">
+          </i>
+
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <div class="tecnico col-4">
+    <div class="row mt-4">
+
+      <div class="nome-tecnico col-12">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2">Associar para:</h5>
+            <h6><strong> {{funcionarioSelecionado.nome}} </strong></h6>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="data col-12">
+
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2"> <i class="ion-calendar"></i> Data:</h5>
+            <h6><strong>{{ dataSelecionada | date: 'dd MMM yyyy' }}</strong></h6>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="qtd-atendimentos col-12">
+
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2"><i class="ion-calculator"></i> Quantidade:</h5>
+            <h6><strong>{{ selecionados.length }}</strong></h6>
+          </div>
+          <hr>
+        </div>
+
+      </div>
+      <div class="col-12">
+        <button type="button" class="btn btn-success btn-block" (click)="associarAtendimento()">
+          Associar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

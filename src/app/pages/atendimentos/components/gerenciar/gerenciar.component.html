@@ -46,8 +46,8 @@
   </p-column>
 
   <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
-    <ng-template let-atendimento="rowData" pTemplate="body">
-      {{ atendimento.tecnico.nome | split: 0 }}
+    <ng-template let-atendimento="rowData" pTemplate="body" >
+      {{ atendimento.tecnico.nome }}
     </ng-template>
   </p-column>
 

@@ -67,8 +67,9 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  getAtendimentosPorData(data) {
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?tecnico.nome&data_atendimento=${data}`)
+  getAtendimentosPorData(dataSelecionada) {
+    const search = { data_atendimento: dataSelecionada, 'tecnico.nome': null, estado: 'aberto' };
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`, { params: { search } })
                      .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }

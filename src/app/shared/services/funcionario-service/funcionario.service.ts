@@ -13,16 +13,16 @@ export class FuncionarioService {
 
   constructor( private _http: AuthHttp) { }
 
-  retornarTodos(): Observable<Funcionario[]> {
-    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`)
-                     .map((res) => res.json() as Funcionario[] )
+  retornarTodos(): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios?skip=0&limit=9999`, { params: { search: {} } })
+                     .map((res) => res.json() as any[] )
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  retornarFuncionarioPorFuncao(funcao): Observable<Funcionario[]> {
-    return this.retornarTodos().map(funcionarios => {
-      return funcionarios.filter(funcionario => funcionario.login.tipo.indexOf(funcao) > -1);
-    });
+  retornarFuncionarioPorFuncao(funcao): Observable <any> {
+    return this.retornarTodos().map(funcionarios =>
+      funcionarios.funcionarios
+      .filter(funcionario => funcionario.login.tipo.indexOf(funcao) > -1));
   }
 
   retornarUm(_id: string): Observable<Funcionario> {

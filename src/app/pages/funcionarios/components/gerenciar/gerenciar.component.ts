@@ -26,11 +26,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       this.totalRecords = res.count;
       this.carregando = false;
     });
-
-    this.subscription = this._funcionarioService.retornarTodos().subscribe(funcionarios => {
-       this.funcionarios = funcionarios;
-       this.carregando = false;
-    });
   }
 
   mudarEstiloLinha(dadosLinha: Funcionario) {

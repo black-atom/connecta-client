@@ -61,7 +61,7 @@ export class AssociarComponent implements OnInit {
             tecnicos.map(funcionario => {
               const atendimentoTecnico = atendimentos.filter(
                 atendimento => atendimento.tecnico._id === funcionario._id
-              )
+              );
               return { ...funcionario, atendimentos: atendimentoTecnico };
             }).sort((a, b) => {
               if (a.atendimentos.length > b.atendimentos.length) {
@@ -103,7 +103,8 @@ export class AssociarComponent implements OnInit {
               nome: funcionarioSelecionado.nome,
               _id: funcionarioSelecionado._id
             };
-            return Object.assign({}, atendimento, { tecnico });
+            const estado = 'associado';
+            return { ...atendimento, tecnico, estado };
           });
           this._atendimentoService
             .atualizarTodosAtendimentos(arrayDeAtendimentos)
@@ -120,8 +121,9 @@ export class AssociarComponent implements OnInit {
   }
 
   removerAtendimento(atendimentoSelecionadoParaRemover) {
-    const tecnico = { nome: '' };
-    const atendimento = { ...atendimentoSelecionadoParaRemover, tecnico };
+    const tecnico = { nome: null };
+    const estado = 'aberto';
+    const atendimento = { ...atendimentoSelecionadoParaRemover, tecnico, estado };
     this._atendimentoService
       .atualizarAtendimento(atendimento)
       .subscribe(() => this.getFuncionariosEAtendimentos());

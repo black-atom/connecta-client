@@ -203,6 +203,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     if (atendimentoFormatado.situacao.status === this.action[2]) {
      atendimentoFormatado.tecnico._id = this.tecnico._id;
      atendimentoFormatado.tecnico.nome = this.tecnico.nome;
+     atendimentoFormatado.estado = 'associado';
+
 
       if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
          atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
@@ -218,9 +220,27 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
             erro => this.falhaNaEdicao(),
                 () => this.sucessoNaEdicao()
       );
-    }else {
+    }else if (atendimentoFormatado.situacao.status === this.action[1]) {
+      atendimentoFormatado.estado = this.action[1];
+      atendimentoFormatado.tecnico = { nome: null };
 
-     atendimentoFormatado.tecnico = { nome: '' };
+       if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
+          atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
+          atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
+         }else {
+          atendimentoFormatado.avaliacao = [];
+          atendimentoFormatado.imagens = [];
+         }
+
+       this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
+         .subscribe(
+           () => {},
+             erro => this.falhaNaEdicao(),
+                 () => this.sucessoNaEdicao()
+       );
+    }else {
+     atendimentoFormatado.estado = 'aberto';
+     atendimentoFormatado.tecnico = { nome: null };
 
       if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
          atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;

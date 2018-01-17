@@ -143,7 +143,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
      atendimentoFormatado.data_atendimento.month - 1,
      atendimentoFormatado.data_atendimento.day
     );
-
+    atendimentoFormatado.estado = 'aberto';
     this.subscription = this._atendimentoServiceService.novoAtendimento(atendimentoFormatado).subscribe(
       () => {},
           erro => this.notificarFalhaCadastro(),

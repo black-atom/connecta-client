@@ -2,27 +2,53 @@
 .content {
   height: 500px;
   padding-left: 10px;
-  font-family: "Roboto", sans-serif;
   text-transform: capitalize;
-  .atendimentos {
-    color: #828282;
-    .atendimento {
-      padding-left: 15px;
+  color: #828282;
+  .atendimento {
+    padding-left: 15px;
+    transition: all 0.2s ease-out;
+    .razao-social:hover {
+      color: $primary;
+    }
+    .btn-more {
+      img {
+        height: 15px;
+        width: 15px;
+      }
+    }
+    .check {
+      background: #4bae4f;
+      border-radius: 0 4px 4px 0px;
+      box-shadow: -2px 1px 3px -1px #7A7A7A;
+      height: auto;
       img {
         height: 30px;
         width: 30px;
-      }
-      .razao-social:hover {
-        color: $primary;
-      }
-      hr {
-        padding: none;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     }
-    .atendimento:hover {}
+    img {
+      height: 30px;
+      width: 30px;
+      margin-top: none;
+    }
+    p {
+      font-size: 11px;
+    }
+    &:hover {
+      h6 {
+        color: $primary;
+      }
+      background-color: #ededed;
+    }
   }
   .tecnico {
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0px;
     color: #ffffff;
     background-color: #0395d7;
     hr {
@@ -31,41 +57,26 @@
       background-color: white;
       width: 90%;
     }
-    .nome-tecnico {
-      width: 100%;
-      color: #ffffff;
-    }
-    .data {
-      width: 100%;
-      color: #ffffff;
-    }
+    .data,
+    .nome-tecnico,
     .qtd-atendimentos {
       width: 100%;
-      color: #ffffff;
-    }
-    .btn:hover {
-      size: 50px !important;
     }
   }
-}
-
-.scrollbar {
-  float: left;
-  height: 450px;
-  margin-bottom: 25px;
-  margin-left: 0px;
-  width: 65px;
-  overflow-y: scroll;
-}
-
-#style-1::-webkit-scrollbar {
-  width: 2px;
-}
-
-#style-1::-webkit-scrollbar-thumb {
-  background-color: #838383;
-}
-
-#style-1::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #838383(214, 100, 199, 0.3);
+  .scrollbar {
+    float: left;
+    height: 450px;
+    padding: none;
+    width: 100%;
+    overflow-y: scroll;
+  }
+  #style-1::-webkit-scrollbar {
+    width: 2px;
+  }
+  #style-1::-webkit-scrollbar-thumb {
+    background-color: #828282;
+  }
+  #style-1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #828282(214, 100, 199, 0.3);
+  }
 }

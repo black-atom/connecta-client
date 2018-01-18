@@ -20,9 +20,10 @@ export class AtendimentosDisponiveisComponent implements OnInit {
   dataSelecionada;
 
   private subscription: Subscription;
-
+  public isCollapsed = false;
   public selecionados: any[] = [];
   public atendimentos$: Observable<Atendimento[]>;
+  public expandedRowIndex = -1;
 
   constructor(public _activeModal: NgbActiveModal,
               private _atendimentoService: AtendimentoService
@@ -30,6 +31,10 @@ export class AtendimentosDisponiveisComponent implements OnInit {
 
   ngOnInit() {
    this.atendimentos$ = this._atendimentoService.getAtendimentosPorData(this.dataSelecionada);
+  }
+
+  changeExpanded(id){
+    this.expandedRowIndex === id ? this.expandedRowIndex = -1 : this.expandedRowIndex = id
   }
 
   selecionarAtendimento(atendimento) {
@@ -40,7 +45,6 @@ export class AtendimentosDisponiveisComponent implements OnInit {
     } else {
       this.selecionados.splice(this.selecionados.indexOf(atendimento), 1);
     }
-
   }
 
   dessasociarAtendimento(atendimento) {

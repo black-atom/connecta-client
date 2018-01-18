@@ -169,74 +169,68 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
   replaceFieldsAtendimento(atendimento) {
 
-        const cliente = {
-          ...atendimento.cliente,
-          cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
-          inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
-        };
+    const cliente = {
+      ...atendimento.cliente,
+      cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
+      inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+    };
 
-        const contato = {
-          ...atendimento.contato,
-          telefone: removeMaskFromProp('telefone')(atendimento.contato),
-          celular: removeMaskFromProp('celular')(atendimento.contato)
-        };
+    const contato = {
+      ...atendimento.contato,
+      telefone: removeMaskFromProp('telefone')(atendimento.contato),
+      celular: removeMaskFromProp('celular')(atendimento.contato)
+    };
 
-        const endereco = {
-          ...atendimento.endereco,
-          cep: removeMaskFromProp('cep')(atendimento.endereco)
-        };
+    const endereco = {
+      ...atendimento.endereco,
+      cep: removeMaskFromProp('cep')(atendimento.endereco)
+    };
 
-        return { ...atendimento, cliente, contato, endereco };
-      }
+    return { ...atendimento, cliente, contato, endereco };
+  }
 
 
   atualizarAtendimento(atendimento) {
 
-    const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
-    atendimentoFormatado._id = this.id;
-    atendimentoFormatado.data_atendimento = new Date(
-     atendimentoFormatado.data_atendimento.year,
-     atendimentoFormatado.data_atendimento.month - 1,
-     atendimentoFormatado.data_atendimento.day
+    const atendimentoRemoveMask = this.replaceFieldsAtendimento(atendimento);
+    atendimentoRemoveMask.data_atendimento = new Date(
+     atendimentoRemoveMask.data_atendimento.year,
+     atendimentoRemoveMask.data_atendimento.month - 1,
+     atendimentoRemoveMask.data_atendimento.day
     );
 
-    if (atendimentoFormatado.situacao.status === this.action[2]) {
-     atendimentoFormatado.tecnico._id = this.tecnico._id;
-     atendimentoFormatado.tecnico.nome = this.tecnico.nome;
+   const atendimentoFormatado = { ...this.atendimentoRecebido, ...atendimentoRemoveMask };
 
-      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
-         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
-         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
-        }else {
-         atendimentoFormatado.avaliacao = [];
-         atendimentoFormatado.imagens = [];
-        }
+   if (atendimentoFormatado.situacao.status === this.action[2]) {
+     const tecnico = { _id: this.tecnico._id, nome: this.tecnico.nome };
+     const estado = 'associado';
+     this.subscription = this._atendimentoService.atualizarAtendimento({ ...atendimentoFormatado, tecnico, estado })
+     .subscribe(
+       () => {},
+         erro => this.falhaNaEdicao(),
+             () => this.sucessoNaEdicao()
+   );
 
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
-        .subscribe(
-          () => {},
-            erro => this.falhaNaEdicao(),
-                () => this.sucessoNaEdicao()
-      );
-    }else {
+   } else if (atendimentoFormatado.situacao.status === this.action[1]) {
+     const tecnico = { nome: null };
+     const estado = this.action[1];
+     this.subscription = this._atendimentoService.atualizarAtendimento({ ...atendimentoFormatado, tecnico, estado })
+     .subscribe(
+       () => {},
+         erro => this.falhaNaEdicao(),
+             () => this.sucessoNaEdicao()
+   );
 
-     atendimentoFormatado.tecnico = { nome: '' };
-
-      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
-         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
-         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
-        }else {
-         atendimentoFormatado.avaliacao = [];
-         atendimentoFormatado.imagens = [];
-        }
-
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
-        .subscribe(
-          () => {},
-            erro => this.falhaNaEdicao(),
-                () => this.sucessoNaEdicao()
-      );
-    }
+   } else {
+     const tecnico = { nome: null };
+     const estado = 'aberto';
+     this.subscription = this._atendimentoService.atualizarAtendimento({ ...atendimentoFormatado, tecnico, estado })
+     .subscribe(
+       () => {},
+         erro => this.falhaNaEdicao(),
+             () => this.sucessoNaEdicao()
+   );
+   }
   }
 
   podeDesativar() {

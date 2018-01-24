@@ -1,0 +1,98 @@
+<div class="row">
+
+  <!-- início do datepicker -->
+  <div class="col-4">
+
+    <label>Pesquisar por data</label>
+
+    <div class="input-group">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate">
+      <button class="input-group-addon" (click)="d.toggle()" type="button">
+        <i class="ion-calendar"></i>
+      </button>
+    </div>
+
+  </div>
+  <!-- fim do datepicker -->
+
+  <!-- início da seleção dos funcionário -->
+  <div class="col-6 pt-3">
+
+    <div class="btn-group" ngbDropdown>
+
+      <button class="btn btn-primary btn-dropdown d-flex" ngbDropdownToggle>
+        <!-- <img *ngIf="funcionarioSelecionado" [src]="funcionarioSelecionado?.foto_url ? funcionarioSelecionado?.foto_url : '/assets/img/avatar.png'"> -->
+        <h5 *ngIf="!funcionarioSelecionado">Técnicos</h5>
+        <h5>{{ funcionarioSelecionado?.nome }}</h5>
+      </button>
+
+      <div class="dropdown-menu scrollbar" id="style-1" ngbDropdownMenu>
+        <button class="dropdown-item d-flex" *ngFor="let funcionario of funcionarios$ | async" (click)="getFuncionario(funcionario)">
+          <img [src]="funcionario?.foto_url ? funcionario?.foto_url : '/assets/img/avatar.png'" alt="Foto do Técnico">
+          <h6>{{ funcionario?.nome }}</h6>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-2 pt-3 text-right">
+    <button class="btn btn-primary btn-imprimir">
+      <i class="fa fa-print"></i>
+    </button>
+  </div>
+  <!-- fim da seleção dos funcionários -->
+
+
+  <!-- início da tabela -->
+  <div class="col-12 text-center">
+    <table cellpadding="0" cellspacing="0" width="100%">
+
+      <thead>
+
+        <tr>
+          <th> ATENDIMENTOS</th>
+        </tr>
+
+        <tr>
+          <th>Cliente</th>
+          <th>Km Início</th>
+          <th>Km Final</th>
+          <th>Hora Inicio</th>
+          <th>Hora Final</th>
+          <th>Início Atend.</th>
+          <th>Fim Atend.</th>
+          <th>Tempo Total</th>
+        </tr>
+
+      </thead>
+      <tbody>
+
+        <!-- <tr>
+          <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
+          <td valign="middle" data-header-title="Km Início">3000 km</td>
+          <td valign="middle" data-header-title="Km Final">3010 km</td>
+          <td valign="middle" data-header-title="Hora Início">13h12</td>
+          <td valign="middle" data-header-title="Hora Final">13h55</td>
+          <td valign="middle" data-header-title="Início Atend.">14h10</td>
+          <td valign="middle" data-header-title="Fim Atend.">14h50</td>
+          <td valign="middle" data-header-title="Tempo Total">2h22</td>
+        </tr> -->
+        
+        <tr>
+          <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td>
+          <td valign="middle" data-header-title="Km Início">{{monitoramentos?.km_inicial}}</td>
+          <td valign="middle" data-header-title="Km Final">{{monitoramentos$?.km_final}}</td>
+          <td valign="middle" data-header-title="Hora Início">{{monitoramentos$?.data_hora_inicial_km}}</td>
+          <td valign="middle" data-header-title="Hora Final">{{monitoramentos$?.data_hora_final_km}}</td>
+          <td valign="middle" data-header-title="Início Atend.">{{monitoramentos$?.data_hora_inicial_virgente_local}}</td>
+          <td valign="middle" data-header-title="Fim Atend.">{{monitoramentos$?.data_hora_final_virgente_local}}</td>
+          <td valign="middle" data-header-title="Tempo Total">2h22</td>
+        </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+  <!-- fim da tabela -->
+</div>

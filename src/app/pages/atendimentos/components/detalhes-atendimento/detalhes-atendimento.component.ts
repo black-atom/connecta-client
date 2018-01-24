@@ -7,7 +7,7 @@ import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.
 import { Atendimento, DadosEndereco, ContatoCliente, EnderecoCliente, Cliente } from './../../../../models';
 import { AtendimentoService, ClienteService, CepService, NotificacaoService } from './../../../../shared/services';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
-import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
+import { removeMaskFromProp, parseDataBR } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -25,7 +25,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   public detalhesAtendimentoEditarCampos = true;
   public clienteEncontrado: Cliente;
   public tecnico;
-  private action = ['reagendar', 'cancelar', 'encaixe'];
   public desativaData = false;
   public actionSelecionada;
 
@@ -77,13 +76,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
       }),
-      situacao: this._fb.group({
-        status: [''],
+      motivos: this._fb.group({
+        estado: [''],
         motivo: ['']
-      }),
-      tecnico: this._fb.group({
-        _id: [''],
-        nome: ['']
       }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
@@ -126,7 +121,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       this.formEdicaoAtendimento.get('numero_equipamento').patchValue(res.numero_equipamento);
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
-      this.formEdicaoAtendimento.get('situacao').patchValue(res.situacao);
 
       const date = new Date(res.data_atendimento);
       const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };
@@ -167,76 +161,81 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     this.actionSelecionada = acao;
   }
 
-  replaceFieldsAtendimento(atendimento) {
+  parserAtendimento(atendimento) {
 
-        const cliente = {
-          ...atendimento.cliente,
-          cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
-          inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
-        };
+    let motivos = [];
+    let estado = 'agendado';
+    let tecnico: any = this.atendimentoRecebido.tecnico;
 
-        const contato = {
-          ...atendimento.contato,
-          telefone: removeMaskFromProp('telefone')(atendimento.contato),
-          celular: removeMaskFromProp('celular')(atendimento.contato)
-        };
+    const editarAtendimento = {
+      _id: this.id,
+      cliente: {
+        nome_razao_social: atendimento.cliente.nome_razao_social,
+        nome_fantasia: atendimento.cliente.nome_fantasia,
+        cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
+        inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+      },
+      contato : {
+        email: atendimento.contato.email,
+        nome: atendimento.contato.nome,
+        observacao: atendimento.contato.observacao,
+        telefone: removeMaskFromProp('telefone')(atendimento.contato),
+        celular: removeMaskFromProp('celular')(atendimento.contato)
+      },
+      endereco : {
+        cep: removeMaskFromProp('cep')(atendimento.endereco),
+        rua: atendimento.endereco.rua,
+        bairro: atendimento.endereco.bairro,
+        numero: atendimento.endereco.numero,
+        cidade: atendimento.endereco.cidade,
+        complemento: atendimento.endereco.complemento,
+        uf: atendimento.endereco.uf,
+        ponto_referencia: atendimento.endereco.ponto_referencia
+      },
+      data_atendimento: new Date (
+        atendimento.data_atendimento.year,
+        atendimento.data_atendimento.month - 1,
+        atendimento.data_atendimento.day
+      ).toString()
+    };
 
-        const endereco = {
-          ...atendimento.endereco,
-          cep: removeMaskFromProp('cep')(atendimento.endereco)
-        };
-
-        return { ...atendimento, cliente, contato, endereco };
+    if (atendimento.motivos.estado) {
+      switch (atendimento.motivos.estado) {
+        case 'cancelado': {
+          estado = 'cancelado';
+          tecnico = { nome: null };
+          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
+         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+        }
+        case 'encaixe': {
+          estado = 'associado';
+          tecnico = { _id: this.tecnico._id, nome: this.tecnico.nome };
+          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
+         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+        }
+        case 'reagendado': {
+          estado = 'agendado';
+          tecnico = { nome: null };
+          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
+         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+        }
+        default: {
+         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+        }
       }
-
+    }
+    return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+  }
 
   atualizarAtendimento(atendimento) {
-
-    const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
-    atendimentoFormatado._id = this.id;
-    atendimentoFormatado.data_atendimento = new Date(
-     atendimentoFormatado.data_atendimento.year,
-     atendimentoFormatado.data_atendimento.month - 1,
-     atendimentoFormatado.data_atendimento.day
+    const atendimentoParse = this.parserAtendimento(atendimento);
+    const atendimentoFormatado = { ...this.atendimentoRecebido, ...atendimentoParse };
+    this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
+      .subscribe(
+        () => {},
+          erro => this.falhaNaEdicao(),
+            () => this.sucessoNaEdicao()
     );
-
-    if (atendimentoFormatado.situacao.status === this.action[2]) {
-     atendimentoFormatado.tecnico._id = this.tecnico._id;
-     atendimentoFormatado.tecnico.nome = this.tecnico.nome;
-
-      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
-         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
-         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
-        }else {
-         atendimentoFormatado.avaliacao = [];
-         atendimentoFormatado.imagens = [];
-        }
-
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
-        .subscribe(
-          () => {},
-            erro => this.falhaNaEdicao(),
-                () => this.sucessoNaEdicao()
-      );
-    }else {
-
-     atendimentoFormatado.tecnico = { nome: '' };
-
-      if (this.atendimentoRecebido.imagens && this.atendimentoRecebido.avaliacao) {
-         atendimentoFormatado.imagens = this.atendimentoRecebido.imagens;
-         atendimentoFormatado.avaliacao = this.atendimentoRecebido.avaliacao;
-        }else {
-         atendimentoFormatado.avaliacao = [];
-         atendimentoFormatado.imagens = [];
-        }
-
-      this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
-        .subscribe(
-          () => {},
-            erro => this.falhaNaEdicao(),
-                () => this.sucessoNaEdicao()
-      );
-    }
   }
 
   podeDesativar() {

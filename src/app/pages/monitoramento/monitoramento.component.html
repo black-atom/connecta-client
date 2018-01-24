@@ -10,9 +10,6 @@
           <h4 id="nome-tecnico" class="text-white mt-2">{{ tecnico?.nome | split: 0 }}</h4>
           <div class="text-white">
             <h6 id="estado" *ngIf="tecnico?.estado === 'em_deslocamento'">Em deslocamento</h6>
-            <h6 id="estado" *ngIf="tecnico?.estado === 'chegou_ao_destino'">Chegou no cliente</h6>
-            <h6 id="estado" *ngIf="tecnico?.estado === 'inicio_atendimento'">Atendimento iniciado</h6>
-            <h6 id="estado" *ngIf="!tecnico?.estado">Disponível</h6>
           </div>
 
           <div>
@@ -22,7 +19,7 @@
                 <h4 id="media-avaliacao">{{ tecnico?.atendimentos?.length || 0}}</h4>
               </li>
               <li>
-                <i [ngClass]="aplicarIconesMetricas(tecnico)"></i>
+                <i [ngClass]="progressBar('teste')"></i>
                 <h4 id="media-avaliacao">{{ tecnico?.media || 0 | number: '1.2-2'}}</h4>
               </li>
               <li>
@@ -61,16 +58,7 @@
                 <ngb-progressbar type="info" *ngIf="atendimento?.estado === 'associado'" [striped]="true" [animated]=true value="0"></ngb-progressbar>
 
                 <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'em_deslocamento'" [striped]="true" [animated]=true value="25">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
-
-                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'chegou_ao_destino'" [striped]="true" [animated]=true value="50">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
-
-                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'inicio_atendimento'" [striped]="true" [animated]=true value="75">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
-
-                <ngb-progressbar type="info" showValue="true" *ngIf="atendimento?.estado === 'fim_do_atendimento'" [striped]="true" [animated]=true value="100">
-                  <i [ngClass]="aplicarIconeAtendimento(atendimento)"></i></ngb-progressbar>
+                  <i [ngClass]="progressBar('')"></i></ngb-progressbar>
 
               </div>
             </div>

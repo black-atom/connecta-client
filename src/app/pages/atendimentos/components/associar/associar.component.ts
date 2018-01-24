@@ -22,7 +22,7 @@ export class AssociarComponent implements OnInit {
   public atendimentoASerRemovido;
   public funcionarioSelecionado;
 
-  private funcao = TIPOFUNCIONARIOMOCK[2];
+  private funcao = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
   public dataSelecionada: any;
   private date = new Date();
   public inputDate: any;
@@ -52,18 +52,19 @@ export class AssociarComponent implements OnInit {
   getFuncionariosEAtendimentos() {
     this.tecnicos$ = this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
-      .switchMap(tecnicos =>
+      .switchMap(resFuncionarios =>
         this._atendimentoService
-          .getAtendimentosAssociadoPorData(
-            this.dataPassadoPeloUsuario(this.inputDate)
-          )
-          .map(atendimentos =>
-            tecnicos.map(funcionario => {
-              const atendimentoTecnico = atendimentos.filter(
-                atendimento => atendimento.tecnico._id === funcionario._id
-              );
-              return { ...funcionario, atendimentos: atendimentoTecnico };
-            }).sort((a, b) => {
+        .getAtendimentosPorData({
+          estado: 'associado',
+          data_atendimento: this.dataPassadoPeloUsuario(this.inputDate).toString()
+        })
+        .map(resAtendimento =>
+          resFuncionarios.funcionarios.map(funcionario => {
+            const atendimentoTecnico = resAtendimento.atendimentos.filter(
+              atendimento => atendimento.tecnico._id === funcionario._id
+            );
+            return { ...funcionario, atendimentos: atendimentoTecnico };
+          }).sort((a, b) => {
               if (a.atendimentos.length > b.atendimentos.length) {
                 return -1;
               }if (a.atendimentos.length < b.atendimentos.length) {
@@ -71,7 +72,7 @@ export class AssociarComponent implements OnInit {
               }
               return 0;
             })
-          )
+        )
       );
   }
 
@@ -122,7 +123,7 @@ export class AssociarComponent implements OnInit {
 
   removerAtendimento(atendimentoSelecionadoParaRemover) {
     const tecnico = { nome: null };
-    const estado = 'aberto';
+    const estado = 'agendado';
     const atendimento = { ...atendimentoSelecionadoParaRemover, tecnico, estado };
     this._atendimentoService
       .atualizarAtendimento(atendimento)

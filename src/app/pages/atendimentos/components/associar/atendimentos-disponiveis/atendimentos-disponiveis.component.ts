@@ -30,7 +30,12 @@ export class AtendimentosDisponiveisComponent implements OnInit {
              ) {}
 
   ngOnInit() {
-   this.atendimentos$ = this._atendimentoService.getAtendimentosPorData(this.dataSelecionada);
+   this.atendimentos$ = this._atendimentoService
+   .getAtendimentosPorData({
+     data_atendimento: this.dataSelecionada.toString(),
+     estado: 'agendado'
+    })
+    .map(res => res.atendimentos);
   }
 
   changeExpanded(id){

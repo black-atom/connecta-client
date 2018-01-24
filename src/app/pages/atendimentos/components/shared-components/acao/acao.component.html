@@ -5,7 +5,7 @@
       <div class="col-md-6 col-sm-12 col-lg-6">
 
         <label class="radio-inline custom-radio nowrap" *ngFor="let act of action">
-          <input type="radio" name="status" (click)="actionAtendimento(act)" value="{{act}}" formControlName="status">
+          <input type="radio" name="estado" (click)="actionAtendimento(act)" value="{{act}}" formControlName="estado">
           <span translate>{{act}}</span>
         </label>
       </div>
@@ -15,7 +15,7 @@
           <label for="descricao_atendimento">Técnico </label>
           <select class="form-control" [(ngModel)]='tec' [ngModelOptions]="{standalone: true}" (change)="emitTecnico(tec)" >
             <option value="" disabled selected>Selecione o tecnico</option>
-            <option *ngFor="let tecnico of tecnicos; let i = index" [ngValue]="tecnico">{{tecnico.nome}}</option>
+            <option *ngFor="let tecnico of tecnicos$ | async" [ngValue]="tecnico">{{tecnico.nome}}</option>
           </select>
         </div>
 

@@ -16,11 +16,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   public carregando: boolean = true;
 
   private subscription: Subscription;
+  private query = { skip: 0, limit: 25 };
 
   constructor(private _funcionarioService: FuncionarioService) {}
 
   ngOnInit() {
-    this.subscription = this._funcionarioService.funcionariosLazyLoad()
+    this.subscription = this._funcionarioService.funcionariosLazyLoad(this.query)
     .subscribe(res => {
       this.funcionarios = res.funcionarios;
       this.totalRecords = res.count;
@@ -35,14 +36,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   filterEvents(query) {
     const queryFormatter = propNameQuery(query.filters);
     const newQuery: any = {
-         search: {
           ...queryFormatter('nome'),
           ...queryFormatter('cpf'),
           ...queryFormatter('rg'),
-          ...queryFormatter('celular')
-         },
-         first : query.first,
-         rows : query.rows
+          ...queryFormatter('celular'),
+             skip : query.first,
+             limit : query.rows
     };
     return newQuery;
   }
@@ -51,19 +50,20 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
     this.carregando = true;
     const query = this.filterEvents(event);
-    if (query.search['cpf']) {
-      query.search['cpf'] = query.search['cpf'].replace(/\D+/g, '');
+
+    if (query['cpf']) {
+      query['cpf'] = query['cpf'].replace(/\D+/g, '');
     }
-    if (query.search['rg']) {
-      query.search['rg'] = query.search['rg'].replace(/\D+/g, '');
+    if (query['rg']) {
+      query['rg'] = query['rg'].replace(/\D+/g, '');
     }
     this.subscription = this._funcionarioService
-      .funcionariosLazyLoad(query.first, query.rows, query.search)
-      .subscribe(res => {
-        this.funcionarios = res.funcionarios;
-        this.totalRecords = res.count;
-        this.carregando = false;
-      });
+      .funcionariosLazyLoad(query)
+        .subscribe(res => {
+          this.funcionarios = res.funcionarios;
+          this.totalRecords = res.count;
+          this.carregando = false;
+        });
   }
 
   ngOnDestroy() {

@@ -42,6 +42,10 @@ export class AtendimentosDisponiveisComponent implements OnInit {
     this.expandedRowIndex === id ? this.expandedRowIndex = -1 : this.expandedRowIndex = id
   }
 
+  changeExpanded(id){
+    this.expandedRowIndex === id ? this.expandedRowIndex = -1 : this.expandedRowIndex = id
+  }
+
   selecionarAtendimento(atendimento) {
     const isIgual = this.selecionados.find(atendimentoSelecionado => atendimentoSelecionado === atendimento);
 

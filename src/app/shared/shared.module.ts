@@ -7,15 +7,20 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 
-import { FuncionarioService } from './services';
-import { ClienteService } from './services';
+import {
+  AtendimentoService,
+  FuncionarioService,
+  ClienteService,
+  CepService,
+  LoginService,
+  NotificacaoService,
+  MonitoramentoService
+} from './services';
+
 import { EnderecoComponent } from './components/endereco';
 import { ContatoComponent } from './components/contato';
 import { PrincipaisInfoComponent } from './components/clientes/principais-info';
-import { CepService } from './services';
-import { LoginService } from './services';
-import { AtendimentoService } from './services';
-import { NotificacaoService } from './services';
+
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
 import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
@@ -62,6 +67,7 @@ export function formatacaoDaData () {
     FuncionarioService,
     AtendimentoService,
     NotificacaoService,
+    MonitoramentoService,
     I18n,
     {
       provide: AuthHttp,

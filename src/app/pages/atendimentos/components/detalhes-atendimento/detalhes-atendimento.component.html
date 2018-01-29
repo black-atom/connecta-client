@@ -24,13 +24,11 @@
                 [ngModelOptions]="{standalone: true}"
                 (change)="contatoSelecionado(contatoEscolhido)">
                   <option [ngValue]="contato" *ngFor="let contato of clienteEncontrado?.contatos">
-                    {{
-                      contato?.nome + ', ' +
-                      contato?.email +', ' +
-                      contato?.telefone +', '+
-                      contato?.celular +', '+
-                      contato?.observacao
-                    }}
+                    {{ contato?.nome }},
+                    {{ contato?.email }} -
+                    {{ contato?.telefone }} /
+                    {{ contato?.celular }} -
+                    {{ contato?.observacao }}
                    </option>
                 </select>
               </div>
@@ -49,14 +47,12 @@
                 [ngModelOptions]="{standalone: true}"
                 (change)="enderecoSelecionado(enderecoEscolhido)">
                    <option [ngValue]="endereco" *ngFor="let endereco of clienteEncontrado?.enderecos">
-                    {{
-                      endereco?.rua + ', ' +
-                      endereco?.numero + ', ' +
-                      endereco?.bairro + ', ' +
-                      endereco?.cidade + ' - ' +
-                      endereco?.uf + ' - ' +
-                      endereco?.cep
-                     }}
+                     {{ endereco?.rua }},
+                     {{ endereco?.numero }} -
+                     {{ endereco?.bairro }} -
+                     {{  endereco?.cidade }},
+                     {{ endereco?.uf }} -
+                     {{ endereco?.cep }}
                     </option>
                 </select>
               </div>
@@ -80,7 +76,7 @@
           <app-acao
           (actionEnviada)="actionRecevida($event)"
           (tecnicoEnviado)="tecnicoRecebido($event)"
-          [formAcao]="formEdicaoAtendimento.controls.situacao"></app-acao>
+          [formAcao]="formEdicaoAtendimento.controls.motivos"></app-acao>
         </div>
         </div>
 

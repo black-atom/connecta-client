@@ -22,12 +22,6 @@ export class AtendimentoService {
   constructor(private _http: AuthHttp) {
   }
 
-  retornarTodos(): Observable <Atendimento[]> {
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`)
-                     .map((res) => res.json() as Atendimento[])
-                     .catch(ManipuladorErro.lidaComErro);
-  }
-
   retornarUm(id): Observable <Atendimento> {
     return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos/${id}`)
                      .map(res => res.json() as Atendimento)
@@ -61,23 +55,17 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  getAtendimentosAssociadoPorData(data, searchAll = {}) {
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?associado=true&data=${data}`, { params: { search: searchAll } })
+  getAtendimentosPorData(query) {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`, { params: { ...query } })
                      .map(res => res.json() as Atendimento[])
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  getAtendimentosPorData(dataSelecionada) {
-    const search = { data_atendimento: dataSelecionada, 'tecnico.nome': null, estado: 'aberto' };
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`, { params: { search } })
-                     .map(res => res.json() as Atendimento[])
-                     .catch(ManipuladorErro.lidaComErro);
-  }
-
-  atendimentosLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}): Observable <any> {
-    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
-                     .map((res) => res.json() as any[])
+  atendimentosLazyLoad(query): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`, { params: { ...query } })
+                     .map((res) => res.json())
                      .catch(ManipuladorErro.lidaComErro);
   }
 
 }
+

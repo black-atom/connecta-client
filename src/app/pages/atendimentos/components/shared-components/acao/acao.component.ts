@@ -2,6 +2,8 @@ import { TIPOFUNCIONARIOMOCK } from './../../../../../utils/mocks/tipo-funcionar
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FuncionarioService } from './../../../../../shared/services/funcionario-service/';
+import { Observable } from 'rxjs/Observable';
+import { Funcionario } from '../../../../../models/funcionario.interface';
 
 @Component({
   selector: 'app-acao',
@@ -12,9 +14,10 @@ export class AcaoComponent implements OnInit {
 
   campoData: boolean;
   desativaCampoTecnico: boolean;
-  action = ['reagendar', 'cancelar', 'encaixe'];
-  tecnicos = [];
-  tipoFuncao = TIPOFUNCIONARIOMOCK;
+  action = ['reagendado', 'cancelado', 'encaixe'];
+
+  public tecnicos$: Observable<Funcionario[]>;
+  funcao = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
 
   @Input()
   formAcao: FormGroup;
@@ -28,12 +31,9 @@ export class AcaoComponent implements OnInit {
   constructor(private funcionarioService: FuncionarioService) { }
 
   ngOnInit() {
-    this.funcionarioService.retornarFuncionarioPorFuncao(this.tipoFuncao[2])
-    .subscribe(
-      res => {
-        this.tecnicos = res;
-      }
-    );
+    this.tecnicos$ = this.funcionarioService
+    .retornarFuncionarioPorFuncao(this.funcao)
+    .map(res => res.funcionarios);
   }
 
   actionAtendimento(action) {

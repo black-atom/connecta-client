@@ -1,35 +1,122 @@
-<div class="modal-header">
-  <h4 class="modal-title animated flipInX">
-    Atendimentos do dia {{ dataSelecionada | date: 'dd/MM/yyyy' }} disponíveis para
-    {{funcionarioSelecionado.nome}} </h4>
+<div class="content row">
 
-  <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+  <!-- início de atendimentos -->
+  <div class="atendimentos col-8 mt-4 scrollbar" id="style-1">
+   
+    <div class="col-12">
+      <h3>Atendimentos Disponíveis</h3>
+      <hr>
+    </div>
 
-<div class="modal-body">
+    <!-- início do atendimento -->
+    <div class="card atendimento col-12" *ngFor="let atendimento of atendimentos$ | async">
+    
+      <div class="row card-text">
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12" *ngFor="let atendimento of atendimentos$ | async">
-      <ba-card  (click)="selecionarAtendimento(atendimento)">
-        <div class="card-body" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
-          <i *ngIf="dessasociarAtendimento(atendimento)" class="ion-android-checkmark-circle pull-right"></i>
-          <p><strong> {{ atendimento?.cliente?.nome_razao_social }} ({{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }})</strong></p>
-          <p class="local"><i class="ion-location">
-            </i> {{ atendimento?.endereco?.rua + ", " + atendimento?.endereco?.numero + " - " +atendimento?.endereco?.bairro +", "+ atendimento?.endereco?.cidade +"
-            - "+ atendimento?.endereco?.cep }}
-          </p>
-          <p class="pull-right"><small><strong>Criado por:</strong> {{atendimento?.createdBy | uppercase}} </small></p>
+        <!-- início do conteúdo do card -->
+        <div class="col-11">
+          <div class="row" [ngClass]="{'selecaoDoAtendimento': dessasociarAtendimento(atendimento)}">
+
+            <div class="pointer col-12 pt-4 " (click)="selecionarAtendimento(atendimento)">
+              <h6 class="razao-social text-truncate"> {{ atendimento?.cliente?.nome_razao_social }} </h6>
+              <p class="sub-title mb-2">
+                <i class="ion-location"></i>
+                {{ atendimento?.endereco?.rua }}, 
+                {{ atendimento?.endereco?.numero }} - 
+                {{ atendimento?.endereco?.bairro }},
+                {{ atendimento?.endereco?.cidade }} -
+                {{ atendimento?.endereco?.cep }}
+              </p>
+            </div>
+
+            <!-- inicio do collapse-->
+            <div class="col-12 text-center">
+
+              <a class="btn-more animated pulse pointer" (click)="changeExpanded(atendimento?._id)">
+                <img *ngIf="expandedRowIndex === -1" src="assets/icons/collapse.png" alt="more">
+                <img *ngIf="expandedRowIndex === atendimento?._id" src="assets/icons/collapse-out.png" alt="more">
+              </a>
+
+              <div class="collapse" [ngbCollapse]="(expandedRowIndex !== atendimento?._id)">
+
+                <div class="row text-justify">
+                  <div class="col-6"><p><strong>CNPJ:</strong> {{ atendimento?.cliente?.cnpj_cpf | rgCnpjCpf }} </p></div>
+                  <div class="col-6"><p><strong>Tipo:</strong> {{ atendimento?.tipo }} </p></div>
+                  <div class="col-6"><p><strong>Modelo do equipamento:</strong> {{ atendimento?.modelo_equipamento }} </p></div>
+                  <div class="col-6"><p><strong>Criado por:</strong> {{ atendimento?.createdBy | uppercase }} </p></div>
+                  <div class="col-6"><p><strong>Descrição:</strong> {{ atendimento?.descricao }} </p></div>
+                  <div class="col-6"><p><strong>Observação:</strong> {{ atendimento?.observacao }} </p></div>
+                </div>
+
+              </div>
+            </div>
+            <!-- fim do collapse-->
+
+          </div>
         </div>
-      </ba-card>
+        <!-- fim do conteúdo do card -->
+
+        <div class="check text-center col-1" *ngIf="dessasociarAtendimento(atendimento)">
+          <i> <img class="animated rubberBand" src="assets/icons/check.png" alt="check"></i>
+        </div>
+
+      </div>
+    </div>
+    <!-- fim do atendimento -->
+
+  </div>
+  <!-- fim de atendimentos -->
+
+  <!-- início de tecnico --> 
+  <div class="tecnico col-4">
+    <div class="row mt-4">
+
+      <div class="nome-tecnico col-12">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2">Associar para:</h5>
+            <h6>
+              <strong> {{funcionarioSelecionado.nome}} </strong>
+            </h6>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="data col-12">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2">
+              <i class="ion-calendar"></i> Data:</h5>
+            <h6>
+              <strong>{{ dataSelecionada | date: 'dd MMM yyyy' }}</strong>
+            </h6>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="qtd-atendimentos col-12">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="mb-2">
+              <i class="ion-calculator"></i> Quantidade:</h5>
+            <h6>
+              <strong>{{ selecionados.length }}</strong>
+            </h6>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="button" class="btn btn-success btn-block" (click)="associarAtendimento()">
+          Associar
+        </button>
+      </div>
+
     </div>
   </div>
+  <!-- fim de tecnico --> 
+
 </div>
-
-
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary btn-block" (click)="associarAtendimento()">
-  <i class="ion-android-checkmark-circle"></i> Associar ({{selecionados.length}}) </button>
-</div>
-

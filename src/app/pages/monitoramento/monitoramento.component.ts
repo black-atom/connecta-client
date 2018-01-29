@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
-import { AtendimentoService, FuncionarioService } from './../../shared/services';
+import { AtendimentoService, FuncionarioService, MonitoramentoService } from './../../shared/services';
 import { Funcionario, Atendimento } from './../../models';
 import { TIPOFUNCIONARIOMOCK } from './../../utils/mocks/tipo-funcionario.mock';
 
@@ -10,83 +10,101 @@ import { TIPOFUNCIONARIOMOCK } from './../../utils/mocks/tipo-funcionario.mock';
   templateUrl: './monitoramento.component.html',
   styleUrls: ['./monitoramento.component.scss']
 })
-export class MonitoramentoComponent implements OnInit {
 
+export class MonitoramentoComponent implements OnInit {
   public tecnicos$: Observable<Funcionario[]>;
-  private funcao = TIPOFUNCIONARIOMOCK[2];
+  private funcao = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
   private date = new Date();
+  private estado = 'associado';
+
+  public notificationMessage = true;
 
   constructor(
     private _atendimentoService: AtendimentoService,
-    private _funcionarioService: FuncionarioService
+    private _funcionarioService: FuncionarioService,
+    private _monitoramentoService: MonitoramentoService
   ) {}
 
   ngOnInit() {
     this.getFuncionariosEAtendimentos();
+
   }
 
   getFuncionariosEAtendimentos() {
 
     this.tecnicos$ = this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
-      .switchMap(tecnicos =>
+      .switchMap(resFuncionarios =>
 
         this._atendimentoService
-          .getAtendimentosAssociadoPorData(this.getDateToday())
-          .map(atendimentos =>
-
-            tecnicos.map(funcionario => {
-              const atendimentoTecnico = atendimentos.filter(
-                atendimento => atendimento.tecnico._id === funcionario._id
-              );
-
-              return { ...funcionario, atendimentos: atendimentoTecnico };
-
-            })
+          .getAtendimentosPorData({
+            data_atendimento: this.getDateToday(this.date).toString(),
+            estado: this.estado }
           )
 
+          .map(resAtendimentos =>
+            resFuncionarios.funcionarios.map(funcionario => {
+              const atendimentoTecnico = resAtendimentos.atendimentos.filter(
+                atendimento => atendimento.tecnico._id === funcionario._id
+              );
+             return { ...funcionario, atendimentos: atendimentoTecnico };
+            }).filter(funcionario => {
+              if (funcionario.atendimentos.length > 0) {
+                this.notificationMessage = false;
+                return funcionario;
+              }
+            })
+          )
       );
   }
 
-  getDateToday() {
-    const date = this.date;
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const today = new Date(year, month, day);
+  getDateToday(data) {
+    const date = new Date(data);
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     return today;
   }
 
-  aplicarIconesMetricas(tecnico) {
-    if (tecnico.media === 0) {
-      return 'ion-ios-star-outline';
-    } else if (tecnico.media > 0) {
-      return 'ion-ios-star-half';
-    } else if (tecnico.media >= 3) {
-      return 'ion-star';
-    } else if (tecnico.media === 5) {
-      return 'ion-trophy';
-    } else {
-      return 'ion-ios-star-outline';
-    }
+  statusFuncionario(idFuncionario) {
+
+   return this._monitoramentoService
+    .getMonitoramentoPorData({
+      data_hora_inicial_km: this.getDateToday(this.date).toString(),
+      data_hora_final_virgente_local: null,
+      id_funcionario: idFuncionario
+    })
+      .map(res => {
+        res.monitoramentos.filter(monitoramento => {
+          let estado = 'Disponível';
+         if (monitoramento.data_hora_inicial_km !== null) {
+          estado = 'Percurso iniciado';
+         }
+
+         if (monitoramento.data_hora_final_km !== null) {
+          estado = 'Percurso encerrado';
+         }
+
+         if (monitoramento.data_hora_inicial_virgente_local !== null) {
+          estado = 'Iniciado';
+         }
+         return { tipo: monitoramento.tipo, estado };
+        });
+      });
+
   }
 
-  aplicarIconeAtendimento(atendimento) {
-    switch (atendimento.estado) {
-      case 'associado':
-        return 'fa fa-thumb-tack';
-
-      case 'em_deslocamento':
-        return 'ion-model-s';
-
-      case 'chegou_ao_destino':
-        return 'fa fa-flag-checkered';
-
-      case 'inicio_atendimento':
-        return 'fa fa-wrench';
-
-      case 'fim_do_atendimento':
-        return 'ion-checkmark';
-    }
+  atendimentosConcluidos(atendimentos) {
+    const finalizados = atendimentos.filter(atendimento => atendimento.interacao_tecnico.estado === 'fim_do_atendimento').length;
+    return finalizados;
   }
+
+  avaliacaoAtendimento(avaliacao) {
+    const nota = avaliacao.reduce((prev, soma) => (prev + soma.valor) / avaliacao.length, 0);
+    return nota;
+  }
+
+  progressBar(estado) {
+    const estados = { em_deslocamento: 25, chegou_ao_destino: 50, inicio_atendimento: 75, fim_do_atendimento: 100 };
+    return estados[estado];
+  }
+
 }

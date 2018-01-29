@@ -5,4 +5,5 @@ export * from './funcionario-service';
 export * from './login-service';
 export * from './app-manipulador-erro';
 export * from './notificacao-service';
+export * from './monitoramento-service';
 

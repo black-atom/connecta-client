@@ -17,7 +17,7 @@ export interface ContatoCliente {
   celular: string;
   nome: string;
   email?: string;
-  obervacao?: string;
+  observacao?: string;
   createdAt: string;
   updatedAt: string;
   cliente_id: number;
@@ -29,6 +29,7 @@ export interface EnderecoCliente {
   complemento: string;
   bairro: string;
   cidade: string;
+  numero: string;
   uf: string;
   ponto_refencia?: string;
   cep: string;

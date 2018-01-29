@@ -45,7 +45,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         nome_fantasia: ['']
 
       }),
-
       contato: this._fb.group({
         email: ['', [Validators.required]],
         nome: [''],
@@ -53,7 +52,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         celular: [''],
         observacao: ['']
       }),
-
       endereco: this._fb.group({
         cep: ['', [Validators.required]],
         rua: ['', [Validators.required]],
@@ -64,7 +62,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
       }),
-
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       valor: [''],
@@ -115,24 +112,33 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
 
   replaceFieldsAtendimento(atendimento) {
 
-    const cliente = {
-      ...atendimento.cliente,
-      cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
-      inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+    const novoAtendimento = {
+      cliente: {
+        nome_razao_social: atendimento.cliente.nome_razao_social,
+        nome_fantasia: atendimento.cliente.nome_fantasia,
+        cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
+        inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+      },
+      contato : {
+        email: atendimento.contato.email,
+        nome: atendimento.contato.nome,
+        observacao: atendimento.contato.observacao,
+        telefone: removeMaskFromProp('telefone')(atendimento.contato),
+        celular: removeMaskFromProp('celular')(atendimento.contato)
+      },
+      endereco : {
+        cep: removeMaskFromProp('cep')(atendimento.endereco),
+        rua: atendimento.endereco.rua,
+        bairro: atendimento.endereco.bairro,
+        numero: atendimento.endereco.numero,
+        cidade: atendimento.endereco.cidade,
+        complemento: atendimento.endereco.complemento,
+        uf: atendimento.endereco.uf,
+        ponto_referencia: atendimento.endereco.ponto_referencia
+      }
     };
 
-    const contato = {
-      ...atendimento.contato,
-      telefone: removeMaskFromProp('telefone')(atendimento.contato),
-      celular: removeMaskFromProp('celular')(atendimento.contato)
-    };
-
-    const endereco = {
-      ...atendimento.endereco,
-      cep: removeMaskFromProp('cep')(atendimento.endereco)
-    };
-
-    return { ...atendimento, cliente, contato, endereco };
+    return { ...atendimento, ...novoAtendimento };
   }
 
   cadastrarAtendimento(atendimento: Atendimento) {
@@ -143,6 +149,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
      atendimentoFormatado.data_atendimento.month - 1,
      atendimentoFormatado.data_atendimento.day
     );
+
+    atendimentoFormatado.estado = 'agendado';
 
     this.subscription = this._atendimentoServiceService.novoAtendimento(atendimentoFormatado).subscribe(
       () => {},

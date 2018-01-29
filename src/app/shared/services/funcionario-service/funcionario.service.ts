@@ -13,22 +13,16 @@ export class FuncionarioService {
 
   constructor( private _http: AuthHttp) { }
 
-  retornarTodos(): Observable <any> {
-    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios?skip=0&limit=9999`, { params: { search: {} } })
-                     .map((res) => res.json() as any[] )
-                     .catch(ManipuladorErro.lidaComErro);
-  }
-
   retornarFuncionarioPorFuncao(funcao): Observable <any> {
-    return this.retornarTodos().map(funcionarios =>
-      funcionarios.funcionarios
-      .filter(funcionario => funcionario.login.tipo.indexOf(funcao) > -1));
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`, { params: { ...funcao } })
+      .map((res) => res.json())
+      .catch(ManipuladorErro.lidaComErro);
   }
 
   retornarUm(_id: string): Observable<Funcionario> {
     return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios/${_id}`)
-                     .map((res) => res.json() )
-                     .catch(ManipuladorErro.lidaComErro);
+      .map((res) => res.json() )
+      .catch(ManipuladorErro.lidaComErro);
  }
 
   novoFuncionario(funcionario: Funcionario): Observable<Funcionario> {
@@ -36,8 +30,8 @@ export class FuncionarioService {
     const options = new RequestOptions({ headers });
 
     return this._http.post(`${environment.API_ENDPOINT}/api/funcionarios`, funcionario, options)
-                     .map((res) => res.json() as Funcionario)
-                     .catch(ManipuladorErro.lidaComErro);
+      .map((res) => res.json() as Funcionario)
+      .catch(ManipuladorErro.lidaComErro);
   }
 
   atualizarFuncionario(funcionario: Funcionario): Observable<Funcionario> {
@@ -45,13 +39,13 @@ export class FuncionarioService {
     const options = new RequestOptions({ headers });
 
     return this._http.put(`${environment.API_ENDPOINT}/api/funcionarios/${funcionario._id}/`, funcionario, options)
-                     .map((res) => res.json() as Funcionario)
-                     .catch(ManipuladorErro.lidaComErro);
+      .map((res) => res.json() as Funcionario)
+      .catch(ManipuladorErro.lidaComErro);
   }
 
-  funcionariosLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}): Observable <any> {
-    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
-                     .map((res) => res.json() as any[])
-                     .catch(ManipuladorErro.lidaComErro);
+  funcionariosLazyLoad(query): Observable <any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/funcionarios`, { params: { ...query } })
+      .map((res) => res.json() as any[])
+      .catch(ManipuladorErro.lidaComErro);
   }
 }

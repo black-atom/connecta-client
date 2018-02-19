@@ -118,8 +118,11 @@ export class MonitoramentoComponent implements OnInit {
   }
 
   progressBar(estado) {
-    const estados = { em_deslocamento: 25, chegou_ao_destino: 50, inicio_atendimento: 75, fim_do_atendimento: 100 };
-    return estados[estado];
+    if (estado) {
+      const estados = { em_deslocamento: 25, chegou_ao_destino: 50, inicio_atendimento: 75, fim_do_atendimento: 100 };
+      return estados[estado];
+    }
+    return 0;
   }
 
 }

@@ -299,7 +299,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
          return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
         }
         default: {
+
          return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
+
         }
       }
     }

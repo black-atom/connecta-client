@@ -259,6 +259,31 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
   }
 
+
+  tipoAtendimentoSelecionado(atendimento) {
+    const fieldUpdate = {
+      'Autorizado': { valor: '', autorizado: atendimento.autorizado, garantia: '' },
+      'Garantia externa': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia laboratório': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia venda': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'NF - Avulso local': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Avulso online/telefone': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Registro de sistema': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'Aberto por técnica': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia externo': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia laboratório': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia venda': { valor: '', autorizado: '', garantia: '' },
+      'Contrato locação': { valor: '', autorizado: '', garantia: '' },
+      'Contrato': { valor: '', autorizado: '', garantia: '' },
+      'Contrato novo': { valor: '', autorizado: '', garantia: '' },
+      'Venda': { valor: '', autorizado: '', garantia: '' },
+      'Retorno': { valor: '', autorizado: '', garantia: '' },
+      'Retorno Conserto': { valor: '', autorizado: '', garantia: '' },
+      null: { valor: '', autorizado: '', garantia: '' }
+    };
+    return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
+  }
+
   atualizarAtendimento(atendimento) {
     const atendimentoParse = this.parserAtendimento(atendimento);
     const concatAtendimento = { ...this.atendimentoRecebido, ...atendimentoParse };

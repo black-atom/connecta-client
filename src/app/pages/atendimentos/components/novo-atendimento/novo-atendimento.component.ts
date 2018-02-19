@@ -228,7 +228,6 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
     atendimentoFormatado.estado = 'agendado';
     const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
-
     this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
       () => {},
           erro => this.notificarFalhaCadastro(),

@@ -45,7 +45,6 @@
         <div class="col-6">
           <small class="text-muted">Email: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.contato.email }}</small>
-<<<<<<< HEAD
         </div>
 
 
@@ -130,91 +129,6 @@
           </small>
         </div>
 
-=======
-        </div>
-
-        <hr class="col-12">
-
-        <div class="col-12">
-          <h5>{{ atendimentoSelecionado.modelo_equipamento }}</h5>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">N. Equipamento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.numero_equipamento }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Data Atendimento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Tipo Atendimento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tipo }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.autorizado">
-          <small class="text-muted">Autorizado: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.autorizado }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.garantia">
-          <small class="text-muted">Data Garantia: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.garantia | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.valor">
-          <small class="text-muted">R$ </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.valor }}</small>
-        </div>
-
-
-        <div class="col-6">
-          <small class="text-muted">Estado: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.estado | uppercase }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.tecnico.nome">
-          <small class="text-muted">Técnico: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tecnico.nome | split: 0 }}</small>
-        </div>
-
-        <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
-          <small class="text-muted">Motivos: </small>
-          <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
-            {{ motivo.estado | uppercase }}<br>
-            {{ motivo.motivo }}
-          </small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Estacionamento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.estacionamento }}</small>
-        </div>
-
-        <div class="col-12 mt-3">
-          <small class="text-muted">Endereço: </small>
-          <small class="text-muted destaque">
-            {{ atendimentoSelecionado?.endereco.rua }},
-            {{atendimentoSelecionado?.endereco.numero}} -
-            {{ atendimentoSelecionado?.endereco.bairro}},
-            {{ atendimentoSelecionado?.endereco.cidade }},
-            {{ atendimentoSelecionado?.endereco.uf }} -
-            {{ atendimentoSelecionado?.endereco.cep | cep }}
-          </small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.complemento">
-          <small class="text-muted">Complemento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.complemento }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.ponto_referencia">
-          <small class="text-muted">Ponto de Referencia: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.ponto_referencia }}</small>
-        </div>
->>>>>>> e6ad4be... new feature to modal of manage atendimento
 
         <hr class="col-12">
 

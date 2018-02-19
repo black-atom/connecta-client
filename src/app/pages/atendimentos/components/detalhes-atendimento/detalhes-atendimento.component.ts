@@ -183,6 +183,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     return formatoData;
   }
 
+
   parseData(data) {
     return new Date(data.year, data.month - 1, data.day);
   }
@@ -213,7 +214,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         uf: atendimento.endereco.uf,
         ponto_referencia: atendimento.endereco.ponto_referencia
       },
+
       data_atendimento: this.parseData(atendimento.data_atendimento).toString()
+
     };
 
     return editarAtendimento;
@@ -326,6 +329,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     };
     return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
   }
+
 
   atualizarAtendimento(atendimento) {
     const atendimentoParse = this.parserAtendimento(atendimento);

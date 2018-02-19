@@ -27,7 +27,6 @@ export class MonitoramentoComponent implements OnInit {
 
   ngOnInit() {
     this.getFuncionariosEAtendimentos();
-
   }
 
   getFuncionariosEAtendimentos() {
@@ -43,15 +42,60 @@ export class MonitoramentoComponent implements OnInit {
 
           .map(resAtendimentos =>
             resFuncionarios.funcionarios.map(funcionario => {
+
               const atendimentoTecnico = resAtendimentos.atendimentos.filter(
                 atendimento => atendimento.tecnico._id === funcionario._id
               );
+
              return { ...funcionario, atendimentos: atendimentoTecnico };
+
             }).filter(funcionario => {
+
               if (funcionario.atendimentos.length > 0) {
                 this.notificationMessage = false;
                 return funcionario;
               }
+
+            })
+          )
+      )
+      .switchMap(funcionarios =>
+        this._monitoramentoService
+          .getMonitoramentoPorData({
+            data_hora_inicial_km: this.getDateToday(this.date).toString(),
+            data_hora_final_virgente_local: null
+          })
+
+          .map(resMonitoramentos =>
+            funcionarios.map(funcionario => {
+
+              const monitoramentos = resMonitoramentos.quilometragens;
+              let estado = 'Disponível';
+
+              if (monitoramentos.length === 0) {
+                return { ...funcionario, estado, tipo: '' };
+              }
+
+             monitoramentos.filter(monitoramento => {
+
+              if (monitoramento.id_funcionario === funcionario._id) {
+                if (monitoramento.data_hora_inicial_km !== null) {
+                  estado = 'Percurso iniciado';
+                }
+
+                if (monitoramento.data_hora_final_km !== null) {
+                  estado = 'Percurso encerrado';
+                }
+
+                if (monitoramento.data_hora_inicial_virgente_local !== null) {
+                  estado = 'Iniciado';
+                }
+
+                return { ...funcionario, estado, tipo: monitoramento.tipo };
+              }
+
+             });
+
             })
           )
       );
@@ -61,34 +105,6 @@ export class MonitoramentoComponent implements OnInit {
     const date = new Date(data);
     const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     return today;
-  }
-
-  statusFuncionario(idFuncionario) {
-
-   return this._monitoramentoService
-    .getMonitoramentoPorData({
-      data_hora_inicial_km: this.getDateToday(this.date).toString(),
-      data_hora_final_virgente_local: null,
-      id_funcionario: idFuncionario
-    })
-      .map(res => {
-        res.monitoramentos.filter(monitoramento => {
-          let estado = 'Disponível';
-         if (monitoramento.data_hora_inicial_km !== null) {
-          estado = 'Percurso iniciado';
-         }
-
-         if (monitoramento.data_hora_final_km !== null) {
-          estado = 'Percurso encerrado';
-         }
-
-         if (monitoramento.data_hora_inicial_virgente_local !== null) {
-          estado = 'Iniciado';
-         }
-         return { tipo: monitoramento.tipo, estado };
-        });
-      });
-
   }
 
   atendimentosConcluidos(atendimentos) {

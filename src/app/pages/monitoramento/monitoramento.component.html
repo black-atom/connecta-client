@@ -14,12 +14,12 @@
 
         <!-- perfil do técnico-->
         <div class="perfil-tecnico text-center pt-3" fxFlex="20%">
-          <img class="foto-tecnico" [src]="tecnico?.foto_url ? tecnico.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
+          <img class="foto-tecnico" [src]="tecnico?.foto_url ? tecnico?.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
           <h4 id="nome-tecnico" class="text-white mt-2">{{ tecnico?.nome | split: 0 }}</h4>
           <div class="text-white">
             <h6 id="estado">{{ tecnico?.estado }}</h6>
           </div>
-
+          <!-- | split: 0  -->
           <div>
             <ul class="metricas">
               <li>
@@ -72,7 +72,7 @@
               <div *ngFor="let atendimento of tecnico?.atendimentos">
                 <p class="animated fadeIn" id="avaliacao"
                    routerLink="/pages/atendimentos/dados-app/{{ atendimento?._id }}">
-                   {{ avaliacaoAtendimento(atendimento?.avaliacao) }}
+                   {{ avaliacaoAtendimento(atendimento?.avaliacao || []) }}
                 </p>
               </div>
             </div>

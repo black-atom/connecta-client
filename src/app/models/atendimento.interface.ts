@@ -74,11 +74,10 @@ interface Imagens {
 
 interface InteracaoTecnico {
   estado: string;
-  relatorio_tecnico: RelatorioRecnico;
+  relatorio_tecnico: Treinamento;
   retornar: Retorno;
   treinamento: Treinamento;
   remocao_relogio: RemocaoRelogio;
-  faturamento: Faturamento;
 }
 
 interface RelatorioRecnico {
@@ -108,6 +107,7 @@ interface RemocaoRelogio {
   bobina: boolean;
   fonte: boolean;
   pino: boolean;
+<<<<<<< HEAD
   impressora: boolean;
 }
 
@@ -119,4 +119,7 @@ interface Faturamento {
   quem_aprovou: string;
   valor: string;
   prazo_pagamento: string;
+=======
+  impresso: boolean;
+>>>>>>> fix-bug-update-associar: modify model of atendimentos
 }

@@ -99,13 +99,13 @@
 
         <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
           <small class="text-muted">Motivos: </small>
+          <br>
           <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
-            {{ motivo.estado | uppercase }}<br>
-            {{ motivo.motivo }}
+            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
           </small>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 mt-4">
           <small class="text-muted">Estacionamento: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.estacionamento }}</small>
         </div>

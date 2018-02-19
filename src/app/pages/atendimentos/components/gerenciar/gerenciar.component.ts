@@ -46,7 +46,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   mudarEstiloLinha(atendimento) {
     const estado = atendimento.motivos.find(motivo => motivo.estado === 'reagendado');
 
-
     if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') {
       return 'reagendado';
     }

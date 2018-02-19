@@ -14,7 +14,7 @@
  rowHover="true"
  sortField="createdAt" styleClass="borderless">
  <!-- [rowTrackBy]="rowTrackBy" -->
-  <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'140px'}">
+  <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'70px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy'}}
     </ng-template>
@@ -26,7 +26,7 @@
     </ng-template>
   </p-column>
 
-  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'90px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.cliente.cnpj_cpf | rgCnpjCpf }}
     </ng-template>
@@ -35,7 +35,7 @@
 
   <p-column field="endereco.bairro" header="Bairro" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
-      {{ atendimento?.endereco.bairro | slice: 0:20 }}.
+      {{ atendimento?.endereco.bairro | slice: 0:20 }}
     </ng-template>
   </p-column>
 
@@ -47,18 +47,18 @@
 
   <p-column field="tecnico.nome" header="Técnico" [sortable]="true" [filter]="true" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body" >
-      {{ atendimento?.tecnico.nome }}
+      {{ atendimento?.tecnico.nome || '' | split: 0 }}
     </ng-template>
   </p-column>
 
 
-  <p-column field="tipo" header="Tipo" [sortable]="true" [filter]="true" [style]="{'width':'150px'}">
+  <p-column field="tipo" header="Tipo" [sortable]="true" [filter]="true" [style]="{'width':'90px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.tipo }}
     </ng-template>
   </p-column>
 
-  <p-column field="createdBy" header="Criado por" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+  <p-column field="createdBy" header="Criado por" [sortable]="true" [filter]="true" [style]="{'width':'60px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.createdBy | split: 0 }}
     </ng-template>

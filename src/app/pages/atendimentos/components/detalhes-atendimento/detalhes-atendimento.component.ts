@@ -228,11 +228,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
          return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
         }
         default: {
-         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+         return { ...atendimento, ...editarAtendimento, ...this.atendimentoRecebido.motivos, estado, tecnico };
         }
       }
     }
-    return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
   }
 
 

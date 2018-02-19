@@ -32,6 +32,7 @@ export class InformacoesAtendimentoComponent implements OnInit {
 
   desabilitaAutorizado: boolean;
   desabilitaValor: boolean;
+  desabilitaGarantia: boolean;
   equipamentos = EQUIPAMENTOS;
 
   private mascaraDataAtendimento = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
@@ -47,22 +48,30 @@ export class InformacoesAtendimentoComponent implements OnInit {
   }
 
   tipoAtendimentoSelecionado(tipoAtendimento) {
-
-    if (tipoAtendimento === TIPOATENDIMENTOMOCK[11] ||
-        tipoAtendimento === TIPOATENDIMENTOMOCK[12] ||
-        tipoAtendimento === TIPOATENDIMENTOMOCK[13]) {
-          this.estilo = 'col-lg-2';
-          this.desabilitaValor = true;
-          this.desabilitaAutorizado = false;
-    }else if (tipoAtendimento === TIPOATENDIMENTOMOCK[1]) {
-          this.estilo = 'col-lg-2';
-          this.desabilitaValor = false;
-          this.desabilitaAutorizado = true;
-    }else {
-          this.desabilitaValor = false;
-          this.desabilitaAutorizado = false;
-          this.estilo = 'col-lg-4';
-    }
+    const desativaCampo = {
+      'Autorizado': { valor: false, autorizado: true, garantia: false, estilo: 'col-lg-2' },
+      'Garantia externa': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
+      'Garantia laboratório': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
+      'Garantia venda': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
+      'NF - Avulso local': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },
+      'NF - Avulso online/telefone': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },
+      'NF - Registro de sistema': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },
+      'Aberto por técnica': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato garantia externo': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato garantia laboratório': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato garantia venda': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato locação': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Contrato novo': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Venda': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Retorno': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      'Retorno Conserto': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
+      null: { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' }
+    };
+    this.estilo = desativaCampo[tipoAtendimento].estilo;
+    this.desabilitaValor = desativaCampo[tipoAtendimento].valor;
+    this.desabilitaAutorizado = desativaCampo[tipoAtendimento].autorizado;
+    this.desabilitaGarantia = desativaCampo[tipoAtendimento].garantia;
   }
 
 }

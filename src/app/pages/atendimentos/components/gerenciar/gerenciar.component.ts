@@ -43,19 +43,23 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         });
   }
 
-  mudarEstiloLinha(atendimento: Atendimento) {
+  mudarEstiloLinha(atendimento) {
 
-    // if (dadosLinha.tipo === 'Aberto por técnica') {
-    //   return 'aberto-por-tecnica';
-    // } else if (dadosLinha.situacao.status === 'cancelar') {
-    //   return 'cancelado';
-    // } else if (dadosLinha.situacao.status === 'reagendar') {
-    //   return 'reagendamento';
-    // } else {
-    //   return 'padrao';
-    // }
+    const estado = atendimento.motivos.find(motivo => motivo.estado === 'reagendado').estado;
+
+    if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') {
+      return 'reagendado';
+    }
+
+    if (atendimento.estado === 'cancelado') {
+      return 'cancelado';
+    }
+
+    if (atendimento.estado === 'associado') {
+      return 'associado';
+    }
+
     return 'padrao';
-
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {

@@ -16,6 +16,7 @@ export interface Atendimento {
   observacao: string;
   valor: string;
   autorizado: string;
+  garantia: string;
   estado: string;
   interacao_tecnico: InteracaoTecnico;
   motivos: Motivo[];

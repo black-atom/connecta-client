@@ -66,6 +66,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
       tipo: ['', [Validators.required]],
       valor: [''],
       autorizado: [''],
+      garantia: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],
@@ -141,28 +142,53 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     return { ...atendimento, ...novoAtendimento };
   }
 
+  parseData(data) {
+    return new Date(data.year, data.month - 1, data.day);
+  }
+
+  tipoAtendimentoSelecionado(atendimento) {
+    const fieldUpdate = {
+      'Autorizado': { valor: '', autorizado: atendimento.autorizado, garantia: '' },
+      'Garantia externa': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia laboratório': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia venda': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'NF - Avulso local': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Avulso online/telefone': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Registro de sistema': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'Aberto por técnica': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia externo': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia laboratório': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia venda': { valor: '', autorizado: '', garantia: '' },
+      'Contrato locação': { valor: '', autorizado: '', garantia: '' },
+      'Contrato': { valor: '', autorizado: '', garantia: '' },
+      'Contrato novo': { valor: '', autorizado: '', garantia: '' },
+      'Venda': { valor: '', autorizado: '', garantia: '' },
+      'Retorno': { valor: '', autorizado: '', garantia: '' },
+      'Retorno Conserto': { valor: '', autorizado: '', garantia: '' },
+      null: { valor: '', autorizado: '', garantia: '' }
+    };
+    return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
+  }
+
   cadastrarAtendimento(atendimento: Atendimento) {
-
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
-    atendimentoFormatado.data_atendimento = new Date(
-     atendimentoFormatado.data_atendimento.year,
-     atendimentoFormatado.data_atendimento.month - 1,
-     atendimentoFormatado.data_atendimento.day
-    );
-
+    atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
+    atendimentoFormatado.garantia = this.parseData(atendimentoFormatado.garantia);
     atendimentoFormatado.estado = 'agendado';
-
-    this.subscription = this._atendimentoServiceService.novoAtendimento(atendimentoFormatado).subscribe(
+    const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
+    this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
       () => {},
           erro => this.notificarFalhaCadastro(),
-            () => this.notificarSucesso()
+            () => {
+              this.formAtendimento.reset();
+              this.notificarSucesso();
+            }
     );
-
   }
 
   podeDesativar() {
-    if(this.formAtendimento.touched) {
-      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+    if (this.formAtendimento.touched) {
+      if ( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
         return true;
       } else {
         return false;

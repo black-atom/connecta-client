@@ -7,7 +7,7 @@ import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.
 import { Atendimento, DadosEndereco, ContatoCliente, EnderecoCliente, Cliente } from './../../../../models';
 import { AtendimentoService, ClienteService, CepService, NotificacaoService } from './../../../../shared/services';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
-import { removeMaskFromProp, parseDataBR } from 'app/shared/utils/StringUtils';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-detalhes-atendimento',
@@ -84,6 +84,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       tipo: ['', [Validators.required]],
       valor: [''],
       autorizado: [''],
+      garantia: [''],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],
@@ -122,15 +123,14 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
 
-      const date = new Date(res.data_atendimento);
-      const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };
-      this.formEdicaoAtendimento.get('data_atendimento').patchValue(formatoData);
+      this.formEdicaoAtendimento.get('autorizado').patchValue(res.autorizado);
+      this.formEdicaoAtendimento.get('garantia').patchValue(this.parseDataPick(res.garantia));
+      this.formEdicaoAtendimento.get('data_atendimento').patchValue(this.parseDataPick(res.data_atendimento));
 
       this.atendimentoRecebido = res;
       this._clienteService.retornarUm(res.cliente.cnpj_cpf).subscribe((dados) => {
         this.clienteEncontrado = dados;
       });
-
     });
   }
 
@@ -160,6 +160,17 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   actionRecevida(acao) {
     this.actionSelecionada = acao;
   }
+
+  parseDataPick(data) {
+    const date = new Date(data);
+    const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };
+    return formatoData;
+  }
+
+  parseData(data) {
+    return new Date(data.year, data.month - 1, data.day);
+  }
+
 
   parserAtendimento(atendimento) {
 
@@ -192,11 +203,8 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         uf: atendimento.endereco.uf,
         ponto_referencia: atendimento.endereco.ponto_referencia
       },
-      data_atendimento: new Date (
-        atendimento.data_atendimento.year,
-        atendimento.data_atendimento.month - 1,
-        atendimento.data_atendimento.day
-      ).toString()
+      data_atendimento: this.parseData(atendimento.data_atendimento).toString(),
+      garantia: this.parseData(atendimento.garantia).toString()
     };
 
     if (atendimento.motivos.estado) {
@@ -220,16 +228,41 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
          return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
         }
         default: {
-         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+         return { ...atendimento, ...editarAtendimento, ...this.atendimentoRecebido.motivos, estado, tecnico };
         }
       }
     }
-    return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+  }
+
+
+  tipoAtendimentoSelecionado(atendimento) {
+    const fieldUpdate = {
+      'Autorizado': { valor: '', autorizado: atendimento.autorizado, garantia: '' },
+      'Garantia externa': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia laboratório': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia venda': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'NF - Avulso local': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Avulso online/telefone': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Registro de sistema': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'Aberto por técnica': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia externo': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia laboratório': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia venda': { valor: '', autorizado: '', garantia: '' },
+      'Contrato locação': { valor: '', autorizado: '', garantia: '' },
+      'Contrato': { valor: '', autorizado: '', garantia: '' },
+      'Contrato novo': { valor: '', autorizado: '', garantia: '' },
+      'Venda': { valor: '', autorizado: '', garantia: '' },
+      'Retorno': { valor: '', autorizado: '', garantia: '' },
+      'Retorno Conserto': { valor: '', autorizado: '', garantia: '' },
+      null: { valor: '', autorizado: '', garantia: '' }
+    };
+    return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
   }
 
   atualizarAtendimento(atendimento) {
     const atendimentoParse = this.parserAtendimento(atendimento);
-    const atendimentoFormatado = { ...this.atendimentoRecebido, ...atendimentoParse };
+    const concatAtendimento = { ...this.atendimentoRecebido, ...atendimentoParse };
+    const atendimentoFormatado = this.tipoAtendimentoSelecionado(concatAtendimento);
     this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
       .subscribe(
         () => {},

@@ -1,10 +1,25 @@
 @import "./../../../../theme/sass/conf/conf.scss";
 
-img {
-  height: 28px;
-  width: 28px;
-  border-radius: 30px;
-  box-shadow: 1px 1px 1px 1px #4d4d4d;
+.semKM {
+  margin-top: 7%;
+  color: rgb(160, 160, 160);
+}
+
+.deslocamento {
+  color: rgb(0, 47, 134);
+}
+
+.duracao {
+  color: rgb(0, 134, 40);
+}
+
+button {
+  img {
+    height: 28px;
+    width: 28px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 1px 1px #4d4d4d;
+  }
 }
 
 h6 {
@@ -17,7 +32,7 @@ h6 {
 }
 
 .btn-imprimir {
-  height: 36px; 
+  height: 36px;
   width: 46px;
 }
 

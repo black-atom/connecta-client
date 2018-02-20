@@ -62,6 +62,4 @@ export const EQUIPAMENTOS: String[] = [
   'ZPM R300 JUMBO',
   'ZPM R410',
   'ZPM RC 1000'
-
-
 ];

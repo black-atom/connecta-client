@@ -45,53 +45,84 @@
 
 
   <!-- início da tabela -->
-  <div class="col-12 text-center">
+
+  <div class="col-12 text-center semKM" *ngIf="!funcionarioSelecionado">
+      <div class=" text-center">
+          <img src="assets/icons/map.svg" width='100px' height='auto'>
+          <h1 class='mt-4' >Não há relatório de Km para o dia de hoje!</h1>
+      </div>
+  </div>
+
+  <div class="col-12 text-center" *ngIf="funcionarioSelecionado">
     <table cellpadding="0" cellspacing="0" width="100%">
 
       <thead>
 
         <tr>
-          <th> ATENDIMENTOS</th>
-        </tr>
-
-        <tr>
+          <th>Tipo</th>
           <th>Km Início</th>
           <th>Km Final</th>
-          <th>Hora Inicio</th>
-          <th>Hora Final</th>
-          <th>Início Atend.</th>
-          <th>Fim Atend.</th>
-          <th>Tempo Total</th>
+          <th>Hora KM Início</th>
+          <th>Hora KM Final</th>
+          <th>Km Total</th>
+          <th>Tempo Deslocamento</th>
+          <th>Início</th>
+          <th>Fim </th>
+          <th>Duração</th>
         </tr>
 
       </thead>
       <tbody>
 
         <tr *ngFor="let monitoramento of funcionarioSelecionado?.monitoramentos">
-          <!-- <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
-          <td valign="middle" data-header-title="Km Início">3000 km</td>
-          <td valign="middle" data-header-title="Km Final">3010 km</td>
-          <td valign="middle" data-header-title="Hora Início">13h12</td>
-          <td valign="middle" data-header-title="Hora Final">13h55</td>
-          <td valign="middle" data-header-title="Início Atend.">14h10</td>
-          <td valign="middle" data-header-title="Fim Atend.">14h50</td>
-          <td valign="middle" data-header-title="Tempo Total">2h22</td>
-<<<<<<< HEAD
-        </tr>
-        
-        <tr> -->
-          <!-- <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td> -->
-          <td valign="middle" data-header-title="Km Início">{{ monitoramento?.km_inicial }}</td>
-          <td valign="middle" data-header-title="Km Final">{{ monitoramento?.km_final }}</td>
-          <td valign="middle" data-header-title="Hora Início">{{ monitoramento?.data_hora_inicial_km | date: 'h:mm' }}</td>
-          <td valign="middle" data-header-title="Hora Final">{{ monitoramento?.data_hora_final_km | date: 'h:mm' }}</td>
-          <td valign="middle" data-header-title="Início Atend.">{{ monitoramento?.data_hora_inicial_virgente_local | date: 'h:mm' }}</td>
-          <td valign="middle" data-header-title="Fim Atend.">{{ monitoramento?.data_hora_final_virgente_local | date: 'h:mm' }}</td>
-          <td valign="middle" data-header-title="Tempo Total">{{ monitoramento?.data_total | date: 'h:mm' }}</td>
-        </tr>
 
+          <td class="deslocamento" valign="middle" data-header-title="Km Início">
+            <a (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed">{{ monitoramento?.tipo | uppercase }}</a>
+          </td>
+
+          <td class="deslocamento"  valign="middle" data-header-title="Km Início">
+            {{ monitoramento?.km_inicial }} Km
+          </td>
+
+          <td class="deslocamento" valign="middle" data-header-title="Km Final">
+            {{ monitoramento?.km_final }} Km
+          </td>
+
+          <td class="deslocamento" valign="middle" data-header-title="Hora Início">
+            {{ monitoramento?.data_hora_inicial_km | date: 'HH' }}h
+            {{ monitoramento?.data_hora_inicial_km | date: 'mm' }}m
+          </td>
+
+          <td class="deslocamento" align="middle" data-header-title="Hora Final">
+            {{ monitoramento?.data_hora_final_km | date: 'HH' }}h
+            {{ monitoramento?.data_hora_final_km | date: 'mm' }}m
+          </td>
+
+          <td class="deslocamento" valign="middle" data-header-title="Km Total">
+            {{ monitoramento?.total_km_deslocamento }} Km
+          </td>
+
+          <td class="deslocamento" valign="middle" data-header-title="Tempo Deslocamento">
+            {{ monitoramento?.tempo_deslocamento }}
+          </td>
+
+          <td class="duracao" valign="middle" data-header-title="Início">
+            {{ monitoramento?.data_hora_inicial_virgente_local | date: 'HH' }}h
+            {{ monitoramento?.data_hora_inicial_virgente_local | date: 'mm' }}m
+          </td>
+
+          <td class="duracao" valign="middle" data-header-title="Fim">
+            {{ monitoramento?.data_hora_final_virgente_local | date: 'HH' }}h
+            {{ monitoramento?.data_hora_final_virgente_local | date: 'mm' }}m
+          </td>
+
+          <td class="duracao" valign="middle" data-header-title="Duração">
+            {{ monitoramento?.duracao_evento }}
+          </td>
+        </tr>
       </tbody>
+
     </table>
   </div>
-  <!-- fim da tabela -->
 </div>

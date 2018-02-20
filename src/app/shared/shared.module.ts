@@ -25,7 +25,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
 import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
 import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import { DataTableModule, SharedModule, ButtonModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, ButtonModule, TreeTableModule } from 'primeng/primeng';
 import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
 import { SplitPipe } from './pipes/split.pipe';
 import { CepPipe } from './pipes/cep.pipe';
@@ -49,6 +49,7 @@ export function formatacaoDaData () {
     TextMaskModule,
     NgxErrorsModule,
     DataTableModule,
+    TreeTableModule,
     ButtonModule,
     SharedModule
   ],
@@ -91,6 +92,7 @@ export function formatacaoDaData () {
     SplitPipe,
     CepPipe,
     DataTableModule,
+    TreeTableModule,
     ButtonModule,
     SharedModule
    ]

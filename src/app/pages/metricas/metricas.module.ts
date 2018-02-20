@@ -10,6 +10,7 @@ import { routing } from './../metricas/metricas.routing';
 import { MetricasComponent } from './metricas.component';
 import { AtendimentosComponent } from './components/atendimentos/atendimentos.component';
 import { QuilometragemComponent } from './components/quilometragem/quilometragem.component';
+import { ModuloCompartilhado } from 'app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { QuilometragemComponent } from './components/quilometragem/quilometragem
     NgaModule,
     NgbModule,
     FormsModule,
+    ModuloCompartilhado,
     routing
   ],
   declarations: [

@@ -3,9 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { ModuloCompartilhado } from 'app/shared/shared.module';
 import { Funcionario, Atendimento, Monitoramento } from 'app/models';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
-import { getFuncionario } from 'app/pages/login/redux/login.reducer';
-import { FuncionarioService, MonitoramentoService } from 'app/shared/services';
-import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FuncionarioService, MonitoramentoService, AtendimentoService } from 'app/shared/services';
 
 @Component({
   selector: 'app-quilometragem',
@@ -20,14 +18,13 @@ export class QuilometragemComponent implements OnInit {
   public atendimentos$: Observable<Atendimento[]>;
   public funcionarios$: Observable<any[]>;
   public funcionarioSelecionado;
-
+  public selectedCar;
+  public dialogVisible: boolean;
   private tipoFuncionario = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
 
   constructor(public _funcionariosService: FuncionarioService,
               public _monitoramentoService: MonitoramentoService,
-              config: NgbAccordionConfig) {
-                config.closeOthers = true;
-                config.type = 'info';
+              public _atendimentoService: AtendimentoService) {
               }
 
   ngOnInit() {
@@ -41,8 +38,8 @@ export class QuilometragemComponent implements OnInit {
     this.getAllFuncionarios();
   }
 
-  getFuncionario(funcionario) {
-    this.funcionarioSelecionado = funcionario;
+  getDetails(id) {
+    return this._atendimentoService.retornarUm(id);
   }
 
   parseDate(date) {
@@ -68,7 +65,6 @@ export class QuilometragemComponent implements OnInit {
     sign = sign === 1 ? '' : '-';
     return `${sign}${intpart}h ${minutes}m`;
   }
-
 
   getAllFuncionarios() {
 

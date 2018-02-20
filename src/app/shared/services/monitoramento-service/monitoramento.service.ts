@@ -20,4 +20,10 @@ export class MonitoramentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  getMonitoramentosFuncionarioNaData(search): Observable<any> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/monitoramentos`, { params: { ...search } })
+                     .map(res => res.json())
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

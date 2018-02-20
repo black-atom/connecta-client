@@ -6,7 +6,7 @@
     <label>Pesquisar por data</label>
 
     <div class="input-group">
-      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" (ngModelChange)="getAllFuncionarios()">
       <button class="input-group-addon" (click)="d.toggle()" type="button">
         <i class="ion-calendar"></i>
       </button>
@@ -55,7 +55,7 @@
         </tr>
 
         <tr>
-          <th>Cliente</th>
+          <!-- <th>Cliente</th> -->
           <th>Km Início</th>
           <th>Km Final</th>
           <th>Hora Inicio</th>
@@ -68,8 +68,8 @@
       </thead>
       <tbody>
 
-        <!-- <tr>
-          <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
+        <tr *ngFor="let monitoramento of funcionarioSelecionado?.monitoramentos">
+          <!-- <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
           <td valign="middle" data-header-title="Km Início">3000 km</td>
           <td valign="middle" data-header-title="Km Final">3010 km</td>
           <td valign="middle" data-header-title="Hora Início">13h12</td>
@@ -77,17 +77,17 @@
           <td valign="middle" data-header-title="Início Atend.">14h10</td>
           <td valign="middle" data-header-title="Fim Atend.">14h50</td>
           <td valign="middle" data-header-title="Tempo Total">2h22</td>
-        </tr> -->
+        </tr>
         
-        <tr>
-          <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td>
-          <td valign="middle" data-header-title="Km Início">{{monitoramentos?.km_inicial}}</td>
-          <td valign="middle" data-header-title="Km Final">{{monitoramentos$?.km_final}}</td>
-          <td valign="middle" data-header-title="Hora Início">{{monitoramentos$?.data_hora_inicial_km}}</td>
-          <td valign="middle" data-header-title="Hora Final">{{monitoramentos$?.data_hora_final_km}}</td>
-          <td valign="middle" data-header-title="Início Atend.">{{monitoramentos$?.data_hora_inicial_virgente_local}}</td>
-          <td valign="middle" data-header-title="Fim Atend.">{{monitoramentos$?.data_hora_final_virgente_local}}</td>
-          <td valign="middle" data-header-title="Tempo Total">2h22</td>
+        <tr> -->
+          <!-- <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td> -->
+          <td valign="middle" data-header-title="Km Início">{{ monitoramento?.km_inicial }}</td>
+          <td valign="middle" data-header-title="Km Final">{{ monitoramento?.km_final }}</td>
+          <td valign="middle" data-header-title="Hora Início">{{ monitoramento?.data_hora_inicial_km | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Hora Final">{{ monitoramento?.data_hora_final_km | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Início Atend.">{{ monitoramento?.data_hora_inicial_virgente_local | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Fim Atend.">{{ monitoramento?.data_hora_final_virgente_local | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Tempo Total">{{ monitoramento?.data_total | date: 'h:mm' }}</td>
         </tr>
 
 

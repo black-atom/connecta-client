@@ -36,9 +36,9 @@ export class MonitoramentoComponent implements OnInit {
   }
 
   getFuncionariosEAtendimentos() {
-    this.tecnicos$ = this._funcionarioService
+    this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
-      .switchMap(resFuncionarios =>
+      .subscribe(resFuncionarios =>
         this._atendimentoService
           .getAtendimentosPorData({
             data_atendimento: this.getDateToday(this.date).toString(),
@@ -49,7 +49,7 @@ export class MonitoramentoComponent implements OnInit {
               const atendimentoTecnico = resAtendimentos.atendimentos.filter(
                 atendimento => atendimento.tecnico._id === funcionario._id
               );
-
+              console.log(resAtendimentos)    
               return { ...funcionario, atendimentos: atendimentoTecnico };
             })
           )

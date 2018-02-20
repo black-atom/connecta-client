@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-
 import { ModuloCompartilhado } from 'app/shared/shared.module';
 import { Funcionario, Atendimento } from 'app/models';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { getFuncionario } from 'app/pages/login/redux/login.reducer';
 import { FuncionarioService, MonitoramentoService } from 'app/shared/services';
-
 
 @Component({
   selector: 'app-quilometragem',
@@ -22,10 +20,10 @@ export class QuilometragemComponent implements OnInit {
   public funcionarios$: Observable<any[]>;
   public funcionarioSelecionado;
   
-  private tipoFuncionario = { "login.tipo": TIPOFUNCIONARIOMOCK[2] };
+  private tipoFuncionario = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
 
-  constructor( public _funcionariosService: FuncionarioService,
-               public _monitoramentoService: MonitoramentoService ) {}
+  constructor(public _funcionariosService: FuncionarioService,
+              public _monitoramentoService: MonitoramentoService ) {}
 
   ngOnInit() {
 
@@ -36,16 +34,15 @@ export class QuilometragemComponent implements OnInit {
     };
 
     this.getAllFuncionarios();
-
   }
 
-  getFuncionario(funcionario){
+  getFuncionario(funcionario) {
     this.funcionarioSelecionado = funcionario;
   }
 
   getAllFuncionarios() {
 
-   this.funcionarios$ = this. _funcionariosService
+    this.funcionarios$ = this. _funcionariosService
       .retornarFuncionarioPorFuncao(this.tipoFuncionario)
         .switchMap(resFuncionarios => 
           this._monitoramentoService
@@ -57,14 +54,13 @@ export class QuilometragemComponent implements OnInit {
             const monitoramentos = resMonitoramentos.quilometragens
             .filter(monitoramento => monitoramento.id_funcionario === funcionario._id);
 
-            return { ...funcionario, monitoramentos }
+            return { ...funcionario, monitoramentos };
 
           }).filter(funcionario => funcionario.monitoramentos.length > 0)
 
           )   
-        )  
+        );  
   }
-  
 
   dataPassadoPeloUsuario(dataSelecionada) {
     const dataFormatada = new Date(

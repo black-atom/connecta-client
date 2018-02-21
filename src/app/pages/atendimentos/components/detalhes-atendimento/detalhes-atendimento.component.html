@@ -1,8 +1,11 @@
 <form [formGroup]="formEdicaoAtendimento"
   (ngSubmit)="atualizarAtendimento(formEdicaoAtendimento.value)" novalidate>
+  <!-- {{ formEdicaoAtendimento.status | json }}
+  {{ formEdicaoAtendimento.value | json }} -->
     <!-- Card com os inputs de dados principais do funcionário -->
     <div class="row">
       <div class="col-12">
+
         <ba-card cardTitle="Dados principais">
           <app-principais-info-cliente
           (enviaCnpj)="buscarCliente($event)"
@@ -66,7 +69,8 @@
       <div class="col-12">
           <app-informacoes-atendimento
           [desabilitaData]="actionSelecionada"
-          [formDescricaoAtendimento]="formEdicaoAtendimento">
+          [formDescricaoAtendimento]="formEdicaoAtendimento"
+          (tipoAtendimentoEmitter)="tipoAtendimentoExtraField($event)">
         </app-informacoes-atendimento>
       </div>
       </div>
@@ -89,7 +93,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-12">
 
-              <button type="submit" class="btn btn-primary btn-with-icon">
+              <button type="submit" class="btn btn-primary btn-with-icon"  [disabled]="formEdicaoAtendimento.invalid">
               <i class="ion-android-checkmark-circle"></i>Salvar</button>
             </div>
 

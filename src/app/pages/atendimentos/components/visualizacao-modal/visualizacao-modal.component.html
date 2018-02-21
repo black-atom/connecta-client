@@ -11,16 +11,11 @@
 
       <div class="row">
         <div class="col-12">
-          <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }}</h5>
+          <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
         </div>
       </div>
 
       <div class="row mt-1">
-
-        <div class="col-6">
-          <small class="text-muted">Cnpj/Cpf: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</small>
-        </div>
 
         <div class="col-6">
           <small class="text-muted">Contato: </small>
@@ -50,67 +45,13 @@
           <small class="text-muted destaque">{{ atendimentoSelecionado.contato.email }}</small>
         </div>
 
-        <hr class="col-12">
-
-        <div class="col-12">
-          <h5>{{ atendimentoSelecionado.modelo_equipamento }}</h5>
-        </div>
 
         <div class="col-6">
-          <small class="text-muted">N. Equipamento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.numero_equipamento }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Data Atendimento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Tipo Atendimento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tipo }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.autorizado">
-          <small class="text-muted">Autorizado: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.autorizado }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.garantia">
-          <small class="text-muted">Data Garantia: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.garantia | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.valor">
-          <small class="text-muted">R$ </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.valor }}</small>
-        </div>
-
-
-        <div class="col-6">
-          <small class="text-muted">Estado: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.estado | uppercase }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.tecnico.nome">
-          <small class="text-muted">Técnico: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tecnico.nome | split: 0 }}</small>
-        </div>
-
-        <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
-          <small class="text-muted">Motivos: </small>
-          <br>
-          <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
-            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
-          </small>
-        </div>
-
-        <div class="col-6 mt-4">
           <small class="text-muted">Estacionamento: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.estacionamento }}</small>
         </div>
 
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-2">
           <small class="text-muted">Endereço: </small>
           <small class="text-muted destaque">
             {{ atendimentoSelecionado?.endereco.rua }},
@@ -135,16 +76,71 @@
         <hr class="col-12">
 
         <div class="col-12">
-          <small class="text-muted">Descrição: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.descricao }}</small>
+          <h5>{{ atendimentoSelecionado.modelo_equipamento }}</h5>
         </div>
 
         <div class="col-6">
+          <small class="text-muted">N. Equipamento: </small>
+          <small class="text-muted destaque"> {{ atendimentoSelecionado.numero_equipamento }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Data Atendimento: </small>
+          <small class="text-muted destaque"> {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Tipo Atendimento: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.tipo }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.autorizado">
+          <small class="text-muted">Autorizado Por: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.autorizado }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.garantia">
+          <small class="text-muted">Data Garantia: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.garantia }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.valor">
+          <small class="text-muted destaqueMoney">R$ {{ atendimentoSelecionado.valor }}</small>
+        </div>
+
+
+        <div class="col-6">
+          <small class="text-muted">Status: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.estado | uppercase }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.tecnico.nome">
+          <small class="text-muted">Técnico: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.tecnico.nome | split: 0 }}</small>
+        </div>
+
+        <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
+          <small class="text-muted">Eventos: </small>
+          <br>
+          <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
+            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
+          </small>
+        </div>
+
+
+        <hr class="col-12">
+
+        <div class="col-12">
+          <small class="text-muted">Problema: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.descricao }}</small>
+        </div>
+
+        <div class="col-6 mt-4">
             <small class="text-muted">Testes efetuados: </small>
             <small class="text-muted destaque">{{ atendimentoSelecionado.testes_efetuados }}</small>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 mt-4">
           <small class="text-muted">Observação: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.observacao }}</small>
         </div>

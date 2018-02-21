@@ -5,7 +5,6 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
-import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 import { removeMaskFromPropTable, propNameQuery, formatQuery } from 'app/shared/utils/StringUtils';
 
 

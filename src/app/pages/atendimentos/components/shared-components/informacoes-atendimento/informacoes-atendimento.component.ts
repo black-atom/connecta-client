@@ -30,12 +30,15 @@ export class InformacoesAtendimentoComponent implements OnInit {
   @Input()
   formDescricaoAtendimento: FormGroup;
 
+  @Output()
+  tipoAtendimentoEmitter = new EventEmitter();
+
   desabilitaAutorizado: boolean;
   desabilitaValor: boolean;
   desabilitaGarantia: boolean;
   equipamentos = EQUIPAMENTOS;
 
-  private mascaraDataAtendimento = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
+  private mascaraData = [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/];
 
   constructor(private _activatedRoute: ActivatedRoute) { }
 
@@ -44,7 +47,6 @@ export class InformacoesAtendimentoComponent implements OnInit {
     .subscribe((values) => {
       this.tipoAtendimentoSelecionado(values);
     });
-
   }
 
   tipoAtendimentoSelecionado(tipoAtendimento) {
@@ -72,6 +74,7 @@ export class InformacoesAtendimentoComponent implements OnInit {
     this.desabilitaValor = desativaCampo[tipoAtendimento].valor;
     this.desabilitaAutorizado = desativaCampo[tipoAtendimento].autorizado;
     this.desabilitaGarantia = desativaCampo[tipoAtendimento].garantia;
+    this.tipoAtendimentoEmitter.emit(tipoAtendimento);
   }
 
 }

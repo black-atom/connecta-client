@@ -1,5 +1,5 @@
 const removeMask = value => value.replace(/\D+/g, '');
-const removeMaskFromProp = prop => object => removeMask(object[prop]);
+const removeMaskFromProp = prop => object => object[prop] ? removeMask(object[prop]) : object[prop];
 const removeMaskFromPropTable = prop => object =>
 object[prop] !== undefined
 ? { ...object, [prop]: removeMask(object[prop]) }

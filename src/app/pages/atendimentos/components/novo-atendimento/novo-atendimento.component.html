@@ -70,7 +70,8 @@
   <div class="col-12">
       <app-informacoes-atendimento
       [desabilitaData]="true"
-      [formDescricaoAtendimento]="formAtendimento">
+      [formDescricaoAtendimento]="formAtendimento"
+      (tipoAtendimentoEmitter)="tipoAtendimentoExtraField($event)">
     </app-informacoes-atendimento>
   </div>
   </div>

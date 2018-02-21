@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
@@ -27,6 +27,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
   public tecnico;
   public desativaData = false;
   public actionSelecionada;
+  private today = new Date();
 
   constructor(private _atendimentoService: AtendimentoService,
               private _activatedRoute: ActivatedRoute,
@@ -62,7 +63,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         email: ['', [Validators.required]],
         nome: [''],
         telefone: ['', [Validators.required]],
-        celular: ['', [Validators.required]],
+        celular: [''],
         observacao: ['']
       }),
 
@@ -82,9 +83,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      valor: [''],
-      autorizado: [''],
-      garantia: [''],
+      valor: [{ value: '', disabled: true }, Validators.required],
+      autorizado: [{ value: '', disabled: true }, Validators.required],
+      garantia: [{ value: '', disabled: true }, Validators.required],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],
@@ -92,6 +93,21 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       observacao: [''],
       estacionamento: ['', Validators.required]
    });
+  }
+
+  buscarCliente(cnpj) {
+    if (cnpj) {
+     this.subscription = this._clienteService.retornarUm(cnpj)
+      .subscribe(res => {
+          if (res) {
+            this.formEdicaoAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
+            this.formEdicaoAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
+            this.formEdicaoAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
+          } else {
+            this.notificarFalhaEncontrarCliente();
+          }
+      });
+    }
   }
 
   recuperarAtendimento() {
@@ -123,9 +139,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
 
-      this.formEdicaoAtendimento.get('autorizado').patchValue(res.autorizado);
-      this.formEdicaoAtendimento.get('garantia').patchValue(this.parseDataPick(res.garantia));
       this.formEdicaoAtendimento.get('data_atendimento').patchValue(this.parseDataPick(res.data_atendimento));
+      this.formEdicaoAtendimento.get('autorizado').patchValue(res.autorizado);
+      this.formEdicaoAtendimento.get('garantia').patchValue(res.garantia);
 
       this.atendimentoRecebido = res;
       this._clienteService.retornarUm(res.cliente.cnpj_cpf).subscribe((dados) => {
@@ -163,7 +179,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
   parseDataPick(data) {
     const date = new Date(data);
-    const formatoData = { day: date.getDate(), month: date.getMonth() + 1 , year: date.getFullYear() };
+    const formatoData = { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() };
     return formatoData;
   }
 
@@ -171,13 +187,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     return new Date(data.year, data.month - 1, data.day);
   }
 
-
-  parserAtendimento(atendimento) {
-
-    let motivos = [];
-    let estado = 'agendado';
-    let tecnico: any = this.atendimentoRecebido.tecnico;
-
+  atendimentoFormatt(atendimento) {
     const editarAtendimento = {
       _id: this.id,
       cliente: {
@@ -203,36 +213,93 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         uf: atendimento.endereco.uf,
         ponto_referencia: atendimento.endereco.ponto_referencia
       },
-      data_atendimento: this.parseData(atendimento.data_atendimento).toString(),
-      garantia: this.parseData(atendimento.garantia).toString()
+      data_atendimento: this.parseData(atendimento.data_atendimento).toString()
     };
+
+    return editarAtendimento;
+  }
+
+  tipoAtendimentoExtraField(value) {
+    switch (value) {
+      case 'Autorizado': {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').enable();
+        this.formEdicaoAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'Garantia externa': {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia laboratório': {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia venda': {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'NF - Avulso local': {
+        this.formEdicaoAtendimento.get('valor').enable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Avulso online/telefone': {
+        this.formEdicaoAtendimento.get('valor').enable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Registro de sistema': {
+        this.formEdicaoAtendimento.get('valor').enable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').disable();
+        break;
+      }
+      default: {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').disable();
+      }
+    }
+  }
+
+  parserAtendimento(atendimento) {
+
+    let motivos = this.atendimentoRecebido.motivos;
+    let estado = 'agendado';
+    let tecnico: any = { nome: null };
 
     if (atendimento.motivos.estado) {
       switch (atendimento.motivos.estado) {
         case 'cancelado': {
           estado = 'cancelado';
-          tecnico = { nome: null };
-          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
-         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+           motivos = [...motivos, ...atendimento.motivos];
+         return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
         }
         case 'encaixe': {
           estado = 'associado';
           tecnico = { _id: this.tecnico._id, nome: this.tecnico.nome };
-          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
-         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+          motivos = [...motivos, ...atendimento.motivos];
+         return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
         }
         case 'reagendado': {
           estado = 'agendado';
-          tecnico = { nome: null };
-          motivos = [...this.atendimentoRecebido.motivos, ...atendimento.motivos];
-         return { ...atendimento, ...editarAtendimento, motivos, estado, tecnico };
+          motivos = [...motivos, ...atendimento.motivos];
+         return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
         }
         default: {
-         return { ...atendimento, ...editarAtendimento, ...this.atendimentoRecebido.motivos, estado, tecnico };
+         return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
         }
       }
     }
-
   }
 
 
@@ -262,8 +329,11 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
   atualizarAtendimento(atendimento) {
     const atendimentoParse = this.parserAtendimento(atendimento);
+
     const concatAtendimento = { ...this.atendimentoRecebido, ...atendimentoParse };
+
     const atendimentoFormatado = this.tipoAtendimentoSelecionado(concatAtendimento);
+
     this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
       .subscribe(
         () => {},
@@ -302,6 +372,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         'Data informada inferior a data atual',
         ''
       );
+  }
+
+  notificarFalhaEncontrarCliente() {
+    this._notificacaoService.notificarAviso('Cliente não encontrado!', '');
   }
 
   ngOnDestroy() {

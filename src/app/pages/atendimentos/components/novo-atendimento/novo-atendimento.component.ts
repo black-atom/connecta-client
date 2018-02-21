@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
@@ -64,9 +64,9 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
       }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      valor: [''],
-      autorizado: [''],
-      garantia: [''],
+      valor: [{ value: '', disabled: true }, Validators.required],
+      autorizado: [{ value: '', disabled: true }, Validators.required],
+      garantia: [{ value: '', disabled: true }, Validators.required],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],
@@ -118,7 +118,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         nome_razao_social: atendimento.cliente.nome_razao_social,
         nome_fantasia: atendimento.cliente.nome_fantasia,
         cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
-        inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+        inscricao_estadual: removeMaskFromProp('inscricao_estadualFormControl')(atendimento.cliente)
       },
       contato : {
         email: atendimento.contato.email,
@@ -170,12 +170,65 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
   }
 
+  tipoAtendimentoExtraField(value) {
+    switch (value) {
+      case 'Autorizado': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').enable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'Garantia externa': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia laboratório': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia venda': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'NF - Avulso local': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Avulso online/telefone': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Registro de sistema': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      default: {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+      }
+    }
+  }
+
+
   cadastrarAtendimento(atendimento: Atendimento) {
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
     atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
-    atendimentoFormatado.garantia = this.parseData(atendimentoFormatado.garantia);
     atendimentoFormatado.estado = 'agendado';
     const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
+
     this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
       () => {},
           erro => this.notificarFalhaCadastro(),

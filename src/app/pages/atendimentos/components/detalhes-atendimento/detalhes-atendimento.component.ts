@@ -216,7 +216,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       },
 
       data_atendimento: this.parseData(atendimento.data_atendimento).toString()
-
     };
 
     return editarAtendimento;
@@ -301,10 +300,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         default: {
 
          return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
-
         }
       }
     }
+    return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
   }
 
 

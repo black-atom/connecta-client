@@ -17,7 +17,8 @@
           <img class="foto-tecnico" [src]="tecnico?.foto_url ? tecnico?.foto_url : '/assets/img/avatar.png'" alt="Foto técnico">
           <h4 id="nome-tecnico" class="text-white mt-2">{{ tecnico?.nome | split: 0 }}</h4>
           <div class="text-white">
-            <h6 id="estado">{{ tecnico?.estado }}</h6>
+            <h6 id="estado">{{ tecnico?.estado.estado }}</h6>
+            <h6 id="estado">{{ tecnico?.estado.tipo }}</h6>
           </div>
           <!-- | split: 0  -->
           <div>

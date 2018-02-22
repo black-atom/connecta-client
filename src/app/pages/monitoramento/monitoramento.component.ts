@@ -68,34 +68,35 @@ export class MonitoramentoComponent implements OnInit {
 
           .map(resMonitoramentos =>
             funcionarios.map(funcionario => {
-
+              let estado = { estado: 'Disponível', tipo: '' };
               const monitoramentos = resMonitoramentos.quilometragens;
-              let estado = 'Disponível';
 
               if (monitoramentos.length === 0) {
-                return { ...funcionario, estado, tipo: '' };
+                return { ...funcionario, estado };
               }
 
-             monitoramentos.filter(monitoramento => {
+              const estadoNovo =
+                monitoramentos.filter(monitoramento =>
+                  monitoramento.id_funcionario === funcionario._id)
+                             .reduce((prev, curr) => {
+                  if (curr.data_hora_inicial_km !== null) {
+                   estado = { estado: 'Percurso iniciado', tipo: curr.tipo };
+                  }
 
-              if (monitoramento.id_funcionario === funcionario._id) {
-                if (monitoramento.data_hora_inicial_km !== null) {
-                  estado = 'Percurso iniciado';
-                }
+                  if (curr.data_hora_final_km !== null) {
+                    estado = { estado: 'Percurso encerrado', tipo: curr.tipo };
+                  }
 
-                if (monitoramento.data_hora_final_km !== null) {
-                  estado = 'Percurso encerrado';
-                }
+                  if (curr.data_hora_inicial_virgente_local !== null) {
+                    estado = { estado: 'Iniciado', tipo: curr.tipo };
+                  }
+                  return estado;
+              }, null);
 
-                if (monitoramento.data_hora_inicial_virgente_local !== null) {
-                  estado = 'Iniciado';
-                }
-
-                return { ...funcionario, estado, tipo: monitoramento.tipo };
+              if (estadoNovo) {
+                return { ...funcionario, estado: estadoNovo };
               }
-
-             });
-
+              return { ...funcionario, estado };
             })
           )
       );

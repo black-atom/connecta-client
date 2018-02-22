@@ -16,13 +16,18 @@ export interface Funcionario {
   atendimentos_hoje?: Atendimento[];
   concluido: Atendimento[];
   media: number;
-  estado: string;
+  estado: Estado;
 }
 
 interface Login {
   tipo: string[];
   username: string;
   password: string;
+}
+
+interface Estado {
+  tipo: string;
+  estado: string;
 }
 
 interface Habilitacao {

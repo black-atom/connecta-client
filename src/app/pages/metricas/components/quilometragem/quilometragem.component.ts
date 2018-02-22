@@ -104,6 +104,31 @@ export class QuilometragemComponent implements OnInit {
           }).filter(funcionario => funcionario.monitoramentos.length > 0)
 
           )
+        )
+        .switchMap(funcionarios =>
+          this._atendimentoService
+          .getAtendimentosPorData({ estado: 'associado', data_atendimento: this.dataPassadoPeloUsuario(this.inputDate).toString() })
+
+          .map(resAtendimentos => {
+            const atendimentos = resAtendimentos.atendimentos;
+
+            return funcionarios.map(funcionario => {
+
+              const monitoramentos = funcionario.monitoramentos.map(monitoramento => {
+                const atendimentoTecnico =
+                  atendimentos.find(atendimento => monitoramento.id_atendimento === atendimento._id);
+                if (atendimentoTecnico) {
+                  return {
+                  ...monitoramento,
+                  cnpj_cpf: atendimentoTecnico.cliente.cnpj_cpf,
+                  nome_razao_social: atendimentoTecnico.cliente.nome_razao_social
+                 };
+                }
+                return monitoramento;
+                });
+                return { ...funcionario, monitoramentos };
+              });
+          })
         );
   }
 

@@ -55,87 +55,89 @@
 
   <div class="col-12 text-center" *ngIf="funcionarioSelecionado">
 
-      <p-dataTable [value]="funcionarioSelecionado?.monitoramentos" expandableRows="true" (onRowExpand)="($event.data)">
+    <div class="col-12 text-left mt-4">
+      <h3><strong>{{ funcionarioSelecionado.nome | uppercase }}</strong></h3>
+    </div>
+    <hr>
+    <table cellpadding="0" cellspacing="0" width="100%">
 
-       <p-column expander="true" styleClass="col-icon" [style]="{'width':'50px'}"></p-column>
-       <p-column field="tipo" header="Tipo"></p-column>
+      <thead>
 
-      <p-column field="km_inicial" header="Km Início">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.km_inicial }} Km
-        </ng-template>
-      </p-column>
+        <tr>
+          <th>Cliente</th>
+          <th>Cnpj</th>
+          <th>Tipo</th>
+          <th>Km Início</th>
+          <th>Km Final</th>
+          <th>Hora KM Início</th>
+          <th>Hora KM Final</th>
+          <th>Km Total</th>
+          <th>Tempo Deslocamento</th>
+          <th>Início</th>
+          <th>Fim </th>
+          <th>Duração</th>
+        </tr>
 
-      <p-column field="km_final" header="Km Final">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.km_final }} Km
-        </ng-template>
-      </p-column>
+      </thead>
+      <tbody>
 
-      <p-column field="data_hora_inicial_km" header="Hora KM Início">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.data_hora_inicial_km | date: 'HH' }}h
-          {{ monitoramento?.data_hora_inicial_km | date: 'mm' }}m
-        </ng-template>
-      </p-column>
+        <tr *ngFor="let monitoramento of funcionarioSelecionado?.monitoramentos">
 
-      <p-column field="data_hora_final_km" header="Hora KM Início">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.data_hora_final_km | date: 'HH' }}h
-          {{ monitoramento?.data_hora_final_km | date: 'mm' }}m
-        </ng-template>
-      </p-column>
+          <td class="deslocamento text-left" valign="middle" data-header-title="Cliente">
+            {{ monitoramento?.nome_razao_social | uppercase }}
+          </td>
 
-      <p-column field="total_km_deslocamento" header="Km Total">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.total_km_deslocamento }} Km
-        </ng-template>
-      </p-column>
+          <td class="deslocamento" valign="middle" data-header-title="Cnpj/Cpf">
+            {{ monitoramento?.cnpj_cpf }}
+          </td>
 
-      <p-column field="tempo_deslocamento" header="Tempo Deslocamento"></p-column>
+          <td class="deslocamento" valign="middle" data-header-title="Km Início">
+            <a (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed">{{ monitoramento?.tipo | uppercase }}</a>
+          </td>
 
-      <p-column field="inicio" header="Início">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.data_hora_inicial_virgente_local | date: 'HH' }}h
-          {{ monitoramento?.data_hora_inicial_virgente_local | date: 'mm' }}m
-        </ng-template>
-      </p-column>
+          <td class="deslocamento"  valign="middle" data-header-title="Km Início">
+            {{ monitoramento?.km_inicial }} Km
+          </td>
 
-      <p-column field="fim" header="Fim">
-        <ng-template let-monitoramento="rowData" pTemplate="body">
-          {{ monitoramento?.data_hora_final_virgente_local | date: 'HH' }}h
-          {{ monitoramento?.data_hora_final_virgente_local | date: 'mm' }}m
-        </ng-template>
-      </p-column>
+          <td class="deslocamento" valign="middle" data-header-title="Km Final">
+            {{ monitoramento?.km_final }} Km
+          </td>
 
-      <p-column field="duracao_evento" header="Duração"></p-column>
+          <td class="deslocamento" valign="middle" data-header-title="Hora Início">
+            {{ monitoramento?.data_hora_inicial_km | date: 'HH' }}h
+            {{ monitoramento?.data_hora_inicial_km | date: 'mm' }}m
+          </td>
 
-      <ng-template let-monitoramento pTemplate="rowexpansion" rowExpandMode="single">
-          <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-3" style="text-align:center"></div>
-                  <div class="ui-grid-col-9">
-                      <div class="ui-grid ui-grid-responsive ui-grid-pad">
+          <td class="deslocamento" align="middle" data-header-title="Hora Final">
+            {{ monitoramento?.data_hora_final_km | date: 'HH' }}h
+            {{ monitoramento?.data_hora_final_km | date: 'mm' }}m
+          </td>
 
-                         <div class="ui-grid-row">
-                              <div class="ui-grid-col-2 label">Razão Social/Nome: </div>
-                              <div class="ui-grid-col-10">{{ monitoramento | json }}</div>
-                          </div>
-                          <!-- <div class="ui-grid-row">
-                              <div class="ui-grid-col-2 label">Cnpj/Cpf: </div>
-                              <div class="ui-grid-col-10">{{monitoramento.year}}</div>
-                          </div>
-                          <div class="ui-grid-row">
-                              <div class="ui-grid-col-2 label">Contato: </div>
-                              <div class="ui-grid-col-10">{{monitoramento.brand}}</div>
-                          </div>  -->
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </ng-template>
+          <td class="deslocamento" valign="middle" data-header-title="Km Total">
+            {{ monitoramento?.total_km_deslocamento }} Km
+          </td>
 
-    </p-dataTable>
+          <td class="deslocamento" valign="middle" data-header-title="Tempo Deslocamento">
+            {{ monitoramento?.tempo_deslocamento }}
+          </td>
 
+          <td class="duracao" valign="middle" data-header-title="Início">
+            {{ monitoramento?.data_hora_inicial_virgente_local | date: 'HH' }}h
+            {{ monitoramento?.data_hora_inicial_virgente_local | date: 'mm' }}m
+          </td>
+
+          <td class="duracao" valign="middle" data-header-title="Fim">
+            {{ monitoramento?.data_hora_final_virgente_local | date: 'HH' }}h
+            {{ monitoramento?.data_hora_final_virgente_local | date: 'mm' }}m
+          </td>
+
+          <td class="duracao" valign="middle" data-header-title="Duração">
+            {{ monitoramento?.duracao_evento }}
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
   </div>
 </div>

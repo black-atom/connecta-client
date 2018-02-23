@@ -31,9 +31,10 @@ export class MonitoramentoComponent implements OnInit {
 
   getFuncionariosEAtendimentos() {
 
-    this._funcionarioService
+    this.tecnicos$ = this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
-      .subscribe(resFuncionarios =>
+      .switchMap(resFuncionarios =>
+
         this._atendimentoService
           .getAtendimentosPorData({
             data_atendimento: this.getDateToday(this.date).toString(),

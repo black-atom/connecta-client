@@ -64,9 +64,15 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
       }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
+<<<<<<< HEAD
       valor: [{ value: '', disabled: true }, Validators.required],
       autorizado: [{ value: '', disabled: true }, Validators.required],
       garantia: [{ value: '', disabled: true }, Validators.required],
+=======
+      valor: [''],
+      autorizado: [''],
+      garantia: [''],
+>>>>>>> 1ab9f3683d6036aaf17767aed31f7c0b812ae088
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],

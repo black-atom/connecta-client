@@ -51,7 +51,6 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     if (atendimento.estado === 'cancelado') {
       return 'cancelado';
     }
-
     if (atendimento.estado === 'associado') {
       return 'associado';
     }

@@ -11,18 +11,22 @@
 
       <div class="row">
         <div class="col-12">
+
           <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
+
         </div>
       </div>
 
       <div class="row mt-1">
 
         <div class="col-6">
+
           <small class="text-muted">Contato: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.contato.nome }}</small>
         </div>
 
         <div class="col-6">
+
           <small class="text-muted">Telefone: </small>
           <small class="text-muted destaque">
             ({{ atendimentoSelecionado.contato.telefone | slice: 0:2 }})
@@ -120,10 +124,6 @@
         </div>
 
         <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
-<<<<<<< HEAD
-
-=======
->>>>>>> 325e4f4... fix: modify screen of atendimentos  and modify methods update and created atendimento
           <small class="text-muted">Eventos: </small>
           <br>
           <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
@@ -131,10 +131,10 @@
           </small>
         </div>
 
-
         <hr class="col-12">
 
         <div class="col-12">
+
           <small class="text-muted">Problema: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.descricao }}</small>
         </div>
@@ -145,6 +145,7 @@
             <small class="text-muted destaque">{{ atendimentoSelecionado.testes_efetuados }}</small>
         </div>
         <div class="col-6 mt-4">
+
           <small class="text-muted">Observação: </small>
           <small class="text-muted destaque">{{ atendimentoSelecionado.observacao }}</small>
         </div>

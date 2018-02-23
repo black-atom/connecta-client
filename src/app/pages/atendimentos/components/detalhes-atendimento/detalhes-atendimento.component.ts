@@ -138,10 +138,10 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       this.formEdicaoAtendimento.get('numero_equipamento').patchValue(res.numero_equipamento);
       this.formEdicaoAtendimento.get('estacionamento').patchValue(res.estacionamento);
       this.formEdicaoAtendimento.get('observacao').patchValue(res.observacao);
-
       this.formEdicaoAtendimento.get('data_atendimento').patchValue(this.parseDataPick(res.data_atendimento));
       this.formEdicaoAtendimento.get('autorizado').patchValue(res.autorizado);
       this.formEdicaoAtendimento.get('garantia').patchValue(res.garantia);
+
 
       this.atendimentoRecebido = res;
       this._clienteService.retornarUm(res.cliente.cnpj_cpf).subscribe((dados) => {
@@ -214,7 +214,6 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         uf: atendimento.endereco.uf,
         ponto_referencia: atendimento.endereco.ponto_referencia
       },
-
       data_atendimento: this.parseData(atendimento.data_atendimento).toString()
     };
 
@@ -304,6 +303,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       }
     }
     return { ...atendimento, ...this.atendimentoFormatt(atendimento), motivos, estado, tecnico };
+
   }
 
 

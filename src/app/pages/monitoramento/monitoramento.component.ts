@@ -98,6 +98,7 @@ export class MonitoramentoComponent implements OnInit {
                 return { ...funcionario, estado: estadoNovo };
               }
               return { ...funcionario, estado };
+
             })
           )
       );

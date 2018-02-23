@@ -53,11 +53,13 @@
       <h1 class='mt-4'>Selecione o período e o técnico!</h1>
     </div>
 
-      <div class=" text-center">
-          <img src="assets/icons/map.svg" width='100px' height='auto'>
-          <h1 class='mt-4' >Não há relatório de Km para o dia de hoje!</h1>
-      </div>
+  <div class="col-12 text-center" *ngIf="funcionarioSelecionado">
 
+
+    <div class="col-12 text-left mt-4">
+      <h3><strong>{{ funcionarioSelecionado.nome | uppercase }}</strong></h3>
+    </div>
+    <hr>
     <table cellpadding="0" cellspacing="0" width="100%">
 
       <thead>
@@ -67,8 +69,15 @@
           <th>Cliente</th>
           <th>Cnpj</th>
           <th>Tipo</th>
-          <th>Tipo</th>
-
+          <th>Km Início</th>
+          <th>Km Final</th>
+          <th>Hora KM Início</th>
+          <th>Hora KM Final</th>
+          <th>Km Total</th>
+          <th>Tempo Deslocamento</th>
+          <th>Início</th>
+          <th>Fim </th>
+          <th>Duração</th>
         </tr>
 
       </thead>
@@ -76,17 +85,9 @@
 
         <tr *ngFor="let monitoramento of funcionarioSelecionado?.monitoramentos">
 
-          <!-- <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
-          <td valign="middle" data-header-title="Km Início">3000 km</td>
-          <td valign="middle" data-header-title="Km Final">3010 km</td>
-          <td valign="middle" data-header-title="Hora Início">13h12</td>
-          <td valign="middle" data-header-title="Hora Final">13h55</td>
-          <td valign="middle" data-header-title="Início Atend.">14h10</td>
-          <td valign="middle" data-header-title="Fim Atend.">14h50</td>
-          <td valign="middle" data-header-title="Tempo Total">2h22</td>
         </tr>
 
-        <tr> -->
+        <tr>
           <!-- <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td> -->
           <td valign="middle" data-header-title="Km Início">{{ monitoramento?.km_inicial }}</td>
           <td valign="middle" data-header-title="Km Final">{{ monitoramento?.km_final }}</td>

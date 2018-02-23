@@ -24,11 +24,11 @@ export class QuilometragemComponent implements OnInit {
   public dialogVisible: boolean;
   private tipoFuncionario = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
 
+
   constructor(public _funcionariosService: FuncionarioService,
               public _monitoramentoService: MonitoramentoService,
               public _atendimentoService: AtendimentoService) {
               }
-
 
 
   ngOnInit() {
@@ -42,8 +42,8 @@ export class QuilometragemComponent implements OnInit {
     this.getAllFuncionarios();
   }
 
-  getDetails(id) {
-    return this._atendimentoService.retornarUm(id);
+  getFuncionario(funcionario) {
+    this.funcionarioSelecionado = funcionario;
   }
 
   parseDate(date) {
@@ -69,7 +69,6 @@ export class QuilometragemComponent implements OnInit {
     sign = sign === 1 ? '' : '-';
     return `${sign}${intpart}h ${minutes}m`;
    }
-
 
   getAllFuncionarios() {
 

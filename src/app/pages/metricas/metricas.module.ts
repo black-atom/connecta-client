@@ -12,6 +12,7 @@ import { AtendimentosComponent } from './components/atendimentos/atendimentos.co
 import { QuilometragemComponent } from './components/quilometragem/quilometragem.component';
 import { ModuloCompartilhado } from 'app/shared/shared.module';
 
+
 @NgModule({
   imports: [
     CommonModule,

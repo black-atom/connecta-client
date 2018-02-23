@@ -16,7 +16,8 @@ export class MonitoramentoComponent implements OnInit {
   private funcao = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
   private date = new Date();
   private estado = 'associado';
-  public statusDefault = 'Disponível';
+
+  public notificationMessage = true;
 
   constructor(
     private _atendimentoService: AtendimentoService,
@@ -26,16 +27,11 @@ export class MonitoramentoComponent implements OnInit {
 
   ngOnInit() {
     this.getFuncionariosEAtendimentos();
-    this.avaliacaoAtendimento([{ p: 1, valor: 5 }, { p: 1, valor: 5 }, { p: 1, valor: 5 }]);
-    // this._monitoramentoService
-    // .getMonitoramentoPorData({ data_hora_inicial_km : this.getDateToday(this.date).toString() })
-    // .subscribe(res => {
-    //   console.log(this.getDateToday(this.date).toString());
-    //   console.log(res);
-    // });
+
   }
 
   getFuncionariosEAtendimentos() {
+
     this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
       .subscribe(resFuncionarios =>
@@ -44,13 +40,18 @@ export class MonitoramentoComponent implements OnInit {
             data_atendimento: this.getDateToday(this.date).toString(),
             estado: this.estado }
           )
+
           .map(resAtendimentos =>
             resFuncionarios.funcionarios.map(funcionario => {
               const atendimentoTecnico = resAtendimentos.atendimentos.filter(
                 atendimento => atendimento.tecnico._id === funcionario._id
               );
-              console.log(resAtendimentos)    
-              return { ...funcionario, atendimentos: atendimentoTecnico };
+             return { ...funcionario, atendimentos: atendimentoTecnico };
+            }).filter(funcionario => {
+              if (funcionario.atendimentos.length > 0) {
+                this.notificationMessage = false;
+                return funcionario;
+              }
             })
           )
       );
@@ -58,40 +59,51 @@ export class MonitoramentoComponent implements OnInit {
 
   getDateToday(data) {
     const date = new Date(data);
-
-    const dateParse = {
-      day: date.getDate(),
-      month : date.getMonth(),
-      year : date.getFullYear()
-    };
-
-    const today = new Date(dateParse.year, dateParse.month, dateParse.day);
-
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     return today;
   }
 
-  statusFuncionario(estado) {
-    const estados = {
-      em_deslocamento: 'Em deslocamento',
-      chegou_ao_destino: 'Chegou ao destino',
-      inicio_atendimento: 'Atendimento iniciado',
-      fim_do_atendimento: 'Atendimento encerrado'
-    };
-    return estados[estado];
+  statusFuncionario(idFuncionario) {
+
+   return this._monitoramentoService
+    .getMonitoramentoPorData({
+      data_hora_inicial_km: this.getDateToday(this.date).toString(),
+      data_hora_final_virgente_local: null,
+      id_funcionario: idFuncionario
+    })
+      .map(res => {
+        res.monitoramentos.filter(monitoramento => {
+          let estado = 'Disponível';
+         if (monitoramento.data_hora_inicial_km !== null) {
+          estado = 'Percurso iniciado';
+         }
+
+         if (monitoramento.data_hora_final_km !== null) {
+          estado = 'Percurso encerrado';
+         }
+
+         if (monitoramento.data_hora_inicial_virgente_local !== null) {
+          estado = 'Iniciado';
+         }
+         return { tipo: monitoramento.tipo, estado };
+        });
+      });
+
+  }
+
+  atendimentosConcluidos(atendimentos) {
+    const finalizados = atendimentos.filter(atendimento => atendimento.interacao_tecnico.estado === 'fim_do_atendimento').length;
+    return finalizados;
   }
 
   avaliacaoAtendimento(avaliacao) {
     const nota = avaliacao.reduce((prev, soma) => (prev + soma.valor) / avaliacao.length, 0);
-     return nota;
+    return nota;
   }
 
   progressBar(estado) {
-    const estados = {
-      em_deslocamento: 25,
-      chegou_ao_destino: 50,
-      inicio_atendimento: 75,
-      fim_do_atendimento: 100
-    };
+    const estados = { em_deslocamento: 25, chegou_ao_destino: 50, inicio_atendimento: 75, fim_do_atendimento: 100 };
     return estados[estado];
   }
+
 }

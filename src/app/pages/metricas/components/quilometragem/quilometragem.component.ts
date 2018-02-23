@@ -5,7 +5,6 @@ import { Funcionario, Atendimento, Monitoramento } from 'app/models';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { FuncionarioService, MonitoramentoService, AtendimentoService } from 'app/shared/services';
 
-
 @Component({
   selector: 'app-quilometragem',
   templateUrl: './quilometragem.component.html',
@@ -20,6 +19,7 @@ export class QuilometragemComponent implements OnInit {
   public atendimentos$: Observable<Atendimento[]>;
   public funcionarios$: Observable<any[]>;
   public funcionarioSelecionado;
+
   public selectedCar;
   public dialogVisible: boolean;
   private tipoFuncionario = { 'login.tipo': TIPOFUNCIONARIOMOCK[2] };
@@ -28,6 +28,7 @@ export class QuilometragemComponent implements OnInit {
               public _monitoramentoService: MonitoramentoService,
               public _atendimentoService: AtendimentoService) {
               }
+
 
 
   ngOnInit() {
@@ -39,7 +40,6 @@ export class QuilometragemComponent implements OnInit {
     };
 
     this.getAllFuncionarios();
-<<<<<<< HEAD
   }
 
   getDetails(id) {
@@ -68,14 +68,8 @@ export class QuilometragemComponent implements OnInit {
     const minutes = Math.floor(decpart * 60);
     sign = sign === 1 ? '' : '-';
     return `${sign}${intpart}h ${minutes}m`;
-=======
+   }
 
-  }
-
-  getFuncionario(funcionario){
-    this.funcionarioSelecionado = funcionario;
->>>>>>> resolve confic
-  }
 
   getAllFuncionarios() {
 
@@ -141,6 +135,7 @@ export class QuilometragemComponent implements OnInit {
           })
         );
   }
+
 
   dataPassadoPeloUsuario(dataSelecionada) {
     const dataFormatada = new Date(

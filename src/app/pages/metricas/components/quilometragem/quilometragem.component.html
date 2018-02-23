@@ -47,6 +47,7 @@
   <!-- início da tabela -->
 
   <div class="col-12 text-center semKM" *ngIf="!funcionarioSelecionado">
+<<<<<<< HEAD
     <div class=" text-center">
       <img src="assets/icons/map.svg" width='100px' height='auto'>
       <h1 class='mt-4'>Selecione o período e o técnico!</h1>
@@ -60,15 +61,36 @@
     </div>
     <hr>
 
+=======
+      <div class=" text-center">
+          <img src="assets/icons/map.svg" width='100px' height='auto'>
+          <h1 class='mt-4' >Não há relatório de Km para o dia de hoje!</h1>
+      </div>
+  </div>
+
+  <div class="col-12 text-center" *ngIf="funcionarioSelecionado">
+>>>>>>> resolve confic
     <table cellpadding="0" cellspacing="0" width="100%">
 
       <thead>
 
         <tr>
+<<<<<<< HEAD
 
           <th>Cliente</th>
           <th>Cnpj</th>
           <th>Tipo</th>
+=======
+<<<<<<< HEAD
+          <th> ATENDIMENTOS</th>
+        </tr>
+
+        <tr>
+          <!-- <th>Cliente</th> -->
+=======
+          <th>Tipo</th>
+>>>>>>> e389847... implementation screen of km
+>>>>>>> resolve confic
           <th>Km Início</th>
           <th>Km Final</th>
           <th>Hora KM Início</th>
@@ -78,13 +100,17 @@
           <th>Início</th>
           <th>Fim </th>
           <th>Duração</th>
+<<<<<<< HEAD
 
+=======
+>>>>>>> resolve confic
         </tr>
 
       </thead>
       <tbody>
 
         <tr *ngFor="let monitoramento of funcionarioSelecionado?.monitoramentos">
+<<<<<<< HEAD
 
           <td class="deslocamento text-left" valign="middle" data-header-title="Cliente">
             {{ monitoramento?.nome_razao_social | uppercase }}
@@ -93,6 +119,32 @@
           <td class="deslocamento" valign="middle" data-header-title="Cnpj/Cpf">
             {{ monitoramento?.cnpj_cpf }}
           </td>
+=======
+<<<<<<< HEAD
+          <!-- <td valign="middle" data-header-title="Cliente">LOCAMEX LOCACOES E OBRAS EIRELI EPP</td>
+          <td valign="middle" data-header-title="Km Início">3000 km</td>
+          <td valign="middle" data-header-title="Km Final">3010 km</td>
+          <td valign="middle" data-header-title="Hora Início">13h12</td>
+          <td valign="middle" data-header-title="Hora Final">13h55</td>
+          <td valign="middle" data-header-title="Início Atend.">14h10</td>
+          <td valign="middle" data-header-title="Fim Atend.">14h50</td>
+          <td valign="middle" data-header-title="Tempo Total">2h22</td>
+        </tr>
+        
+        <tr> -->
+          <!-- <td valign="middle" data-header-title="Cliente">{{atendimentos$?.cliente.razao_social}}</td> -->
+          <td valign="middle" data-header-title="Km Início">{{ monitoramento?.km_inicial }}</td>
+          <td valign="middle" data-header-title="Km Final">{{ monitoramento?.km_final }}</td>
+          <td valign="middle" data-header-title="Hora Início">{{ monitoramento?.data_hora_inicial_km | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Hora Final">{{ monitoramento?.data_hora_final_km | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Início Atend.">{{ monitoramento?.data_hora_inicial_virgente_local | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Fim Atend.">{{ monitoramento?.data_hora_final_virgente_local | date: 'h:mm' }}</td>
+          <td valign="middle" data-header-title="Tempo Total">{{ monitoramento?.data_total | date: 'h:mm' }}</td>
+        </tr>
+
+
+=======
+>>>>>>> resolve confic
 
           <td class="deslocamento" valign="middle" data-header-title="Km Início">
             <a (click)="isCollapsed = !isCollapsed"
@@ -139,9 +191,16 @@
             {{ monitoramento?.duracao_evento }}
           </td>
         </tr>
+<<<<<<< HEAD
+=======
+>>>>>>> e389847... implementation screen of km
+>>>>>>> resolve confic
       </tbody>
 
     </table>
   </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> resolve confic
 </div>

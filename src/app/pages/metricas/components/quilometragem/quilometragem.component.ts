@@ -5,6 +5,7 @@ import { Funcionario, Atendimento, Monitoramento } from 'app/models';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { FuncionarioService, MonitoramentoService, AtendimentoService } from 'app/shared/services';
 
+
 @Component({
   selector: 'app-quilometragem',
   templateUrl: './quilometragem.component.html',
@@ -14,6 +15,7 @@ export class QuilometragemComponent implements OnInit {
 
   private date = new Date();
   public inputDate: any;
+
   public isCollapsed = false;
   public atendimentos$: Observable<Atendimento[]>;
   public funcionarios$: Observable<any[]>;
@@ -27,6 +29,7 @@ export class QuilometragemComponent implements OnInit {
               public _atendimentoService: AtendimentoService) {
               }
 
+
   ngOnInit() {
 
     this.inputDate = {
@@ -36,6 +39,7 @@ export class QuilometragemComponent implements OnInit {
     };
 
     this.getAllFuncionarios();
+<<<<<<< HEAD
   }
 
   getDetails(id) {
@@ -64,6 +68,13 @@ export class QuilometragemComponent implements OnInit {
     const minutes = Math.floor(decpart * 60);
     sign = sign === 1 ? '' : '-';
     return `${sign}${intpart}h ${minutes}m`;
+=======
+
+  }
+
+  getFuncionario(funcionario){
+    this.funcionarioSelecionado = funcionario;
+>>>>>>> resolve confic
   }
 
   getAllFuncionarios() {
@@ -79,7 +90,6 @@ export class QuilometragemComponent implements OnInit {
 
             const monitoramentos = resMonitoramentos.quilometragens
             .filter(monitoramento => monitoramento.id_funcionario === funcionario._id);
-
             const timeMonitoramento = monitoramentos.map((monitoramento: Monitoramento) => {
 
               const tempoDeslocamento =

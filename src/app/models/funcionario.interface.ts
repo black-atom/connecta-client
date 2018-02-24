@@ -17,6 +17,11 @@ export interface Funcionario {
   concluido: Atendimento[];
   media: number;
   estado: Estado;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  updatedBy: string;
+  ativo: boolean;
 }
 
 interface Login {

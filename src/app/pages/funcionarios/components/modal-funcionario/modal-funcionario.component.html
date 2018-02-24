@@ -1,0 +1,138 @@
+<!-- header -->
+<div class="modal-header">
+    <h4 class="modal-title">Detalhes do Funcionário</h4>
+    <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <hr class="mt-1">
+  <!-- header-end -->
+
+  <div class="modal-body">
+    <div class="container">
+
+      <!-- info-func -->
+      <div class="row">
+        <div class="col-12">
+          <h5 class="mb-1">{{ funcionarioSelecionado?.nome }}</h5>
+        </div>
+        <div class="col-3" *ngIf="funcionarioSelecionado?.rg">
+          <small class="text-muted">RG: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.rg  | rgCnpjCpf }}</small>
+        </div>
+        <div class="col-3" *ngIf="funcionarioSelecionado?.cpf">
+          <small class="text-muted">Cpf: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.cpf  | rgCnpjCpf }}</small>
+        </div>
+        <div class="col-3" *ngIf="funcionarioSelecionado?.data_nasc">
+          <small class="text-muted">data_nasc: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.data_nasc }}</small>
+        </div>
+        <div class="col-3">
+          <small class="text-muted">Situação: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.ativo ? 'Ativo' : 'Desligado' }}</small>
+        </div>
+      </div>
+      <hr>
+      <!-- info-func-end -->
+
+      <!-- contato -->
+      <div class="row">
+        <div class="col-12">
+          <h6>Contato</h6>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-4" *ngIf="funcionarioSelecionado?.contato.nome">
+          <small class="text-muted">Nome: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.contato.nome }}</small>
+        </div>
+        <div class="col-4">
+          <small class="text-muted" *ngIf="funcionarioSelecionado?.contato?.telefone">Telefone: </small>
+          <small class="text-muted destaque">
+            ({{ funcionarioSelecionado?.contato?.telefone | slice: 0:2 }})
+            {{ funcionarioSelecionado?.contato?.telefone | slice: 2:6 }} -
+            {{ funcionarioSelecionado?.contato?.telefone | slice: 6:10 }}
+          </small>
+        </div>
+        <div class="col-4">
+          <small class="text-muted" *ngIf="funcionarioSelecionado?.contato.celular">celular: </small>
+          <small class="text-muted destaque">
+            ({{ funcionarioSelecionado?.contato.celular | slice: 0:2 }})
+            {{ funcionarioSelecionado?.contato.celular | slice: 2:6 }} -
+            {{ funcionarioSelecionado?.contato.celular | slice: 6:10 }}
+          </small>
+        </div>
+        <div class="col-12" *ngIf="funcionarioSelecionado?.contato?.observacao">
+          <small class="text-muted">Observação: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.contato?.observacao}}</small>
+        </div>
+        <div class="col-12"><hr></div>
+      </div>
+      <!-- contato-end -->
+
+      <!-- endereço -->
+      <div class="row">
+        <div class="col-12">
+          <h6>Endereços do Cliente</h6>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-12 mt-2">
+          <small class="text-muted">Endereço: </small>
+          <small class="text-muted destaque">
+            {{ funcionarioSelecionado?.endereco?.rua }},
+            {{ funcionarioSelecionado?.endereco?.numero}} -
+            {{ funcionarioSelecionado?.endereco?.bairro}},
+            {{ funcionarioSelecionado?.endereco?.cidade }},
+            {{ funcionarioSelecionado?.endereco?.uf }} -
+            {{ funcionarioSelecionado?.endereco?.cep | cep }}
+          </small>
+        </div>
+
+        <div class="col-6" *ngIf="funcionarioSelecionado?.endereco?.complemento">
+          <small class="text-muted">Complemento: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.endereco?.complemento }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="funcionarioSelecionado?.endereco?.ponto_referencia">
+          <small class="text-muted">Ponto de Referencia: </small>
+          <small class="text-muted destaque">{{ funcionarioSelecionado?.endereco?.ponto_referencia }}</small>
+        </div>
+        <div class="col-12"><hr></div>
+        <hr>
+      </div>
+      <!-- endereço-end -->
+
+      <!-- createdBy and updatedBy -->
+      <div class="row mt-1">
+        <div class="col-6">
+          <small class="text-muted">Criado Por: </small>
+          <small class="text-muted destaque">
+            {{ funcionarioSelecionado.createdBy | uppercase }} em
+            {{ funcionarioSelecionado.createdAt | date: 'dd/MM/yyyy'}} às
+            {{ funcionarioSelecionado.createdAt | date: 'HH:MM'}}
+          </small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Atualizado Por: </small>
+          <small class="text-muted destaque">
+            {{ funcionarioSelecionado.updatedBy | uppercase }} em
+            {{ funcionarioSelecionado.updatedAt | date: 'dd/MM/yyyy'}} às
+            {{ funcionarioSelecionado.updatedAt | date: 'HH:MM'}}
+          </small>
+        </div>
+      </div>
+      <!-- createdBy and updatedBy -->
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info"
+      (click)="fecharModal()"
+      routerLink="/pages/funcionarios/detalhes/{{ funcionarioSelecionado._id }}"
+      title="Editar">
+      <i class="fa fa-pencil"></i> Editar
+    </button>
+  </div>

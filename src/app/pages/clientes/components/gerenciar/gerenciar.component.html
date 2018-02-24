@@ -33,6 +33,7 @@
       <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(cliente._id)"></button>
     </ng-template>
   </p-column>
+
   <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
     <ng-template let-cliente="rowData" pTemplate="body">
       <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/clientes/detalhes/{{ cliente._id }}"></button>

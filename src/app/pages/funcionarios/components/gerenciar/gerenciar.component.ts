@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
+import { ModalFuncionarioComponent } from './../modal-funcionario/modal-funcionario.component';
 
 import { propNameQuery } from 'app/shared/utils/StringUtils';
 import { FuncionarioService } from './../../../../shared/services';
 import { Funcionario } from './../../../../models';
+
 
 @Component({
   selector: 'app-gerenciar',
@@ -18,7 +22,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private query = { skip: 0, limit: 25 };
 
-  constructor(private _funcionarioService: FuncionarioService) {}
+  constructor(private _funcionarioService: FuncionarioService, private _servicoModal: NgbModal
+  ) {}
+
+  opcoesModal: NgbModalOptions = {
+    size: 'lg'
+  };
 
   ngOnInit() {
     this.subscription = this._funcionarioService.funcionariosLazyLoad(this.query)
@@ -29,8 +38,16 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     });
   }
 
-  mudarEstiloLinha(dadosLinha: Funcionario) {
-    return 'padrao';
+  abrirModalDeDetalhes(funcionarioSelecionado) {
+    this._funcionarioService
+      .retornarUm(funcionarioSelecionado)
+        .subscribe(res => {
+          const referenciaModal = this._servicoModal.open(
+            ModalFuncionarioComponent,
+            this.opcoesModal
+          );
+          referenciaModal.componentInstance.funcionarioSelecionado = res;
+        });
   }
 
   filterEvents(query) {

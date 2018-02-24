@@ -10,6 +10,7 @@ import { NovoClienteComponent } from './components/novo-cliente';
 import { GerenciarComponent } from './components/gerenciar';
 import { DetalhesClienteComponent } from './components/detalhes-cliente/';
 import { routing } from './clientes.routing';
+import { ModalClienteComponent } from './components/modal-cliente/modal-cliente.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { routing } from './clientes.routing';
     ModuloCompartilhado,
     FormsModule
   ],
+  entryComponents: [
+    ModalClienteComponent,
+  ],
   providers: [
     ModuloCompartilhado,
     FormCanDeactivateGuard
@@ -29,6 +33,7 @@ import { routing } from './clientes.routing';
     NovoClienteComponent,
     GerenciarComponent,
     DetalhesClienteComponent,
+    ModalClienteComponent,
   ]
 })
 export class ClientesModule { }

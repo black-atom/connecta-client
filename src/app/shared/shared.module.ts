@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   AtendimentoService,
@@ -30,6 +30,7 @@ import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
 import { SplitPipe } from './pipes/split.pipe';
 import { CepPipe } from './pipes/cep.pipe';
 
+
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName: 'token'
@@ -46,6 +47,7 @@ export function formatacaoDaData () {
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
+    NgbModule,
     TextMaskModule,
     NgxErrorsModule,
     DataTableModule,
@@ -94,6 +96,8 @@ export function formatacaoDaData () {
     DataTableModule,
     TreeTableModule,
     ButtonModule,
+    NgaModule,
+    NgbModule,
     SharedModule
    ]
 })

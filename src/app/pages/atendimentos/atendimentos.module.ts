@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { NgaModule } from '../../theme/nga.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModuloCompartilhado } from './../../shared/shared.module';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
@@ -25,8 +23,6 @@ import { VisualizacaoModalComponent } from './components/visualizacao-modal/visu
 @NgModule({
   imports: [
     CommonModule,
-    NgaModule,
-    NgbModule,
     ReactiveFormsModule,
     FormsModule,
     ModuloCompartilhado,

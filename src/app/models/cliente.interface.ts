@@ -5,8 +5,6 @@ export interface Cliente {
   email: string;
   nome_fantasia: string;
   inscricao_estadual: string;
-  criado_em: string;
-  atualizado_em: string;
   enderecos: EnderecoCliente[];
   contatos: ContatoCliente[];
 }
@@ -31,7 +29,7 @@ export interface EnderecoCliente {
   cidade: string;
   numero: string;
   uf: string;
-  ponto_refencia?: string;
+  ponto_referencia?: string;
   cep: string;
   createdAt: string;
   updatedAt: string;

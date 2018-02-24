@@ -92,10 +92,32 @@
         <small class="text-muted destaque">{{ endereco?.ponto_referencia }}</small>
       </div>
       <div class="col-12"><hr></div>
+      <hr>
     </div>
     <!-- endereços-end -->
 
-  </div>
+    <!-- createdBy and updatedBy -->
+    <div class="row mt-1">
+      <div class="col-6">
+        <small class="text-muted">Criado Por: </small>
+        <small class="text-muted destaque">
+          {{ clienteSelecionado.createdBy | uppercase }} em
+          {{ clienteSelecionado.createdAt | date: 'dd/MM/yyyy'}} às
+          {{ clienteSelecionado.createdAt | date: 'HH:MM'}}
+        </small>
+      </div>
+
+      <div class="col-6">
+        <small class="text-muted">Atualizado Por: </small>
+        <small class="text-muted destaque">
+          {{ clienteSelecionado.updatedBy | uppercase }} em
+          {{ clienteSelecionado.updatedAt | date: 'dd/MM/yyyy'}} às
+          {{ clienteSelecionado.updatedAt | date: 'HH:MM'}}
+        </small>
+      </div>
+    </div>
+    <!-- createdBy and updatedBy -->
+
 </div>
 
 <div class="modal-footer">

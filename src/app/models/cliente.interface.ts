@@ -7,6 +7,10 @@ export interface Cliente {
   inscricao_estadual: string;
   enderecos: EnderecoCliente[];
   contatos: ContatoCliente[];
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  updatedBy: string;
 }
 
 export interface ContatoCliente {

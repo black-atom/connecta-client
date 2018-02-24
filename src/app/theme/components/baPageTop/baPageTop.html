@@ -12,16 +12,17 @@
   </div> -->
 
   <div class="user-profile clearfix">
+
     <div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
-        <img src="assets/img/avatar.png">
+        <img [src]="loggedFunc?.foto_url ? loggedFunc?.foto_url : '/assets/img/avatar.png'" >
       </a>
       <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-        <!-- <li class="dropdown-item"><a href><i class="fa fa-user"></i>Perfil</a></li> -->
-        <!-- <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Configurações</a></li> -->
+        <li class="dropdown-item"><a routerLink="/pages/funcionarios/perfil"><i class="fa fa-user"></i>Perfil</a></li>
         <li class="dropdown-item"><a class="signout" (click)="logout()"  routerLink="/login"><i class="fa fa-power-off"></i>Sair</a></li>
       </ul>
     </div>
+    <div class="nameUser">{{ loggedFunc.nome }}</div>
     <!-- <ba-msg-center></ba-msg-center> -->
   </div>
 </div>

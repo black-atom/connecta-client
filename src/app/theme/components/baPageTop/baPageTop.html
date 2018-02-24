@@ -22,7 +22,7 @@
         <li class="dropdown-item"><a class="signout" (click)="logout()"  routerLink="/login"><i class="fa fa-power-off"></i>Sair</a></li>
       </ul>
     </div>
-    <div class="nameUser">{{ loggedFunc.nome }}</div>
+    <div class="nameUser">{{ loggedFunc.nome | uppercase }}</div>
     <!-- <ba-msg-center></ba-msg-center> -->
   </div>
 </div>

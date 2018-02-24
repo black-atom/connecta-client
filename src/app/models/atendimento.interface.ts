@@ -75,21 +75,23 @@ interface Imagens {
 
 interface InteracaoTecnico {
   estado: string;
-  relatorio_tecnico: Treinamento;
-  retornar: Retorno;
+  relatorio_tecnico: RelatorioTecnico;
+  retorno: Retorno;
   treinamento: Treinamento;
   remocao_relogio: RemocaoRelogio;
 }
 
-interface RelatorioRecnico {
+interface RelatorioTecnico {
   relatorio: string;
 }
 
 interface Retorno {
   retornar: string;
+  motivo: string;
 }
 
 interface Treinamento {
+  treinamento: boolean;
   interrupcoes: boolean;
   cadastros: boolean;
   relatorios: boolean;
@@ -109,6 +111,8 @@ interface RemocaoRelogio {
   fonte: boolean;
   pino: boolean;
   impressora: boolean;
+  mesmo_equipamento: boolean;
+  informacoe_equipamento: string;
 }
 
 interface Faturamento {

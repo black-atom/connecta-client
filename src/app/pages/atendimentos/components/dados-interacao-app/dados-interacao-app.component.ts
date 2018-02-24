@@ -5,7 +5,8 @@ import { Lightbox } from 'angular2-lightbox';
 
 import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models';
-
+import * as jsPDF from 'jspdf';
+import ImprimirRelatorio from '../utils/relatorio-atendimento-pdf';
 
 @Component({
   selector: 'app-dados-interacao-app',
@@ -74,5 +75,10 @@ export class DadosInteracaoAppComponent implements OnInit {
 
   abrirFotosFinalAtendimento(index: number): void {
     this._lightbox.open(this.fotosFinalAtendimento, index);
+  }
+
+  relatorioAtendimentoPDF(dados) {
+    const doc = new jsPDF();
+    ImprimirRelatorio(doc, dados);
   }
 }

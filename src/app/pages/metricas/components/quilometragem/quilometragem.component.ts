@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NotificationsService } from 'angular2-notifications';
 import { Observable } from 'rxjs/Rx';
 import { ModuloCompartilhado } from 'app/shared/shared.module';
 import { Funcionario, Atendimento, Monitoramento } from 'app/models';
 import { TIPOFUNCIONARIOMOCK } from './../../../../utils/mocks/tipo-funcionario.mock';
 import { FuncionarioService, MonitoramentoService, AtendimentoService } from 'app/shared/services';
+import { gerarRelatorio } from '../../utils/relatorio-km-pdf';
 
 @Component({
   selector: 'app-quilometragem',
@@ -27,7 +29,8 @@ export class QuilometragemComponent implements OnInit {
 
   constructor(public _funcionariosService: FuncionarioService,
               public _monitoramentoService: MonitoramentoService,
-              public _atendimentoService: AtendimentoService) {
+              public _atendimentoService: AtendimentoService,
+              private _notificacaoService: NotificationsService) {
               }
 
 
@@ -68,7 +71,7 @@ export class QuilometragemComponent implements OnInit {
     const minutes = Math.floor(decpart * 60);
     sign = sign === 1 ? '' : '-';
     return `${sign}${intpart}h ${minutes}m`;
-   }
+  }
 
   getAllFuncionarios() {
 
@@ -125,7 +128,7 @@ export class QuilometragemComponent implements OnInit {
                   ...monitoramento,
                   cnpj_cpf: atendimentoTecnico.cliente.cnpj_cpf,
                   nome_razao_social: atendimentoTecnico.cliente.nome_razao_social
-                 };
+                };
                 }
                 return monitoramento;
                 });
@@ -145,4 +148,23 @@ export class QuilometragemComponent implements OnInit {
     return dataFormatada;
   }
 
+  notificacaoErro() {
+    this._notificacaoService.warn(
+      'Alerta',
+      'Selecione a data e o técnico antes de imprimir.',
+      {
+        timeOut: 3800,
+        showProgressBar: false,
+        pauseOnHover: true,
+        clickToClose: false,
+        maxLength: 80
+      }
+    );
+  }
+
+  download() {
+    this.funcionarioSelecionado
+    ? gerarRelatorio(this.funcionarioSelecionado)
+    : this.notificacaoErro();
+  }
 }

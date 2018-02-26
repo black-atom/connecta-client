@@ -12,4 +12,6 @@ export interface Monitoramento {
     duracao_evento?: string;
     tempo_deslocamento?: string;
     total_km_deslocamento?: number;
+    nome_razao_social?: string;
+    cnpj_cpf?: string;
 }

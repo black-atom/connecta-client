@@ -1,5 +1,6 @@
 export interface Atendimento {
   _id: string;
+  assinatura: Assinatura;
   cliente: Cliente;
   endereco: EnderecoAtendimento;
   contato: ContatoAtendimento;
@@ -123,4 +124,11 @@ interface Faturamento {
   quem_aprovou: string;
   valor: string;
   prazo_pagamento: string;
+}
+
+export interface Assinatura {
+  url?: string;
+  nome: string;
+  documento_id: string;
+  atendimentoID?: string;
 }

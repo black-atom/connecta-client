@@ -69,7 +69,7 @@ export class MonitoramentoComponent implements OnInit {
 
           .map(resMonitoramentos =>
             funcionarios.map(funcionario => {
-              let estado = { estado: 'Disponível', tipo: '' };
+              const estado = { estado: 'Disponível', tipo: '' };
               const monitoramentos = resMonitoramentos.quilometragens;
 
               if (monitoramentos.length === 0) {
@@ -79,22 +79,22 @@ export class MonitoramentoComponent implements OnInit {
               const estadoNovo =
                 monitoramentos.filter(monitoramento =>
                   monitoramento.id_funcionario === funcionario._id)
-                             .reduce((prev, curr) => {
-                  if (curr.data_hora_inicial_km !== null) {
-                   estado = { estado: 'Percurso iniciado', tipo: curr.tipo };
-                  }
+                    .reduce((prev, curr) => {
+                    if (curr.dtKmFim === null) {
+                      return { estado: 'Percurso Iniciado do', tipo: curr.tipo };
+                    }
+                    if (curr.inicio === null && curr.dtKmFim !== null) {
+                      return { estado: 'Percuso Encerrado', tipo: curr.tipo };
+                    }
+                    if (curr.inicio !== null && curr.fim === null) {
+                      return { estado: 'Inicío', tipo: curr.tipo };
+                    }
+                    if (curr.fim !== null) {
+                      return { estado: 'Disponivel', tipo: '' };
+                    }
+                  }, {});
 
-                  if (curr.data_hora_final_km !== null) {
-                    estado = { estado: 'Percurso encerrado', tipo: curr.tipo };
-                  }
-
-                  if (curr.data_hora_inicial_virgente_local !== null) {
-                    estado = { estado: 'Iniciado', tipo: curr.tipo };
-                  }
-                  return estado;
-              }, null);
-
-              if (estadoNovo) {
+              if (estadoNovo.estado) {
                 return { ...funcionario, estado: estadoNovo };
               }
               return { ...funcionario, estado };

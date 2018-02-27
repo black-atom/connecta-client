@@ -110,8 +110,14 @@ export class DadosInteracaoAppComponent implements OnInit {
 
   recuperarAtendimento() {
     this.subscription = this._atendimentoService.retornarUm(this.id).subscribe((res) => {
-      this.atendimento = res;
-      // this.carregarFotosAtendimento();
+      const assinatura = { nome: '', url: '', documento_id: '' };
+      if (res.assinatura) {
+        this.atendimento = res;
+        this.carregarFotosAtendimento(res.imagens);
+      }else {
+        this.atendimento = { ...res, assinatura };
+        this.carregarFotosAtendimento(res.imagens);
+      }
     });
 
   }
@@ -128,29 +134,27 @@ export class DadosInteracaoAppComponent implements OnInit {
     };
     return estados[status];
   }
-  // carregarFotosAtendimento () {
-  //   if (this.atendimento) {
 
-  //     if (this.atendimento.imagens) {
-  //       // tslint:disable-next-line:prefer-for-of
-  //       for (let i = 0; i < this.atendimento.imagens.length; i++) {
+  carregarFotosAtendimento(imagens) {
 
-  //         const img = this.atendimento.imagens[i].url;
-  //         const src = `http://165.227.78.113:3000/atendimentoimagens/${img}`;
-  //         const thumb = src;
-  //         const fotosAtendimento = Object.assign({ src, thumb });
+    if (imagens.length > 0) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < imagens.length; i++) {
 
-  //         if (this.atendimento.imagens[i].tipo === 'inicio_atendimento') {
-  //           this.fotosInicioAtendimento.push(fotosAtendimento);
-  //         }else {
-  //           this.fotosFinalAtendimento.push(fotosAtendimento);
-  //         }
-  //       }
-  //     }
-  //   }else {
-  //     this.carregarFotosAtendimento();
-  //   }
-  // }
+        const img = imagens[i].url;
+        const src = `http://165.227.78.113:3000/atendimentoimagens/${img}`;
+        const thumb = src;
+        const fotosAtendimento = { src, thumb };
+
+        if (imagens[i].tipo === 'inicio_atendimento') {
+          this.fotosInicioAtendimento.push(fotosAtendimento);
+        }else {
+          this.fotosFinalAtendimento.push(fotosAtendimento);
+        }
+
+      }
+    }
+  }
 
   abrirFotosInicioAtendimento(index: number): void {
     this._lightbox.open(this.fotosInicioAtendimento, index);

@@ -182,18 +182,49 @@
     <hr *ngIf="atendimento?.interacao_tecnico.treinamento.cadastros">
     <!-- info-tecnico-externo -->
 
+    <div class="fotos-inicio col-12" *ngIf="fotosInicioAtendimento.length > 0">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mt-2"> Fotos do início do atendimento </h4>
+          <div class="row">
+            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
+              <div class="imagem">
+                <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="fotos-final col-12" *ngIf="fotosFinalAtendimento.length > 0">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mt-2"> Fotos do final do atendimento </h4>
+          <div class="row">
+            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
+              <div class="imagem">
+                <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="fotosInicioAtendimento.length > 0">
     <!-- assinatura do cliente -->
-    <div class="row">
-      <div class="col-md-12 mt-1">
+    <div class="row" *ngIf="atendimento?.assinatura.nome">
+      <div class="col-md-12 mt-2">
         <h4>Responsável</h4>
       </div>
-      <div class="col-md-12 mt-2">
+      <div class="col-md-3 mt-2">
         <p><strong>Nome:</strong> {{ atendimento?.assinatura.nome }}</p>
         <p><strong>Documento:</strong> {{ atendimento?.assinatura.documento_id | rgCnpjCpf }}</p>
-      </div>
-      <div class="col-md-12" *ngIf="atendimento?.assinatura.url">
         <p><strong>Assinatura do Cliente:</strong></p>
-        <img class="assinatura" src="http://165.227.78.113:3000/atendimentoimagens/{{ atendimento?.assinatura.url }}" alt="">
+      </div>
+      <div class="col-md-3 mt-2">
+         <img class="assinatura" src="http://165.227.78.113:3000/atendimentoimagens/{{ atendimento?.assinatura.url }}" alt="">
       </div>
     </div>
     <!-- assinatura do cliente -->

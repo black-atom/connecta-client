@@ -1,0 +1,130 @@
+<!-- header -->
+<div class="modal-header">
+  <h4 class="modal-title">Detalhes do Cliente</h4>
+  <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<hr class="mt-1">
+<!-- header-end -->
+
+<div class="modal-body">
+  <div class="container">
+
+    <!-- info-cliente -->
+    <div class="row">
+      <div class="col-12">
+        <h5 class="mb-1">{{ clienteSelecionado?.nome_razao_social }} - {{ clienteSelecionado?.cnpj_cpf | rgCnpjCpf }}</h5>
+      </div>
+      <div class="col-12" *ngIf="clienteSelecionado?.nome_razao_social">
+        <small class="text-muted">Nome Fantasia: </small>
+        <small class="text-muted destaque">{{ clienteSelecionado?.nome_fantasia }}</small>
+      </div>
+      <div class="col-12" *ngIf="clienteSelecionado?.inscricao_estadual">
+        <small class="text-muted">IE: </small>
+        <small class="text-muted destaque">{{ clienteSelecionado?.inscricao_estadual }}</small>
+      </div>
+    </div>
+    <hr>
+    <!-- info-cliente-end -->
+
+    <!-- contatos -->
+    <div class="row">
+      <div class="col-12">
+        <h6>Contatos do Cliente</h6>
+      </div>
+    </div>
+    <div class="row mt-1" *ngFor="let contato of clienteSelecionado?.contatos">
+      <div class="col-4">
+        <small class="text-muted">Nome: </small>
+        <small class="text-muted destaque">{{ contato.nome }}</small>
+      </div>
+      <div class="col-4">
+        <small class="text-muted">Telefone: </small>
+        <small class="text-muted destaque">
+          ({{ contato?.telefone | slice: 0:2 }})
+          {{ contato?.telefone | slice: 2:6 }} -
+          {{ contato?.telefone | slice: 6:10 }}
+        </small>
+      </div>
+      <div class="col-4">
+        <small class="text-muted">celular: </small>
+        <small class="text-muted destaque">
+          ({{ contato.celular | slice: 0:2 }})
+          {{ contato.celular | slice: 2:6 }} -
+          {{ contato.celular | slice: 6:10 }}
+        </small>
+      </div>
+      <div class="col-12" *ngIf="contato?.observacao">
+        <small class="text-muted">Observação: </small>
+        <small class="text-muted destaque">{{ contato?.observacao}}</small>
+      </div>
+      <div class="col-12"><hr></div>
+    </div>
+    <!-- contatos-end -->
+
+    <!-- endereços -->
+    <div class="row">
+      <div class="col-12">
+        <h6>Endereços do Cliente</h6>
+      </div>
+    </div>
+    <div class="row mt-1" *ngFor="let endereco of clienteSelecionado?.enderecos">
+      <div class="col-12 mt-2">
+        <small class="text-muted">Endereço: </small>
+        <small class="text-muted destaque">
+          {{ endereco?.rua }},
+          {{ endereco?.numero}} -
+          {{ endereco?.bairro}},
+          {{ endereco?.cidade }},
+          {{ endereco?.uf }} -
+          {{ endereco?.cep | cep }}
+        </small>
+      </div>
+
+      <div class="col-6" *ngIf="endereco?.complemento">
+        <small class="text-muted">Complemento: </small>
+        <small class="text-muted destaque">{{ endereco?.complemento }}</small>
+      </div>
+
+      <div class="col-6" *ngIf="endereco?.ponto_referencia">
+        <small class="text-muted">Ponto de Referencia: </small>
+        <small class="text-muted destaque">{{ endereco?.ponto_referencia }}</small>
+      </div>
+      <div class="col-12"><hr></div>
+      <hr>
+    </div>
+    <!-- endereços-end -->
+
+    <!-- createdBy and updatedBy -->
+    <div class="row mt-1">
+      <div class="col-6">
+        <small class="text-muted">Criado Por: </small>
+        <small class="text-muted destaque">
+          {{ clienteSelecionado.createdBy | uppercase }} em
+          {{ clienteSelecionado.createdAt | date: 'dd/MM/yyyy'}} às
+          {{ clienteSelecionado.createdAt | date: 'HH:MM'}}
+        </small>
+      </div>
+
+      <div class="col-6">
+        <small class="text-muted">Atualizado Por: </small>
+        <small class="text-muted destaque">
+          {{ clienteSelecionado.updatedBy | uppercase }} em
+          {{ clienteSelecionado.updatedAt | date: 'dd/MM/yyyy'}} às
+          {{ clienteSelecionado.updatedAt | date: 'HH:MM'}}
+        </small>
+      </div>
+    </div>
+    <!-- createdBy and updatedBy -->
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-info"
+    (click)="fecharModal()"
+    routerLink="/pages/clientes/detalhes/{{ clienteSelecionado._id }}"
+    title="Editar">
+    <i class="fa fa-pencil"></i> Editar
+  </button>
+</div>

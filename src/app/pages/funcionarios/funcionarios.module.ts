@@ -16,6 +16,7 @@ import { LoginFuncionarioComponent } from './components/shared-components/login-
 import { routing } from './funcionarios.routing';
 import { PerfilComponent } from './components/perfil';
 import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
+import { ModalFuncionarioComponent } from './components/modal-funcionario/modal-funcionario.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,10 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
      TextMaskModule,
      NgxErrorsModule,
      routing
-    ],
+  ],
+  entryComponents: [
+    ModalFuncionarioComponent
+  ],
   declarations: [
     FuncionariosComponent,
     NovoFuncionarioComponent,
@@ -36,7 +40,8 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
     PrincipaisInformacoesComponent,
     HabilitacaoComponent,
     LoginFuncionarioComponent,
-    PerfilComponent
+    PerfilComponent,
+    ModalFuncionarioComponent
   ],
   providers: [
     ModuloCompartilhado,

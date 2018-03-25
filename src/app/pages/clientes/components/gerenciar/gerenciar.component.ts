@@ -1,9 +1,11 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { propNameQuery } from 'app/shared/utils/StringUtils';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import { ClienteService } from './../../../../shared/services';
 import { Cliente } from './../../../../models/cliente.interface';
+import { ModalClienteComponent } from './../modal-cliente/modal-cliente.component';
 
 @Component({
   selector: 'app-gerenciar',
@@ -17,7 +19,12 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   public totalRecords;
   public carregando: boolean = true;
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService, private _servicoModal: NgbModal
+  ) {}
+
+  opcoesModal: NgbModalOptions = {
+    size: 'lg'
+  };
 
   ngOnInit() {
     this.subscription = this.clienteService.clientesLazyLoad()
@@ -28,8 +35,16 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     });
   }
 
-  mudarEstiloLinha(dadosLinha: Cliente) {
-    return 'padrao';
+  abrirModalDeDetalhes(clienteSelecionado) {
+    this.clienteService
+      .retornarUm(clienteSelecionado)
+        .subscribe(res => {
+          const referenciaModal = this._servicoModal.open(
+            ModalClienteComponent,
+            this.opcoesModal
+          );
+          referenciaModal.componentInstance.clienteSelecionado = res;
+        });
   }
 
   filterEvents(query) {

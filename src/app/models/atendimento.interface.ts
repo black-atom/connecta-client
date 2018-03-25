@@ -1,5 +1,6 @@
 export interface Atendimento {
   _id: string;
+  assinatura: Assinatura;
   cliente: Cliente;
   endereco: EnderecoAtendimento;
   contato: ContatoAtendimento;
@@ -16,6 +17,7 @@ export interface Atendimento {
   observacao: string;
   valor: string;
   autorizado: string;
+  garantia: string;
   estado: string;
   interacao_tecnico: InteracaoTecnico;
   motivos: Motivo[];
@@ -74,21 +76,23 @@ interface Imagens {
 
 interface InteracaoTecnico {
   estado: string;
-  relatorio_tecnico: Treinamento;
-  retornar: Retorno;
+  relatorio_tecnico: RelatorioTecnico;
+  retorno: Retorno;
   treinamento: Treinamento;
   remocao_relogio: RemocaoRelogio;
 }
 
-interface RelatorioRecnico {
+interface RelatorioTecnico {
   relatorio: string;
 }
 
 interface Retorno {
   retornar: string;
+  motivo: string;
 }
 
 interface Treinamento {
+  treinamento: boolean;
   interrupcoes: boolean;
   cadastros: boolean;
   relatorios: boolean;
@@ -107,5 +111,24 @@ interface RemocaoRelogio {
   bobina: boolean;
   fonte: boolean;
   pino: boolean;
-  impresso: boolean;
+  impressora: boolean;
+  mesmo_equipamento: boolean;
+  informacoe_equipamento: string;
+}
+
+interface Faturamento {
+  mesmo_cnpj: boolean;
+  cnpj: string;
+  nome_razao_social: string;
+  email: string;
+  quem_aprovou: string;
+  valor: string;
+  prazo_pagamento: string;
+}
+
+export interface Assinatura {
+  url?: string;
+  nome: string;
+  documento_id: string;
+  atendimentoID?: string;
 }

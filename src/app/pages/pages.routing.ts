@@ -1,11 +1,9 @@
-import { LoggedGuardService } from './../shared/guards/logged-guard.service';
-// import { LoggedGuardService } from '../shared/guards/logged-guard.service';
 import { Routes, RouterModule } from '@angular/router';
-import { Pages } from './pages.component';
 import { ModuleWithProviders } from '@angular/core';
-// noinspection TypeScriptValidateTypes
 
-// export function loadChildren(path) { return System.import(path); };
+
+import { Pages } from './pages.component';
+import { LoggedGuardService } from './../shared/guards/logged-guard.service';
 
 export const routes: Routes = [
   {
@@ -19,7 +17,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'monitoramento', pathMatch: 'full' },
       { path: 'monitoramento', loadChildren: './monitoramento/monitoramento.module#MonitoramentoModule' },
-      // { path: 'metricas', loadChildren: './metricas/metricas.module#MetricasModule' },
+      { path: 'metricas', loadChildren: './metricas/metricas.module#MetricasModule' },
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },

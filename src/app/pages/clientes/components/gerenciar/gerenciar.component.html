@@ -7,7 +7,6 @@
 (onLazyLoad)="loadClientesLazy($event)"
 [pageLinks]="5"
 [responsive]="true"
-[rowStyleClass]="mudarEstiloLinha"
 [sortOrder]="-1"
 [loading]="carregando"
  loadingIcon="ion-load-a"
@@ -18,11 +17,20 @@
   </p-column>
 
   <p-column field="cnpj_cpf" header="CNPJ/CPF" [sortable]="true" [filter]="true" [style]="{'width':'100px', 'text-align': 'center'}">
+    <ng-template let-cliente="rowData" pTemplate="body">
+      {{ cliente?.cnpj_cpf | rgCnpjCpf }}
+    </ng-template>
   </p-column>
 
   <p-column field="cliente.contatos[0].telefone" header="Telefone" [sortable]="true" [filter]="false" [style]="{'width':'120px', 'text-align': 'center'}">
     <ng-template let-cliente="rowData" pTemplate="body">
       {{ cliente.contatos[0].telefone }}
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-cliente="rowData" pTemplate="body">
+      <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(cliente._id)"></button>
     </ng-template>
   </p-column>
 

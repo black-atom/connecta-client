@@ -1,221 +1,203 @@
 <div class="modal-header">
-  <h3 class="modal-title">
-    {{ atendimentoSelecionado.cliente.nome_razao_social }}
-    <small>
-      - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}
-    </small>
-  </h3>
+  <h4 class="modal-title">Detalhes do Atendimento</h4>
   <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-
-<hr>
+<hr class="mt-1">
 
 <div class="modal-body">
-  <div class="row">
-    <div class="col-12">
-      <h4>Contato do cliente</h4>
+  <div class="container">
+
       <div class="row">
-        <div class="col-md-6 col-lg-6 col-xs-12">
+        <div class="col-12">
 
-          <p *ngIf="atendimentoSelecionado.contato.nome">
-            <strong><i class="ion-person"></i> Nome:</strong>
-            {{ atendimentoSelecionado.contato.nome }}
-          </p>
-
-          <p class="text-truncate">
-            <strong><i class="ion-email"></i> E-mail:</strong>
-            {{ atendimentoSelecionado.contato.email }}
-          </p>
+          <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
 
         </div>
+      </div>
 
-        <div class="col-md-6 col-lg-6 col-xs-12">
+      <div class="row mt-1">
 
-          <p>
-            <strong><i class="fa fa-phone" aria-hidden="true"></i> Telefone:</strong>
+        <div class="col-6">
+
+          <small class="text-muted">Contato: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.contato.nome }}</small>
+        </div>
+
+        <div class="col-6">
+
+          <small class="text-muted">Telefone: </small>
+          <small class="text-muted destaque">
             ({{ atendimentoSelecionado.contato.telefone | slice: 0:2 }})
             {{ atendimentoSelecionado.contato.telefone | slice: 2:6 }} -
             {{ atendimentoSelecionado.contato.telefone | slice: 6:10 }}
-          </p>
-          <p *ngIf="atendimentoSelecionado.contato.celular">
-            <strong><i class="fa fa-mobile" aria-hidden="true"></i> Celular:</strong>
+          </small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">celular: </small>
+          <small class="text-muted destaque">
             ({{ atendimentoSelecionado.contato.celular | slice: 0:2 }})
             {{ atendimentoSelecionado.contato.celular | slice: 2:6 }} -
             {{ atendimentoSelecionado.contato.celular | slice: 6:10 }}
-          </p>
-
+          </small>
         </div>
 
-      </div>
-    </div>
-
-    <div class="col-12 mt-2">
-      <h4>Informações do atendimento</h4>
-      <div class="row">
-        <div class="col-md-6 col-lg-6 col-xs-12">
-
-          <p><strong><i class="ion-calendar"></i> Data:</strong>
-            {{ atendimentoSelecionado.data_atendimento | date: 'dd MMM yyyy' }}
-          </p>
-
+        <div class="col-6">
+          <small class="text-muted">Email: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.contato.email }}</small>
         </div>
 
-        <div class="col-md-6 col-lg-6 col-xs-12">
-          <p><strong><i class="fa fa-cogs" aria-hidden="true"></i> Tipo:</strong>
-            {{ atendimentoSelecionado.tipo }} </p>
+
+        <div class="col-6">
+          <small class="text-muted">Estacionamento: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.estacionamento }}</small>
         </div>
 
-        <div class="col-md-6 col-lg-6 col-xs-12">
-          <p><strong><i class="fa fa-cog" aria-hidden="true"></i> Equipamento:</strong>
-            {{ atendimentoSelecionado.modelo_equipamento }}</p>
-        </div>
-
-        <div *ngIf="atendimentoSelecionado.autorizado" class="col-md-6 col-lg-6 col-xs-12">
-            <p><strong><i class="fa fa-handshake-o" aria-hidden="true"></i> Autorizado por:</strong>
-              {{ atendimentoSelecionado.autorizado }}</p>
-        </div>
-
-        <div *ngIf="atendimentoSelecionado.valor" class="col-md-6 col-lg-6 col-xs-12">
-            <p class="valor animated bounceInRight"><strong><i class="ion-cash"></i> Valor:</strong>
-              R$ {{ atendimentoSelecionado.valor }}</p>
-        </div>
-
-        <div *ngIf="atendimentoSelecionado.numero_equipamento" class="col-md-6 col-lg-6 col-xs-12">
-
-          <p>
-            <strong><i class="fa fa-list-ol" aria-hidden="true"></i> N° equipamento:</strong>
-             {{ atendimentoSelecionado.numero_equipamento }}
-          </p>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-
-          <p>
-            <strong><i class="ion-clipboard"></i> Descrição:</strong>
-            {{ atendimentoSelecionado.descricao }}
-          </p>
-
-          <p *ngIf="atendimentoSelecionado.observacao" >
-              <strong><i class="fa fa-comment-o" aria-hidden="true"></i> Observação:</strong>
-              {{ atendimentoSelecionado.observacao }}
-          </p>
-
-          <p>
-            <strong><i class="ion-wrench"></i> Testes efetuados:</strong>
-            {{ atendimentoSelecionado?.testes_efetuados }}
-          </p>
-
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-12 mt-2">
-      <h4>Local do atendimento</h4>
-      <div class="row">
-        <div class="col-12">
-
-          <p>
-            <strong><i class="fa fa-map-marker" aria-hidden="true"></i> Endereço:</strong>
+        <div class="col-12 mt-2">
+          <small class="text-muted">Endereço: </small>
+          <small class="text-muted destaque">
             {{ atendimentoSelecionado?.endereco.rua }},
             {{atendimentoSelecionado?.endereco.numero}} -
             {{ atendimentoSelecionado?.endereco.bairro}},
             {{ atendimentoSelecionado?.endereco.cidade }},
             {{ atendimentoSelecionado?.endereco.uf }} -
             {{ atendimentoSelecionado?.endereco.cep | cep }}
-          </p>
-
-          <p>
-            <strong><i class="ion-model-s"></i> Estacionamento: </strong>
-            {{ atendimentoSelecionado.estacionamento }}
-          </p>
-
-          <p *ngIf="atendimentoSelecionado.endereco.ponto_referencia">
-            <strong><i class="fa fa-home" aria-hidden="true"></i> Ponto de referência:</strong>
-            {{ atendimentoSelecionado.endereco.ponto_referencia }}
-          </p>
-
-          <p *ngIf="atendimentoSelecionado.endereco.complemento">
-              <strong><i class="fa fa-exchange" aria-hidden="true"></i> Complemento:</strong>
-              {{ atendimentoSelecionado.endereco.complemento }}
-          </p>
-
+          </small>
         </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.complemento">
+          <small class="text-muted">Complemento: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.complemento }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.ponto_referencia">
+          <small class="text-muted">Ponto de Referencia: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.ponto_referencia }}</small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-12">
+          <h5>{{ atendimentoSelecionado.modelo_equipamento }}</h5>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">N. Equipamento: </small>
+          <small class="text-muted destaque"> {{ atendimentoSelecionado.numero_equipamento }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Data Atendimento: </small>
+          <small class="text-muted destaque"> {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Tipo Atendimento: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.tipo }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.autorizado">
+          <small class="text-muted">Autorizado Por: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.autorizado }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.garantia">
+          <small class="text-muted">Data Garantia: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.garantia }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.valor">
+          <small class="text-muted destaqueMoney">R$ {{ atendimentoSelecionado.valor }}</small>
+        </div>
+
+
+        <div class="col-6">
+          <small class="text-muted">Status: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.estado | uppercase }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionado.tecnico.nome">
+          <small class="text-muted">Técnico: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.tecnico.nome | split: 0 }}</small>
+        </div>
+
+        <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
+          <small class="text-muted">Eventos: </small>
+          <br>
+          <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
+            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
+          </small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-12">
+
+          <small class="text-muted">Problema: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.descricao }}</small>
+        </div>
+
+        <div class="col-6 mt-4">
+
+            <small class="text-muted">Testes efetuados: </small>
+            <small class="text-muted destaque">{{ atendimentoSelecionado.testes_efetuados }}</small>
+        </div>
+        <div class="col-6 mt-4">
+
+          <small class="text-muted">Observação: </small>
+          <small class="text-muted destaque">{{ atendimentoSelecionado.observacao }}</small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-6">
+            <small class="text-muted">Criado Por: </small>
+            <small class="text-muted destaque">
+              {{ atendimentoSelecionado.createdBy | uppercase }} em
+              {{ atendimentoSelecionado.createdAt | date: 'dd/MM/yyyy'}} às
+              {{ atendimentoSelecionado.createdAt | date: 'HH:MM'}}
+            </small>
+        </div>
+
+        <div class="col-6">
+          <small class="text-muted">Atualizado Por: </small>
+          <small class="text-muted destaque">
+            {{ atendimentoSelecionado.updatedBy | uppercase }} em
+            {{ atendimentoSelecionado.updatedAt | date: 'dd/MM/yyyy'}} às
+            {{ atendimentoSelecionado.updatedAt | date: 'HH:MM'}}
+          </small>
+        </div>
+
+        <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.tecnico.nome">
+          <h6 class="text-muted destaque-danger">
+            Para editar este atendimento, você deve desassociar!
+          </h6>
+        </div>
+
       </div>
     </div>
-
-    <div class="col-12 mt-2">
-        <h4>Histórico</h4>
-        <div class="row">
-          <div class="col-md-6 col-lg-6 col-xs-12">
-
-            <p><strong><i class="fa fa-user-plus" aria-hidden="true"></i> Criado por:</strong>
-              {{ atendimentoSelecionado.createdBy }}
-              em {{ atendimentoSelecionado.createdAt | date: 'dd/MM/yyyy'}}
-              às {{ atendimentoSelecionado.createdAt | date: 'HH:MM'}}
-            </p>
-
-            <p>
-               <strong><i class="fa fa-file-text" aria-hidden="true"></i> Situação:</strong>
-               <span>Aberto</span>
-
-            </p>
-
-
-         </div>
-
-          <div class="col-md-6 col-lg-6 col-xs-12">
-
-              <p *ngIf="atendimentoSelecionado.updatedBy" >
-                <strong><i class="fa fa-refresh" aria-hidden="true"></i> Atualizado por:</strong>
-                {{ atendimentoSelecionado.updatedBy }}
-                em {{ atendimentoSelecionado.updatedAt | date: 'dd/MM/yyyy'}}
-                às {{ atendimentoSelecionado.updatedAt | date: 'HH:MM'}}
-              </p>
-
-              <p>
-                <strong><i class="fa fa-address-card" aria-hidden="true"></i> Motivo:</strong>
-                {{ atendimentoSelecionado.estado }}
-              </p>
-
-          </div>
-
-          <div class="col-md-12 col-lg-12 col-xs-12">
-
-              <p *ngIf="atendimentoSelecionado.tecnico.nome"><strong><i class="fa fa-user-circle" aria-hidden="true"></i> Técnico: </strong></p>
-
-          </div>
-
-        </div>
-    </div>
-  </div>
 </div>
 
-
 <div class="modal-footer">
+    <button type="button"
+      class="btn btn-info"
+      (click)="fecharModal()"
+      [disabled]="atendimentoSelecionado.tecnico.nome"
+      routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
+      title="Edite informações do atendimento">
+      <i class="fa fa-pencil"></i>
+        Editar
+    </button>
 
-  <button type="button"
-    class="btn btn-info"
-    (click)="fecharModal()"
-    routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
-    title="Edite informações do atendimento">
-    <i class="fa fa-pencil"></i>
-      Editar
-  </button>
-
-  <button type="button"
-    class="btn btn-primary"
-    (click)="fecharModal()"
-    routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
-    title="Visualize detalhes do atendimento, desde o cadastro até toda a interação realizada pelo técnico com o aplicativo">
-    <i class="fa fa-id-card-o"></i>
-    Detalhes
-  </button>
+    <button type="button"
+      class="btn btn-primary"
+      (click)="fecharModal()"
+      routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
+      title="Visualize detalhes do atendimento, desde o cadastro até toda a interação realizada pelo técnico com o aplicativo">
+      <i class="fa fa-id-card-o"></i>
+      Detalhes
+    </button>
 
 </div>

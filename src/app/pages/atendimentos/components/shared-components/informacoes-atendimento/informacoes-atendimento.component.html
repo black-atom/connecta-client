@@ -28,21 +28,50 @@
       </div>
 
       <div *ngIf="desabilitaAutorizado" class="col-md-4 col-sm- col-lg-2">
-        <div class="form-group">
-          <label for="descricao_atendimento">Autorizado</label>
+        <div class="form-group" [class.required]="formDescricaoAtendimento.hasError('required')">
+          <label for="descricao_atendimento">Autorizado Por</label>
           <input type="text" class="form-control"
           formControlName="autorizado" id="autorizado">
         </div>
+
+        <div class="text-danger" ngxErrors="autorizado" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small><i class="ion-close"></i> Requerido!</small>
+          </div>
+        </div>
+
       </div>
 
-      <div *ngIf="desabilitaValor" class="col-md-4 col-sm- col-lg-2">
+      <div *ngIf="desabilitaValor" class="col-md-4 col-sm- col-lg-2" [class.required]="formDescricaoAtendimento.hasError('required')">
         <label for="descricao_atendimento">Valor</label>
         <div class="input-group">
           <label class="input-group-addon">R$</label>
           <input type="number" class="form-control" formControlName="valor" id="valor">
         </div>
+
+        <div class="text-danger" ngxErrors="valor" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small><i class="ion-close"></i> Requerido!</small>
+          </div>
+        </div>
+
       </div>
 
+      <div *ngIf="desabilitaGarantia" class="col-md-4 col-sm- col-lg-2" [class.required]="formDescricaoAtendimento.hasError('required')">
+
+        <div class="form-group">
+          <label for="descricao_atendimento">Data Garantia</label>
+          <input class="form-control" type="text" formControlName="garantia" id="garantia" [textMask]="{ mask : mascaraData }" >
+        </div>
+
+        <div class="text-danger" ngxErrors="garantia" #myError="ngxErrors">
+          <div ngxError="required" when="touched">
+            <small><i class="ion-close"></i> Requerido!</small>
+          </div>
+
+
+        </div>
+      </div>
 
       <div class="col-md-8 col-sm- col-lg-3">
         <div class="form-group">
@@ -55,7 +84,7 @@
       </div>
 
 
-      <div [ngClass]="estilo">
+      <div [ngClass]="estilo || 'col-lg-4'">
         <div class="form-group">
           <label for="numero_equipamento">N° equipamento  <small>(opc.)</small></label>
           <input type="text" class="form-control"

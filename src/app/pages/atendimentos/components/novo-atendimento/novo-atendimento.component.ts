@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
@@ -64,8 +64,9 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
       }),
       data_atendimento: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      valor: [''],
-      autorizado: [''],
+      valor: [{ value: '', disabled: true }, Validators.required],
+      autorizado: [{ value: '', disabled: true }, Validators.required],
+      garantia: [{ value: '', disabled: true }, Validators.required],
       modelo_equipamento: ['', [Validators.required]],
       numero_equipamento: [''],
       descricao: ['', [Validators.required]],
@@ -117,7 +118,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         nome_razao_social: atendimento.cliente.nome_razao_social,
         nome_fantasia: atendimento.cliente.nome_fantasia,
         cnpj_cpf: removeMaskFromProp('cnpj_cpf')(atendimento.cliente),
-        inscricao_estadual: removeMaskFromProp('inscricao_estadual')(atendimento.cliente)
+        inscricao_estadual: removeMaskFromProp('inscricao_estadualFormControl')(atendimento.cliente)
       },
       contato : {
         email: atendimento.contato.email,
@@ -141,28 +142,106 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     return { ...atendimento, ...novoAtendimento };
   }
 
+  parseData(data) {
+    return new Date(data.year, data.month - 1, data.day);
+  }
+
+  tipoAtendimentoSelecionado(atendimento) {
+    const fieldUpdate = {
+      'Autorizado': { valor: '', autorizado: atendimento.autorizado, garantia: '' },
+      'Garantia externa': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia laboratório': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'Garantia venda': { valor: '', autorizado: '', garantia: atendimento.garantia },
+      'NF - Avulso local': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Avulso online/telefone': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'NF - Registro de sistema': { valor: atendimento.valor, autorizado: '', garantia: '' },
+      'Aberto por técnica': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia externo': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia laboratório': { valor: '', autorizado: '', garantia: '' },
+      'Contrato garantia venda': { valor: '', autorizado: '', garantia: '' },
+      'Contrato locação': { valor: '', autorizado: '', garantia: '' },
+      'Contrato': { valor: '', autorizado: '', garantia: '' },
+      'Contrato novo': { valor: '', autorizado: '', garantia: '' },
+      'Venda': { valor: '', autorizado: '', garantia: '' },
+      'Retorno': { valor: '', autorizado: '', garantia: '' },
+      'Retorno Conserto': { valor: '', autorizado: '', garantia: '' },
+      null: { valor: '', autorizado: '', garantia: '' }
+    };
+    return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
+  }
+
+  tipoAtendimentoExtraField(value) {
+    switch (value) {
+      case 'Autorizado': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').enable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'Garantia externa': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia laboratório': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'Garantia venda': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
+      case 'NF - Avulso local': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Avulso online/telefone': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      case 'NF - Registro de sistema': {
+        this.formAtendimento.get('valor').enable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+        break;
+      }
+      default: {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').disable();
+      }
+    }
+  }
+
+
   cadastrarAtendimento(atendimento: Atendimento) {
-
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
-    atendimentoFormatado.data_atendimento = new Date(
-     atendimentoFormatado.data_atendimento.year,
-     atendimentoFormatado.data_atendimento.month - 1,
-     atendimentoFormatado.data_atendimento.day
-    );
-
+    atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
     atendimentoFormatado.estado = 'agendado';
+    const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
 
-    this.subscription = this._atendimentoServiceService.novoAtendimento(atendimentoFormatado).subscribe(
+    this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
       () => {},
           erro => this.notificarFalhaCadastro(),
-            () => this.notificarSucesso()
+            () => {
+              this.formAtendimento.reset();
+              this.notificarSucesso();
+            }
     );
-
   }
 
   podeDesativar() {
-    if(this.formAtendimento.touched) {
-      if( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+    if (this.formAtendimento.touched) {
+      if ( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
         return true;
       } else {
         return false;

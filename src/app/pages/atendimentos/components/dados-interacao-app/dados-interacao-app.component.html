@@ -1,183 +1,234 @@
-<div class="fundo row">
+<div class="container">
 
-  <div class="cabecalho p-3 col-12">
+  <div class="card" id="print-section">
+    <div class="card-body ">
+      <!-- head -->
+      <div class="row">
+        <div class="col-md-5 col-xs-12">
+          <img class="logo" src="/assets/img/logo_realponto.png" alt="">
+        </div>
 
-    <div class="row">
-      <div class="col-md col-xs-12">
-        <img src="/assets/img/logo_realponto.png" alt="">
+        <div class="col-md-7 col-xs-12 ">
+          <h4>RealPonto Comércio e Serviço de Relógio de Ponto ltda </h4>
+          <p> <i class="ion-location"></i> Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.
+          <br /> <i class="ion-android-call"></i> (011) 4332-4040 | (011) 4394-2140 </p>
+        </div>
+        <hr>
       </div>
+      <hr>
+      <!-- head -->
 
-      <div class="col-md-6 col-xs-12">
-        <h3>REALPONTO COMÉRCIO E RELÓGIO DE PONTO </h3>
-        <p> <i class="ion-location"></i> Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.</p>
-        <p> <i class="ion-android-call"></i> (011) 4332-4040 | (011) 4394-2140 </p>
+      <!-- info-client -->
+      <div class="row">
+          <div class="col-md-10 mt-1 ">
+            <h4>Informações principais</h4>
+          </div>
+          <div class="col-md-2 mt-1 no-print">
+            <button class="btn btn-primary btn-imprimir"
+              (click)="print(atendimento)">
+              <i class="fa fa-print"></i>
+            </button>
+          </div>
+          <div class="col-md-12 mt-2 ">
+            <p><strong>Data Atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</p>
+            <p><strong>Cliente:</strong> {{ atendimento?.cliente.nome_razao_social }} - {{ atendimento?.cliente.cnpj_cpf | rgCnpjCpf }}</p>
+            <p *ngIf="atendimento?.cliente.nome_fantasia"><strong>Nome fantasia: </strong> {{ atendimento?.cliente.nome_fantasia }}</p>
+            <p *ngIf="atendimento?.cliente.inscricao_estadual"><strong>IE:</strong>{{ atendimento?.cliente.inscricao_estadual }}</p>
+          </div>
+
+          <div class="col-md-4 ">
+            <p><strong>Contato:</strong> {{ atendimento?.contato.nome }}</p>
+          </div>
+
+          <div class="col-md-4 ">
+            <p><strong>Telefone:</strong> {{ atendimento?.contato.telefone }}</p>
+          </div>
+
+          <div class="col-md-4 ">
+            <p *ngIf="atendimento?.contato.celular"><strong>Celular:</strong> {{ atendimento?.contato.celular }}</p>
+          </div>
+
+          <div class="col-md-12">
+            <p><strong>Endereço:</strong>
+              {{ atendimento?.endereco.rua }},
+              {{atendimento?.endereco.numero}},
+              {{ atendimento?.endereco.bairro}},
+              {{ atendimento?.endereco.cidade }},
+              {{ atendimento?.endereco.uf }} -
+              {{ atendimento?.endereco.cep }}
+            </p>
+            <p *ngIf=" atendimento?.endereco.complemento"><strong>Complemento:</strong> {{ atendimento?.endereco.complemento }}</p>
+            <p *ngIf="atendimento?.endereco.ponto_referencia"><strong>Ponto de Referência:</strong> {{ atendimento?.endereco.ponto_referencia }}</p>
+            <p *ngIf="atendimento?.estacionamento"><strong>Estacionamento:</strong> {{ atendimento?.estacionamento }}</p>
+          </div>
+          <div class="col-md-12">
+
+          </div>
       </div>
+      <hr>
+      <!-- info-client -->
+
+      <!-- info-atendimento -->
+      <div class="row">
+          <div class="col-md-12 mt-1">
+            <h4>Informações do Atendimento</h4>
+          </div>
+          <div class="col-md-8 mt-2">
+            <p><strong>Tipo:</strong> {{ atendimento?.tipo}}</p>
+          </div>
+
+          <div *ngIf="atendimento?.valor" class="col-md-4  mt-2">
+            <p><strong>R$</strong> {{ atendimento?.valor }}</p>
+          </div>
+
+          <div *ngIf="atendimento?.autorizado" class="col-md-4  mt-2">
+            <p><strong>Autorizado por:</strong> {{ atendimento?.autorizado }}</p>
+          </div>
+
+          <div *ngIf="atendimento?.garantia" class="col-md-4  mt-2">
+            <p><strong>Data da Garantia</strong> {{ atendimento?.garantia | date: 'dd/MM/yyyy'}}</p>
+          </div>
+
+          <div class="col-md-12 ">
+            <p><strong>Equipamento:</strong> {{ atendimento?.modelo_equipamento }} - {{ atendimento?.numero_equipamento }}</p>
+          </div>
+
+          <div class="col-md-12 mt-2">
+            <p *ngIf=" atendimento?.descricao" ><strong>Problema:</strong> {{ atendimento?.descricao }}</p>
+            <p *ngIf="atendimento?.testes_efetuados" ><strong>Testes Efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
+            <p *ngIf="atendimento?.observacao" ><strong>Observação:</strong> {{ atendimento?.observacao }}</p>
+          </div>
+      </div>
+      <hr>
+      <!-- info-atendimento -->
+
+      <!-- info-tecnico-externo -->
+      <div class="row">
+        <div class="col-md-12 mt-1 ">
+          <h4>Relatório Técnico Externo</h4>
+        </div>
+        <div class="col-md-8 mt-2">
+          <p><strong>Técnico:</strong> {{ atendimento?.tecnico.nome }}</p>
+        </div>
+
+        <div class="col-md-4 mt-2">
+          <p><strong>Status:</strong> {{ statusTecnico(atendimento?.interacao_tecnico.estado) }}</p>
+        </div>
+
+        <div class="col-md-12">
+          <p *ngIf="atendimento?.interacao_tecnico.relatorio_tecnico.relatorio"><strong>Solução:</strong> {{ atendimento?.interacao_tecnico.relatorio_tecnico.relatorio }}</p>
+          <p *ngIf="atendimento?.interacao_tecnico.retorno.retornar"><strong>Retornar</strong> {{ atendimento?.interacao_tecnico.retorno.retornar ? 'Sim' : 'Não' }}</p>
+          <p *ngIf="atendimento?.interacao_tecnico.retorno.motivo"><strong>Motivo</strong> {{ atendimento?.interacao_tecnico.retorno.motivo }}</p>
+        </div>
     </div>
-    <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
-  </div>
+    <hr>
 
-  <h2 class="text-center pb-3">Detalhes do atendimento</h2>
-  <h5 *ngIf="atendimento?.situacao.status === 'cancelar'" class="text-danger text-center">Este atendimento foi cancelado</h5>
-  <h5 *ngIf="atendimento?.situacao.status === 'reagendar'" class="text-center" style="color: rgb(0, 161, 48)">Este atendimento foi reagendado</h5>
-  <h5 *ngIf="atendimento?.situacao.motivo" class="text-center">Motivo:<span style="text-transform: lowercase"> {{atendimento?.situacao.motivo}}</span></h5>
-
-  <div class="informacao_cliente col-12 mt-3">
-
-    <div class="row">
-
-      <div class="col-md-4">
-
-        <h6 class="text-center">Informações principais</h6>
-
-        <div class="conteudo p-2">
-          <p><strong>Cliente:</strong> {{ atendimento?.cliente.nome_razao_social }} </p>
-          <p *ngIf="atendimento?.cliente.cnpj_cpf.length > 11"><strong>CNPJ:</strong> {{ atendimento?.cliente.cnpj_cpf }} </p>
-          <p *ngIf="atendimento?.cliente.cnpj_cpf.length < 11"><strong>CPF:</strong> {{ atendimento?.cliente.cnpj_cpf }} </p>
-          <p *ngIf="atendimento?.cliente.inscricao_estadual"><strong>Inscricao estadual:</strong> {{ atendimento?.cliente.inscricao_estadual }}</p>
-          <p *ngIf="atendimento?.cliente.nome_fantasia"><strong>Nome fantasia:</strong> {{ atendimento?.cliente.nome_fantasia }}</p>
+    <div class="row" *ngIf="atendimento?.interacao_tecnico.remocao_relogio.retirado">
+        <div class="col-md-12 mt-4 ">
+          <h4>Retirado Equipamento</h4>
+        </div>
+        <div class="col-md-12 mt-2 ">
+          <p><strong>Retirado:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.retirado ? 'Sim' : 'Não' }}</p>
         </div>
 
-      </div>
-
-      <div class="col-md-4">
-
-        <h6 class="text-center">Contato</h6>
-
-        <div class="conteudo p-2">
-          <p><strong>Contato:</strong> {{ atendimento?.contato.nome }} </p>
-          <p><strong>E-mail:</strong> {{ atendimento?.contato.email }} </p>
-          <p><strong>Telefone:</strong> {{ atendimento?.contato.telefone }} </p>
-          <p *ngIf="atendimento?.contato.celular"><strong>Celular:</strong> {{ atendimento?.contato.celular }}</p>
+        <div class="col-md-12 ">
+          <p><strong>Mesmo Equipamento:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.mesmo_equipamento ? 'Sim' : 'Não' }}</p>
         </div>
 
-      </div>
-
-      <div class="col-md-4">
-
-        <h6 class="text-center">Endereço</h6>
-
-        <div class="conteudo p-2">
-          <p style="line-height: 20px;">
-            <strong>Logradouro:</strong> {{ atendimento?.endereco.rua }}, {{atendimento?.endereco.numero}}, {{ atendimento?.endereco.bairro}},
-            {{ atendimento?.endereco.cidade }}, {{ atendimento?.endereco.uf }} - {{ atendimento?.endereco.cep }}
-          </p>
-          <p><strong>Estacionamento:</strong> {{ atendimento?.estacionamento }}</p>
+        <div class="col-md-12 ">
+          <p><strong>Informações do Equipamento:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.informacoe_equipamento }}</p>
         </div>
-      </div>
-
-      <div class="pl-3 pt-2 text-center " [ngClass]=" {
-        associado: atendimento?.estado === 'associado',
-        em_deslocamento: atendimento?.estado === 'em_deslocamento',
-        chegou_ao_destino: atendimento?.estado === 'chegou_ao_destino',
-        inicio_atendimento: atendimento?.estado === 'inicio_atendimento',
-        fim_do_atendimento: atendimento?.estado === 'fim_do_atendimento'}">
-        
-        <p *ngIf="atendimento?.estado === 'associado'">STATUS DO ATENDIMENTO</p>
-        <p *ngIf="atendimento?.estado === 'em_deslocamento'">STATUS: EM DESLOCAMENTO</p>
-        <p *ngIf="atendimento?.estado === 'chegou_ao_destino'">STATUS: CHEGOU AO DESTINO</p>
-        <p *ngIf="atendimento?.estado === 'inicio_atendimento'">STATUS: INÍCIO DO ATENDIMENTO</p>
-        <p *ngIf="atendimento?.estado === 'fim_do_atendimento'">STATUS: CONCLUÍDO</p>
-      </div>
     </div>
+    <hr *ngIf="atendimento?.interacao_tecnico.remocao_relogio.retirado">
 
-    <div class="row">
-      <div class="col-12 chamado mt-2">
-        <div class="row">
-
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p><strong>Criado em:</strong> {{ atendimento?.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-              <p *ngIf="atendimento?.updatedAt"><strong>Alterado em: </strong> <span style="text-transform: capitalize">{{ atendimento?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</span></p>                            
-              <p><strong>Data do atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yy' }}</p>
-              <p><strong>Descrição:</strong> {{ atendimento?.descricao }}</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p><strong>Aberto por: </strong> <span style="text-transform: capitalize">{{ atendimento?.createdBy }}</span></p>
-              <p *ngIf="atendimento?.updatedBy"><strong>Alterado por: </strong> <span style="text-transform: capitalize">{{ atendimento?.updatedBy }}</span></p>              
-              <p><strong>Tipo: </strong> {{ atendimento?.tipo }}</p>
-              <p><strong>Testes efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p *ngIf="atendimento?.valor"><strong>Valor: </strong> {{ atendimento?.valor }}</p>
-              <p *ngIf="atendimento?.autorizado"><strong>Valor: </strong> {{ atendimento?.autorizado }}</p>
-              <p><strong>Modelo:</strong> {{ atendimento?.modelo_equipamento }} </p>
-              <p><strong>Número:</strong> {{ atendimento?.numero_equipamento }} </p>
-              <p *ngIf="atendimento?.observacao" ><strong>Observação:</strong> {{ atendimento?.observacao }} </p>
-            </div>
-          </div>
+    <div class="row" *ngIf="atendimento?.interacao_tecnico.treinamento.cadastros">
+        <div class="col-md-12 mt-4 ">
+          <h4>Treinamento</h4>
+        </div>
+        <div class="col-md-4 mt-2 ">
+          <p><strong>Software:</strong> {{ atendimento?.interacao_tecnico.treinamento.software }}</p>
         </div>
 
-        <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
+        <div class="col-md-4 mt-2 ">
+          <p><strong>Caminho:</strong> {{ atendimento?.interacao_tecnico.treinamento.caminho }}</p>
+        </div>
 
-      </div>
+        <div class="col-md-4 mt-2 "></div>
+
+        <div class="col-md-4 ">
+          <p><strong>Cadastros:</strong> {{ atendimento?.interacao_tecnico.treinamento.cadastros ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="col-md-4 ">
+          <p><strong>Backup do Sistema:</strong> {{ atendimento?.interacao_tecnico.treinamento.backup_sistema ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="col-md-4 ">
+          <p><strong>Importação dados:</strong> {{ atendimento?.interacao_tecnico.treinamento.importacao_dados ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="col-md-4 ">
+          <p><strong>Relatórios:</strong> {{ atendimento?.interacao_tecnico.treinamento.relatorios ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="col-md-4 ">
+          <p><strong>Abonos e Justificativas:</strong> {{ atendimento?.interacao_tecnico.treinamento.abonos_justificativas ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="col-md-4 ">
+          <p><strong>Interrupções::</strong> {{ atendimento?.interacao_tecnico.treinamento.interrupcoes ? 'Sim' : 'Não' }}</p>
+        </div>
     </div>
-  </div>
+    <hr *ngIf="atendimento?.interacao_tecnico.treinamento.cadastros">
+    <!-- info-tecnico-externo -->
 
-  <div class="informacoes-km col-12 mt-3">
-    <div class="row">
-      <div class="col-12">
-        <div class="row">
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p *ngIf="atendimento?.tecnico.nome"><strong>Técnico:</strong> {{ atendimento?.tecnico.nome }}</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p *ngIf="atendimento?.inicio"><strong>Atendimento iniciado às:</strong> {{ atendimento?.inicio | date: 'HH:mm' }}</p>
-              <p *ngIf="atendimento?.km_inicio.data"><strong>KM inicial às:</strong> {{ atendimento?.km_inicio.data | date: 'HH:mm'}}</p>
-              <p *ngIf="atendimento?.km_inicio.km"><strong>KM inicial:</strong> {{atendimento?.km_inicio.km }} km</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-4 col-xs-6 col-sm-6">
-            <div class="conteudo p-2">
-              <p *ngIf="atendimento?.fim"><strong>Atendimento finalizado às:</strong> {{ atendimento?.fim | date: 'HH:mm' }}</p>
-              <p *ngIf="atendimento?.km_final.data"><strong>KM final às:</strong> {{ atendimento?.km_final.data | date: 'HH:mm' }}</p>
-              <p *ngIf="atendimento?.km_final.km"><strong>KM final:</strong> {{atendimento?.km_final.km }} km</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-3" style="border-bottom: 1px dashed grey; opacity: 0.5;"></div>
-
-        <div class="fotos-inicio col-12" *ngIf="fotosInicioAtendimento.length > 0">
+    <div class="fotos-inicio col-12" *ngIf="fotosInicioAtendimento.length > 0">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mt-2"> Fotos do início do atendimento </h4>
           <div class="row">
-            <div class="col-12 text-center">
-              <h4 class="mt-2"> Fotos do início do atendimento </h4>
-              <div class="row">
-                <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
-                  <div class="imagem">
-                    <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
-                  </div>
-                </div>
+            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
+              <div class="imagem">
+                <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
 
-        <div class="fotos-final col-12" *ngIf="fotosFinalAtendimento.length > 0">
+    <div class="fotos-final col-12" *ngIf="fotosFinalAtendimento.length > 0">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4 class="mt-2"> Fotos do final do atendimento </h4>
           <div class="row">
-            <div class="col-12 text-center">
-              <h4 class="mt-2"> Fotos do final do atendimento </h4>
-              <div class="row">
-                <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
-                  <div class="imagem">
-                    <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
-                  </div>
-                </div>
+            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
+              <div class="imagem">
+                <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
               </div>
             </div>
           </div>
         </div>
-
-
       </div>
+    </div>
+    <hr *ngIf="fotosInicioAtendimento.length > 0">
+    <!-- assinatura do cliente -->
+    <div class="row" *ngIf="atendimento?.assinatura.nome">
+      <div class="col-md-12 mt-2">
+        <h4>Responsável</h4>
+      </div>
+      <div class="col-md-3 mt-2">
+        <p><strong>Nome:</strong> {{ atendimento?.assinatura.nome }}</p>
+        <p><strong>Documento:</strong> {{ atendimento?.assinatura.documento_id | rgCnpjCpf }}</p>
+        <p><strong>Assinatura do Cliente:</strong></p>
+      </div>
+      <div class="col-md-3 mt-2">
+         <img class="assinatura" src="http://165.227.78.113:3000/atendimentoimagens/{{ atendimento?.assinatura.url }}" alt="">
+      </div>
+    </div>
+    <!-- assinatura do cliente -->
+
+    </div>
+  </div>
+</div>

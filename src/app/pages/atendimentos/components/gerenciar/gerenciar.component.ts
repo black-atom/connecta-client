@@ -5,7 +5,6 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AtendimentoService } from './../../../../shared/services';
 import { Atendimento } from './../../../../models/atendimento.interface';
 import { VisualizacaoModalComponent } from './../visualizacao-modal/visualizacao-modal.component';
-import { OverlayPanel } from 'primeng/components/overlaypanel/overlaypanel';
 import { removeMaskFromPropTable, propNameQuery, formatQuery } from 'app/shared/utils/StringUtils';
 
 
@@ -43,19 +42,20 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         });
   }
 
-  mudarEstiloLinha(atendimento: Atendimento) {
+  mudarEstiloLinha(atendimento) {
+    const estado = atendimento.motivos.find(motivo => motivo.estado === 'reagendado');
+    if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') {
+      return 'reagendado';
+    }
 
-    // if (dadosLinha.tipo === 'Aberto por técnica') {
-    //   return 'aberto-por-tecnica';
-    // } else if (dadosLinha.situacao.status === 'cancelar') {
-    //   return 'cancelado';
-    // } else if (dadosLinha.situacao.status === 'reagendar') {
-    //   return 'reagendamento';
-    // } else {
-    //   return 'padrao';
-    // }
+    if (atendimento.estado === 'cancelado') {
+      return 'cancelado';
+    }
+    if (atendimento.estado === 'associado') {
+      return 'associado';
+    }
+
     return 'padrao';
-
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {

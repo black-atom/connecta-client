@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   AtendimentoService,
@@ -25,10 +25,11 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CustomNgbDateParserFormatter } from './custom-ngbdateparserformatter';
 import { CustomDatepickerI18n, I18n } from './custom-ngbdate-i18n';
 import { NgbDateParserFormatter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import { DataTableModule, SharedModule, ButtonModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, ButtonModule, TreeTableModule } from 'primeng/primeng';
 import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
 import { SplitPipe } from './pipes/split.pipe';
 import { CepPipe } from './pipes/cep.pipe';
+
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -46,9 +47,11 @@ export function formatacaoDaData () {
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
+    NgbModule,
     TextMaskModule,
     NgxErrorsModule,
     DataTableModule,
+    TreeTableModule,
     ButtonModule,
     SharedModule
   ],
@@ -91,7 +94,10 @@ export function formatacaoDaData () {
     SplitPipe,
     CepPipe,
     DataTableModule,
+    TreeTableModule,
     ButtonModule,
+    NgaModule,
+    NgbModule,
     SharedModule
    ]
 })

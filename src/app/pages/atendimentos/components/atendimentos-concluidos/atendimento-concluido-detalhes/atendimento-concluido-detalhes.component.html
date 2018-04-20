@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">Detalhes do Atendimento</h4>
+  <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<hr class="mt-1">
+
+<div class="modal-body">
+  <div class="container">
+
+      <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
+
+  </div>
+</div>
+
+<div class="modal-footer"></div>

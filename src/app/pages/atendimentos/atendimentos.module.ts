@@ -18,6 +18,10 @@ import { routing } from './atendimentos.routing';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { AcaoComponent } from './components/shared-components/acao/acao.component';
 import { VisualizacaoModalComponent } from './components/visualizacao-modal/visualizacao-modal.component';
+import { AtendimentosConcluidosComponent } from './components/atendimentos-concluidos/atendimentos-concluidos.component';
+import {
+  AtendimentoConcluidoDetalhesComponent
+} from './components/atendimentos-concluidos/atendimento-concluido-detalhes/atendimento-concluido-detalhes.component';
 
 
 @NgModule({
@@ -33,6 +37,7 @@ import { VisualizacaoModalComponent } from './components/visualizacao-modal/visu
   ],
   entryComponents: [
     AtendimentosDisponiveisComponent,
+    AtendimentoConcluidoDetalhesComponent,
     VisualizacaoModalComponent
   ],
   declarations: [
@@ -45,7 +50,9 @@ import { VisualizacaoModalComponent } from './components/visualizacao-modal/visu
     AtendimentosDisponiveisComponent,
     DadosInteracaoAppComponent,
     AcaoComponent,
-    VisualizacaoModalComponent
+    VisualizacaoModalComponent,
+    AtendimentosConcluidosComponent,
+    AtendimentoConcluidoDetalhesComponent
   ],
   providers: [
     ModuloCompartilhado,

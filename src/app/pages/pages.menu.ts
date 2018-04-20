@@ -133,12 +133,21 @@ export const PAGES_MENU = [{
               icon: 'ion-person'
             }
           }
-        }, 
+        },
         {
           path: 'gerenciar',
           data: {
             menu: {
               title: 'Gerenciar',
+              icon: 'ion-clipboard'
+            }
+          }
+        },
+        {
+          path: 'gerenciar-concluidos',
+          data: {
+            menu: {
+              title: 'Concluídos',
               icon: 'ion-clipboard'
             }
           }

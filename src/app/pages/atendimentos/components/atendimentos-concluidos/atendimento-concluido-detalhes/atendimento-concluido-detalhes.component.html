@@ -10,9 +10,27 @@
 <div class="modal-body">
   <div class="container">
 
-      <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
+      <ngb-tabset>
 
-  </div>
+        <ngb-tab title="Dados do Atendimento">
+          <ng-template ngbTabContent>
+            <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Relatório do Técnico">
+          <ng-template ngbTabContent>
+            <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Fotos do Atendimento">
+          <ng-template ngbTabContent>
+            <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado"></app-fotos-atendimento>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
 </div>
 
 <div class="modal-footer"></div>

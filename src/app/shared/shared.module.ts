@@ -8,6 +8,7 @@ import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
+  AtividadeService,
   AtendimentoService,
   FuncionarioService,
   ClienteService,
@@ -16,6 +17,7 @@ import {
   NotificacaoService,
   MonitoramentoService
 } from './services';
+
 
 import { EnderecoComponent } from './components/endereco';
 import { ContatoComponent } from './components/contato';
@@ -64,6 +66,7 @@ export function formatacaoDaData () {
     CepPipe
   ],
   providers: [
+    AtividadeService,
     CepService,
     LoginService,
     ClienteService,

@@ -56,6 +56,7 @@ export class AtendimentosConcluidosComponent implements OnInit {
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
+    console.log(atendimentoSelecionado);
     const referenciaModal = this._servicoModal.open(
       AtendimentoConcluidoDetalhesComponent,
       this.opcoesModal

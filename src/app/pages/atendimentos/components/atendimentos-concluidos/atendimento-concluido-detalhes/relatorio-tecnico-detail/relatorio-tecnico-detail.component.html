@@ -1,3 +1,40 @@
-<p>
-  relatorio-tecnico-detail works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <h5 class="mb-1">{{ relatorioTecnico?.cliente.nome_razao_social }} - {{ relatorioTecnico?.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
+  </div>
+</div>
+
+<div class="row mt-1">
+
+  <div class="col-12">
+    <small class="text-muted">Resumo do atendimento: </small>
+    <small class="text-muted destaque">{{ relatorioTecnico?.relatorio?.resumo_atendimento }}</small>
+  </div>
+
+  <div class="col-12">
+    <small class="text-muted">Treinamento: </small>
+    <small class="text-muted destaque">Software: {{ relatorioTecnico?.relatorio?.treinamento.software }}</small>
+    <small class="text-muted destaque">Caminho da rede: {{ relatorioTecnico?.relatorio?.treinamento.caminho_rede }}</small>
+    <small class="text-muted">Tópicos do treinamento: </small>
+    <small class="text-muted destaque" *ngFor="let topico of relatorioTecnico?.relatorio?.treinamento.topicos">{{ topico }}</small>
+  </div>
+
+  <div class="col-12">
+    <small class="text-muted">Equipamentos retirados: </small>
+    <small
+      class="text-muted destaque"
+      *ngFor="let equipamento of relatorioTecnico?.relatorio?.equipamentos_retirados"
+    >
+      {{ equipamento.modelo_equipamento }} -
+      {{ equipamento.numero_equipamento }}
+    </small>
+  </div>
+
+  <div class="col-12">
+    <small class="text-muted">Retornar ao local: </small>
+    <small class="text-muted destaque">
+      {{ relatorioTecnico?.relatorio?.motivo_retorno }}
+    </small>
+  </div>
+
+</div>

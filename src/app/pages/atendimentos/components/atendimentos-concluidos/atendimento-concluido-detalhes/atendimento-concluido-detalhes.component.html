@@ -12,23 +12,30 @@
 
       <ngb-tabset>
 
-        <ngb-tab title="Dados do Atendimento">
+        <ngb-tab title="Atendimento">
           <ng-template ngbTabContent>
             <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Relatório do Técnico">
+        <ngb-tab title="Relatório">
           <ng-template ngbTabContent>
             <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Fotos do Atendimento">
+        <ngb-tab title="Faturamento">
+          <ng-template ngbTabContent>
+            <app-faturamento [faturamentoDetail]="atendimentoSelecionado"></app-faturamento>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Fotos">
           <ng-template ngbTabContent>
             <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado"></app-fotos-atendimento>
           </ng-template>
         </ngb-tab>
+
       </ngb-tabset>
     </div>
 </div>

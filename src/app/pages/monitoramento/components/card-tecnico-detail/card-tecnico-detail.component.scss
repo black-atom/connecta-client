@@ -1,0 +1,99 @@
+div.card-user {
+  margin-left: 15px;
+  padding: 15px;
+  background: #fff;
+  width: 400px;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px #666;
+}
+
+div.header {
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+}
+
+div.title {
+  padding-left: 25px;
+}
+
+div.avatar {
+  margin-top: 15px;
+  position: relative;
+  color: #fff;
+}
+
+div.avatar img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+}
+
+div.ranting {
+  position: absolute;
+  margin: -30px 60px;
+  background: #0093D7;
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  border: 3px solid #fff;
+}
+
+div.rate {
+  margin: 0 auto;
+  font-weight: 600;
+  text-shadow: 1px 1px 20px #000;
+}
+
+p {
+  color: #34303F
+}
+
+div.title, h3 {
+  margin: 0 15px 0;
+  color: #34303F;
+}
+div.title h2 {
+  margin: 0 !important;
+}
+
+p.count-activity {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.all-activity {
+  text-align: center;
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-around;
+}
+
+div.all-activity div.activity {
+  text-align: center !important;
+}
+
+.border-style {
+  padding: 0 15px 0 15px;
+  border-left: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+}
+
+div.activity-doing {
+  margin-top: 35px;
+}
+
+div.activity-doing h3 span {
+  margin: 25px;
+  color: #33BD00;
+  font-size: .7em;
+}
+
+div.activity-doing h3 {
+  font-size: 1em;
+  font-weight: 500;
+}

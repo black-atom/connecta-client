@@ -14,27 +14,6 @@ export const PAGES_MENU = [{
       }
     },
     {
-      path: 'metricas',
-      data: {
-        menu: {
-          title: 'Métricas',
-          icon: 'ion-connection-bars',
-          selected: false,
-          expanded: false,
-          order: 250
-        }
-      },
-      children: [{
-        path: 'quilometragem',
-        data: {
-          menu: {
-            title: 'Quilometragem',
-            icon: 'ion-speedometer'
-          }
-        }
-      }]
-    },
-    {
       path: 'clientes',
       data: {
         menu: {

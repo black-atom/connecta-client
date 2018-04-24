@@ -98,6 +98,7 @@
     "ngx-uploader": "2.2.5",
     "normalize.css": "6.0.0",
     "primeng": "^4.2.2",
+    "ramda": "^0.25.0",
     "roboto-fontface": "0.7.0",
     "rxjs": "5.4.3",
     "zone.js": "0.8.11"

@@ -1,4 +1,6 @@
+import { Atividade } from './monitoramento.interface';
 import { Atendimento } from './atendimento.interface';
+
 export interface Funcionario {
   _id?: string;
   criado_em: string;
@@ -22,6 +24,7 @@ export interface Funcionario {
   updatedAt: string;
   updatedBy: string;
   ativo: boolean;
+  atividades: Atividade[];
 }
 
 interface Login {

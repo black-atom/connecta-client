@@ -46,7 +46,9 @@ export class AtendimentosConcluidosComponent implements OnInit {
     this.atendimentos$ = this._atendimentoService.atendimentosLazyLoad(this.query).switchMap(({ atendimentos, count }) => {
       return this._atividadeService.getAllAtividades().map(({ quilometragens: atividades }) => {
         return atendimentos.map(atendimento => {
-          const atividadeFound = atividades.find(atividade => atividade.atendimento_id === atendimento._id);
+          const atividadeFound = atividades
+          ? atividades.find(atividade => atividade.atendimento_id === atendimento._id)
+          : {};
           // tslint:disable-next-line:curly
           if (!atividadeFound) return atendimento;
           return { ...atendimento, monitoramento: atividadeFound };

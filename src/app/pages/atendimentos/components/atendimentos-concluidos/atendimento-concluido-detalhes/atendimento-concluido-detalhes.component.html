@@ -11,6 +11,7 @@
     <li class="tab {{ tabActived === 'relatorio' ? 'atived': ''}}" (click)="getTab('relatorio')">Relatório</li>
     <li class="tab {{ tabActived === 'faturamento' ? 'atived': ''}}" (click)="getTab('faturamento')">Faturamento</li>
     <li class="tab {{ tabActived === 'fotos' ? 'atived': ''}}" (click)="getTab('fotos')">Fotos</li>
+    <li class="tab {{ tabActived === 'assinatura' ? 'atived': ''}}" (click)="getTab('assinatura')">Assinatura</li>
   </ul>
 
   <div class="name-of-client">
@@ -34,7 +35,11 @@
     </div>
 
     <div *ngIf="tabActived === 'fotos'">
-      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado"></app-fotos-atendimento>
+      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado.imagens"></app-fotos-atendimento>
+    </div>
+
+    <div *ngIf="tabActived === 'assinatura'">
+      <app-assinatura [assinaturaDetail]="atendimentoSelecionado?.assinatura"></app-assinatura>
     </div>
   </div>
 </div>

@@ -39,9 +39,9 @@
   </div>
 </div>
 
-<div class="row" *ngFor="let equipamento of relatorioTecnico?.relatorio?.equipamentos_retirados">
-  <div class="col-12 mt-4">
-    <h5 class="mb-1">
+<div class="row equipments" *ngFor="let equipamento of relatorioTecnico?.relatorio?.equipamentos_retirados; let i = index">
+  <div class="col-12 mt-2">
+    <h5 class="mb-1">{{ i + 1 }}º Equipamento:
         {{ equipamento.modelo_equipamento }} -
         {{ equipamento.numero_equipamento }}
     </h5>

@@ -1,36 +1,61 @@
-<div class="row">
-  <div class="col-12">
-    <h5>Dados de Faturamento:</h5>
-  </div>
+<div class="row" *ngIf="!faturamentoDetail?.relatorio?.faturamento?.equipamentos">
+    <div class="col-12">
+      <h5 class="text-muted">Esse atendimento não tem faturamento ou ainda não foi atualizado pelo técnico!</h5>
+    </div>
 </div>
 
-<div class="row mt-4" *ngIf="faturamentoDetail?.relatorio?.faturamento?.razao_social">
-  <div class="col-12">
-    <h5>Faturar em outra Razão Social e Cnpj!</h5>
-  </div>
-  <div class="col-12 info-client">
-    <p>Razão Social: {{ faturamentoDetail?.relatorio?.faturamento?.razao_social }}</p>
-    <p>Cnpj: {{ faturamentoDetail?.relatorio?.faturamento?.cnpj | rgCnpjCpf }}</p>
-    <p>Email: {{ faturamentoDetail?.relatorio?.faturamento?.email }}</p>
-  </div>
-</div>
+<div *ngIf="faturamentoDetail?.relatorio?.faturamento?.equipamentos.length > 0">
+    <div class="row">
+        <div class="col-12">
+          <h5>Dados de Faturamento:</h5>
+        </div>
+      </div>
 
-<div class="row mt-1" *ngFor="let equipamento of faturamentoDetail?.relatorio?.faturamento?.equipamentos">
-  <div class="equipment-info">
-    <h5>{{ equipamento?.modelo_equipamento }} - {{ equipamento?.numero_equipamento }} </h5>
-  </div>
-  <table style="width:100%">
-    <tr>
-      <th class="description">Peças</th>
-      <th>Quantidade</th>
-      <th>Preço Unit.</th>
-      <th>Total</th>
-    </tr>
-    <tr *ngFor="let peca of equipamento.pecas">
-      <td class="description">{{ peca?.descricao }}</td>
-      <td>{{ peca?.quantidade }}</td>
-      <td>{{ peca?.preco | currency: 'BRL': true }}</td>
-      <td>{{ peca?.preco * peca?.quantidade | currency: 'BRL': true }}</td>
-    </tr>
-  </table>
+      <div class="row info-client-pay" *ngIf="faturamentoDetail?.relatorio?.faturamento?.razao_social">
+        <div class="col-12 info-client">
+          <small class="">
+
+            <p *ngIf="!faturamentoDetail?.relatorio?.faturamento?.razao_social">Razão Social: {{ faturamentoDetail?.cliente?.razao_social_nome }}</p>
+            <p *ngIf="faturamentoDetail?.relatorio?.faturamento?.razao_social">Razão Social: {{ faturamentoDetail?.relatorio?.faturamento?.razao_social }}</p>
+
+            <p *ngIf="!faturamentoDetail?.relatorio?.faturamento?.cnpj">Cnpj: {{ faturamentoDetail?.cliente?.cnpj_cpf | rgCnpjCpf }}</p>
+            <p *ngIf="faturamentoDetail?.relatorio?.faturamento?.cnpj">Cnpj: {{ faturamentoDetail?.relatorio?.faturamento?.cnpj | rgCnpjCpf }}</p>
+          </small>
+        </div>
+
+        <div class="col-6 info-client">
+          <small class="">
+            <p>Autorizado por: {{ faturamentoDetail?.assinatura?.nome | uppercase }}</p>
+            <p>Documento: {{ faturamentoDetail?.assinatura?.documento_id }}</p>
+          </small>
+        </div>
+
+        <div class="col-6 info-client">
+          <small class="">
+            <p *ngIf="!faturamentoDetail?.relatorio?.faturamento?.email">Email: {{ faturamentoDetail?.contato?.email }}</p>
+            <p *ngIf="faturamentoDetail?.relatorio?.faturamento?.email">Email: {{ faturamentoDetail?.relatorio?.faturamento?.email }}</p>
+          </small>
+        </div>
+      </div>
+
+      <div class="row mt-1" *ngFor="let equipamento of faturamentoDetail?.relatorio?.faturamento?.equipamentos; let i = index">
+        <div class="equipment-info">
+          <h5>{{ i + 1 }}º Equipamento: {{ equipamento?.modelo_equipamento }} - {{ equipamento?.numero_equipamento }} </h5>
+        </div>
+        <table style="width:100%">
+          <tr>
+            <th class="description">Peças</th>
+            <th>Quantidade</th>
+            <th>Preço Unit.</th>
+            <th>Total</th>
+          </tr>
+          <tr *ngFor="let peca of equipamento.pecas">
+            <td class="description">{{ peca?.descricao }}</td>
+            <td>{{ peca?.quantidade }}</td>
+            <td>{{ peca?.preco | currency: 'BRL': true }}</td>
+            <td>{{ peca?.preco * peca?.quantidade | currency: 'BRL': true }}</td>
+          </tr>
+        </table>
+      </div>
+
 </div>

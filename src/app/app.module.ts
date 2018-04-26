@@ -1,5 +1,5 @@
 import { ReduxModule } from './redux/redux.module';
-import { ApplicationRef, NgModule } from '@angular/core';
+import { ApplicationRef, NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -57,7 +56,12 @@ export type StoreType = {
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    {
+      provide:
+      LOCALE_ID,
+      useValue: 'pt-BR'
+     }
   ]
 })
 

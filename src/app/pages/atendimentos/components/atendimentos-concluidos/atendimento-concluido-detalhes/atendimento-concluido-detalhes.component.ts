@@ -12,6 +12,8 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
   @Input()
   atendimentoSelecionado: Atendimento;
 
+  public tabActived = 'atendimento';
+
   constructor(public modalAtiva: NgbActiveModal) { }
 
   ngOnInit() {
@@ -21,4 +23,7 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
     this.modalAtiva.close();
   }
 
+  getTab(tabSelecionada) {
+    this.tabActived = tabSelecionada;
+  }
 }

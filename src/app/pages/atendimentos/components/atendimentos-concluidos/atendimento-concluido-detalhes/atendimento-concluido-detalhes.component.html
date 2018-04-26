@@ -1,43 +1,41 @@
-<div class="modal-header">
-  <h4 class="modal-title">Detalhes do Atendimento</h4>
-  <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<div>
+  <ul class="header">
+    <li>Detalhes do Atendimento</li>
+    <li (click)="fecharModal()"><i class="fa fa-times" aria-hidden="true"></i></li>
+  </ul>
 </div>
 
-<hr class="mt-1">
+<div class="content-modal">
+  <ul class="nav-tabs">
+    <li class="tab {{ tabActived === 'atendimento' ? 'atived': ''}}" (click)="getTab('atendimento')">Atendimento</li>
+    <li class="tab {{ tabActived === 'relatorio' ? 'atived': ''}}" (click)="getTab('relatorio')">Relatório</li>
+    <li class="tab {{ tabActived === 'faturamento' ? 'atived': ''}}" (click)="getTab('faturamento')">Faturamento</li>
+    <li class="tab {{ tabActived === 'fotos' ? 'atived': ''}}" (click)="getTab('fotos')">Fotos</li>
+  </ul>
 
-<div class="modal-body">
-  <div class="container">
+  <div class="name-of-client">
+    <h5 class="mb-1">
+      {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
+      {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
+    </h5>
+  </div>
 
-      <ngb-tabset>
-
-        <ngb-tab title="Atendimento">
-          <ng-template ngbTabContent>
-            <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab title="Relatório">
-          <ng-template ngbTabContent>
-            <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab title="Faturamento">
-          <ng-template ngbTabContent>
-            <app-faturamento [faturamentoDetail]="atendimentoSelecionado"></app-faturamento>
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab title="Fotos">
-          <ng-template ngbTabContent>
-            <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado"></app-fotos-atendimento>
-          </ng-template>
-        </ngb-tab>
-
-      </ngb-tabset>
+  <div class="scrollbar-panel-list" id="style-1">
+    <div *ngIf="tabActived === 'atendimento'">
+      <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
     </div>
+
+    <div *ngIf="tabActived === 'relatorio'">
+      <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
+    </div>
+
+    <div *ngIf="tabActived === 'faturamento'">
+      <app-faturamento [faturamentoDetail]="atendimentoSelecionado"></app-faturamento>
+    </div>
+
+    <div *ngIf="tabActived === 'fotos'">
+      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado"></app-fotos-atendimento>
+    </div>
+  </div>
 </div>
 
-<div class="modal-footer"></div>

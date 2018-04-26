@@ -26,7 +26,6 @@ import { AtendimentoConcluidoDetalhesComponent } from './atendimento-concluido-d
 export class AtendimentosConcluidosComponent implements OnInit {
 
   public atendimentos$: Observable<any[]>;
-
   private opcoesModal: NgbModalOptions = {
     size: 'lg'
   };
@@ -59,11 +58,11 @@ export class AtendimentosConcluidosComponent implements OnInit {
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
     console.log(atendimentoSelecionado);
-    const referenciaModal = this._servicoModal.open(
-      AtendimentoConcluidoDetalhesComponent,
-      this.opcoesModal
-    );
+    const referenciaModal = this._servicoModal
+      .open(
+        AtendimentoConcluidoDetalhesComponent,
+        this.opcoesModal
+      );
     referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
-
   }
 }

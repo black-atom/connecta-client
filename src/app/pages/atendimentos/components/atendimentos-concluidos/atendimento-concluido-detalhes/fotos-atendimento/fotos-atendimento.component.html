@@ -1,1 +1,12 @@
-<pre>{{ fotosAtendimento | json }}</pre>
+<div class="row">
+  <div class="col-12">
+    <h5 class="mb-1">Fotos do Atendimento:</h5>
+  </div>
+</div>
+
+<div class="row mt-1">
+  <div class="col-4 mt-2" *ngFor="let imagem of fotosAtendimento.imagens">
+    <img [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
+    <p>{{ imagem?.tipo }}</p>
+  </div>
+</div>

@@ -1,4 +1,36 @@
-<div class="col-12">
-  <small class="text-muted">Faturamento: </small>
-  <small class="text-muted destaque">{{ faturamentoDetail?.contato.email }}</small>
+<div class="row">
+  <div class="col-12">
+    <h5>Dados de Faturamento:</h5>
+  </div>
+</div>
+
+<div class="row mt-4" *ngIf="faturamentoDetail?.relatorio?.faturamento?.razao_social">
+  <div class="col-12">
+    <h5>Faturar em outra Razão Social e Cnpj!</h5>
+  </div>
+  <div class="col-12 info-client">
+    <p>Razão Social: {{ faturamentoDetail?.relatorio?.faturamento?.razao_social }}</p>
+    <p>Cnpj: {{ faturamentoDetail?.relatorio?.faturamento?.cnpj | rgCnpjCpf }}</p>
+    <p>Email: {{ faturamentoDetail?.relatorio?.faturamento?.email }}</p>
+  </div>
+</div>
+
+<div class="row mt-1" *ngFor="let equipamento of faturamentoDetail?.relatorio?.faturamento?.equipamentos">
+  <div class="equipment-info">
+    <h5>{{ equipamento?.modelo_equipamento }} - {{ equipamento?.numero_equipamento }} </h5>
+  </div>
+  <table style="width:100%">
+    <tr>
+      <th class="description">Peças</th>
+      <th>Quantidade</th>
+      <th>Preço Unit.</th>
+      <th>Total</th>
+    </tr>
+    <tr *ngFor="let peca of equipamento.pecas">
+      <td class="description">{{ peca?.descricao }}</td>
+      <td>{{ peca?.quantidade }}</td>
+      <td>{{ peca?.preco | currency: 'BRL': true }}</td>
+      <td>{{ peca?.preco * peca?.quantidade | currency: 'BRL': true }}</td>
+    </tr>
+  </table>
 </div>

@@ -26,9 +26,14 @@ import { AtendimentoConcluidoDetalhesComponent } from './atendimento-concluido-d
 export class AtendimentosConcluidosComponent implements OnInit {
 
   public atendimentos$: Observable<any[]>;
+  private today = new Date();
+  public totalRecords;
+  public carregando = true;
   private opcoesModal: NgbModalOptions = {
     size: 'lg'
   };
+
+  public inputDate;
 
   private query = {
     skip: 0,
@@ -42,22 +47,41 @@ export class AtendimentosConcluidosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.atendimentos$ = this._atendimentoService.atendimentosLazyLoad(this.query).switchMap(({ atendimentos, count }) => {
-      return this._atividadeService.getAllAtividades().map(({ quilometragens: atividades }) => {
-        return atendimentos.map(atendimento => {
-          const atividadeFound = atividades
-          ? atividades.find(atividade => atividade.atendimento_id === atendimento._id)
-          : {};
-          // tslint:disable-next-line:curly
-          if (!atividadeFound) return atendimento;
-          return { ...atendimento, monitoramento: atividadeFound };
+
+    this.inputDate = {
+      year: this.today.getFullYear(),
+      day: this.today.getDate(),
+      month: this.today.getMonth() + 1
+    };
+    this.getAtendimentosEAtividades();
+  }
+
+  getAtendimentosEAtividades() {
+    this.carregando = true;
+    this.atendimentos$ = this._atendimentoService
+    .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
+    .switchMap(({ atendimentos, count }) => Observable
+        .timer(0, 1000 * 30)
+        .map(() => atendimentos)
+    )
+    .switchMap((atendimentos, count) => {
+      return this._atividadeService
+        .getAllAtividadesPorData({ date: this.inputDate })
+        .map(({ atividades }) => {
+          return atendimentos
+          .map(atendimento => {
+            const atividadeFound = atividades.length > 0 ? atividades.find(at => at.atendimento_id === atendimento._id) : null;
+            this.carregando = false;
+            // tslint:disable-next-line:curly
+            if (!atividadeFound) return { ...atendimento, monitoramento: { status: 'PENDENTE' } };
+            return { ...atendimento, monitoramento: atividadeFound };
         });
       });
+
     });
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
-    console.log(atendimentoSelecionado);
     const referenciaModal = this._servicoModal
       .open(
         AtendimentoConcluidoDetalhesComponent,
@@ -65,4 +89,15 @@ export class AtendimentosConcluidosComponent implements OnInit {
       );
     referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
   }
+
+  dataPassadoPeloUsuario(dataSelecionada) {
+    const dataFormatada = new Date(
+      dataSelecionada.year,
+      dataSelecionada.month - 1,
+      dataSelecionada.day
+    );
+    return dataFormatada.toString();
+  }
+
+
 }

@@ -1,46 +1,62 @@
+<div class="row">
+  <div class="col-md-6 col-sm-12 col-lg-4 col-xs-12">
+    <label for="param_busca">Pesquisar por data</label>
+    <div class="input-group">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" id="param_busca" (ngModelChange)="getAtendimentosEAtividades()">
+      <button class="input-group-addon" (click)="d.toggle()" type="button">
+        <i class="ion-calendar"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
  <p-dataTable
   [value]="atendimentos$ | async"
-  [rows]="25"
+  [rows]="100"
+  [lazy]="true"
   [paginator]="true"
+  [totalRecords]="totalRecords"
   [pageLinks]="5"
   [responsive]="true"
   [sortOrder]="-1"
   rowHover="true"
   sortField="createdAt"
   styleClass="borderless"
+  [loading]="carregando"
+  loadingIcon="ion-load-a"
 >
 
-  <p-column field="data_atendimento" header="Data" [filter]="true" [style]="{'width':'70px'}">
+  <p-column field="data_atendimento" header="Data" [style]="{'width':'70px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy'}}
     </ng-template>
   </p-column>
 
-  <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
+  <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [style]="{'width':'150px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.cliente.nome_razao_social }}
     </ng-template>
   </p-column>
 
-  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [filter]="true" [style]="{'width':'90px'}">
+  <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [style]="{'width':'90px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.cliente.cnpj_cpf | rgCnpjCpf }}
     </ng-template>
   </p-column>
 
-  <p-column field="tecnico.nome" header="Técnico" [filter]="true" [style]="{'width':'80px'}">
+  <p-column field="tecnico.nome" header="Técnico" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body" >
       {{ atendimento?.tecnico.nome || '' | split: 0 }}
     </ng-template>
   </p-column>
 
-  <p-column field="monitoramento.status" header="Situação" [filter]="true" [style]="{'width':'80px'}">
+  <p-column field="monitoramento.status" header="Situação" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body" >
       {{ atendimento?.monitoramento?.status }}
     </ng-template>
   </p-column>
 
-  <p-column field="faturamento.equipamentos" header="Faturar" [filter]="true" [style]="{'width':'80px'}">
+  <p-column field="faturamento.equipamentos" header="Faturar" [style]="{'width':'80px'}">
     <ng-template let-atendimento="rowData" pTemplate="body" >
       <i class="fa fa-money" aria-hidden="true"></i> {{ atendimento?.relatorio?.faturamento?.equipamentos.length > 0 ? 'Sim' : 'Não' }}
     </ng-template>

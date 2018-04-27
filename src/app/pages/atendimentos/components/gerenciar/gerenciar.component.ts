@@ -68,8 +68,8 @@ export class GerenciarComponent implements OnInit {
         });
   }
 
-  filterEvents(query) {
-    const queryFormatter = propNameQuery(query.filters);
+  filterEvents({ filters, first, rows }) {
+    const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
       ...queryFormatter('data_atendimento'),
       ...queryFormatter('cliente.nome_razao_social'),
@@ -79,8 +79,8 @@ export class GerenciarComponent implements OnInit {
       ...queryFormatter('tipo'),
       ...queryFormatter('tecnico.nome'),
       ...queryFormatter('createdBy'),
-      skip : query.first,
-      limit : query.rows
+      skip : first,
+      limit : rows
     };
     return newQuery;
   }

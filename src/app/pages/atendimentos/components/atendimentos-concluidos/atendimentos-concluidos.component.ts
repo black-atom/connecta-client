@@ -26,6 +26,7 @@ import { AtendimentoConcluidoDetalhesComponent } from './atendimento-concluido-d
 export class AtendimentosConcluidosComponent implements OnInit {
 
   public atendimentos$: Observable<any[]>;
+  public atendimentoSelecionado;
   private today = new Date();
   public totalRecords;
   public carregando = true;
@@ -99,5 +100,8 @@ export class AtendimentosConcluidosComponent implements OnInit {
     return dataFormatada.toString();
   }
 
-
+  print(atendimento): void {
+    this.atendimentoSelecionado = atendimento;
+    setTimeout(() => window.print(), 500);
+  }
 }

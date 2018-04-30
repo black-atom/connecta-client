@@ -27,6 +27,7 @@ import { RelatorioTecnicoDetailComponent } from './components/atendimentos-concl
 import { FotosAtendimentoComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/fotos-atendimento/fotos-atendimento.component';
 import { FaturamentoComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/faturamento/faturamento.component';
 import { AssinaturaComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/assinatura/assinatura.component';
+import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/atendimento-print/atendimento-print.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { AssinaturaComponent } from './components/atendimentos-concluidos/atendi
     RelatorioTecnicoDetailComponent,
     FotosAtendimentoComponent,
     FaturamentoComponent,
-    AssinaturaComponent
+    AssinaturaComponent,
+    AtendimentoPrintComponent
   ],
   providers: [
     ModuloCompartilhado,

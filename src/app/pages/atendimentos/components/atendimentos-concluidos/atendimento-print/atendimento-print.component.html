@@ -1,0 +1,289 @@
+<div class="row">
+
+    <div class="col-4">
+      <img class="logo" src="/assets/img/logo_realponto.png" alt="">
+    </div>
+
+    <div class="col-8">
+      <p class="title-special">RealPonto Comércio e Serviço de Relógio de Ponto ltda </p>
+      <p>Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.
+      <br />(011) 4332-4040 | (011) 4394-2140 </p>
+    </div>
+
+  <div class="col-12 mt-4">
+    <p class="title-special">
+      {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
+      {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
+    </p>
+  </div>
+
+  <div class="col-6">
+    <small class="">Contato: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.contato.nome }}</small>
+  </div>
+
+  <div class="col-6">
+    <small class="">Telefone: </small>
+    <small class=" destaque">
+      ({{ atendimentoSelecionado?.contato.telefone | slice: 0:2 }})
+      {{ atendimentoSelecionado?.contato.telefone | slice: 2:6 }} -
+      {{ atendimentoSelecionado?.contato.telefone | slice: 6:10 }}
+    </small>
+  </div>
+
+  <div class="col-6">
+    <small class="">celular: </small>
+    <small class=" destaque">
+      ({{ atendimentoSelecionado?.contato.celular | slice: 0:2 }})
+      {{ atendimentoSelecionado?.contato.celular | slice: 2:6 }} -
+      {{ atendimentoSelecionado?.contato.celular | slice: 6:10 }}
+    </small>
+  </div>
+
+  <div class="col-6">
+    <small class="">Email: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.contato.email }}</small>
+  </div>
+
+
+  <div class="col-6">
+    <small class="">Estacionamento: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.estacionamento }}</small>
+  </div>
+
+  <div class="col-12">
+    <small class="">Endereço: </small>
+    <small class=" destaque">
+      {{ atendimentoSelecionado?.endereco.rua }},
+      {{ atendimentoSelecionado?.endereco.numero }} -
+      {{ atendimentoSelecionado?.endereco.bairro }},
+      {{ atendimentoSelecionado?.endereco.cidade }},
+      {{ atendimentoSelecionado?.endereco.uf }} -
+      {{ atendimentoSelecionado?.endereco.cep | cep }}
+    </small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.endereco.complemento">
+    <small class="">Complemento: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.endereco.complemento }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.endereco.ponto_referencia">
+    <small class="">Ponto de Referencia: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.endereco.ponto_referencia }}</small>
+  </div>
+
+  <hr class="col-12">
+
+  <div class="col-12">
+    <p class="title-special">{{ atendimentoSelecionado?.modelo_equipamento }}</p>
+  </div>
+
+  <div class="col-6">
+    <small class="">N. Equipamento: </small>
+    <small class=" destaque"> {{ atendimentoSelecionado?.numero_equipamento }}</small>
+  </div>
+
+  <div class="col-6">
+    <small class="">Data Atendimento: </small>
+    <small class=" destaque"> {{ atendimentoSelecionado?.data_atendimento | date: 'dd/MM/yyyy' }}</small>
+  </div>
+
+  <div class="col-6">
+    <small class="">Tipo Atendimento: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.tipo }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.autorizado">
+    <small class="">Autorizado Por: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.autorizado }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.garantia">
+    <small class="">Data Garantia: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.garantia }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.valor">
+    <small class=" destaqueMoney">{{ atendimentoSelecionado?.valor | currency: 'BRL': true }}</small>
+  </div>
+
+
+  <div class="col-6">
+    <small class="">Status: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.estado | uppercase }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.tecnico.nome">
+    <small class="">Técnico: </small>
+    <small class=" destaque"><strong>{{ atendimentoSelecionado?.tecnico.nome | split: 0 }}</strong></small>
+  </div>
+
+  <div class="col-12 mt-2" *ngIf="atendimentoSelecionado?.motivos.length !== 0">
+    <small class="">Eventos: </small>
+    <br>
+    <small class=" destaque" *ngFor="let motivo of atendimentoSelecionado?.motivos">
+      {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
+    </small>
+  </div>
+
+  <div class="col-12">
+    <small class="">Problema: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.descricao }}</small>
+  </div>
+
+  <div class="col-6">
+      <small class="">Testes efetuados: </small>
+      <small class=" destaque">{{ atendimentoSelecionado?.testes_efetuados }}</small>
+  </div>
+
+  <div class="col-6">
+    <small class="">Observação: </small>
+    <small class=" destaque">{{ atendimentoSelecionado?.observacao }}</small>
+  </div>
+
+  <hr class="col-12">
+
+  <div class="col-12" *ngIf="atendimentoSelecionado?.relatorio?.resumo_atendimento">
+    <p class="title-special mb-1">Relatório</p>
+  </div>
+
+
+  <div class="col-12" *ngIf="atendimentoSelecionado?.relatorio?.resumo_atendimento">
+    <small class="">Resumo do atendimento: </small>
+    <small class="destaque">{{ atendimentoSelecionado?.relatorio?.resumo_atendimento }}</small>
+  </div>
+
+  <div class="col-12" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.software">
+    <p class="title-special mt-2">Treinamento:</p>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.software">
+    <small class="destaque">Software: {{ atendimentoSelecionado?.relatorio?.treinamento.software }}</small>
+  </div>
+
+  <div class="col-6" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.caminho_rede">
+    <small class="destaque">Caminho da rede: {{ atendimentoSelecionado?.relatorio?.treinamento.caminho_rede }}</small>
+  </div>
+
+  <div class="col-12 mt-2" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.software">
+    <small class="">Tópicos do treinamento: </small>
+  </div>
+
+  <div class="col-3" *ngFor="let topico of atendimentoSelecionado?.relatorio?.treinamento.topicos">
+    <small class="destaque">{{ topico }} <i class="fa fa-check" aria-hidden="true"></i></small>
+  </div>
+
+
+ </div>
+
+ <div class="row" *ngFor="let equipamento of atendimentoSelecionado?.relatorio?.equipamentos_retirados; let i = index">
+    <div class="col-12 mt-4" >
+      <p class="title-special mb-1">Equipamentos retirados:</p>
+    </div>
+    <div class="col-12 mt-2" >
+      <p class="title-special mb-1">
+        {{ i + 1 }}º Equipamento:
+        {{ equipamento?.modelo_equipamento }} -
+        {{ equipamento?.numero_equipamento }}
+      </p>
+    </div>
+
+    <div class="col-12 mt-2" *ngIf="atendimentoSelecionado?.relatorio?.equipamentos_retirados.length > 0">
+      <small class="">Itens do equipamento: </small>
+    </div>
+
+    <div class="col-3" *ngFor="let item of equipamento?.itens">
+      <small class="destaque">{{ item.descricao }} -  {{ item.quantidade }}un <i class="fa fa-check" aria-hidden="true"></i></small>
+    </div>
+    <hr>
+  </div>
+
+
+<div class="row">
+  <div class="col-12 mt-2" *ngIf="atendimentoSelecionado?.relatorio?.motivo_retorno">
+    <p class="title-special" class="mb-1">Retornar ao local: </p>
+  </div>
+
+  <div class="col-12">
+    <small class="destaque">{{ atendimentoSelecionado?.relatorio?.motivo_retorno }}</small>
+  </div>
+
+  <hr class="col-12">
+</div>
+
+<div class="row" *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.equipamentos.length > 0">
+    <div class="col-12  mt-2">
+      <p class="title-special">Dados de Faturamento:</p>
+    </div>
+
+    <div class="col-12 info-client">
+      <small *ngIf="!atendimentoSelecionado?.relatorio?.faturamento?.razao_social">Razão Social: {{ atendimentoSelecionado?.cliente?.razao_social_nome }}</small>
+      <small *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.razao_social">Razão Social: {{ atendimentoSelecionado?.relatorio?.faturamento?.razao_social }}</small>
+      <small *ngIf="!atendimentoSelecionado?.relatorio?.faturamento?.cnpj">Cnpj: {{ atendimentoSelecionado?.cliente?.cnpj_cpf | rgCnpjCpf }}</small>
+      <small *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.cnpj">Cnpj: {{ atendimentoSelecionado?.relatorio?.faturamento?.cnpj | rgCnpjCpf }}</small>
+    </div>
+
+    <div class="col-6 info-client">
+      <small>Autorizado por: {{ atendimentoSelecionado?.assinatura?.nome | uppercase }}</small>
+    </div>
+
+    <div class="col-6 info-client">
+      <small>Documento: {{ atendimentoSelecionado?.assinatura?.documento_id }}</small>
+    </div>
+
+    <div class="col-6 info-client">
+      <small *ngIf="!atendimentoSelecionado?.relatorio?.faturamento?.email">Email: {{ atendimentoSelecionado?.contato?.email }}</small>
+      <small *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.email">Email: {{ atendimentoSelecionado?.relatorio?.faturamento?.email }}</small>
+    </div>
+
+  <hr class="col-12">
+</div>
+
+<div class="row" *ngFor="let equipamento of atendimentoSelecionado?.relatorio?.faturamento?.equipamentos; let i = index">
+  <div class="col-12 mt-4 equipment-info">
+    <p class="title-special">{{ i + 1 }}º Equipamento: {{ equipamento?.modelo_equipamento }} - {{ equipamento?.numero_equipamento }} </p>
+  </div>
+
+  <table style="width:100%">
+    <tr>
+      <th class="description">Peças</th>
+      <th>Quantidade</th>
+      <th>Preço Unit.</th>
+      <th>Total</th>
+    </tr>
+    <tr *ngFor="let peca of equipamento?.pecas">
+      <td class="description">{{ peca?.descricao }}</td>
+      <td>{{ peca?.quantidade }}</td>
+      <td>{{ peca?.preco | currency: 'BRL': true }}</td>
+      <td>{{ peca?.preco * peca?.quantidade | currency: 'BRL': true }}</td>
+    </tr>
+  </table>
+  <hr class="col-12">
+</div>
+
+<div class="row">
+  <div class="col-12" *ngIf="atendimentoSelecionado?.imagens?.length > 0">
+    <p class="title-special">Fotos do Atendimento:</p>
+  </div>
+
+  <div class="col-4 mt-1" *ngFor="let imagem of atendimentoSelecionado?.imagens">
+    <img class="photo" [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
+    <p>{{ imagem?.tipo }}</p>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12" *ngIf="atendimentoSelecionado?.assinatura?.documento_id">
+    <p class="title-special">Responsável por atender o técnico no local:</p>
+  </div>
+  <div class="col-12 mt-4" *ngIf="atendimentoSelecionado?.assinatura?.documento_id">
+    <img
+    [src]="atendimentoSelecionado?.assinatura?.url ? 'http://165.227.78.113:3000/atendimentoimagens/'+atendimentoSelecionado?.assinatura?.url : '/assets/img/img-default.png'"
+    onerror="this.src='/assets/img/img-default.png'">
+    <p>
+      Autorizado por: {{ atendimentoSelecionado?.assinatura?.nome | uppercase }} <br>
+      Documento: {{ atendimentoSelecionado?.assinatura?.documento_id }}
+    </p>
+  </div>
+</div>

@@ -6,10 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CepPipe implements PipeTransform {
 
   transform(value: string): any {
-    value = value.toString();
+   if (value) {
+    return value
+      .toString()
+      .substring(0, 5)
+      .concat('-')
+      .concat(value.substring(5, 8));
+   }
 
-    return value.substring(0,5)
-                .concat('-')
-                .concat(value.substring(5,8))
   }
 }

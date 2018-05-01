@@ -7,3 +7,5 @@ export * from './app-manipulador-erro';
 export * from './notificacao-service';
 export * from './monitoramento-service';
 export * from './atividade-service/atividade.service';
+export * from './avaliacoes/avaliacoes.service';
+

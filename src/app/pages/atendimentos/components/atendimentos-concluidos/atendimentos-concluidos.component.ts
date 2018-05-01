@@ -26,6 +26,7 @@ import { AtendimentoConcluidoDetalhesComponent } from './atendimento-concluido-d
 export class AtendimentosConcluidosComponent implements OnInit {
 
   public atendimentos$: Observable<any[]>;
+  private count = 1;
   public atendimentoSelecionado;
   private today = new Date();
   public totalRecords;
@@ -58,28 +59,28 @@ export class AtendimentosConcluidosComponent implements OnInit {
   }
 
   getAtendimentosEAtividades() {
-    this.carregando = true;
-    this.atendimentos$ = this._atendimentoService
-    .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
-    .switchMap(({ atendimentos, count }) => Observable
-        .timer(0, 1000 * 30)
-        .map(() => atendimentos)
-    )
-    .switchMap((atendimentos, count) => {
-      return this._atividadeService
-        .getAllAtividadesPorData({ date: this.inputDate })
-        .map(({ atividades }) => {
-          return atendimentos
-          .map(atendimento => {
-            const atividadeFound = atividades.length > 0 ? atividades.find(at => at.atendimento_id === atendimento._id) : null;
-            this.carregando = false;
-            // tslint:disable-next-line:curly
-            if (!atividadeFound) return { ...atendimento, monitoramento: { status: 'PENDENTE' } };
-            return { ...atendimento, monitoramento: atividadeFound };
-        });
-      });
+    this.atendimentos$ = Observable
+      .timer(0, 1000 * 120)
+      .do(() => this.carregando = true)
+      .switchMap(() => this._atendimentoService
+        .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
+      )
+      .map(({ atendimentos }) => atendimentos)
+      .switchMap((atendimentos) => {
+        return this._atividadeService
+          .getAllAtividadesPorData({ createdAt: this.dataPassadoPeloUsuario(this.inputDate) })
+          .map(({ atividades }) => {
+            return atendimentos
+            .map(atendimento => {
+              const atividadeFound = atividades.length > 0 ? atividades.find(at => at.atendimento_id === atendimento._id) : null;
 
-    });
+              return !atividadeFound ?
+                ({ ...atendimento, monitoramento: { status: 'PENDENTE' } }) :
+                ({ ...atendimento, monitoramento: atividadeFound });
+          });
+        });
+      })
+      .do(() => this.carregando = true);
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {

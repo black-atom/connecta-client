@@ -1,3 +1,4 @@
+import { Atendimento } from './../../../../models/atendimento.interface';
 import {
   Component,
   OnInit,
@@ -66,6 +67,13 @@ export class AtendimentosConcluidosComponent implements OnInit {
         .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
       )
       .map(({ atendimentos }) => atendimentos)
+      .map((atendimentos: Atendimento[]) => atendimentos.map(atendimento => ({
+        ...atendimento,
+        imagens: atendimento.imagens.map(imagem => ({
+          ...imagem,
+          url: `http://165.227.78.113:3000/atendimentoimagens/${imagem.url}`
+        }))
+      })))
       .switchMap((atendimentos) => {
         return this._atividadeService
           .getAllAtividadesPorData({ createdAt: this.dataPassadoPeloUsuario(this.inputDate) })

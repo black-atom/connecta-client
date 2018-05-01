@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {
   applySpec,
-  prop
+  prop,
+  pathOr
 } from 'ramda';
 
 import {
   AtendimentoService,
   AtividadeService,
   FuncionarioService,
+  AvaliacoesService,
   MonitoramentoService,
 } from './../../shared/services';
 
@@ -19,6 +21,7 @@ import {
   statuses,
   MonitoramentoInfo
 } from './../../models';
+import { Avaliacao } from '../../models/avaliacoes';
 
 @Component({
   selector: 'app-monitoramento',
@@ -37,6 +40,7 @@ export class MonitoramentoComponent implements OnInit {
     private atendimentoService: AtendimentoService,
     private funcionarioService: FuncionarioService,
     private atividadeService: AtividadeService,
+    private avaliacoesService: AvaliacoesService
   ) { }
 
   ngOnInit() {
@@ -46,6 +50,7 @@ export class MonitoramentoComponent implements OnInit {
 
     const formatToMonitoramento = applySpec({
       funcionarioName: prop('nome'),
+      avaliacao: pathOr(0, ['avaliacao', 'rate']),
       foto_url: prop('foto_url'),
       totalPendentes: calcTotalByStatus(MonitoramentoStatuses.pendente),
       totalPausados: calcTotalByStatus(MonitoramentoStatuses.pauseAtividade),
@@ -59,6 +64,18 @@ export class MonitoramentoComponent implements OnInit {
           .timer(0, 1000 * 30)
           .map(() => funcionarios)
       )
+      .switchMap((funcionarios: Funcionario[]) => {
+        return this.avaliacoesService
+          .getAvaliacoes()
+          .map((avaliacoes: Avaliacao[]) => {
+            return funcionarios.map(func => (
+              {
+                ...func,
+                avaliacao: avaliacoes.find(av => av._id === func._id)
+              }
+            ));
+          });
+      })
       .switchMap((funcionarios: Funcionario[]) => {
         return this.atendimentoService
           .atendimentosLazyLoad({ data_atendimento: this.today })
@@ -79,6 +96,7 @@ export class MonitoramentoComponent implements OnInit {
           });
       })
       .map(funcionarios => funcionarios.filter(funcionario => funcionario.atividades.length > 0))
+      .do(data => console.log(JSON.stringify(data)))
       .map((funcionarios: Funcionario[]) => funcionarios.map(formatToMonitoramento));
   }
 

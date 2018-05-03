@@ -24,6 +24,8 @@ div.content-modal ul.nav-tabs {
 
 .name-of-client {
   padding: 16px 16px 0 16px;
+  display: flex;
+  justify-content: space-between;
 }
 
 ul li.tab {
@@ -65,3 +67,20 @@ ul li.atived {
   overflow-x: hidden;
 }
 
+button.button-special {
+  border: none;
+  background: #0093D7;
+  color: #fff;
+  margin: 0 2px;
+}
+
+.name-of-client button {
+  width: 45px;
+  height: auto;
+  margin: 0 2px;
+}
+
+.situacao {
+  padding: 0 16px;
+  display: flex;
+}

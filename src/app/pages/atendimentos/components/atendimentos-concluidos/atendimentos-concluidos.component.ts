@@ -91,13 +91,24 @@ export class AtendimentosConcluidosComponent implements OnInit {
       .do(() => this.carregando = true);
   }
 
-  abrirModalDeDetalhes(atendimentoSelecionado) {
+
+  getOneAtendimento(_id) {
+    return this._atendimentoService.retornarUm(_id);
+  }
+
+  abrirModalDeDetalhes({ _id }) {
+
     const referenciaModal = this._servicoModal
       .open(
         AtendimentoConcluidoDetalhesComponent,
         this.opcoesModal
       );
-    referenciaModal.componentInstance.atendimentoSelecionado = atendimentoSelecionado;
+
+    this.getOneAtendimento(_id)
+    .subscribe(
+      atendimento =>
+      referenciaModal.componentInstance.atendimentoSelecionado = atendimento
+    );
   }
 
   dataPassadoPeloUsuario(dataSelecionada) {

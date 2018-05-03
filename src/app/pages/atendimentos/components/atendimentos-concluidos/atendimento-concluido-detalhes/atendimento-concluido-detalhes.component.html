@@ -19,6 +19,21 @@
       {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
       {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
     </h5>
+      <button type="button" class="btn btn-primary" title="Visualizado" (click)="isViewed(atendimentoSelecionado)">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="btn btn-primary" title="Faturado" (click)="isFaturado(atendimentoSelecionado)">
+        <i class="fa fa-usd" aria-hidden="true"></i>
+      </button>
+  </div>
+  <div class="situacao">
+     <p>
+       {{ atendimentoSelecionado?.faturamento.status ? 'Faturado' : 'Não Faturado' }} -
+       {{ atendimentoSelecionado?.faturamento.faturamentoAt | date: 'dd/MM/yyyy'}}
+       <i class="fa fa-check" aria-hidden="true"></i> /
+       {{ atendimentoSelecionado?.isViewed ? 'Lido' : 'Não Lido' }}
+       <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
   </div>
 
   <div class="scrollbar-panel-list" id="style-1">

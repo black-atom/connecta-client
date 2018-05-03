@@ -28,8 +28,8 @@
   </div>
   <div class="situacao">
      <p>
-       {{ atendimentoSelecionado?.faturamento.status ? 'Faturado' : 'Não Faturado' }} -
-       {{ atendimentoSelecionado?.faturamento.faturamentoAt | date: 'dd/MM/yyyy'}}
+       {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : 'Não Faturado' }} -
+       {{ atendimentoSelecionado?.faturamento?.faturamentoAt | date: 'dd/MM/yyyy'}}
        <i class="fa fa-check" aria-hidden="true"></i> /
        {{ atendimentoSelecionado?.isViewed ? 'Lido' : 'Não Lido' }}
        <i class="fa fa-check" aria-hidden="true"></i>

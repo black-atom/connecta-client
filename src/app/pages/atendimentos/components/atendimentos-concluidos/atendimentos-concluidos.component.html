@@ -20,6 +20,7 @@
   [responsive]="true"
   [sortOrder]="-1"
   rowHover="true"
+  [rowStyleClass]="mudarEstiloLinha"
   sortField="createdAt"
   styleClass="borderless"
   [loading]="carregando"
@@ -62,6 +63,12 @@
       <i class="fa fa-money" aria-hidden="true"></i> {{ atendimento?.relatorio?.faturamento?.equipamentos.length > 0 ? 'Sim' : 'Não' }}
     </ng-template>
   </p-column>
+
+  <p-column field="imagens" header="Fotos" [style]="{'width':'80px'}">
+      <ng-template let-atendimento="rowData" pTemplate="body" >
+        <i class="fa fa-camera" aria-hidden="true"></i> {{ atendimento?.imagens.length > 0 ? 'c/Fotos' : 's/Fotos' }}
+      </ng-template>
+    </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'30px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">

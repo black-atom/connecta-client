@@ -124,4 +124,15 @@ export class AtendimentosConcluidosComponent implements OnInit {
     this.atendimentoSelecionado = atendimento;
     setTimeout(() => window.print(), 500);
   }
+
+  mudarEstiloLinha({ monitoramento }) {
+    // tslint:disable-next-line:curly
+    if (monitoramento.status === 'PENDENTE' ) return '';
+    // tslint:disable-next-line:curly
+    if (monitoramento.status === 'INICIO_DESLOCAMENTO' ) return 'aberto-por-tecnica';
+    // tslint:disable-next-line:curly
+    if (monitoramento.status === 'FIM_ATIVIDADE' || monitoramento.status === 'cancelado' ) return 'reagendado';
+    return 'padrao';
+  }
+
 }

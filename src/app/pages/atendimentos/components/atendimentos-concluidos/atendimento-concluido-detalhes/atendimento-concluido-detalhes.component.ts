@@ -24,7 +24,13 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
   }
 
   isViewed(atendimento) {
-    const isViewed = atendimento.isViewed ? false : true;
+    let isViewed;
+    if (atendimento.isViewed) {
+      isViewed = false;
+    }else {
+      isViewed = true;
+    }
+
     this._atendimentoService
       .atualizarAtendimento({ ...atendimento, isViewed })
       .subscribe(atendimentoRes => this.atendimentoSelecionado = atendimentoRes);
@@ -32,10 +38,14 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
 
   isFaturado(atendimento) {
 
+    let faturamento;
     const isViewed = true;
-    const faturamento = atendimento.faturamento.status
-    ? { status: false, faturamentoAt: new Date() }
-    : { status: true, faturamentoAt: new Date() };
+
+    if (atendimento.faturamento && atendimento.faturamento.status) {
+      faturamento = { status: false, faturamentoAt: new Date() };
+    }else {
+      faturamento = { status: true, faturamentoAt: new Date() };
+    }
 
     this._atendimentoService
       .atualizarAtendimento({ ...atendimento, isViewed, faturamento })

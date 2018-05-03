@@ -13,7 +13,7 @@
 
   <div class="row mt-1">
     <div class="col-4 mt-2" *ngFor="let imagem of fotosAtendimento">
-      <img [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
+      <img class="photo" [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
       <p>{{ imagem?.tipo }}</p>
     </div>
   </div>

@@ -128,7 +128,7 @@ span {
 
 @media print {
 
-  div.al-main, .al-content {
+  div.al-main, .al-content, div.card, div.card-body, div.container {
     margin: 0 !important;
     padding: 0 !important;
   }

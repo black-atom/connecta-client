@@ -1,234 +1,297 @@
-<div class="container">
+  <div class="row screen-size">
 
-  <div class="card" id="print-section">
-    <div class="card-body ">
-      <!-- head -->
-      <div class="row">
-        <div class="col-md-5 col-xs-12">
-          <img class="logo" src="/assets/img/logo_realponto.png" alt="">
-        </div>
+      <div class="col-4">
+        <img class="logo" src="/assets/img/logo_realponto.png" alt="">
+      </div>
 
-        <div class="col-md-7 col-xs-12 ">
-          <h4>RealPonto Comércio e Serviço de Relógio de Ponto ltda </h4>
-          <p> <i class="ion-location"></i> Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.
-          <br /> <i class="ion-android-call"></i> (011) 4332-4040 | (011) 4394-2140 </p>
-        </div>
-        <hr>
+      <div class="col-8">
+        <p class="title-special">RealPonto Comércio e Serviço de Relógio de Ponto ltda </p>
+        <p>Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.
+        <br />(011) 4332-4040 | (011) 4394-2140 </p>
+      </div>
+
+    <div class="col-11"></div>
+    <div class="col-1">
+        <button class="btn btn-primary no-print" title="imprimir"
+          (click)="print()">
+          <i class="fa fa-print"></i>
+        </button>
+    </div>
+    <div class="col-12 mt-4">
+      <p class="title-special">
+        {{ atendimento?.cliente.nome_razao_social }} -
+        {{ atendimento?.cliente.cnpj_cpf | rgCnpjCpf }}
+      </p>
+    </div>
+
+    <div class="col-6">
+      <small class="">Contato: </small>
+      <small class=" destaque">{{ atendimento?.contato.nome }}</small>
+    </div>
+
+    <div class="col-6">
+      <small class="">Telefone: </small>
+      <small class=" destaque">
+        ({{ atendimento?.contato.telefone | slice: 0:2 }})
+        {{ atendimento?.contato.telefone | slice: 2:6 }} -
+        {{ atendimento?.contato.telefone | slice: 6:10 }}
+      </small>
+    </div>
+
+    <div class="col-6">
+      <small class="">celular: </small>
+      <small class=" destaque">
+        ({{ atendimento?.contato.celular | slice: 0:2 }})
+        {{ atendimento?.contato.celular | slice: 2:6 }} -
+        {{ atendimento?.contato.celular | slice: 6:10 }}
+      </small>
+    </div>
+
+    <div class="col-6">
+      <small class="">Email: </small>
+      <small class=" destaque">{{ atendimento?.contato.email }}</small>
+    </div>
+
+
+    <div class="col-6">
+      <small class="">Estacionamento: </small>
+      <small class=" destaque">{{ atendimento?.estacionamento }}</small>
+    </div>
+
+    <div class="col-12">
+      <small class="">Endereço: </small>
+      <small class=" destaque">
+        {{ atendimento?.endereco.rua }},
+        {{ atendimento?.endereco.numero }} -
+        {{ atendimento?.endereco.bairro }},
+        {{ atendimento?.endereco.cidade }},
+        {{ atendimento?.endereco.uf }} -
+        {{ atendimento?.endereco.cep | cep }}
+      </small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.endereco.complemento">
+      <small class="">Complemento: </small>
+      <small class=" destaque">{{ atendimento?.endereco.complemento }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.endereco.ponto_referencia">
+      <small class="">Ponto de Referencia: </small>
+      <small class=" destaque">{{ atendimento?.endereco.ponto_referencia }}</small>
+    </div>
+
+    <hr class="col-12">
+
+    <div class="col-12">
+      <p class="title-special">{{ atendimento?.modelo_equipamento }}</p>
+    </div>
+
+    <div class="col-6">
+      <small class="">N. Equipamento: </small>
+      <small class=" destaque"> {{ atendimento?.numero_equipamento }}</small>
+    </div>
+
+    <div class="col-6">
+      <small class="">Data Atendimento: </small>
+      <small class=" destaque"> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</small>
+    </div>
+
+    <div class="col-6">
+      <small class="">Tipo Atendimento: </small>
+      <small class=" destaque">{{ atendimento?.tipo }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.autorizado">
+      <small class="">Autorizado Por: </small>
+      <small class=" destaque">{{ atendimento?.autorizado }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.garantia">
+      <small class="">Data Garantia: </small>
+      <small class=" destaque">{{ atendimento?.garantia }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.valor">
+      <small class=" destaqueMoney">{{ atendimento?.valor | currency: 'BRL': true }}</small>
+    </div>
+
+
+    <div class="col-6">
+      <small class="">Status: </small>
+      <small class=" destaque">{{ atendimento?.estado | uppercase }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.tecnico.nome">
+      <small class="">Técnico: </small>
+      <small class=" destaque"><strong>{{ atendimento?.tecnico.nome | split: 0 }}</strong></small>
+    </div>
+
+    <div class="col-12 mt-2" *ngIf="atendimento?.motivos.length !== 0">
+      <small class="">Eventos: </small>
+      <br>
+      <small class=" destaque" *ngFor="let motivo of atendimento?.motivos">
+        {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
+      </small>
+    </div>
+
+    <div class="col-12">
+      <small class="">Problema: </small>
+      <small class=" destaque">{{ atendimento?.descricao }}</small>
+    </div>
+
+    <div class="col-6">
+        <small class="">Testes efetuados: </small>
+        <small class=" destaque">{{ atendimento?.testes_efetuados }}</small>
+    </div>
+
+    <div class="col-6">
+      <small class="">Observação: </small>
+      <small class=" destaque">{{ atendimento?.observacao }}</small>
+    </div>
+
+    <hr class="col-12">
+
+    <div class="col-12" *ngIf="atendimento?.relatorio?.resumo_atendimento">
+      <p class="title-special mb-1">Relatório</p>
+    </div>
+
+
+    <div class="col-12" *ngIf="atendimento?.relatorio?.resumo_atendimento">
+      <small class="">Resumo do atendimento: </small>
+      <small class="destaque">{{ atendimento?.relatorio?.resumo_atendimento }}</small>
+    </div>
+
+    <div class="col-12" *ngIf="atendimento?.relatorio?.treinamento.software">
+      <p class="title-special mt-2">Treinamento:</p>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.relatorio?.treinamento.software">
+      <small class="destaque">Software: {{ atendimento?.relatorio?.treinamento.software }}</small>
+    </div>
+
+    <div class="col-6" *ngIf="atendimento?.relatorio?.treinamento.caminho_rede">
+      <small class="destaque">Caminho da rede: {{ atendimento?.relatorio?.treinamento.caminho_rede }}</small>
+    </div>
+
+    <div class="col-12 mt-2" *ngIf="atendimento?.relatorio?.treinamento.software">
+      <small class="">Tópicos do treinamento: </small>
+    </div>
+
+    <div class="col-3" *ngFor="let topico of atendimento?.relatorio?.treinamento.topicos">
+      <small class="destaque">{{ topico }} <i class="fa fa-check" aria-hidden="true"></i></small>
+    </div>
+
+
+    </div>
+
+    <div class="row" *ngFor="let equipamento of atendimento?.relatorio?.equipamentos_retirados; let i = index">
+      <div class="col-12 mt-4" >
+        <p class="title-special mb-1">Equipamentos retirados:</p>
+      </div>
+      <div class="col-12 mt-2" >
+        <p class="title-special mb-1">
+          {{ i + 1 }}º Equipamento:
+          {{ equipamento?.modelo_equipamento }} -
+          {{ equipamento?.numero_equipamento }}
+        </p>
+      </div>
+
+      <div class="col-12 mt-2" *ngIf="atendimento?.relatorio?.equipamentos_retirados.length > 0">
+        <small class="">Itens do equipamento: </small>
+      </div>
+
+      <div class="col-3" *ngFor="let item of equipamento?.itens">
+        <small class="destaque">{{ item.descricao }} -  {{ item.quantidade }}un <i class="fa fa-check" aria-hidden="true"></i></small>
       </div>
       <hr>
-      <!-- head -->
-
-      <!-- info-client -->
-      <div class="row">
-          <div class="col-md-10 mt-1 ">
-            <h4>Informações principais</h4>
-          </div>
-          <div class="col-md-2 mt-1 no-print">
-            <button class="btn btn-primary btn-imprimir"
-              (click)="print(atendimento)">
-              <i class="fa fa-print"></i>
-            </button>
-          </div>
-          <div class="col-md-12 mt-2 ">
-            <p><strong>Data Atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Cliente:</strong> {{ atendimento?.cliente.nome_razao_social }} - {{ atendimento?.cliente.cnpj_cpf | rgCnpjCpf }}</p>
-            <p *ngIf="atendimento?.cliente.nome_fantasia"><strong>Nome fantasia: </strong> {{ atendimento?.cliente.nome_fantasia }}</p>
-            <p *ngIf="atendimento?.cliente.inscricao_estadual"><strong>IE:</strong>{{ atendimento?.cliente.inscricao_estadual }}</p>
-          </div>
-
-          <div class="col-md-4 ">
-            <p><strong>Contato:</strong> {{ atendimento?.contato.nome }}</p>
-          </div>
-
-          <div class="col-md-4 ">
-            <p><strong>Telefone:</strong> {{ atendimento?.contato.telefone }}</p>
-          </div>
-
-          <div class="col-md-4 ">
-            <p *ngIf="atendimento?.contato.celular"><strong>Celular:</strong> {{ atendimento?.contato.celular }}</p>
-          </div>
-
-          <div class="col-md-12">
-            <p><strong>Endereço:</strong>
-              {{ atendimento?.endereco.rua }},
-              {{atendimento?.endereco.numero}},
-              {{ atendimento?.endereco.bairro}},
-              {{ atendimento?.endereco.cidade }},
-              {{ atendimento?.endereco.uf }} -
-              {{ atendimento?.endereco.cep }}
-            </p>
-            <p *ngIf=" atendimento?.endereco.complemento"><strong>Complemento:</strong> {{ atendimento?.endereco.complemento }}</p>
-            <p *ngIf="atendimento?.endereco.ponto_referencia"><strong>Ponto de Referência:</strong> {{ atendimento?.endereco.ponto_referencia }}</p>
-            <p *ngIf="atendimento?.estacionamento"><strong>Estacionamento:</strong> {{ atendimento?.estacionamento }}</p>
-          </div>
-          <div class="col-md-12">
-
-          </div>
-      </div>
-      <hr>
-      <!-- info-client -->
-
-      <!-- info-atendimento -->
-      <div class="row">
-          <div class="col-md-12 mt-1">
-            <h4>Informações do Atendimento</h4>
-          </div>
-          <div class="col-md-8 mt-2">
-            <p><strong>Tipo:</strong> {{ atendimento?.tipo}}</p>
-          </div>
-
-          <div *ngIf="atendimento?.valor" class="col-md-4  mt-2">
-            <p><strong>R$</strong> {{ atendimento?.valor }}</p>
-          </div>
-
-          <div *ngIf="atendimento?.autorizado" class="col-md-4  mt-2">
-            <p><strong>Autorizado por:</strong> {{ atendimento?.autorizado }}</p>
-          </div>
-
-          <div *ngIf="atendimento?.garantia" class="col-md-4  mt-2">
-            <p><strong>Data da Garantia</strong> {{ atendimento?.garantia | date: 'dd/MM/yyyy'}}</p>
-          </div>
-
-          <div class="col-md-12 ">
-            <p><strong>Equipamento:</strong> {{ atendimento?.modelo_equipamento }} - {{ atendimento?.numero_equipamento }}</p>
-          </div>
-
-          <div class="col-md-12 mt-2">
-            <p *ngIf=" atendimento?.descricao" ><strong>Problema:</strong> {{ atendimento?.descricao }}</p>
-            <p *ngIf="atendimento?.testes_efetuados" ><strong>Testes Efetuados:</strong> {{ atendimento?.testes_efetuados }}</p>
-            <p *ngIf="atendimento?.observacao" ><strong>Observação:</strong> {{ atendimento?.observacao }}</p>
-          </div>
-      </div>
-      <hr>
-      <!-- info-atendimento -->
-
-      <!-- info-tecnico-externo -->
-      <div class="row">
-        <div class="col-md-12 mt-1 ">
-          <h4>Relatório Técnico Externo</h4>
-        </div>
-        <div class="col-md-8 mt-2">
-          <p><strong>Técnico:</strong> {{ atendimento?.tecnico.nome }}</p>
-        </div>
-
-        <div class="col-md-4 mt-2">
-          <p><strong>Status:</strong> {{ statusTecnico(atendimento?.interacao_tecnico.estado) }}</p>
-        </div>
-
-        <div class="col-md-12">
-          <p *ngIf="atendimento?.interacao_tecnico.relatorio_tecnico.relatorio"><strong>Solução:</strong> {{ atendimento?.interacao_tecnico.relatorio_tecnico.relatorio }}</p>
-          <p *ngIf="atendimento?.interacao_tecnico.retorno.retornar"><strong>Retornar</strong> {{ atendimento?.interacao_tecnico.retorno.retornar ? 'Sim' : 'Não' }}</p>
-          <p *ngIf="atendimento?.interacao_tecnico.retorno.motivo"><strong>Motivo</strong> {{ atendimento?.interacao_tecnico.retorno.motivo }}</p>
-        </div>
-    </div>
-    <hr>
-
-    <div class="row" *ngIf="atendimento?.interacao_tecnico.remocao_relogio.retirado">
-        <div class="col-md-12 mt-4 ">
-          <h4>Retirado Equipamento</h4>
-        </div>
-        <div class="col-md-12 mt-2 ">
-          <p><strong>Retirado:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.retirado ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-12 ">
-          <p><strong>Mesmo Equipamento:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.mesmo_equipamento ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-12 ">
-          <p><strong>Informações do Equipamento:</strong> {{ atendimento?.interacao_tecnico.remocao_relogio.informacoe_equipamento }}</p>
-        </div>
-    </div>
-    <hr *ngIf="atendimento?.interacao_tecnico.remocao_relogio.retirado">
-
-    <div class="row" *ngIf="atendimento?.interacao_tecnico.treinamento.cadastros">
-        <div class="col-md-12 mt-4 ">
-          <h4>Treinamento</h4>
-        </div>
-        <div class="col-md-4 mt-2 ">
-          <p><strong>Software:</strong> {{ atendimento?.interacao_tecnico.treinamento.software }}</p>
-        </div>
-
-        <div class="col-md-4 mt-2 ">
-          <p><strong>Caminho:</strong> {{ atendimento?.interacao_tecnico.treinamento.caminho }}</p>
-        </div>
-
-        <div class="col-md-4 mt-2 "></div>
-
-        <div class="col-md-4 ">
-          <p><strong>Cadastros:</strong> {{ atendimento?.interacao_tecnico.treinamento.cadastros ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-4 ">
-          <p><strong>Backup do Sistema:</strong> {{ atendimento?.interacao_tecnico.treinamento.backup_sistema ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-4 ">
-          <p><strong>Importação dados:</strong> {{ atendimento?.interacao_tecnico.treinamento.importacao_dados ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-4 ">
-          <p><strong>Relatórios:</strong> {{ atendimento?.interacao_tecnico.treinamento.relatorios ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-4 ">
-          <p><strong>Abonos e Justificativas:</strong> {{ atendimento?.interacao_tecnico.treinamento.abonos_justificativas ? 'Sim' : 'Não' }}</p>
-        </div>
-
-        <div class="col-md-4 ">
-          <p><strong>Interrupções::</strong> {{ atendimento?.interacao_tecnico.treinamento.interrupcoes ? 'Sim' : 'Não' }}</p>
-        </div>
-    </div>
-    <hr *ngIf="atendimento?.interacao_tecnico.treinamento.cadastros">
-    <!-- info-tecnico-externo -->
-
-    <div class="fotos-inicio col-12" *ngIf="fotosInicioAtendimento.length > 0">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h4 class="mt-2"> Fotos do início do atendimento </h4>
-          <div class="row">
-            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosInicioAtendimento; let i = index">
-              <div class="imagem">
-                <img class="img-thumbnail" (click)="abrirFotosInicioAtendimento(i)" [src]="img?.thumb" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
 
-    <div class="fotos-final col-12" *ngIf="fotosFinalAtendimento.length > 0">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h4 class="mt-2"> Fotos do final do atendimento </h4>
-          <div class="row">
-            <div class="col-md-2 col-lg-2 col-xs-12 col-sm-12 mt-2" *ngFor="let img of fotosFinalAtendimento; let i = index">
-              <div class="imagem">
-                <img class="img-thumbnail" (click)="abrirFotosFinalAtendimento(i)" [src]="img?.thumb" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-12 mt-2" *ngIf="atendimento?.relatorio?.motivo_retorno">
+      <p class="title-special" class="mb-1">Retornar ao local: </p>
     </div>
-    <hr *ngIf="fotosInicioAtendimento.length > 0">
-    <!-- assinatura do cliente -->
-    <div class="row" *ngIf="atendimento?.assinatura.nome">
-      <div class="col-md-12 mt-2">
-        <h4>Responsável</h4>
-      </div>
-      <div class="col-md-3 mt-2">
-        <p><strong>Nome:</strong> {{ atendimento?.assinatura.nome }}</p>
-        <p><strong>Documento:</strong> {{ atendimento?.assinatura.documento_id | rgCnpjCpf }}</p>
-        <p><strong>Assinatura do Cliente:</strong></p>
-      </div>
-      <div class="col-md-3 mt-2">
-         <img class="assinatura" src="http://165.227.78.113:3000/atendimentoimagens/{{ atendimento?.assinatura.url }}" alt="">
-      </div>
-    </div>
-    <!-- assinatura do cliente -->
 
+    <div class="col-12">
+      <small class="destaque">{{ atendimento?.relatorio?.motivo_retorno }}</small>
+    </div>
+
+    <hr class="col-12">
+  </div>
+
+  <div class="row" *ngIf="atendimento?.relatorio?.faturamento?.equipamentos.length > 0">
+      <div class="col-12  mt-2">
+        <p class="title-special">Dados de Faturamento:</p>
+      </div>
+
+      <div class="col-12 info-client">
+        <small *ngIf="!atendimento?.relatorio?.faturamento?.razao_social">Razão Social: {{ atendimento?.cliente?.razao_social_nome }}</small>
+        <small *ngIf="atendimento?.relatorio?.faturamento?.razao_social">Razão Social: {{ atendimento?.relatorio?.faturamento?.razao_social }}</small>
+        <small *ngIf="!atendimento?.relatorio?.faturamento?.cnpj">Cnpj: {{ atendimento?.cliente?.cnpj_cpf | rgCnpjCpf }}</small>
+        <small *ngIf="atendimento?.relatorio?.faturamento?.cnpj">Cnpj: {{ atendimento?.relatorio?.faturamento?.cnpj | rgCnpjCpf }}</small>
+      </div>
+
+      <div class="col-6 info-client">
+        <small>Autorizado por: {{ atendimento?.assinatura?.nome | uppercase }}</small>
+      </div>
+
+      <div class="col-6 info-client">
+        <small>Documento: {{ atendimento?.assinatura?.documento_id }}</small>
+      </div>
+
+      <div class="col-6 info-client">
+        <small *ngIf="!atendimento?.relatorio?.faturamento?.email">Email: {{ atendimento?.contato?.email }}</small>
+        <small *ngIf="atendimento?.relatorio?.faturamento?.email">Email: {{ atendimento?.relatorio?.faturamento?.email }}</small>
+      </div>
+
+    <hr class="col-12">
+  </div>
+
+  <div class="row" *ngFor="let equipamento of atendimento?.relatorio?.faturamento?.equipamentos; let i = index">
+    <div class="col-12 mt-4 equipment-info">
+      <p class="title-special">{{ i + 1 }}º Equipamento: {{ equipamento?.modelo_equipamento }} - {{ equipamento?.numero_equipamento }} </p>
+    </div>
+
+    <table style="width:100%">
+      <tr>
+        <th class="description">Peças</th>
+        <th>Quantidade</th>
+        <th>Preço Unit.</th>
+        <th>Total</th>
+      </tr>
+      <tr *ngFor="let peca of equipamento?.pecas">
+        <td class="description">{{ peca?.descricao }}</td>
+        <td>{{ peca?.quantidade }}</td>
+        <td>{{ peca?.preco | currency: 'BRL': true }}</td>
+        <td>{{ peca?.preco * peca?.quantidade | currency: 'BRL': true }}</td>
+      </tr>
+    </table>
+    <hr class="col-12">
+  </div>
+
+  <div class="row">
+    <div class="col-12" *ngIf="atendimento?.imagens?.length > 0">
+      <p class="title-special">Fotos do Atendimento:</p>
+    </div>
+
+    <div class="col-4 mt-1" *ngFor="let imagem of atendimento?.imagens">
+      <img class="photo" [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
+      <p>{{ imagem?.tipo }}</p>
     </div>
   </div>
-</div>
+
+  <div class="row mt-4">
+    <div class="col-12" *ngIf="atendimento?.assinatura?.documento_id">
+      <p class="title-special">Responsável por atender o técnico no local:</p>
+    </div>
+    <div class="col-12 mt-4" *ngIf="atendimento?.assinatura?.documento_id">
+      <img
+      [src]="atendimento?.assinatura?.url ? 'http://165.227.78.113:3000/atendimentoimagens/'+atendimento?.assinatura?.url : '/assets/img/img-default.png'"
+      onerror="this.src='/assets/img/img-default.png'">
+      <p>
+        Autorizado por: {{ atendimento?.assinatura?.nome | uppercase }} <br>
+        Documento: {{ atendimento?.assinatura?.documento_id }}
+      </p>
+    </div>
+  </div>
+

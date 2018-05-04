@@ -27,12 +27,16 @@
       </button>
   </div>
   <div class="situacao">
-     <p>
-       {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : 'Não Faturado' }} -
-       {{ atendimentoSelecionado?.faturamento?.faturamentoAt | date: 'dd/MM/yyyy'}}
-       <i class="fa fa-check" aria-hidden="true"></i> /
-       {{ atendimentoSelecionado?.isViewed ? 'Lido' : 'Não Lido' }}
+     <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : '' }}
+        <span *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.faturamentoAt | date: 'dd/MM/yyyy'}}
+       </span>
        <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p class="text-green" *ngIf="atendimentoSelecionado?.isViewed">
+      {{ atendimentoSelecionado?.isViewed ? 'Lido' : '' }}
+      <i class="fa fa-check" aria-hidden="true"></i>
     </p>
   </div>
 

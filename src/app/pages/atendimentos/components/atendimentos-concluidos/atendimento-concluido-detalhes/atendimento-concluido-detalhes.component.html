@@ -19,10 +19,10 @@
       {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
       {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
     </h5>
-      <button type="button" class="btn btn-primary" title="Visualizado" (click)="isViewed(atendimentoSelecionado)">
+      <button type="button" class="btn btn-primary" title="Visualizado" (click)="isViewed(atendimentoSelecionado)" *ngIf="!atendimentoSelecionado?.relatorio?.faturamento?.equipamentos">
         <i class="fa fa-eye" aria-hidden="true"></i>
       </button>
-      <button type="button" class="btn btn-primary" title="Faturado" (click)="isFaturado(atendimentoSelecionado)">
+      <button type="button" class="btn btn-primary" title="Faturado" (click)="isFaturado(atendimentoSelecionado)" *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.equipamentos.length > 0">
         <i class="fa fa-usd" aria-hidden="true"></i>
       </button>
   </div>

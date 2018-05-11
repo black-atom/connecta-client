@@ -93,7 +93,12 @@ export class RelatorioTecnicosComponent implements OnInit {
   }
 
   selectedFuncionario(tecnico) {
+    console.log(tecnico);
     this.tecnicoSelecionado$ = tecnico;
+  }
+
+  print(): void {
+    setTimeout(() => window.print(), 500);
   }
 
   parseStatus(status: string): string {
@@ -119,7 +124,7 @@ export class RelatorioTecnicosComponent implements OnInit {
         return 'ALMOÇO';
       case 'abastecimento':
         return 'ABASTECIMENTO';
-      case 'deslocamento_empresa':
+      case 'empresa':
         return 'RETORNO PARA REALPONTO';
     }
   }

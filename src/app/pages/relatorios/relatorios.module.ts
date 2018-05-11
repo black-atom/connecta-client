@@ -7,11 +7,14 @@ import { routing } from './relatorios.routing';
 
 import { RelatorioTecnicosComponent } from './relatorio-tecnicos/relatorio-tecnicos.component';
 import { RelatorioComponent } from './relatorio.component';
+import { PrintRelatorioTecnicosComponent } from './relatorio-tecnicos/print-relatorio-tecnicos/print-relatorio-tecnicos.component';
+import { SharedModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
     CommonModule,
     ModuloCompartilhado,
+    SharedModule,
     FormsModule,
     routing
   ],
@@ -20,7 +23,8 @@ import { RelatorioComponent } from './relatorio.component';
   ],
   declarations: [
     RelatorioComponent,
-    RelatorioTecnicosComponent
+    RelatorioTecnicosComponent,
+    PrintRelatorioTecnicosComponent
   ]
 })
 export class RelatoriosModule { }

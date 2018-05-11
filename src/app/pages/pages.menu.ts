@@ -133,6 +133,29 @@ export const PAGES_MENU = [{
         }
       ]
     },
+    {
+      path: 'relatorios',
+      data: {
+        menu: {
+          title: 'Relatorios',
+          icon: 'ion-podium',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
+        {
+          path: 'tecnicos',
+          data: {
+            menu: {
+              title: 'Técnicos',
+              icon: 'ion-pin'
+            }
+          }
+        }
+      ]
+    }
     // {
     //   path: 'sac',
     //   data: {

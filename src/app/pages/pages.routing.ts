@@ -20,6 +20,7 @@ export const routes: Routes = [
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },
+      { path: 'relatorios', loadChildren: './relatorios/relatorios.module#RelatoriosModule' },
       { path: 'sac', loadChildren: './sac/sac.module#SacModule' }
     ]
   }

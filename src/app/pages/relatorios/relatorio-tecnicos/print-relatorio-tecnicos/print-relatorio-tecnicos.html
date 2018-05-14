@@ -1,62 +1,113 @@
-<div class="row m-3">
+<div class="row m-3 ">
 
   <div class="col-4">
     <img class="logo" src="assets/img/logo_realponto.png" alt="logo">
   </div>
 
   <div class="col-8">
-    <p class="title-special pull-right">RealPonto Comércio e Serviço de Relógio de Ponto ltda </p>
-    <p class="pull-right">Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.
-      <br/>(011) 4332-4040 | (011) 4394-2140
-    </p>
+    <h5>REALPONTO COMÉRCIO E SERVIÇO DE RELÓGIO DE PONTO LTDA</h5>
+    <p>Rua Dr.Cincinato Braga, 296 - Planalto, São Bernardo do Campo, S.P.</p>
+    <p>(011) 4332-4040 | (011) 4394-2140</p>
   </div>
 
-  <hr class="col-12">
-  <h3 class="text-center mb-4">HISTÓRICO DE ATIVIDADES</h3>
 
-  <div class="col-12">
-    <div class="pull-right assinatura">{{ tecnicoSelecionado?.nome}}</div>
-    <div class="">
+  <div class="col-12 mt-3">
+    <p class="h5">
+      <strong class="mt-3">HISTÓRICO DE ATIVIDADES</strong>
+      <strong class="pull-right">{{ dataAtividade | date: 'dd/MM/yyyy' }}</strong>
+    </p>
 
-      <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive">
-        <div class="mb-3">
-          <strong>
-            {{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao }}
-          </strong>
-          <strong class="pull-right">
-              {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
-          </strong>
+    <hr/>
+    <div class="mt-4">
+      <div class="media">
+        <img class="d-flex mr-3 rounded-circle avatar" [src]="tecnicoSelecionado?.foto_url ? tecnicoSelecionado?.foto_url : '/assets/img/user.svg'">
+        <div class="media-body mt-3">
+          <p class="h6">
+            <strong>{{ tecnicoSelecionado?.nome }}</strong>
+            <strong class="pull-right">{{ (tecnicoSelecionado?.atividades).length }} ATIVIDADES</strong>
+          </p>
         </div>
-
-        <div *ngIf="!atividade?.monitoramentos.length" class="text-center m-5">
-          NÃO HOUVE INTERAÇÃO!
-        </div>
-
-        <table *ngIf="atividade?.monitoramentos.length" class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>
-                <strong>Hora</strong>
-              </th>
-              <th>
-                <strong>Estado</strong>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody *ngFor="let monitoramento of atividade?.monitoramentos">
-            <tr>
-              <td *ngIf="monitoramento">{{ monitoramento?.date | date: 'HH:MM' }}</td>
-              <td *ngIf="monitoramento">{{ parseStatus(monitoramento?.status) }}
-                <button *ngIf="monitoramento?.motivo" type="button" class="pull-right" ngbTooltip="{{monitoramento.motivo}}" triggers="click:blur">
-                  <i class="fa fa-info"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
       </div>
     </div>
+    <hr/>
   </div>
+  <hr>
+
+  <div class="col-12 mb-5">
+
+    <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive page-break-inside">
+
+      <p class="mb-3">
+        <strong>
+          {{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao }}
+        </strong>
+        <strong class="pull-right">
+          {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
+        </strong>
+      </p>
+
+      <div *ngIf="!atividade?.monitoramentos.length" class="text-center m-5">
+        NÃO HOUVE INTERAÇÃO!
+      </div>
+
+      <table *ngIf="atividade?.monitoramentos.length" class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>
+              <strong>Hora</strong>
+            </th>
+            <th>
+              <strong>Estado</strong>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let monitoramento of atividade?.monitoramentos">
+          <tr>
+            <td *ngIf="monitoramento">{{ monitoramento?.date | date: 'HH:MM' }}</td>
+            <td *ngIf="monitoramento">
+              {{ parseStatus(monitoramento?.status) }}
+              <i *ngIf="monitoramento?.motivo" class="fa fa-info pull-right mt-2"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+    <!-- <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive">
+      <p class="mb-3">
+        <strong>DETALHES</strong>
+      </p>
+      <table *ngFor="let monitoramento of atividade?.monitoramentos" class="table table-bordered mb-3" id="dataTable" width="100%"
+        cellspacing="0">
+        <thead *ngIf="monitoramento?.motivo">
+          <tr>
+            <th>
+              <strong>Hora</strong>
+            </th>
+            <th>
+              <strong>Descricao</strong>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="monitoramento?.motivo">
+          <tr>
+            <td>{{ monitoramento?.date | date: 'HH:MM' }}</td>
+            <td>
+              {{ monitoramento?.motivo }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr class="m-2">
+    </div> -->
+  </div>
+</div>
+
+
+<div class="footer fixed-bottom page-breaker m-5">
+  <br>
+  <div class="pull-right assinatura">{{ tecnicoSelecionado?.nome }}</div>
 </div>

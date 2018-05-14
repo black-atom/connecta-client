@@ -1,6 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
+import * as R from 'ramda';
+// import * as moment from 'moment';
+
 import {
   AtividadeService,
   AtendimentoService,
@@ -93,7 +96,7 @@ export class RelatorioTecnicosComponent implements OnInit {
   }
 
   selectedFuncionario(tecnico) {
-    console.log(tecnico);
+    this.ordenarPorHora(tecnico);
     this.tecnicoSelecionado$ = tecnico;
   }
 
@@ -116,6 +119,12 @@ export class RelatorioTecnicosComponent implements OnInit {
       case 'CANCELA_ATIVIDADE' :
         return 'Cancelou a atividade';
     }
+  }
+
+  ordenarPorHora(tecnico) {
+    const sortByDate = R.sortBy(R.prop('updatedAt'));
+    const atividades = tecnico.atividades.map(res => res);
+    tecnico.atividades = sortByDate(atividades);
   }
 
   parseTipoAtividade(tipo: string): string {

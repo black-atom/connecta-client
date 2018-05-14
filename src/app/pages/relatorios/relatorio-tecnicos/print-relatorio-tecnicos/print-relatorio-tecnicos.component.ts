@@ -10,12 +10,12 @@ export class PrintRelatorioTecnicosComponent implements OnInit {
   @Input()
   public tecnicoSelecionado;
 
+  @Input()
+  public dataAtividade;
+
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.tecnicoSelecionado);
-    console.log('here is print!');
-  }
+  ngOnInit() { }
 
   parseStatus(status: string): string {
     switch (status) {

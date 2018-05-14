@@ -1,19 +1,35 @@
-div {
-  color: #292b2c;
+@page {
+  @bottom-center {
+    content: element(footer)
+  }
 }
+table {
+  page-break-inside: avoid;
+}
+
 
 div .assinatura {
   text-decoration:overline;
 }
 
-img {
- width: 300px;
- height: auto;
+.footer {
+  display: block;
+  text-align: center;
+  position: running(footer);
 }
 
 .logo {
   height: auto;
   width: 200px;
+}
+
+.avatar {
+  height: 46px !important;
+  width: 46px !important;
+}
+
+.margin {
+  margin: 30px 0px 30px 0px;
 }
 
 .title-special {

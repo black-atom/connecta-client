@@ -23,7 +23,7 @@
     <!-- Inicio Tabela de Atividades-->
     <div class="card mb-3">
       <div class="card-header">
-        <i class="fa fa-table"></i> Histórico de Atividade
+        <i class="fa fa-table"></i> HISTÓRIO DE ATIVIDADE
         <div class="pull-right">{{ tecnicoSelecionado$?.nome}}</div>
       </div>
       <div class="card-body scrollbar" id="style-1">
@@ -109,5 +109,6 @@
 
 <app-print-relatorio-tecnicos
   [tecnicoSelecionado]="tecnicoSelecionado$"
+  [dataAtividade]="dataPassadoPeloUsuario(inputDate)"
   id="print-section">
 </app-print-relatorio-tecnicos>

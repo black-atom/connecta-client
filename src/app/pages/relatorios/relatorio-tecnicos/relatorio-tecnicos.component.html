@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="col-lg-3">
-    <button [disabled]="!tecnicoSelecionado$" (click)="print()" class="btn btn-primary print" type="button">
+    <button [disabled]="!tecnicoSelecionado" (click)="print()" class="btn btn-primary print" type="button">
       <i class="fa fa-print"></i>
     </button>
   </div>
@@ -24,16 +24,16 @@
     <div class="card mb-3">
       <div class="card-header">
         <i class="fa fa-table"></i> HISTÓRIO DE ATIVIDADE
-        <div class="pull-right">{{ tecnicoSelecionado$?.nome}}</div>
+        <div class="pull-right">{{ tecnicoSelecionado?.nome }}</div>
       </div>
       <div class="card-body scrollbar" id="style-1">
 
-        <div *ngIf="!tecnicoSelecionado$" class="text-center mt-5">
+        <div *ngIf="!tecnicoSelecionado" class="text-center mt-5">
           <h3>SELECIONE O TÉCNICO</h3>
         </div>
 
-        <div *ngIf="tecnicoSelecionado$">
-          <div *ngFor="let atividade of tecnicoSelecionado$?.atividades" class="table-responsive">
+        <div *ngIf="tecnicoSelecionado">
+          <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive">
             <div class="mb-3">
               <strong>{{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao
                 }}
@@ -60,7 +60,7 @@
               </thead>
               <tbody *ngFor="let monitoramento of atividade?.monitoramentos">
                 <tr>
-                  <td *ngIf="monitoramento">{{ monitoramento?.date | date: 'HH:MM' }}</td>
+                  <td *ngIf="monitoramento">{{ monitoramento?.date | date: 'HH:mm' }}</td>
                   <td *ngIf="monitoramento">{{ parseStatus(monitoramento?.status) }}
                     <button *ngIf="monitoramento?.motivo" type="button" class="pull-right" ngbTooltip="{{monitoramento.motivo}}" triggers="click:blur">
                       <i class="fa fa-info"></i>
@@ -108,7 +108,7 @@
 </div>
 
 <app-print-relatorio-tecnicos
-  [tecnicoSelecionado]="tecnicoSelecionado$"
+  [tecnicoSelecionado]="tecnicoSelecionado"
   [dataAtividade]="dataPassadoPeloUsuario(inputDate)"
   id="print-section">
 </app-print-relatorio-tecnicos>

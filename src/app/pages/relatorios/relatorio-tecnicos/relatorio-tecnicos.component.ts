@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import * as R from 'ramda';
-// import * as moment from 'moment';
 
 import {
   AtividadeService,
@@ -16,7 +15,8 @@ import {
   Atendimento,
   MonitoramentoStatuses,
   statuses,
-  MonitoramentoInfo } from '../../../models';
+  MonitoramentoInfo
+} from '../../../models';
 
 import { Avaliacao } from '../../../models/avaliacoes';
 import { TIPOFUNCIONARIOMOCK } from './../../../utils/mocks/tipo-funcionario.mock';
@@ -30,12 +30,11 @@ import { TIPOFUNCIONARIOMOCK } from './../../../utils/mocks/tipo-funcionario.moc
 export class RelatorioTecnicosComponent implements OnInit {
 
   public tecnicos$: Observable<any[]>;
-  public tecnicoSelecionado$;
-  public atividades$;
-  private tipoFuncionario = { 'login.tipo': 'tecnico' };
+  public tecnicoSelecionado;
+  public inputDate: any;
   private today = new Date().toString();
   private date = new Date();
-  public inputDate: any;
+  private tipoFuncionario = { 'login.tipo': 'tecnico' };
 
   constructor(
     private atendimentoService: AtendimentoService,
@@ -76,14 +75,18 @@ export class RelatorioTecnicosComponent implements OnInit {
         .map((atividades) => {
           return funcionarios.map(funcionario => {
             const funcAtividades = atividades.filter(atividade => atividade.funcionario_id === funcionario._id);
-            this.atividades$ = funcAtividades;
             return { ...funcionario, atividades: funcAtividades };
           });
         });
     })
-    .map(funcionarios => funcionarios.filter(funcionario => funcionario.atividades.length > 0))
+    .map(funcionarios => funcionarios
+      .filter(funcionario => funcionario.atividades.length > 0)
+      .map(funcionario => {
+        funcionario.atividades = this.ordenarPorHora(funcionario.atividades);
+        return funcionario;
+      }))
     .do(data => JSON.stringify(data));
-    this.tecnicoSelecionado$ = undefined;
+    this.tecnicoSelecionado = undefined;
   }
 
   dataPassadoPeloUsuario(dataSelecionada) {
@@ -96,8 +99,7 @@ export class RelatorioTecnicosComponent implements OnInit {
   }
 
   selectedFuncionario(tecnico) {
-    this.ordenarPorHora(tecnico);
-    this.tecnicoSelecionado$ = tecnico;
+    this.tecnicoSelecionado = tecnico;
   }
 
   print(): void {
@@ -121,10 +123,10 @@ export class RelatorioTecnicosComponent implements OnInit {
     }
   }
 
-  ordenarPorHora(tecnico) {
+  ordenarPorHora(atividades) {
     const sortByDate = R.sortBy(R.prop('updatedAt'));
-    const atividades = tecnico.atividades.map(res => res);
-    tecnico.atividades = sortByDate(atividades);
+    const sortAtividades = sortByDate(atividades);
+    return sortAtividades;
   }
 
   parseTipoAtividade(tipo: string): string {

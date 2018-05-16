@@ -1,3 +1,5 @@
+<!-- <pre>{{ tecnicoSelecionado | json }}</pre> -->
+
 <div class="row no-print">
   <div class="col-lg-3">
     <label for="param_busca">Pesquisar por data</label>
@@ -34,18 +36,19 @@
         <div *ngIf="tecnicoSelecionado">
           <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive">
             <div class="mb-3">
-              <strong>{{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao
-                }}
-              </strong>
+              <strong>{{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao }}</strong>
               <strong class="pull-right">
-                  {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
+                {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
               </strong>
             </div>
-
+            <div *ngIf="atividade?.atendimento?.avaliacao[0]?.valor" class="mb-3">
+              <strong>
+                <i class="fa fa-star fa-x2"></i>{{ ' ' + atividade?.atendimento?.avaliacao[0]?.valor }}
+              </strong>
+            </div>
             <div class="text-center m-5" *ngIf="!atividade?.monitoramentos.length">
               NÃO HÁ INTERAÇÃO
             </div>
-
             <table *ngIf="atividade?.monitoramentos.length" class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -104,8 +107,6 @@
 
 </div>
 
-<app-print-relatorio-tecnicos
-  [tecnicoSelecionado]="tecnicoSelecionado"
-  [dataAtividade]="dataPassadoPeloUsuario(inputDate)"
+<app-print-relatorio-tecnicos [tecnicoSelecionado]="tecnicoSelecionado" [dataAtividade]="dataPassadoPeloUsuario(inputDate)"
   id="print-section">
 </app-print-relatorio-tecnicos>

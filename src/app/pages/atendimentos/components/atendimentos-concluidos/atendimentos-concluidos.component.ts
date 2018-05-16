@@ -105,11 +105,18 @@ export class AtendimentosConcluidosComponent implements OnInit {
       );
 
     this.getOneAtendimento(_id)
-    .subscribe(
-      atendimento =>
-      referenciaModal.componentInstance.atendimentoSelecionado = atendimento
-    );
+    .map((atendimento: Atendimento) => ({
+      ...atendimento,
+      imagens: atendimento.imagens.map(imagem => ({
+        ...imagem,
+        url: `http://165.227.78.113:3000/atendimentoimagens/${imagem.url}`
+      }))
+    }))
+    .subscribe(atendimento =>
+      referenciaModal.componentInstance.atendimentoSelecionado = atendimento);
   }
+
+
 
   dataPassadoPeloUsuario(dataSelecionada) {
     const dataFormatada = new Date(

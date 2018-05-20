@@ -1,5 +1,5 @@
 <p-dataTable
-[value]="atendimentos"
+[value]="atendimentos$ | async"
 [lazy]="true"
 [rows]="25"
 [paginator]="true"

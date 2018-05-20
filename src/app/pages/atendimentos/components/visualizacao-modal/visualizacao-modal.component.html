@@ -109,7 +109,7 @@
         </div>
 
         <div class="col-6" *ngIf="atendimentoSelecionado.valor">
-          <small class="text-muted destaqueMoney">R$ {{ atendimentoSelecionado.valor }}</small>
+          <small class="text-muted destaqueMoney">{{ atendimentoSelecionado.valor | currency: 'BRL': true }}</small>
         </div>
 
 

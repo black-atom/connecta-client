@@ -2,7 +2,7 @@
   <div class="header">
     <div class="avatar">
       <img [src]="tecnicoDetail?.foto_url ? tecnicoDetail?.foto_url : '/assets/img/user.svg'" alt="foto do técnico">
-      <div class="ranting"><div class="rate">4.5</div></div>
+      <div class="ranting"><div class="rate">{{ tecnicoDetail?.avaliacao | number:'1.2-2'}}</div></div>
     </div>
     <div class="title">
       <h2>{{ tecnicoDetail?.funcionarioName | split: 0 }}</h2>

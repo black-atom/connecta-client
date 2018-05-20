@@ -1,1 +1,20 @@
-<pre>{{ fotosAtendimento | json }}</pre>
+<div class="row" *ngIf="fotosAtendimento?.length === 0">
+    <div class="col-12">
+      <h5 class="text-muted">Esse atendimento não tem fotos ou ainda não foi atualizado pelo técnico!</h5>
+    </div>
+</div>
+
+<div *ngIf="fotosAtendimento?.length > 0">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="mb-1">Fotos do Atendimento:</h5>
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col-4 mt-2" *ngFor="let imagem of fotosAtendimento">
+      <img class="photo" [src]="imagem?.url ? imagem?.url : '/assets/img/img-default.png'"  alt="">
+      <p>{{ imagem?.tipo }}</p>
+    </div>
+  </div>
+</div>

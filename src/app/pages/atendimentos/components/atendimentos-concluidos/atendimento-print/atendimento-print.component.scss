@@ -1,3 +1,30 @@
+div {
+  color: #292b2c;
+}
+
+.destaque i {
+  color: green;
+}
+
+.photo {
+  width: 120px;
+  height: 120px;
+}
+
+.info-client p {
+  margin: 0;
+}
+
+img {
+ width: 300px;
+ height: auto;
+}
+
+.logo {
+  height: auto;
+  width: 200px;
+}
+
 table {
   margin: 0 16px 0 16px;
 }
@@ -24,4 +51,8 @@ table tr td {
 .info-client-pay {
   padding-bottom: 20px;
   border-bottom: 1px solid #ddd;
+}
+
+.title-special {
+  font-size: 1.2em;
 }

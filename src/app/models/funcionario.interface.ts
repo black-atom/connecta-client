@@ -1,3 +1,4 @@
+import { Avaliacao } from './avaliacoes';
 import { Atividade } from './monitoramento.interface';
 import { Atendimento } from './atendimento.interface';
 
@@ -25,6 +26,7 @@ export interface Funcionario {
   updatedBy: string;
   ativo: boolean;
   atividades: Atividade[];
+  avaliacao?: Avaliacao;
 }
 
 interface Login {

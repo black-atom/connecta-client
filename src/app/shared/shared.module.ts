@@ -15,7 +15,8 @@ import {
   CepService,
   LoginService,
   NotificacaoService,
-  MonitoramentoService
+  MonitoramentoService,
+  AvaliacoesService
 } from './services';
 
 
@@ -74,6 +75,7 @@ export function formatacaoDaData () {
     AtendimentoService,
     NotificacaoService,
     MonitoramentoService,
+    AvaliacoesService,
     I18n,
     {
       provide: AuthHttp,

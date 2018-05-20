@@ -1,0 +1,20 @@
+<div class="row" *ngIf="!assinaturaDetail?.documento_id">
+    <div class="col-12">
+      <h5 class="text-muted">Esse atendimento não tem assinatura ou ainda não foi atualizado pelo técnico!</h5>
+    </div>
+</div>
+
+<div class="row" *ngIf="assinaturaDetail?.documento_id">
+  <div class="col-12">
+    <h5>Responsável por atender o técnico no local:</h5>
+  </div>
+  <div class="col-12 mt-2">
+    <img
+    [src]="assinaturaDetail?.url ? 'http://165.227.78.113:3000/atendimentoimagens/'+assinaturaDetail?.url : '/assets/img/img-default.png'"
+    onerror="this.src='/assets/img/img-default.png'">
+    <p>
+      Autorizado por: {{ assinaturaDetail?.nome | uppercase }} <br>
+      Documento: {{ assinaturaDetail?.documento_id }}
+    </p>
+  </div>
+</div>

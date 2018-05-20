@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AtendimentoService } from './../../../../shared/services';
@@ -13,47 +13,45 @@ import { removeMaskFromPropTable, propNameQuery, formatQuery } from 'app/shared/
   templateUrl: './gerenciar.component.html',
   styleUrls: ['./gerenciar.component.scss']
 })
-export class GerenciarComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
-  public atendimentos: Atendimento[];
+export class GerenciarComponent implements OnInit {
+
+  public atendimentos$: Observable<Atendimento[]>;
   public atendimentoSelecionado: Atendimento;
   public carregando: boolean = true;
-  public imagensInicioAtendimento: any[] = [];
-  public imagensFinalAtendimento: any[] = [];
+
   public totalRecords;
   private query = { skip : 0, limit : 25 };
+
+  public opcoesModal: NgbModalOptions = {
+    size: 'lg'
+  };
 
   constructor(
     private _atendimentoService: AtendimentoService,
     private _servicoModal: NgbModal
   ) {}
 
-  opcoesModal: NgbModalOptions = {
-    size: 'lg'
-  };
 
   ngOnInit() {
-    this.subscription = this._atendimentoService
+    this.atendimentos$ = this._atendimentoService
       .atendimentosLazyLoad(this.query)
-        .subscribe(res => {
-          this.atendimentos = res.atendimentos;
-          this.totalRecords = res.count;
+        .map(({ atendimentos, count }) => {
+          this.totalRecords = count;
           this.carregando = false;
+          return atendimentos;
         });
   }
 
   mudarEstiloLinha(atendimento) {
     const estado = atendimento.motivos.find(motivo => motivo.estado === 'reagendado');
-    if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') {
-      return 'reagendado';
-    }
 
-    if (atendimento.estado === 'cancelado') {
-      return 'cancelado';
-    }
-    if (atendimento.estado === 'associado') {
-      return 'associado';
-    }
+    // tslint:disable-next-line:curly
+    if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') return 'reagendado';
+    // tslint:disable-next-line:curly
+    if (atendimento.estado === 'cancelado') return 'cancelado';
+    // tslint:disable-next-line:curly
+    if (atendimento.estado === 'associado') return 'associado';
+
 
     return 'padrao';
   }
@@ -70,8 +68,8 @@ export class GerenciarComponent implements OnInit, OnDestroy {
         });
   }
 
-  filterEvents(query) {
-    const queryFormatter = propNameQuery(query.filters);
+  filterEvents({ filters, first, rows }) {
+    const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
       ...queryFormatter('data_atendimento'),
       ...queryFormatter('cliente.nome_razao_social'),
@@ -81,8 +79,8 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       ...queryFormatter('tipo'),
       ...queryFormatter('tecnico.nome'),
       ...queryFormatter('createdBy'),
-      skip : query.first,
-      limit : query.rows
+      skip : first,
+      limit : rows
     };
     return newQuery;
   }
@@ -93,34 +91,14 @@ export class GerenciarComponent implements OnInit, OnDestroy {
     const eventParseDate = formatQuery('data_atendimento')(eventParse);
     const query = removeMaskFromPropTable('cliente.cnpj_cpf')(eventParseDate);
 
-    this.subscription = this._atendimentoService
+    this.atendimentos$ = this._atendimentoService
       .atendimentosLazyLoad(query)
-        .subscribe(res => {
-          this.atendimentos = res.atendimentos;
-          this.totalRecords = res.count;
+        .map(({ atendimentos, count }) => {
+          this.totalRecords = count;
           this.carregando = false;
+          return atendimentos;
         });
   }
 
-  // abrirModalDeFotos(conteudo, atendimento) {
-  //   this.atendimentoSelecionado = atendimento;
-  //   this._servicoModal.open(conteudo, this.opcoesModal)
 
-  // }
-
-  carregarFotos(atendimento: Atendimento) {
-    this.atendimentoSelecionado = atendimento;
-
-    this.imagensInicioAtendimento = atendimento.imagens
-      .filter(imagem => imagem.tipo === 'inicio_atendimento')
-      .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
-
-    this.imagensFinalAtendimento = atendimento.imagens
-      .filter(imagem => imagem.tipo === 'fim_atendimento')
-      .map(img => `http://165.227.78.113:3000/atendimentoimagens/${img.url}`);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }

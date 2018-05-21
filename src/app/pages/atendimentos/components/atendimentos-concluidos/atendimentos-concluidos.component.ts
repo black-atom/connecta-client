@@ -17,6 +17,7 @@ import {
 } from 'app/shared/services';
 
 import { AtendimentoConcluidoDetalhesComponent } from './atendimento-concluido-detalhes/atendimento-concluido-detalhes.component';
+import { Atividade } from '../../../../models';
 
 
 @Component({
@@ -80,7 +81,14 @@ export class AtendimentosConcluidosComponent implements OnInit {
           .map(({ atividades }) => {
             return atendimentos
             .map(atendimento => {
-              const atividadeFound = atividades.length > 0 ? atividades.find(at => at.atendimento_id === atendimento._id) : null;
+              const atividadeFound = atividades.length > 0
+                ? atividades.find(
+                    (at: Atividade) => (
+                      at.atendimento_id === atendimento._id
+                        && at.funcionario_id === atendimento.tecnico._id
+                    )
+                  )
+                : null;
 
               return !atividadeFound ?
                 ({ ...atendimento, monitoramento: { status: 'PENDENTE' } }) :

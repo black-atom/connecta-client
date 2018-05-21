@@ -73,7 +73,7 @@ export class DadosInteracaoAppComponent implements OnInit {
       for (let i = 0; i < imagens.length; i++) {
 
         const img = imagens[i].url;
-        const src = `http://165.227.78.113:3000/atendimentoimagens/${img}`;
+        const src = `https://storage.googleapis.com/blackatom-images/${img}`;
         const thumb = src;
         const fotosAtendimento = { src, thumb };
 

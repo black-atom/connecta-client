@@ -71,7 +71,7 @@ export class AtendimentosConcluidosComponent implements OnInit {
         ...atendimento,
         imagens: atendimento.imagens.map(imagem => ({
           ...imagem,
-          url: `http://165.227.78.113:3000/atendimentoimagens/${imagem.url}`
+          url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
         }))
       })))
       .switchMap((atendimentos) => {
@@ -109,7 +109,7 @@ export class AtendimentosConcluidosComponent implements OnInit {
       ...atendimento,
       imagens: atendimento.imagens.map(imagem => ({
         ...imagem,
-        url: `http://165.227.78.113:3000/atendimentoimagens/${imagem.url}`
+        url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
       }))
     }))
     .subscribe(atendimento =>

@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-12">
+    <h5 class="mb-1">Relatório</h5>
+  </div>
+</div>
+
+<div class="row mt-1" *ngIf="relatorioTecnico?.relatorio?.resumo_atendimento">
+  <div class="col-12">
+    <small class="">Resumo do atendimento: </small>
+    <small class="destaque">{{ relatorioTecnico?.relatorio?.resumo_atendimento }}</small>
+  </div>
+</div>
+
+<div class="row mt-1" *ngIf="relatorioTecnico?.relatorio?.treinamento.software">
+  <div class="col-12">
+    <h5 class="mt-2">Treinamento:</h5>
+  </div>
+
+  <div class="col-6">
+    <small class="destaque">Software: {{ relatorioTecnico?.relatorio?.treinamento.software }}</small>
+  </div>
+  <div class="col-6">
+    <small class="destaque">Caminho da rede: {{ relatorioTecnico?.relatorio?.treinamento.caminho_rede }}</small>
+  </div>
+
+  <div class="col-12 mt-2">
+    <small class="">Tópicos do treinamento: </small>
+  </div>
+
+  <div class="col-3" *ngFor="let topico of relatorioTecnico?.relatorio?.treinamento.topicos">
+    <small class="destaque">{{ topico }} <i class="fa fa-check" aria-hidden="true"></i></small>
+  </div>
+</div>
+
+
+<div class="row mt-1" *ngIf="relatorioTecnico?.relatorio?.equipamentos_retirados.length > 0">
+  <div class="col-12 mt-4">
+    <h5 class="mb-1">Equipamentos retirados:</h5>
+  </div>
+</div>
+
+<div class="row equipments" *ngFor="let equipamento of relatorioTecnico?.relatorio?.equipamentos_retirados; let i = index">
+  <div class="col-12 mt-2">
+    <h5 class="mb-1">{{ i + 1 }}º Equipamento:
+        {{ equipamento.modelo_equipamento }} -
+        {{ equipamento.numero_equipamento }}
+    </h5>
+  </div>
+
+  <div class="col-12 mt-2">
+    <small class="">Itens do equipamento: </small>
+  </div>
+
+  <div class="col-3" *ngFor="let item of equipamento?.itens">
+    <small class="destaque">{{ item.descricao }} - {{ item.quantidade }}un <i class="fa fa-check" aria-hidden="true"></i></small>
+  </div>
+</div>
+
+<div class="row mt-1" *ngIf="relatorioTecnico?.relatorio?.motivo_retorno">
+  <div class="col-12 mt-4">
+    <h5 class="mb-1">Retornar ao local: </h5>
+  </div>
+
+  <div class="col-12">
+    <small class="destaque">{{ relatorioTecnico?.relatorio?.motivo_retorno }}</small>
+  </div>
+</div>

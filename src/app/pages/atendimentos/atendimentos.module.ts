@@ -18,6 +18,16 @@ import { routing } from './atendimentos.routing';
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { AcaoComponent } from './components/shared-components/acao/acao.component';
 import { VisualizacaoModalComponent } from './components/visualizacao-modal/visualizacao-modal.component';
+import { AtendimentosConcluidosComponent } from './components/atendimentos-concluidos/atendimentos-concluidos.component';
+import {
+  AtendimentoConcluidoDetalhesComponent
+} from './components/atendimentos-concluidos/atendimento-concluido-detalhes/atendimento-concluido-detalhes.component';
+import { AtendimentoDetailComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/atendimento-detail/atendimento-detail.component';
+import { RelatorioTecnicoDetailComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/relatorio-tecnico-detail/relatorio-tecnico-detail.component';
+import { FotosAtendimentoComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/fotos-atendimento/fotos-atendimento.component';
+import { FaturamentoComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/faturamento/faturamento.component';
+import { AssinaturaComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/assinatura/assinatura.component';
+import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/atendimento-print/atendimento-print.component';
 
 
 @NgModule({
@@ -33,6 +43,7 @@ import { VisualizacaoModalComponent } from './components/visualizacao-modal/visu
   ],
   entryComponents: [
     AtendimentosDisponiveisComponent,
+    AtendimentoConcluidoDetalhesComponent,
     VisualizacaoModalComponent
   ],
   declarations: [
@@ -45,7 +56,15 @@ import { VisualizacaoModalComponent } from './components/visualizacao-modal/visu
     AtendimentosDisponiveisComponent,
     DadosInteracaoAppComponent,
     AcaoComponent,
-    VisualizacaoModalComponent
+    VisualizacaoModalComponent,
+    AtendimentosConcluidosComponent,
+    AtendimentoConcluidoDetalhesComponent,
+    AtendimentoDetailComponent,
+    RelatorioTecnicoDetailComponent,
+    FotosAtendimentoComponent,
+    FaturamentoComponent,
+    AssinaturaComponent,
+    AtendimentoPrintComponent
   ],
   providers: [
     ModuloCompartilhado,

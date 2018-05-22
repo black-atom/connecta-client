@@ -1,0 +1,37 @@
+<div class="card-user">
+  <div class="header">
+    <div class="avatar">
+      <img [src]="tecnicoDetail?.foto_url ? tecnicoDetail?.foto_url : '/assets/img/user.svg'" alt="foto do técnico">
+      <div class="ranting"><div class="rate">{{ tecnicoDetail?.avaliacao | number:'1.2-2'}}</div></div>
+    </div>
+    <div class="title">
+      <h2>{{ tecnicoDetail?.funcionarioName | split: 0 }}</h2>
+      <p> Disponível</p>
+    </div>
+  </div>
+  <div class="content">
+    <div class="all-activity">
+      <div class="activity">
+        <p class="count-activity">{{ tecnicoDetail?.totalPendentes }}</p>
+        <p>Pendente</p>
+      </div>
+      <div class="activity border-style">
+        <p class="count-activity">{{ tecnicoDetail?.totalPausados }}</p>
+        <p>Pausada</p>
+      </div>
+      <div class="activity">
+        <p class="count-activity">{{ tecnicoDetail?.totalConcluidos }}</p>
+        <p>Concluída</p>
+      </div>
+    </div>
+     <div class="activity-doing">
+      <!-- <h3>{{ tecnicoDetail?.atividadeAtual }}
+        <span>
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+           Tempo: {{ tecnicoDetail?.atividadeAtual }}
+        </span>
+       </h3> -->
+    </div>
+  </div>
+</div>
+<pre></pre>

@@ -1,0 +1,27 @@
+table {
+  margin: 0 16px 0 16px;
+}
+
+table tr td, tr th {
+  text-align: center;
+}
+
+table tr td.description, tr th.description {
+  text-align: left;
+}
+
+table tr td {
+  border-bottom: 1px dashed #ddd;
+}
+.equipment-info {
+  margin: 25px 0 0 16px;
+}
+
+.info-client p {
+  margin: 0;
+}
+
+.info-client-pay {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}

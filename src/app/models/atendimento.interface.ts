@@ -25,6 +25,11 @@ export interface Atendimento {
   createdAt: string;
   updatedAt: string;
   updatedBy: string;
+  isViewed: boolean;
+  faturamento: {
+    status: boolean;
+    faturamentoAt: Date;
+  };
 }
 
 interface Motivo {

@@ -10,6 +10,7 @@ import { FlexLayoutModule, toAlignContentValue } from '@angular/flex-layout';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ModuloCompartilhado } from '../../shared/shared.module';
+import { CardTecnicoDetailComponent } from './components/card-tecnico-detail/card-tecnico-detail.component';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -31,6 +32,12 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     SwiperModule.forRoot(SWIPER_CONFIG),
     routing
   ],
-  declarations: [MonitoramentoComponent]
+  declarations: [
+    MonitoramentoComponent,
+    CardTecnicoDetailComponent,
+  ],
+  entryComponents: [
+    CardTecnicoDetailComponent,
+  ]
 })
 export class MonitoramentoModule {}

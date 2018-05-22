@@ -119,3 +119,40 @@ span {
 .ui-datatable.borderless tbody td {
     border-style: none !important;
 }
+
+#print-section {
+  display: none;
+}
+
+@page { margin: 0 }
+
+@media print {
+
+  div.al-main, .al-content, div.card, div.card-body, div.container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .al-content {
+    padding: 16px !important;
+  }
+
+  footer,
+  header nav,
+  .no-print,
+  .page-top,
+  .clearfix,
+  .al-sidebar-list,
+  .al-title,
+  .breadcrumb,
+  .slimScrollDiv,
+  .al-breadcrumb,
+  aside.al-sidebar,
+  {
+    display: none !important;
+  }
+
+  #print-section, h1, h2, h3, h4, h5, h6, p {
+    display: block !important;
+  }
+}

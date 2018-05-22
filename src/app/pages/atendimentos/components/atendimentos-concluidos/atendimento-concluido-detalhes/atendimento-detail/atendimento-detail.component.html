@@ -1,0 +1,154 @@
+      <div class="row">
+
+        <div class="col-6">
+
+          <small class="">Contato: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.contato.nome }}</small>
+        </div>
+
+        <div class="col-6">
+
+          <small class="">Telefone: </small>
+          <small class=" destaque">
+            ({{ atendimentoSelecionadoDetail?.contato.telefone | slice: 0:2 }})
+            {{ atendimentoSelecionadoDetail?.contato.telefone | slice: 2:6 }} -
+            {{ atendimentoSelecionadoDetail?.contato.telefone | slice: 6:10 }}
+          </small>
+        </div>
+
+        <div class="col-6">
+          <small class="">celular: </small>
+          <small class=" destaque">
+            ({{ atendimentoSelecionadoDetail?.contato.celular | slice: 0:2 }})
+            {{ atendimentoSelecionadoDetail?.contato.celular | slice: 2:6 }} -
+            {{ atendimentoSelecionadoDetail?.contato.celular | slice: 6:10 }}
+          </small>
+        </div>
+
+        <div class="col-6">
+          <small class="">Email: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.contato.email }}</small>
+        </div>
+
+
+        <div class="col-6">
+          <small class="">Estacionamento: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.estacionamento }}</small>
+        </div>
+
+        <div class="col-12 mt-2">
+          <small class="">Endereço: </small>
+          <small class=" destaque">
+            {{ atendimentoSelecionadoDetail?.endereco.rua }},
+            {{atendimentoSelecionadoDetail?.endereco.numero}} -
+            {{ atendimentoSelecionadoDetail?.endereco.bairro}},
+            {{ atendimentoSelecionadoDetail?.endereco.cidade }},
+            {{ atendimentoSelecionadoDetail?.endereco.uf }} -
+            {{ atendimentoSelecionadoDetail?.endereco.cep | cep }}
+          </small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.endereco.complemento">
+          <small class="">Complemento: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.endereco.complemento }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.endereco.ponto_referencia">
+          <small class="">Ponto de Referencia: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.endereco.ponto_referencia }}</small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-12">
+          <h5>{{ atendimentoSelecionadoDetail?.modelo_equipamento }}</h5>
+        </div>
+
+        <div class="col-6">
+          <small class="">N. Equipamento: </small>
+          <small class=" destaque"> {{ atendimentoSelecionadoDetail?.numero_equipamento }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="">Data Atendimento: </small>
+          <small class=" destaque"> {{ atendimentoSelecionadoDetail?.data_atendimento | date: 'dd/MM/yyyy' }}</small>
+        </div>
+
+        <div class="col-6">
+          <small class="">Tipo Atendimento: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.tipo }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.autorizado">
+          <small class="">Autorizado Por: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.autorizado }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.garantia">
+          <small class="">Data Garantia: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.garantia }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.valor">
+          <small class=" destaqueMoney">{{ atendimentoSelecionadoDetail?.valor | currency: 'BRL': true }}</small>
+        </div>
+
+
+        <div class="col-6">
+          <small class="">Status: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.estado | uppercase }}</small>
+        </div>
+
+        <div class="col-6" *ngIf="atendimentoSelecionadoDetail?.tecnico.nome">
+          <small class="">Técnico: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.tecnico.nome | split: 0 }}</small>
+        </div>
+
+        <div class="col-12 mt-2" *ngIf="atendimentoSelecionadoDetail?.motivos.length !== 0">
+          <small class="">Eventos: </small>
+          <br>
+          <small class=" destaque" *ngFor="let motivo of atendimentoSelecionadoDetail?.motivos">
+            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
+          </small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-12">
+
+          <small class="">Problema: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.descricao }}</small>
+        </div>
+
+        <div class="col-6 mt-4">
+
+            <small class="">Testes efetuados: </small>
+            <small class=" destaque">{{ atendimentoSelecionadoDetail?.testes_efetuados }}</small>
+        </div>
+        <div class="col-6 mt-4">
+
+          <small class="">Observação: </small>
+          <small class=" destaque">{{ atendimentoSelecionadoDetail?.observacao }}</small>
+        </div>
+
+        <hr class="col-12">
+
+        <div class="col-6">
+            <small class="">Criado Por: </small>
+            <small class=" destaque">
+              {{ atendimentoSelecionadoDetail?.createdBy | uppercase }} em
+              {{ atendimentoSelecionadoDetail?.createdAt | date: 'dd/MM/yyyy'}} às
+              {{ atendimentoSelecionadoDetail?.createdAt | date: 'HH:MM'}}
+            </small>
+        </div>
+
+        <div class="col-6">
+          <small class="">Atualizado Por: </small>
+          <small class=" destaque">
+            {{ atendimentoSelecionadoDetail?.updatedBy | uppercase }} em
+            {{ atendimentoSelecionadoDetail?.updatedAt | date: 'dd/MM/yyyy'}} às
+            {{ atendimentoSelecionadoDetail?.updatedAt | date: 'HH:MM'}}
+          </small>
+        </div>
+
+      </div>

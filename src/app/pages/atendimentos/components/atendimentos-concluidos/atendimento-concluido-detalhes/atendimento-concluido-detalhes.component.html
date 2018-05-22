@@ -1,0 +1,65 @@
+<div>
+  <ul class="header">
+    <li>Detalhes do Atendimento</li>
+    <li (click)="fecharModal()"><i class="fa fa-times" aria-hidden="true"></i></li>
+  </ul>
+</div>
+
+<div class="content-modal">
+  <ul class="nav-tabs">
+    <li class="tab {{ tabActived === 'atendimento' ? 'atived': ''}}" (click)="getTab('atendimento')">Atendimento</li>
+    <li class="tab {{ tabActived === 'relatorio' ? 'atived': ''}}" (click)="getTab('relatorio')">Relatório</li>
+    <li class="tab {{ tabActived === 'faturamento' ? 'atived': ''}}" (click)="getTab('faturamento')">Faturamento</li>
+    <li class="tab {{ tabActived === 'fotos' ? 'atived': ''}}" (click)="getTab('fotos')">Fotos</li>
+    <li class="tab {{ tabActived === 'assinatura' ? 'atived': ''}}" (click)="getTab('assinatura')">Assinatura</li>
+  </ul>
+
+  <div class="name-of-client">
+    <h5 class="mb-1">
+      {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
+      {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
+    </h5>
+      <button type="button" class="btn btn-primary" title="Visualizado" (click)="isViewed(atendimentoSelecionado)" *ngIf="!atendimentoSelecionado?.relatorio?.faturamento?.equipamentos">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="btn btn-primary" title="Faturado" (click)="isFaturado(atendimentoSelecionado)" *ngIf="atendimentoSelecionado?.relatorio?.faturamento?.equipamentos.length > 0">
+        <i class="fa fa-usd" aria-hidden="true"></i>
+      </button>
+  </div>
+  <div class="situacao">
+     <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : '' }}
+        <span *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.faturamentoAt | date: 'dd/MM/yyyy'}}
+       </span>
+       <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p class="text-green" *ngIf="atendimentoSelecionado?.isViewed">
+      {{ atendimentoSelecionado?.isViewed ? 'Lido' : '' }}
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+  </div>
+
+  <div class="scrollbar-panel-list" id="style-1">
+    <div *ngIf="tabActived === 'atendimento'">
+      <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
+    </div>
+
+    <div *ngIf="tabActived === 'relatorio'">
+      <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
+    </div>
+
+    <div *ngIf="tabActived === 'faturamento'">
+      <app-faturamento [faturamentoDetail]="atendimentoSelecionado"></app-faturamento>
+    </div>
+
+    <div *ngIf="tabActived === 'fotos'">
+      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado.imagens"></app-fotos-atendimento>
+    </div>
+
+    <div *ngIf="tabActived === 'assinatura'">
+      <app-assinatura [assinaturaDetail]="atendimentoSelecionado?.assinatura"></app-assinatura>
+    </div>
+  </div>
+</div>
+

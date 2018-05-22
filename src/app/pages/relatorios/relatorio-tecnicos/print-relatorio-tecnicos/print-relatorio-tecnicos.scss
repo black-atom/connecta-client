@@ -1,0 +1,26 @@
+div .assinatura {
+  text-decoration:overline;
+}
+
+.break {
+  page-break-after: initial !important;
+}
+
+.logo {
+  height: auto;
+  width: 200px;
+}
+
+.avatar {
+  height: 46px !important;
+  width: 46px !important;
+}
+
+
+@media all {
+	hr { display: none; }
+}
+
+@media print {
+	hr { display: block; page-break-before: avoid; }
+}

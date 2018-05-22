@@ -1,0 +1,112 @@
+<!-- <pre>{{ tecnicoSelecionado | json }}</pre> -->
+
+<div class="row no-print">
+  <div class="col-lg-3">
+    <label for="param_busca">Pesquisar por data</label>
+    <div class="input-group">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" (ngModelChange)="getAtividadesPorFuncionario()"
+        id="param_busca">
+      <button class="input-group-addon" (click)="d.toggle()" type="button">
+        <i class="ion-calendar"></i>
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <button [disabled]="!tecnicoSelecionado" (click)="print()" class="btn btn-primary print" type="button">
+      <i class="fa fa-print"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row no-print">
+
+  <!-- Inicio Tabela de Atividades-->
+  <div class="col-lg-8">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-table"></i> HISTÓRIO DE ATIVIDADE
+        <div class="pull-right">{{ tecnicoSelecionado?.nome }}</div>
+      </div>
+      <div class="card-body scrollbar" id="style-1">
+
+        <div *ngIf="!tecnicoSelecionado" class="text-center mt-5">
+          <h3>SELECIONE O TÉCNICO</h3>
+        </div>
+
+        <div *ngIf="tecnicoSelecionado">
+          <div *ngFor="let atividade of tecnicoSelecionado?.atividades" class="table-responsive">
+            <div class="mb-3">
+              <strong>{{ atividade?.atendimento?.cliente?.nome_razao_social || parseTipoAtividade(atividade?.tipo) || atividade?.descricao }}</strong>
+              <strong class="pull-right">
+                {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
+              </strong>
+            </div>
+            <div *ngIf="atividade?.atendimento?.avaliacao[0]?.valor" class="mb-3">
+              <strong>
+                <i class="fa fa-star fa-x2"></i>{{ ' ' + atividade?.atendimento?.avaliacao[0]?.valor }}
+              </strong>
+            </div>
+            <div class="text-center m-5" *ngIf="!atividade?.monitoramentos.length">
+              NÃO HÁ INTERAÇÃO
+            </div>
+            <table *ngIf="atividade?.monitoramentos.length" class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>
+                    <strong>Hora</strong>
+                  </th>
+                  <th>
+                    <strong>Estado</strong>
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let monitoramento of atividade?.monitoramentos">
+                <tr>
+                  <td *ngIf="monitoramento">{{ monitoramento?.date | date: 'HH:mm' }}</td>
+                  <td *ngIf="monitoramento">{{ parseStatus(monitoramento?.status) }}
+                    <button *ngIf="monitoramento?.motivo" type="button" class="pull-right" ngbTooltip="{{monitoramento.motivo}}" triggers="click:blur">
+                      <i class="fa fa-info"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr class="mt-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Inicio Tabela de Atividades-->
+
+
+  <!-- Início Seleção de Técnicos -->
+  <div class="col-lg-4">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-address-book"></i> Selecione o Técnico</div>
+      <div class="list-group list-group-flush small scrollbar" id="style-1">
+        <div *ngIf="(tecnicos$ | async)?.length < 1" class="text-center m-5">
+          CARREGANDO...
+        </div>
+        <div *ngFor="let tecnico of tecnicos$ | async">
+          <a class="list-group-item list-group-item-action funcionario" (click)="selectedFuncionario(tecnico)">
+            <div class="media">
+              <img class="d-flex mr-3 rounded-circle" width="46" height="46" [src]="tecnico?.foto_url ? tecnico?.foto_url : '/assets/img/user.svg'"
+                alt="foto do técnico">
+              <div class="media-body">
+                <strong>{{ tecnico?.nome | split : 0 }}</strong>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fim Seleção de Técnicos -->
+
+</div>
+
+<app-print-relatorio-tecnicos [tecnicoSelecionado]="tecnicoSelecionado" [dataAtividade]="dataPassadoPeloUsuario(inputDate)"
+  id="print-section">
+</app-print-relatorio-tecnicos>

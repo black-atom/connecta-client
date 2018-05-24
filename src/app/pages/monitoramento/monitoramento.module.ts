@@ -11,6 +11,8 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ModuloCompartilhado } from '../../shared/shared.module';
 import { CardTecnicoDetailComponent } from './components/card-tecnico-detail/card-tecnico-detail.component';
+import { MonitoramentoTecnicosComponent } from './components/monitoramento-tecnicos/monitoramento-tecnicos.component';
+import { TvComponent } from './components/tv/tv.component';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -35,6 +37,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   declarations: [
     MonitoramentoComponent,
     CardTecnicoDetailComponent,
+    MonitoramentoTecnicosComponent,
+    TvComponent,
   ],
   entryComponents: [
     CardTecnicoDetailComponent,

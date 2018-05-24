@@ -25,7 +25,7 @@ import { Avaliacao } from '../../models/avaliacoes';
 
 @Component({
   selector: 'app-monitoramento',
-  templateUrl: './monitoramento.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./monitoramento.component.scss']
 })
 

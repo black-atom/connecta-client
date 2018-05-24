@@ -1,203 +1,77 @@
-<div class="modal-header">
-  <h4 class="modal-title">Detalhes do Atendimento</h4>
-  <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<div>
+  <ul class="header">
+    <li>Detalhes do Atendimento</li>
+    <li (click)="fecharModal()"><i class="fa fa-times" aria-hidden="true"></i></li>
+  </ul>
 </div>
-<hr class="mt-1">
 
-<div class="modal-body">
-  <div class="container">
+<div class="content-modal">
+  <ul class="nav-tabs">
+    <li class="tab {{ tabActived === 'atendimento' ? 'atived': ''}}" (click)="getTab('atendimento')">Atendimento</li>
+    <li class="tab {{ tabActived === 'relatorio' ? 'atived': ''}}" (click)="getTab('relatorio')">Relatório</li>
+    <li class="tab {{ tabActived === 'faturamento' ? 'atived': ''}}" (click)="getTab('faturamento')">Faturamento</li>
+    <li class="tab {{ tabActived === 'fotos' ? 'atived': ''}}" (click)="getTab('fotos')">Fotos</li>
+    <li class="tab {{ tabActived === 'assinatura' ? 'atived': ''}}" (click)="getTab('assinatura')">Assinatura</li>
+  </ul>
 
-      <div class="row">
-        <div class="col-12">
+  <div class="name-of-client">
+    <h5 class="mb-1">
+      {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
+      {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
+    </h5>
+  </div>
+  <div class="situacao">
+     <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : '' }}
+        <span *ngIf="atendimentoSelecionado?.faturamento?.status">
+        {{ atendimentoSelecionado?.faturamento?.faturamentoAt | date: 'dd/MM/yyyy'}}
+       </span>
+       <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+    <p class="text-green" *ngIf="atendimentoSelecionado?.isViewed">
+      {{ atendimentoSelecionado?.isViewed ? 'Lido' : '' }}
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </p>
+  </div>
 
-          <h5 class="mb-1">{{ atendimentoSelecionado?.cliente.nome_razao_social }} - {{ atendimentoSelecionado.cliente.cnpj_cpf | rgCnpjCpf }}</h5>
-
-        </div>
-      </div>
-
-      <div class="row mt-1">
-
-        <div class="col-6">
-
-          <small class="text-muted">Contato: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.contato.nome }}</small>
-        </div>
-
-        <div class="col-6">
-
-          <small class="text-muted">Telefone: </small>
-          <small class="text-muted destaque">
-            ({{ atendimentoSelecionado.contato.telefone | slice: 0:2 }})
-            {{ atendimentoSelecionado.contato.telefone | slice: 2:6 }} -
-            {{ atendimentoSelecionado.contato.telefone | slice: 6:10 }}
-          </small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">celular: </small>
-          <small class="text-muted destaque">
-            ({{ atendimentoSelecionado.contato.celular | slice: 0:2 }})
-            {{ atendimentoSelecionado.contato.celular | slice: 2:6 }} -
-            {{ atendimentoSelecionado.contato.celular | slice: 6:10 }}
-          </small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Email: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.contato.email }}</small>
-        </div>
-
-
-        <div class="col-6">
-          <small class="text-muted">Estacionamento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.estacionamento }}</small>
-        </div>
-
-        <div class="col-12 mt-2">
-          <small class="text-muted">Endereço: </small>
-          <small class="text-muted destaque">
-            {{ atendimentoSelecionado?.endereco.rua }},
-            {{atendimentoSelecionado?.endereco.numero}} -
-            {{ atendimentoSelecionado?.endereco.bairro}},
-            {{ atendimentoSelecionado?.endereco.cidade }},
-            {{ atendimentoSelecionado?.endereco.uf }} -
-            {{ atendimentoSelecionado?.endereco.cep | cep }}
-          </small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.complemento">
-          <small class="text-muted">Complemento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.complemento }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.endereco.ponto_referencia">
-          <small class="text-muted">Ponto de Referencia: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.endereco.ponto_referencia }}</small>
-        </div>
-
-        <hr class="col-12">
-
-        <div class="col-12">
-          <h5>{{ atendimentoSelecionado.modelo_equipamento }}</h5>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">N. Equipamento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.numero_equipamento }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Data Atendimento: </small>
-          <small class="text-muted destaque"> {{ atendimentoSelecionado.data_atendimento | date: 'dd/MM/yyyy' }}</small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Tipo Atendimento: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tipo }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.autorizado">
-          <small class="text-muted">Autorizado Por: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.autorizado }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.garantia">
-          <small class="text-muted">Data Garantia: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.garantia }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.valor">
-          <small class="text-muted destaqueMoney">{{ atendimentoSelecionado.valor | currency: 'BRL': true }}</small>
-        </div>
-
-
-        <div class="col-6">
-          <small class="text-muted">Status: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.estado | uppercase }}</small>
-        </div>
-
-        <div class="col-6" *ngIf="atendimentoSelecionado.tecnico.nome">
-          <small class="text-muted">Técnico: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.tecnico.nome | split: 0 }}</small>
-        </div>
-
-        <div class="col-12 mt-2" *ngIf="atendimentoSelecionado.motivos.length !== 0">
-          <small class="text-muted">Eventos: </small>
-          <br>
-          <small class="text-muted destaque" *ngFor="let motivo of atendimentoSelecionado.motivos">
-            {{ motivo.estado | uppercase }} - {{ motivo.motivo }} <br>
-          </small>
-        </div>
-
-        <hr class="col-12">
-
-        <div class="col-12">
-
-          <small class="text-muted">Problema: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.descricao }}</small>
-        </div>
-
-        <div class="col-6 mt-4">
-
-            <small class="text-muted">Testes efetuados: </small>
-            <small class="text-muted destaque">{{ atendimentoSelecionado.testes_efetuados }}</small>
-        </div>
-        <div class="col-6 mt-4">
-
-          <small class="text-muted">Observação: </small>
-          <small class="text-muted destaque">{{ atendimentoSelecionado.observacao }}</small>
-        </div>
-
-        <hr class="col-12">
-
-        <div class="col-6">
-            <small class="text-muted">Criado Por: </small>
-            <small class="text-muted destaque">
-              {{ atendimentoSelecionado.createdBy | uppercase }} em
-              {{ atendimentoSelecionado.createdAt | date: 'dd/MM/yyyy'}} às
-              {{ atendimentoSelecionado.createdAt | date: 'HH:MM'}}
-            </small>
-        </div>
-
-        <div class="col-6">
-          <small class="text-muted">Atualizado Por: </small>
-          <small class="text-muted destaque">
-            {{ atendimentoSelecionado.updatedBy | uppercase }} em
-            {{ atendimentoSelecionado.updatedAt | date: 'dd/MM/yyyy'}} às
-            {{ atendimentoSelecionado.updatedAt | date: 'HH:MM'}}
-          </small>
-        </div>
-
-        <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.tecnico.nome">
-          <h6 class="text-muted destaque-danger">
-            Para editar este atendimento, você deve desassociar!
-          </h6>
-        </div>
-
-      </div>
+  <div class="scrollbar-panel-list" id="style-1">
+    <div *ngIf="tabActived === 'atendimento'">
+      <app-atendimento-detail [atendimentoSelecionadoDetail]="atendimentoSelecionado"></app-atendimento-detail>
     </div>
+
+    <div *ngIf="tabActived === 'relatorio'">
+      <app-relatorio-tecnico-detail [relatorioTecnico]="atendimentoSelecionado"></app-relatorio-tecnico-detail>
+    </div>
+
+    <div *ngIf="tabActived === 'faturamento'">
+      <app-faturamento [faturamentoDetail]="atendimentoSelecionado"></app-faturamento>
+    </div>
+
+    <div *ngIf="tabActived === 'fotos'">
+      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado.imagens"></app-fotos-atendimento>
+    </div>
+
+    <div *ngIf="tabActived === 'assinatura'">
+      <app-assinatura [assinaturaDetail]="atendimentoSelecionado?.assinatura"></app-assinatura>
+    </div>
+  </div>
+
+  <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.tecnico.nome">
+    <h6 class="text-muted destaque-danger">
+      Para editar este atendimento, você deve desassociar!
+    </h6>
+  </div>
+
 </div>
 
-<div class="modal-footer">
-    <button type="button"
-      class="btn btn-info"
-      (click)="fecharModal()"
-      [disabled]="atendimentoSelecionado.tecnico.nome"
-      routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
-      title="Edite informações do atendimento">
-      <i class="fa fa-pencil"></i>
-        Editar
-    </button>
-
-    <button type="button"
-      class="btn btn-primary"
-      (click)="fecharModal()"
-      routerLink="/pages/atendimentos/dados-app/{{ atendimentoSelecionado._id }}"
-      title="Visualize detalhes do atendimento, desde o cadastro até toda a interação realizada pelo técnico com o aplicativo">
-      <i class="fa fa-id-card-o"></i>
-      Detalhes
-    </button>
-
-</div>
+<div class="modal-footer" *ngIf="!atendimentoSelecionado?.assinatura?.atendimentoID">
+  <button type="button"
+    class="btn btn-info"
+    (click)="fecharModal()"
+    [disabled]="atendimentoSelecionado.tecnico.nome"
+    routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
+    title="Edite informações do atendimento">
+    <i class="fa fa-pencil"></i>
+      Editar
+  </button>
+  </div>

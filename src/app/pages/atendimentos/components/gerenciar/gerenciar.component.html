@@ -12,7 +12,9 @@
 [loading]="carregando"
  loadingIcon="ion-load-a"
  rowHover="true"
- sortField="createdAt" styleClass="borderless">
+ sortField="createdAt"
+ styleClass="borderless"
+ class="no-print">
  <!-- [rowTrackBy]="rowTrackBy" -->
   <p-column field="data_atendimento" header="Data" [sortable]="true" [filter]="true" [style]="{'width':'70px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
@@ -65,6 +67,12 @@
   </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'30px'}">
+      <ng-template let-atendimento="rowData" pTemplate="body">
+        <button type="button" class="info" pButton icon="fa fa-print"(click)="print(atendimento)"></button>
+      </ng-template>
+    </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'30px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(atendimento._id)"></button>
     </ng-template>
@@ -76,3 +84,8 @@
   </ng-template>
 
 </p-dataTable>
+
+<app-atendimento-print
+  [atendimentoSelecionado]="atendimentoSelecionado"
+  id="print-section"
+></app-atendimento-print>

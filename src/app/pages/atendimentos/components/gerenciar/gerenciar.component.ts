@@ -100,5 +100,10 @@ export class GerenciarComponent implements OnInit {
         });
   }
 
+  print(atendimento): void {
+    this.atendimentoSelecionado = atendimento;
+    setTimeout(() => window.print(), 500);
+  }
+
 
 }

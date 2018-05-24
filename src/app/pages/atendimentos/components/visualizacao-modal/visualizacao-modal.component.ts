@@ -10,15 +10,23 @@ import { Atendimento } from './../../../../models/atendimento.interface';
 })
 export class VisualizacaoModalComponent implements OnInit {
 
-  @Input() atendimentoSelecionado: Atendimento;
-  
-  constructor(public modalAtiva: NgbActiveModal) { }
+@Input()
+atendimentoSelecionado: Atendimento;
 
-  ngOnInit() {
-  }
 
-  fecharModal() {
-    this.modalAtiva.close();
-  }
+public tabActived = 'atendimento';
+
+constructor(public modalAtiva: NgbActiveModal) { }
+
+ngOnInit() {
+}
+
+fecharModal() {
+  this.modalAtiva.close();
+}
+
+getTab(tabSelecionada) {
+  this.tabActived = tabSelecionada;
+}
 
 }

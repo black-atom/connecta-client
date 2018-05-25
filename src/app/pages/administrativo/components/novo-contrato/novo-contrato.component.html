@@ -1,148 +1,79 @@
-<!-- <pre>{{ novoContratoForm.value | json }}</pre> -->
+<pre>{{ novoContratoForm.value | json }}</pre>
 
-<div class="row" [formGroup]="novoContratoForm">
+<div class="row">
 
-  <div class="col-12">
-    <div class="row">
-
-      <div class="col-lg-3">
-        <label for="param_busca">CPF/CNPJ</label>
-        <div class="input-group">
-          <input type="text" class="form-control pull-right" formControlName="cnpj" [textMask]="{mask: mask}">
-        </div>
-      </div>
-
-      <div class="col-lg-3 pl-0">
-        <button class="btn btn-primary btn-search" type="button" (click)="getCliente()">
-          <i class="fa fa-search"></i>
-        </button>
-      </div>
-
+  <div class="col-lg-3 form-group">
+    <label>Pesquisa por CPF/CNPJ</label>
+    <div class="input-group">
+      <input type="text" class="form-control pull-right" [(ngModel)]='cnpjBuscar' [textMask]="{mask: mask}" (change)="getCliente(cnpjBuscar)">
     </div>
   </div>
 
-  <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="(cliente$ | async)">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">
-          CLIENTE
-          <span class="pull-right">
-            {{(cliente$ | async)?.nome_razao_social }} / {{ (cliente$ | async)?.cnpj_cpf | rgCnpjCpf }}
-          </span>
-        </h3>
-      </div>
-      <div class="card-body" *ngIf="(cliente$ | async)">
-        <div class="row">
-
-          <div class="col-md-12 col-sm-12 col-lg-6">
-            <div class="form-group">
-              <label for="selecionar_contato">Selecionar contato</label>
-              <select class="form-control" id="selecionar_contato">
-                <option *ngFor="let contato of (cliente$ | async)?.contatos">
-                  {{ contato?.nome + ', ' + contato?.email +', ' + contato?.telefone +', '+ contato?.celular +', '+ contato?.observacao }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-12 col-sm-12 col-lg-6">
-            <div class="form-group">
-              <label for="selecionar_endereco">Selecionar endereço</label>
-              <select class="form-control" id="selecionar_endereco">
-                <option *ngFor="let endereco of (cliente$ | async)?.enderecos">
-                  {{ endereco?.rua + ', ' + endereco?.numero + ', ' + endereco?.bairro + ', ' + endereco?.cidade + ' - ' + endereco?.uf + '-
-                  ' + endereco?.cep }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
+  <div class="col-lg-3 pl-0">
+    <button class="btn btn-primary btn-search" type="button" (change)="getCliente(cnpjBuscar)">
+      <i class="fa fa-search"></i>
+    </button>
   </div>
 
-  <div class="col-12" *ngIf="(cliente$ | async)">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">CONTRATO</h3>
+</div>
+
+<div class="row">
+  <!-- [formGroup]="novoContratoForm.controls.cliente" -->
+  <ba-card class="col-md-12 col-sm-12 col-lg-12" cardTitle="Dados principais">
+    <!-- <div class="row">
+
+      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+        <label for="cnpj_cpf">CNPJ ou CPF</label>
+        <input type="text" [textMask]="{mask: mask}" disabled formControlName="cnpj_cpf" class="form-control" id="cnpj_cpf">
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-            <label>Nº do contrato</label>
-            <input type="text" class="form-control">
-          </div>
 
-          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-            <label>Valor</label>
-            <input type="text" class="form-control">
-          </div>
-
-          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-            <label for="param_busca">Data de Adesão</label>
-            <div class="input-group">
-              <input class="form-control" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
-              <button class="input-group-addon" (click)="a.toggle()" type="button">
-                <i class="ion-calendar"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-            <label for="param_busca">Data de Encerramento</label>
-            <div class="input-group">
-              <input class="form-control" name="dp" ngbDatepicker #b="ngbDatepicker" name="busca_data" id="param_busca">
-              <button class="input-group-addon" (click)="b.toggle()" type="button">
-                <i class="ion-calendar"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3" [formGroup]="searchForm">
-            <label for="typeahead-focus">Pesquise o equipamento</label>
-            <input id="typeahead-basic" type="text" class="form-control mb-3" formControlName="searchControl" />
-            <div class="scrollbar" id="style-1">
-              <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action" *ngFor="let equipamento of equipamentos">
-                  <span>
-                    <i class="fa fa-plus"></i>
-                  </span>
-                  {{ equipamento }}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9">
-            <label>Relação de equipamentos</label>
-            <div class="equipamentos scrollbar" id="style-1">
-              <div class="list-group list-group-flush">
-                <a *ngFor="let equipamento of equipamentosSelecionados">
-                  {{ equipamento }}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="form-group">
-              <label for="testes_efetuados">Resumo do contrato</label>
-              <textarea class="form-control" rows="6" id="testes_efetuados">
-              </textarea>
-            </div>
-          </div>
-
-        </div>
+      <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
+        <label for="nome_razao_social">Razão social ou nome</label>
+        <input type="text" class="form-control" disabled formControlName="nome_razao_social" id="nome_razao_social">
       </div>
+
+      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+        <label for="inscricao_estadual">Inscrição estadual</label>
+        <input type="text" class="form-control" disabled formControlName="inscricao_estadual" id="inscricao_estadual">
+      </div>
+
+      <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
+        <label for="nome_fantasia">Nome fantasia</label>
+        <input type="text" class="form-control" disabled formControlName="nome_fantasia" id="nome_fantasia">
+      </div>
+
+    </div> -->
+    <app-principais-info-cliente
+    [formDadosPrincipais]="novoContratoForm.controls.cliente">
+  </app-principais-info-cliente>
+  </ba-card>
+
+  <ba-card class="col-md-12 col-sm-12 col-lg-6" cardTitle="Contato">
+    <div class="form-group">
+      <label for="selecionar_contato">Selecionar contato</label>
+      <select class="form-control" id="selecionar_contato">
+        <option *ngFor="let contato of (cliente$ | async)?.contatos">
+          {{ contato?.nome + ', ' + contato?.email +', ' + contato?.telefone +', '+ contato?.celular +', '+ contato?.observacao }}
+        </option>
+      </select>
     </div>
+  </ba-card>
 
-    <div class="col-12 text-center mt-5" *ngIf="!(cliente$ | async)">
-      <h2 class="mt-4 mb-4">PESQUISE O CLIENTE</h2>
-      <img src="assets/icons/search.svg" width="80">
+  <ba-card class="col-md-12 col-sm-12 col-lg-6" cardTitle="Endereço">
+    <div class="form-group">
+      <label for="selecionar_endereco">Selecionar endereço</label>
+      <select class="form-control" id="selecionar_endereco">
+        <option *ngFor="let endereco of (cliente$ | async)?.enderecos">
+          {{ endereco?.rua + ', ' + endereco?.numero + ', ' + endereco?.bairro + ', ' + endereco?.cidade + ' - ' + endereco?.uf + '-
+          ' + endereco?.cep }}
+        </option>
+      </select>
     </div>
+  </ba-card>
 
-  </div>
+  <app-form-contrato [contratoFormControl]="novoContratoForm"></app-form-contrato>
 
-  <!-- <pre>{{ cliente$ | async | json }}</pre> -->
+</div>
+
+<!-- <pre>{{ cliente$ | async | json }}</pre> -->
 

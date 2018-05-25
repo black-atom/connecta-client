@@ -8,6 +8,7 @@ import { ModuloCompartilhado } from '../../shared/shared.module';
 
 import { NovoContratoComponent } from './components';
 import { AdministrativoComponent } from './administrativo.component';
+import { FormContratoComponent } from './components/novo-contrato/form-components/form-contrato.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AdministrativoComponent } from './administrativo.component';
   ],
   declarations: [
     AdministrativoComponent,
+    FormContratoComponent,
     NovoContratoComponent
   ]
 })

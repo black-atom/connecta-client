@@ -1,0 +1,101 @@
+<ba-card class="col-12" cardTitle="Contrato" [formGroup]="contratoFormControl">
+  <div class="row">
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+      <label>Nº do contrato</label>
+      <input type="text" formControlName="numero_contrato" class="form-control">
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+      <label for="param_busca">Data de Adesão</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="data_adesao" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+        <button class="input-group-addon" (click)="a.toggle()" type="button">
+          <i class="ion-calendar"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+      <label for="param_busca">Data de Encerramento</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="data_encerramento" name="dp" ngbDatepicker #b="ngbDatepicker" name="busca_data"
+          id="param_busca">
+        <button class="input-group-addon" (click)="b.toggle()" type="button">
+          <i class="ion-calendar"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+      <label for="selecionar_tipo">Selecione o Tipo</label>
+      <select class="form-control" formControlName="tipo" id="selecionar_tipo">
+        <option>Mensal</option>
+        <option>Semestral</option>
+        <option>Trimestral</option>
+        <option>Anual</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3">
+      <label for="typeahead-focus">Pesquise o equipamento</label>
+      <input id="typeahead-basic" type="text" class="form-control mb-3" />
+      <div class="list-group list-group-flush small scrollbar" id="style-1">
+        <div *ngFor="let equipamento of equipamentos">
+          <a class="list-group-item list-group-item-action">
+            <div class="media">
+              <div class="media-body">
+                <strong>{{ equipamento?.modelo }}</strong>
+                <p>
+                  <small>{{ equipamento?.fabricante }}</small>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9">
+      <label>Relação de equipamentos</label>
+      <div class="equipamentos scrollbar" id="style-1">
+        <div class="list-group list-group-flush small">
+          <a class="list-group-item list-group-item-action">
+            <div class="media">
+              <p>catraca fit</p>
+              <div class="media-body">
+                <div class="row">
+
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+                    <label>Nº de Série</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+                    <label>Visita</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                  <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
+                    <label>Valor</label>
+                    <input type="text" class="form-control">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form-group">
+        <label for="testes_efetuados">Resumo do contrato</label>
+        <textarea class="form-control" formControlName="resumo_contrato" rows="6" id="testes_efetuados">
+        </textarea>
+      </div>
+    </div>
+
+  </div>
+</ba-card>

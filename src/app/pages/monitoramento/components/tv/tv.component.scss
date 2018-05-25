@@ -2,13 +2,13 @@
   padding: 4%;
   background: #fff;
   border-radius: 3px;
-  border-bottom: 3px solid;
+  border: 1px solid;
   height: 50px;
-  box-shadow: 0 1px 1px #666;
+  color: #fff;
 }
 
 .card-custom div.value {
-  font-size: 2em;
+  font-size: 2.1em;
 }
 
 .content-info-card {
@@ -18,23 +18,29 @@
 }
 
 .card-custom div.title {
-  font-size: 1em;
+  font-size: 1.3em;
+  font-weight: bold;
 }
 
 .border-danger {
   border-color: red;
+  background:red;
 }
 
 .border-success {
   border-color: green;
+  background:green;
+
 }
 
 .border-warning {
   border-color: #F1D13A;
+  background:#F1D13A;
 }
 
 .border-info {
   border-color: #002EB9;
+  background:#002EB9;
 }
 
 .card-tecnico-custom {
@@ -42,7 +48,7 @@
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 1px 1px #666;
-  border-bottom: 2px solid;
+  border-left: 3px solid;
   padding: 2%;
   min-width: 220px;
   height: 150px;
@@ -106,16 +112,16 @@ img.avatar-tecnico {
   font-size:1.3em;
 }
 
-.card-tecnico-custom .PAUSE_ATIVIDADE {
+.PAUSE_ATIVIDADE {
   border-color: #F1D13A;
 }
-.card-tecnico-custom .INICIO_ATIVIDADE {
+.INICIO_ATIVIDADE {
   border-color: green;
 }
 
-.card-tecnico-custom .INICIO_DESLOCAMENTO {
+.INICIO_DESLOCAMENTO {
   border-color: red;
 }
-.card-tecnico-custom .FIM_DESLOCAMENTO {
+.FIM_DESLOCAMENTO {
   border-color: #F1D13A;
 }

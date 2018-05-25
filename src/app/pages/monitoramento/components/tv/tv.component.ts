@@ -1,11 +1,14 @@
 import { Avaliacao } from './../../../../models/avaliacoes';
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
+import * as moment from 'moment';
 import {
   applySpec,
   prop,
   pathOr,
-  pipe
+  pipe,
+  countBy,
+  toLower
 } from 'ramda';
 
 import {
@@ -23,7 +26,6 @@ import {
   FuncionarioService
 } from './../../../../shared/services';
 
-
 @Component({
   selector: 'app-tv',
   templateUrl: './tv.component.html',
@@ -37,7 +39,7 @@ export class TvComponent implements OnInit {
   private tipoFuncionario = { 'login.tipo': 'tecnico' };
   private today = new Date().toString();
   public data = new Date();
-
+  public totalAtividades;
   constructor(
     private atendimentoService: AtendimentoService,
     private funcionarioService: FuncionarioService,
@@ -99,6 +101,12 @@ export class TvComponent implements OnInit {
         .map((atividades) => {
           return funcionarios.map(funcionario => {
             const funcAtividades = atividades.filter(atividade => atividade.funcionario_id === funcionario._id);
+            this.totalAtividades = {
+              pendentes: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'PENDENTE' ).length,
+              pausadas: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'PAUSE_ATIVIDADE').length,
+              concluidas: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'FIM_ATIVIDADE').length,
+              emExecucao: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'INICIO_ATIVIDADE').length
+            };
             return { ...funcionario, atividades: funcAtividades };
           });
         });
@@ -121,12 +129,11 @@ export class TvComponent implements OnInit {
 
   parseTime(atividade) {
     if (atividade && atividade.status) {
-      const monitoramentoAtual = atividade.monitoramentos.find(at => at.status === 'INICIO_ATIVIDADE');
+      const monitoramentoAtual = atividade.monitoramentos.find(monitoramento => monitoramento.status === 'INICIO_ATIVIDADE');
       if (monitoramentoAtual) {
-        const dateStart = new Date(monitoramentoAtual.date).getHours();
-        const dateNow = new Date().getHours();
-        const hourDiff = dateNow - dateStart;
-        return new Date().setHours(hourDiff);
+        const hours = moment().diff(monitoramentoAtual.date, 'hours');
+        const minutes = moment().diff(monitoramentoAtual.date, 'minutes') % 60;
+        return `${hours}:${minutes}`;
       }
     }
     return null;

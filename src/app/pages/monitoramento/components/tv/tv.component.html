@@ -8,7 +8,7 @@
     <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
         <div class="card-custom border-danger">
           <div class="content-info-card">
-            <div class="value">10</div> <div class="title">PENDENTE</div>
+            <div class="value">{{ totalAtividades?.pendentes  || 0 }}</div> <div class="title">PENDENTE</div>
           </div>
         </div>
       </div>
@@ -17,7 +17,7 @@
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
     <div class="card-custom border-success">
       <div class="content-info-card">
-        <div class="value">10</div> <div class="title">EM EXECUÇÃO</div>
+        <div class="value">{{ totalAtividades?.emExecucao || 0 }}</div> <div class="title">EM EXECUÇÃO</div>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
     <div class="card-custom border-warning">
       <div class="content-info-card">
-        <div class="value">10</div> <div class="title">PAUSADO</div>
+        <div class="value">{{ totalAtividades?.pausadas  || 0 }}</div> <div class="title">PAUSADO</div>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
       <div class="card-custom border-info">
         <div class="content-info-card">
-          <div class="value">10</div> <div class="title">CONCLUÍDO</div>
+          <div class="value">{{ totalAtividades?.concluidas || 0 }}</div> <div class="title">CONCLUÍDO</div>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
 <div class="row mt-2" >
 
 <div class="col-md-6 col-lg-3 col-sm-6 mt-2" *ngFor="let tecnicoDetail of tecnicos$ | async">
-  <div class="card-tecnico-custom tecnicoDetail?.atividadeAtual?.statusss">
+  <div class="card-tecnico-custom {{ tecnicoDetail?.atividadeAtual?.status }}">
     <div class="card_tecnico">
       <div class="card__tecnico-avatar">
         <img class="avatar-tecnico"[src]="tecnicoDetail?.foto_url ? tecnicoDetail?.foto_url : '/assets/img/user.svg'">
@@ -76,13 +76,11 @@
       <div class="company-name">
         {{ tecnicoDetail?.atividadeAtual?.tipo | uppercase }}
       </div>
-      <div class="company-time">
-        Tempo {{ tecnicoDetail?.countTime | date: 'HH:mm'}}
+      <div class="company-time" *ngIf="tecnicoDetail?.countTime">
+        Tempo H 0{{ tecnicoDetail?.countTime }} m
       </div>
     </div>
   </div>
 </div>
-
-
 
 </div>

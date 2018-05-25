@@ -1,8 +1,10 @@
 .card-custom {
-  padding: 10%;
+  padding: 4%;
   background: #fff;
   border-radius: 3px;
   border-bottom: 3px solid;
+  height: 50px;
+  box-shadow: 0 1px 1px #666;
 }
 
 .card-custom div.value {
@@ -35,79 +37,85 @@
   border-color: #002EB9;
 }
 
-.card-tecnico {
-  background: #fff;
+.card-tecnico-custom {
+  font-size: 1.2em;
+  background-color: #fff;
   border-radius: 3px;
-  border-bottom: 3px solid;
-  width: 100%;
-  padding: 1%;
+  box-shadow: 0 1px 1px #666;
+  border-bottom: 2px solid;
+  padding: 2%;
+  min-width: 220px;
+  height: 150px;
 }
 
-.card-tecnico-info {
+.card_tecnico {
+  font-size: 1em;
   display: flex;
   align-items: center;
-  justify-content: space-around;
 }
 
-.progress-tecnico {
+.card__tecnico-avatar {
+  width: 150px;
   text-align: center;
-  font-size: 1.2em;
-  font-weight: bold;
 }
 
-.progress-tecnico span {
-  text-align: center;
-  font-size: 1.3em;
+img.avatar-tecnico {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  position: relative;
 }
 
-.concluido-span {
-  color: #002EB9;
+.isLunch {
+  background: #bd1016;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  position: absolute;
+  margin: -25px 60px;
+  border: #fff solid 2px;
 }
 
-.pendente-span {
-  color: red;
+.isLunch i {
+  margin: 0 auto;
+  font-size: 0.8em;
+  text-shadow: 0px 1px 1px #666;
+}
+.card__tecnico-info {
+  width: 100%;
 }
 
-.almoco {
-  color: green;
-  font-weight: bold;
-}
-.name-tecnico {
+.atividade-group {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  font-size: 1.2em;
-  font-weight: bold;
+  text-align: center;
+  margin-top: 13px;
 }
 
-.cliente-info {
-  margin-top: 10px;
-  font-size: 1.2em;
-  font-weight: bold;
+.atividade-atual {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 20px;
 }
 
-.status-tecnico {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 1.2em;
-  font-weight: bold;
+.atividade-total {
+  font-size:1.3em;
 }
 
+.card-tecnico-custom .PAUSE_ATIVIDADE {
+  border-color: #F1D13A;
+}
+.card-tecnico-custom .INICIO_ATIVIDADE {
+  border-color: green;
+}
 
-@media  screen and (max-width:  870px) {
-  .content-info-card {
-    display: block;
-    text-align: center;
-  }
-  div.title {
-    padding-top: 20px;
-  }
-  div.value {
-    padding-top: 10px;
-  }
-
+.card-tecnico-custom .INICIO_DESLOCAMENTO {
+  border-color: red;
+}
+.card-tecnico-custom .FIM_DESLOCAMENTO {
+  border-color: #F1D13A;
 }

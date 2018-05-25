@@ -1,11 +1,11 @@
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 
-import { ClienteService } from '../../../../shared/services';
+import { ClienteService, NotificacaoService } from '../../../../shared/services';
 import { Cliente } from '../../../../models';
-import { EQUIPAMENTOS } from '../../../../utils/mocks/equipamentos';
+import { equipamentosTemporarios } from './equipamento.mock.temp';
 
 @Component({
   selector: 'app-novo-contrato',
@@ -14,34 +14,68 @@ import { EQUIPAMENTOS } from '../../../../utils/mocks/equipamentos';
 })
 export default class NovoContratoComponent implements OnInit {
 
+  public cnpjBuscar;
   public novoContratoForm: FormGroup;
-  public searchForm: FormGroup;
-  public searchControl: FormControl;
   public cliente$: Observable<Cliente>;
-  public equipamentos = EQUIPAMENTOS;
+  public equipamentos = equipamentosTemporarios;
   public equipamentosSelecionados: string[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private notificacaoService: NotificacaoService
   ) { }
 
   ngOnInit() {
-    this.initForm();
-    this.searchControl = this.fb.control('');
-    this.searchForm = this.fb.group({
-      searchControl: this.searchControl
-    });
+    this.initContratoForm();
+  }
 
-    this.searchControl.valueChanges.subscribe(res => {
-      this.equipamentos.filter(res);
+  initContratoForm() {
+    this.novoContratoForm = this.fb.group({
+      cliente: this.fb.group({
+        nome_razao_social: ['', Validators.required],
+        cnpj_cpf: ['', Validators.required],
+        inscricao_estadual: [''],
+        nome_fantasia: ['']
+      }),
+      contato: this.fb.group({
+        email: ['', Validators.required],
+        nome: [''],
+        telefone: ['', Validators.required],
+        celular: [''],
+        observacao: ['']
+      }),
+      endereco: this.fb.group({
+        cep: ['', Validators.required],
+        rua: ['', Validators.required],
+        bairro: ['', Validators.required],
+        numero: ['', Validators.required],
+        cidade: ['', Validators.required],
+        complemento: [''],
+        uf: ['', Validators.required],
+        ponto_referencia: ['']
+      }),
+      numero_contrato: ['', Validators.required],
+      data_adesao: ['', Validators.required],
+      data_encerramento: ['', Validators.required],
+      tipo: ['', Validators.required],
+      ativo: [true, Validators.required],
+      resumo_contrato: ['', Validators.required]
     });
   }
 
-  initForm() {
-    this.novoContratoForm = this.fb.group({
-      cnpj: '49.464.555/0001-83',
-      numero: 'contrato'
+  getCliente(cnpj) {
+    const cnpjParse = cnpj
+      ? this.removerCaracterEspecial(cnpj)
+      : this.notificarFalhaEncontrarCliente();
+
+    this.cliente$ = this.clienteService
+      .retornarUm(cnpjParse).map(cliente => {
+      this.novoContratoForm.get('cliente.nome_razao_social').patchValue(cliente.nome_razao_social);
+      this.novoContratoForm.get('cliente.inscricao_estadual').patchValue(cliente.inscricao_estadual);
+      this.novoContratoForm.get('cliente.nome_fantasia').patchValue(cliente.nome_fantasia);
+      this.novoContratoForm.get('cliente.cnpj_cpf').patchValue(cliente.cnpj_cpf);
+      return cliente;
     });
   }
 
@@ -62,11 +96,8 @@ export default class NovoContratoComponent implements OnInit {
     return cnpj.replace(/\D+/g, '');
   }
 
-  getCliente() {
-    const cnpj = this.novoContratoForm.controls['cnpj'].value;
-    this.cliente$ = this.clienteService
-      .retornarUm(this.removerCaracterEspecial(cnpj));
+  notificarFalhaEncontrarCliente() {
+    this.notificacaoService.notificarAviso('Cliente não encontrado!', '');
   }
-
 
 }

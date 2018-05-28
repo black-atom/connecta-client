@@ -76,6 +76,37 @@ export const PAGES_MENU = [{
       ]
     },
     {
+      path: 'estoque',
+      data: {
+        menu: {
+          title: 'Estoque',
+          icon: 'ion-person',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [{
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-person-add'
+          }
+        }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+    {
       path: 'funcionarios',
       data: {
         menu: {

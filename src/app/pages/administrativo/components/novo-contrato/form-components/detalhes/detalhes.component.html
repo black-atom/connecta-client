@@ -1,0 +1,61 @@
+<ba-card class="col-12" cardTitle="detalhes do contrato" [formGroup]="contratoControl">
+    <div class="row">
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label>Nº do contrato</label>
+      <input type="text" formControlName="numero_contrato" class="form-control">
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label for="param_busca">Data de Adesão</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="data_adesao" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+        <button class="input-group-addon" (click)="a.toggle()" type="button">
+          <i class="ion-calendar"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label for="param_busca">Data de Encerramento</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="data_encerramento" name="dp" ngbDatepicker #b="ngbDatepicker" name="busca_data"
+          id="param_busca">
+        <button class="input-group-addon" (click)="b.toggle()" type="button">
+          <i class="ion-calendar"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label>Dia de vencimento</label>
+      <input type="number" formControlName="dia_vencimento" class="form-control">
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label for="selecionar_tipo">Subsequente ?</label>
+      <select class="form-control" formControlName="tipo" id="selecionar_tipo">
+        <option>Sim</option>
+        <option>Não</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+      <label for="selecionar_tipo">Selecione o Tipo</label>
+      <select class="form-control" formControlName="tipo" id="selecionar_tipo">
+        <option>Mensal</option>
+        <option>Semestral</option>
+        <option>Trimestral</option>
+        <option>Anual</option>
+      </select>
+    </div>
+
+    <div class="col-12 mb-3">
+      <div class="form-group">
+        <label for="testes_efetuados">Resumo do contrato</label>
+        <textarea class="form-control" formControlName="resumo_contrato" rows="6" id="testes_efetuados">
+        </textarea>
+      </div>
+    </div>
+  </div>
+</ba-card>

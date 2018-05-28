@@ -1,0 +1,13 @@
+<ba-card cardTitle="Contato">
+  <div class="form-group">
+    <label for="selecionar_contato">Selecionar contato</label>
+    <select class="form-control" id="selecionar_contato"
+      [(ngModel)]="contatoEscolhido"
+      [ngModelOptions]="{ standalone: true }"
+      (change)="contatoSelecionado(contatoEscolhido)">
+      <option [ngValue]="contato" *ngFor="let contato of (clienteEncontrado | async)?.contatos">
+        {{ contato?.nome + ', ' + contato?.email +', ' + contato?.telefone +', '+ contato?.celular +', '+ contato?.observacao }}
+      </option>
+    </select>
+  </div>
+</ba-card>

@@ -1,5 +1,3 @@
-<pre>{{ novoContratoForm.value | json }}</pre>
-
 <div class="row">
 
   <div class="col-lg-3 form-group">
@@ -15,63 +13,38 @@
     </button>
   </div>
 
-</div>
+  <div class="col-12">
+    <app-dados-principais-cliente
+      [clienteForm]="novoContratoForm">
+    </app-dados-principais-cliente>
+  </div>
 
-<div class="row">
-  <!-- [formGroup]="novoContratoForm.controls.cliente" -->
-  <ba-card class="col-md-12 col-sm-12 col-lg-12" cardTitle="Dados principais">
-    <!-- <div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-6">
+      <app-contato-cliente
+        [contatoControl]="novoContratoForm"
+        [clienteEncontrado]="cliente$">
+    </app-contato-cliente>
+  </div>
 
-      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-        <label for="cnpj_cpf">CNPJ ou CPF</label>
-        <input type="text" [textMask]="{mask: mask}" disabled formControlName="cnpj_cpf" class="form-control" id="cnpj_cpf">
-      </div>
+  <div class="col-md-12 col-sm-12 col-lg-6">
+    <app-endereco-cliente
+        [enderecoControl]="novoContratoForm"
+        [clienteEncontrado]="cliente$">
+    </app-endereco-cliente>
+  </div>
 
-      <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
-        <label for="nome_razao_social">Razão social ou nome</label>
-        <input type="text" class="form-control" disabled formControlName="nome_razao_social" id="nome_razao_social">
-      </div>
+  <div class="col-12">
+    <app-detalhes-contrato
+      [contratoControl]="novoContratoForm">
+    </app-detalhes-contrato>
+  </div>
 
-      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3">
-        <label for="inscricao_estadual">Inscrição estadual</label>
-        <input type="text" class="form-control" disabled formControlName="inscricao_estadual" id="inscricao_estadual">
-      </div>
-
-      <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3">
-        <label for="nome_fantasia">Nome fantasia</label>
-        <input type="text" class="form-control" disabled formControlName="nome_fantasia" id="nome_fantasia">
-      </div>
-
-    </div> -->
-    <app-principais-info-cliente
-    [formDadosPrincipais]="novoContratoForm.controls.cliente">
-  </app-principais-info-cliente>
-  </ba-card>
-
-  <ba-card class="col-md-12 col-sm-12 col-lg-6" cardTitle="Contato">
-    <div class="form-group">
-      <label for="selecionar_contato">Selecionar contato</label>
-      <select class="form-control" id="selecionar_contato">
-        <option *ngFor="let contato of (cliente$ | async)?.contatos">
-          {{ contato?.nome + ', ' + contato?.email +', ' + contato?.telefone +', '+ contato?.celular +', '+ contato?.observacao }}
-        </option>
-      </select>
-    </div>
-  </ba-card>
-
-  <ba-card class="col-md-12 col-sm-12 col-lg-6" cardTitle="Endereço">
-    <div class="form-group">
-      <label for="selecionar_endereco">Selecionar endereço</label>
-      <select class="form-control" id="selecionar_endereco">
-        <option *ngFor="let endereco of (cliente$ | async)?.enderecos">
-          {{ endereco?.rua + ', ' + endereco?.numero + ', ' + endereco?.bairro + ', ' + endereco?.cidade + ' - ' + endereco?.uf + '-
-          ' + endereco?.cep }}
-        </option>
-      </select>
-    </div>
-  </ba-card>
-
-  <app-form-contrato [contratoFormControl]="novoContratoForm"></app-form-contrato>
+  <div class="col-12">
+    <app-equipamentos-contrato
+      [equipamentoControl]="novoContratoForm"
+      [clienteEncontrado]="cliente$">
+    </app-equipamentos-contrato>
+  </div>
 
 </div>
 

@@ -1,23 +1,25 @@
 <div class="row">
-<div class="data  col-12 mt-4">
-  <h2>Data {{ data | date: 'dd/MM/yyyy' }}</h2>
-</div>
+  <div class="data  col-12 mt-4">
+    <h2>Data {{ data | date: 'dd/MM/yyyy' }}</h2>
+  </div>
 </div>
 <div class="row">
 
-    <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
-        <div class="card-custom border-danger">
-          <div class="content-info-card">
-            <div class="value">{{ totalAtividades?.pendentes  || 0 }}</div> <div class="title">PENDENTE</div>
-          </div>
-        </div>
+  <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
+    <div class="card-custom border-danger">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.pendentes  || 0 }}</div>
+        <div class="title">PENDENTE</div>
       </div>
+    </div>
+  </div>
 
 
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
     <div class="card-custom border-success">
       <div class="content-info-card">
-        <div class="value">{{ totalAtividades?.emExecucao || 0 }}</div> <div class="title">EM EXECUÇÃO</div>
+        <div class="value">{{ totalAtividades?.emExecucao || 0 }}</div>
+        <div class="title">EM EXECUÇÃO</div>
       </div>
     </div>
   </div>
@@ -25,62 +27,51 @@
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
     <div class="card-custom border-warning">
       <div class="content-info-card">
-        <div class="value">{{ totalAtividades?.pausadas  || 0 }}</div> <div class="title">PAUSADO</div>
+        <div class="value">{{ totalAtividades?.pausadas  || 0 }}</div>
+        <div class="title">PAUSADO</div>
       </div>
     </div>
   </div>
 
 
   <div class="mt-4 col-md-3 col-lg-3 col-sm-3">
-      <div class="card-custom border-info">
-        <div class="content-info-card">
-          <div class="value">{{ totalAtividades?.concluidas || 0 }}</div> <div class="title">CONCLUÍDO</div>
-        </div>
-      </div>
-    </div>
-
-</div>
-
-<div class="row mt-2" >
-
-<div class="col-md-6 col-lg-3 col-sm-6 mt-2" *ngFor="let tecnicoDetail of tecnicos$ | async">
-  <div class="card-tecnico-custom {{ tecnicoDetail?.atividadeAtual?.status }}">
-    <div class="card_tecnico">
-      <div class="card__tecnico-avatar">
-        <img class="avatar-tecnico"[src]="tecnicoDetail?.foto_url ? tecnicoDetail?.foto_url : '/assets/img/user.svg'">
-        <div class="isLunch" *ngIf="tecnicoDetail?.almoco"><i class="fa fa-cutlery" aria-hidden="true"></i></div>
-         <div class="name-tecnico">{{ tecnicoDetail?.funcionarioName | split: 0 }}</div>
-         <div class="status-tecnico">{{ tecnicoDetail?.status }}</div>
-      </div>
-
-      <div class="card__tecnico-info">
-        <div class="atividade-group">
-           <div class="atividade">
-          <div class="atividade-total">{{ tecnicoDetail?.totalConcluidos }}</div>
-          <div class="atividade-status">Concluído</div>
-        </div>
-
-        <div class="atividade">
-          <div class="atividade-total">{{ tecnicoDetail?.totalPendentes }}</div>
-          <div class="atividade-status">Pendente</div>
-        </div>
-
-        <div class="atividade">
-          <div class="atividade-total">{{ tecnicoDetail?.totalPausados }}</div>
-          <div class="atividade-status">Pausado</div>
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="atividade-atual">
-      <div class="company-name">
-        {{ tecnicoDetail?.atividadeAtual?.tipo | uppercase }}
-      </div>
-      <div class="company-time" *ngIf="tecnicoDetail?.countTime">
-        Tempo H 0{{ tecnicoDetail?.countTime }} m
+    <div class="card-custom border-info">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.concluidas || 0 }}</div>
+        <div class="title">CONCLUÍDO</div>
       </div>
     </div>
   </div>
+
 </div>
+
+<div class="row mt-2">
+  <div class="col-3 mt-2" *ngFor="let tecnico of tecnicos$ | async">
+    <div class="card-tecnico {{ tecnico?.atividadeAtual?.status }}">
+        <div class="row mt-2">
+          <div class="col-4 text-center-info">
+            <img class="rounded-circle" width="46" height="46" [src]="tecnico?.foto_url ? tecnico?.foto_url : '/assets/img/user.svg'">
+          </div>
+          <div class="col-8">
+            {{ tecnico?.funcionarioName }}
+          </div>
+          <div class="col-4 almoco text-center-info"> <span>{{ tecnico?.almoco ?  'Almoço OK': '' }}</span></div>
+          <div class="col-8 text-center-info">
+            <span class="concluido-span"> {{ tecnico?.totalConcluidos || 0 }}</span>
+            <span>/</span>
+            <span class="pendente-span">{{ tecnico?.totalAtividade || 0 }} </span>
+            <br/>concluido
+          </div>
+          <div class="col-4 mt-4"></div>
+          <div class="col-8 mt-4 text-center-info status-tecnico">Status :<span>{{ tecnico?.status }}</span></div>
+          <div class="col-8 mt-4 company-name"
+            (click)="abrirModalDeDetalhes(tecnico?.atividadeAtual?.atendimento._id)"
+            *ngIf="tecnico?.atividadeAtual?.atendimento?.cliente?.nome_razao_social">
+              {{ tecnico?.atividadeAtual?.atendimento?.cliente?.nome_razao_social | uppercase  | slice: 0:30 }}...
+          </div>
+          <div class="col-4 mt-4" *ngIf="tecnico?.countTime">  Há 0{{ tecnico?.countTime }} min</div>
+        </div>
+      </div>
+  </div>
 
 </div>

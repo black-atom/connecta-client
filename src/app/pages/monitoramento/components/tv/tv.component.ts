@@ -1,6 +1,9 @@
 import { Avaliacao } from './../../../../models/avaliacoes';
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { MonitoramentoModalComponent } from './../monitoramento-modal/monitoramento-modal.component';
+
 import * as moment from 'moment';
 import {
   applySpec,
@@ -37,20 +40,28 @@ export class TvComponent implements OnInit {
   public tecnicos$: Observable<any[]>;
   private date = new Date();
   private tipoFuncionario = { 'login.tipo': 'tecnico' };
-  private today = new Date().toString();
+  private today = new Date();
   public data = new Date();
   public totalAtividades;
+  public opcoesModal: NgbModalOptions = {
+    size: 'lg'
+  };
+
   constructor(
     private atendimentoService: AtendimentoService,
     private funcionarioService: FuncionarioService,
     private atividadeService: AtividadeService,
-    private avaliacoesService: AvaliacoesService
+    private avaliacoesService: AvaliacoesService,
+    private _servicoModal: NgbModal
   ) { }
 
   ngOnInit() {
     const calcTotalByStatus =
     status => (funcionario: Funcionario) =>
       funcionario.atividades.filter(at => at.status === status && at.tipo === 'atendimento').length;
+
+    const atividadesTotal = (funcionario: Funcionario) =>
+      funcionario.atividades.filter(at => funcionario._id === at.funcionario_id && at.tipo === 'atendimento').length;
 
     const getAtividadeAtual = (funcionario: Funcionario) => funcionario.atividades.find(at => statuses[at.status] === 'execucao');
     const getAlmoco = (funcionario: Funcionario) => funcionario.atividades.find(at => at.tipo === 'almoco') ? true : false;
@@ -59,6 +70,7 @@ export class TvComponent implements OnInit {
       funcionarioName: prop('nome'),
       avaliacao: pathOr(0, ['avaliacao', 'rate']),
       foto_url: prop('foto_url'),
+      totalAtividade: atividadesTotal,
       totalPendentes: calcTotalByStatus(MonitoramentoStatuses.pendente),
       totalPausados: calcTotalByStatus(MonitoramentoStatuses.pauseAtividade),
       totalConcluidos: calcTotalByStatus(MonitoramentoStatuses.fimAtividade),
@@ -67,7 +79,6 @@ export class TvComponent implements OnInit {
       countTime: pipe(getAtividadeAtual, this.parseTime),
       status: pipe(getAtividadeAtual, this.parseStatus)
     });
-
   this.tecnicos$ = this.funcionarioService
     .retornarFuncionarioPorFuncao(this.tipoFuncionario)
     .switchMap(({ funcionarios }) => Observable
@@ -88,10 +99,10 @@ export class TvComponent implements OnInit {
     })
     .switchMap((funcionarios: Funcionario[]) => {
       return this.atendimentoService
-        .atendimentosLazyLoad({ data_atendimento: this.today })
+        .atendimentosLazyLoad({ data_atendimento: this.parserDateNow(this.today).toString() })
         .map(({ atendimentos }) => atendimentos as Atendimento[])
         .switchMap(atendimentos => this.atividadeService
-          .getAllAtividadesPorData({ createdAt: this.today })
+          .getAllAtividadesPorData({ createdAt: this.today.toString() })
           .map(({ atividades }) => atividades)
           .map(atividades => atividades.map(atividade => {
             const atendimentoFound = atendimentos.find(atendimento => atendimento._id === atividade.atendimento_id);
@@ -127,6 +138,10 @@ export class TvComponent implements OnInit {
     return  atividade && atividade.status ? statusTipe[atividade.status] : 'Disponível' ;
   }
 
+  parserDateNow(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
   parseTime(atividade) {
     if (atividade && atividade.status) {
       const monitoramentoAtual = atividade.monitoramentos.find(monitoramento => monitoramento.status === 'INICIO_ATIVIDADE');
@@ -138,5 +153,19 @@ export class TvComponent implements OnInit {
     }
     return null;
   }
+
+  abrirModalDeDetalhes(atendimentoSelecionado) {
+    this.atendimentoService
+      .retornarUm(atendimentoSelecionado)
+        .subscribe(res => {
+          const referenciaModal = this._servicoModal.open(
+            MonitoramentoModalComponent,
+            this.opcoesModal
+          );
+          referenciaModal.componentInstance.atendimentoSelecionado = res;
+        });
+    console.log('ola', atendimentoSelecionado);
+  }
+
 
 }

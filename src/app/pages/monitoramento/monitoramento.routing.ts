@@ -11,8 +11,10 @@ export const routes: Routes = [
     path: '',
     component: MonitoramentoComponent,
     children: [
-      { path: 'monitoramento-tecnicos', component: MonitoramentoTecnicosComponent },
-      { path: 'tv', component: TvComponent }
+      { path: '', redirectTo: 'tv', pathMatch: 'full' },
+      { path: 'tv', component: TvComponent },
+      { path: 'monitoramento-tecnicos', component: MonitoramentoTecnicosComponent }
+
 
     ]
   }

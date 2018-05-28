@@ -2,36 +2,48 @@ export const PAGES_MENU = [{
   path: 'pages',
   children: [
     {
-      path: 'monitoramento',
-      data: {
-        menu: {
-          title: 'Monitoramento',
-          icon: 'ion-arrow-graph-up-right',
-          selected: false,
-          expanded: false,
-          order: 250
-        }
-      },
-      children: [{
-        path: 'monitoramento-tecnicos',
-        data: {
+      path: 'tv',
+       data: {
           menu: {
-            title: 'Monitoramento',
-            icon: 'ion-arrow-graph-up-right'
-          }
-        }
-      },
-      {
-        path: 'tv',
-        data: {
-          menu: {
-            title: 'TV',
-            icon: 'ion-clipboard'
-          }
-        }
-      }
-      ]
-    },
+           title: 'Monitoramento',
+           icon: 'ion-arrow-graph-up-right',
+           selected: false,
+           expanded: false,
+           order: 250
+         }
+       }
+     },
+    // {
+    //   path: 'monitoramento',
+    //   data: {
+    //     menu: {
+    //       title: 'Monitoramento',
+    //       icon: 'ion-arrow-graph-up-right',
+    //       selected: false,
+    //       expanded: false,
+    //       order: 250
+    //     }
+    //   },
+    //   children: [{
+    //     path: 'monitoramento-tecnicos',
+    //     data: {
+    //       menu: {
+    //         title: 'Monitoramento',
+    //         icon: 'ion-arrow-graph-up-right'
+    //       }
+    //     }
+    //   },
+    //   {
+    //     path: 'tv',
+    //     data: {
+    //       menu: {
+    //         title: 'TV',
+    //         icon: 'ion-clipboard'
+    //       }
+    //     }
+    //   }
+    //   ]
+    // },
     {
       path: 'clientes',
       data: {

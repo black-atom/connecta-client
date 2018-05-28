@@ -2,7 +2,6 @@ import { Avaliacao } from './../../../../models/avaliacoes';
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { MonitoramentoModalComponent } from './../monitoramento-modal/monitoramento-modal.component';
 
 import * as moment from 'moment';
 import {
@@ -153,19 +152,4 @@ export class TvComponent implements OnInit {
     }
     return null;
   }
-
-  abrirModalDeDetalhes(atendimentoSelecionado) {
-    this.atendimentoService
-      .retornarUm(atendimentoSelecionado)
-        .subscribe(res => {
-          const referenciaModal = this._servicoModal.open(
-            MonitoramentoModalComponent,
-            this.opcoesModal
-          );
-          referenciaModal.componentInstance.atendimentoSelecionado = res;
-        });
-    console.log('ola', atendimentoSelecionado);
-  }
-
-
 }

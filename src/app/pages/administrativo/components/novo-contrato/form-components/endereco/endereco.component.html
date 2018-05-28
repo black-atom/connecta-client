@@ -1,0 +1,12 @@
+<ba-card cardTitle="Endereço">
+  <div class="form-group">
+    <label for="selecionar_endereco">Selecionar endereço</label>
+    <select class="form-control" id="selecionar_endereco" [(ngModel)]="enderecoEscolhido" [ngModelOptions]="{ standalone: true }"
+      (change)="enderecoSelecionado(enderecoEscolhido)">
+      <option *ngFor="let endereco of (clienteEncontrado | async)?.enderecos" [ngValue]="endereco">
+        {{ endereco?.rua + ', ' + endereco?.numero + ',k ' + endereco?.bairro + ', ' + endereco?.cidade + ' - ' + endereco?.uf +
+        '- ' + endereco?.cep }}
+      </option>
+    </select>
+  </div>
+</ba-card>

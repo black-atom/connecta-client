@@ -1,12 +1,12 @@
 .card-custom {
-  padding: 10%;
+  padding: 5%;
   background: #fff;
   border-radius: 3px;
   border-bottom: 3px solid;
 }
 
 .card-custom div.value {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .content-info-card {
@@ -36,22 +36,14 @@
 }
 
 .card-tecnico {
-  background: #fff;
+  background: white;
   border-radius: 3px;
   border-bottom: 3px solid;
   width: 100%;
   padding: 1%;
   font-weight: bold;
-  font-size: 1.3em;
-}
-div.company-name {
   font-size: 0.8em;
-  cursor: pointer;
-}
-
-
-div.company-name:hover {
-  color: #002EB9;
+  box-shadow: 0 1px 1px #000;
 }
 
 .concluido-span {
@@ -95,6 +87,7 @@ div.company-name:hover {
   .content-info-card {
     display: block;
     text-align: center;
+    font-size: 1em;
   }
   div.title {
     padding-top: 20px;
@@ -103,4 +96,26 @@ div.company-name:hover {
     padding-top: 10px;
   }
 
+  div.card-tecnico {
+    height: 150px;
+    font-size: 0.7em;
+  }
+}
+
+@media  screen and (max-width:  1024px) {
+  div.card-tecnico {
+    height: 130px;
+  }
+}
+
+@media  screen and (max-width:  972px) {
+  div.card-tecnico {
+    font-size: 0.7em;
+  }
+}
+
+@media  screen and (max-width:  571px) {
+  div.card-tecnico {
+    font-size: 1em;
+  }
 }

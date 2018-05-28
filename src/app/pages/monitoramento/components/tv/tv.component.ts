@@ -63,7 +63,7 @@ export class TvComponent implements OnInit {
       funcionario.atividades.filter(at => funcionario._id === at.funcionario_id && at.tipo === 'atendimento').length;
 
     const getAtividadeAtual = (funcionario: Funcionario) => funcionario.atividades.find(at => statuses[at.status] === 'execucao');
-    const getAlmoco = (funcionario: Funcionario) => funcionario.atividades.find(at => at.tipo === 'almoco') ? true : false;
+    const getAlmoco = (funcionario: Funcionario) => funcionario.atividades.find(at => at.tipo === 'almoco');
 
     const formatToMonitoramento = applySpec({
       funcionarioName: prop('nome'),
@@ -112,7 +112,11 @@ export class TvComponent implements OnInit {
           return funcionarios.map(funcionario => {
             const funcAtividades = atividades.filter(atividade => atividade.funcionario_id === funcionario._id);
             this.totalAtividades = {
-              pendentes: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'PENDENTE' ).length,
+              pendentes: atividades.filter(atividade =>
+                atividade.tipo === 'atendimento'
+                && atividade.status !== 'INICIO_ATIVIDADE'
+                && atividade.status !== 'PAUSE_ATIVIDADE'
+                && atividade.status !== 'FIM_ATIVIDADE' ).length,
               pausadas: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'PAUSE_ATIVIDADE').length,
               concluidas: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'FIM_ATIVIDADE').length,
               emExecucao: atividades.filter(atividade => atividade.tipo === 'atendimento' && atividade.status === 'INICIO_ATIVIDADE').length

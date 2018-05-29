@@ -42,4 +42,10 @@ export class ProdutoService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
+  pecasLazyLoad(skip: number = 0, limit: number = 0, searchAll = {}): Observable <ResponseProdutos> {
+    return this._http.get(`${environment.API_ENDPOINT}/api/produtos?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
+      .map((res) => res.json() as ResponseProdutos)
+      .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

@@ -20,6 +20,7 @@ export class EditarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public categoriaProdutos = categoriaProdutos;
   public produtoRecebido: Produto;
+  public pecasProduto;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +33,7 @@ export class EditarComponent implements OnInit, OnDestroy {
     this.initForm();
     this.obterIdProduto();
     this.getProduto();
+    this.searchPeca();
   }
 
   obterIdProduto() {
@@ -109,6 +111,12 @@ export class EditarComponent implements OnInit, OnDestroy {
       'Não foi possível editar o produto',
       ''
     );
+  }
+
+  searchPeca() {
+    this.subscription =
+      this.produtoService.pecasLazyLoad(0, 0, { categoria: 'peça' })
+        .subscribe(({ produtos: pecas }) => this.pecasProduto = pecas);
   }
 
   ngOnDestroy() {

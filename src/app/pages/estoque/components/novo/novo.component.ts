@@ -17,6 +17,7 @@ export class NovoComponent implements OnInit, OnDestroy {
   public formProduto: FormGroup;
   public categoriaProdutos = categoriaProdutos;
   private subscription: Subscription;
+  public pecasProduto;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,7 @@ export class NovoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    this.searchPeca();
   }
 
   initForm() {
@@ -81,6 +83,12 @@ export class NovoComponent implements OnInit, OnDestroy {
       'Não foi possível efetuar o cadastro',
       ''
     );
+  }
+
+  searchPeca() {
+    this.subscription =
+      this.produtoService.pecasLazyLoad(0, 0, { categoria: 'peça' })
+        .subscribe(({ produtos: pecas }) => this.pecasProduto = pecas);
   }
 
   ngOnDestroy() {

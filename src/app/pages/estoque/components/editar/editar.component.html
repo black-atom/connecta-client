@@ -36,7 +36,10 @@
         </div>
       </div>
       <hr>
-      <div class="row">
+      <div class="row" *ngIf="formProduto.get('categoria').value === 'relógio'
+      || formProduto.get('categoria').value === 'catraca'
+      || formProduto.get('categoria').value === 'acionador'
+      || formProduto.get('categoria').value === 'controle de acesso'">
         <div class="col-8"><h3>Adicionar Peças de Trocas para o Produto</h3></div>
         <div class="col-4">
           <button class="btn btn-primary btn-with-icon" [disabled]="formProduto.invalid" (click)="adicionarPeca()">
@@ -46,14 +49,20 @@
       </div>
       <div formArrayName="pecas" class="well well-lg">
         <div class="row" *ngFor="let peca of pecas.controls; let i=index" [formGroupName]="i">
-          <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
-            <label class="control-label" for="descricao">Descrição peça</label>
-            <input type="text" class="form-control" formControlName="descricao">
-            <small class="ion-close text text-danger"
-            *ngIf="formProduto.controls['pecas'].at(i).get('descricao').hasError('required')
-            && formProduto.controls['pecas'].at(i).get('descricao').touched"> Obrigatório!
-          </small>
-          </div>
+
+            <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                <label for="categoria">Descrição peça</label>
+                <select class="form-control" name="descricao" formControlName="descricao">
+                  <option value="" selected>Selecione</option>
+                  <option *ngFor="let peca of pecasProduto">{{ peca?.descricao }}</option>
+                </select>
+                  <small class="ion-close text text-danger"
+                *ngIf="formProduto.controls['pecas'].at(i).get('descricao').hasError('required')
+                && formProduto.controls['pecas'].at(i).get('descricao').touched"> Obrigatório!
+              </small>
+              </div>
+
+
           <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
             <label for="valor">Valor</label>
             <div class="input-group">

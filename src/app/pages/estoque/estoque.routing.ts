@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'novo', component: NovoComponent },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'produto/:id', component: EditarComponent }
+      { path: 'editar-produto/:id', component: EditarComponent }
     ]
   }
 ];

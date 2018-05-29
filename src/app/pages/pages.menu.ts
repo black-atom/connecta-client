@@ -60,7 +60,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Novo',
-            icon: 'ion-person-add'
+            icon: 'ion-plus'
           }
         }
       },
@@ -80,7 +80,7 @@ export const PAGES_MENU = [{
       data: {
         menu: {
           title: 'Estoque',
-          icon: 'ion-person',
+          icon: 'fa fa fa-archive',
           selected: false,
           expanded: false,
           order: 300
@@ -91,7 +91,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Novo',
-            icon: 'ion-person-add'
+            icon: 'ion-plus'
           }
         }
       },
@@ -122,7 +122,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Novo',
-            icon: 'ion-person-add'
+            icon: 'ion-plus'
           }
         }
       },
@@ -162,7 +162,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Novo',
-            icon: 'ion-person-add'
+            icon: 'ion-plus'
           }
         }
       },

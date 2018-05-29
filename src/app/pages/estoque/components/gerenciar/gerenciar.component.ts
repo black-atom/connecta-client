@@ -32,7 +32,8 @@ export class GerenciarComponent implements OnInit {
     const newQuery: any = {
       ...queryFormatter('descricao'),
       ...queryFormatter('marca'),
-      ...queryFormatter('modelo')
+      ...queryFormatter('modelo'),
+      ...queryFormatter('categoria')
     };
     return newQuery;
   }

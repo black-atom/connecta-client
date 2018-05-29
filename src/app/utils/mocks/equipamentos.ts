@@ -68,6 +68,6 @@ export const categoriaProdutos: String[] = [
   'acessório',
   'catraca',
   'relógio',
-  'peca',
+  'peça',
   'software'
 ];

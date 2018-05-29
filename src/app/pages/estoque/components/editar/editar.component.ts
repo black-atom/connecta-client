@@ -32,8 +32,8 @@ export class EditarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
     this.obterIdProduto();
-    this.getProduto();
     this.searchPeca();
+    this.getProduto();
   }
 
   obterIdProduto() {
@@ -72,6 +72,7 @@ export class EditarComponent implements OnInit, OnDestroy {
       pecas.forEach( () => this.adicionarPeca() );
       this.formProduto.controls['pecas'].patchValue(pecas);
       this.produtoRecebido = produto;
+
     });
 
   }

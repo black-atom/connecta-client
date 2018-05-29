@@ -51,10 +51,10 @@
         <div class="row" *ngFor="let peca of pecas.controls; let i=index" [formGroupName]="i">
 
             <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
-                <label for="categoria">Descrição peça</label>
+                <label for="descricao">Descrição peça</label>
                 <select class="form-control" name="descricao" formControlName="descricao">
                   <option value="" selected>Selecione</option>
-                  <option *ngFor="let peca of pecasProduto">{{ peca?.descricao }}</option>
+                  <option *ngFor="let pecaProduto of pecasProduto">{{ pecaProduto.descricao }}</option>
                 </select>
                   <small class="ion-close text text-danger"
                 *ngIf="formProduto.controls['pecas'].at(i).get('descricao').hasError('required')

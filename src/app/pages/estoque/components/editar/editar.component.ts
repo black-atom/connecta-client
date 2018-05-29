@@ -19,6 +19,7 @@ export class EditarComponent implements OnInit, OnDestroy {
   public formProduto: FormGroup;
   private subscription: Subscription;
   public categoriaProdutos = categoriaProdutos;
+  public produtoRecebido: Produto;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -68,6 +69,7 @@ export class EditarComponent implements OnInit, OnDestroy {
 
       pecas.forEach( () => this.adicionarPeca() );
       this.formProduto.controls['pecas'].patchValue(pecas);
+      this.produtoRecebido = produto;
     });
 
   }
@@ -90,7 +92,7 @@ export class EditarComponent implements OnInit, OnDestroy {
   }
 
   editarProduto(produto: Produto) {
-    this.subscription = this.produtoService.novoProduto(produto)
+    this.subscription = this.produtoService.editarProduto({ ...this.produtoRecebido, ...produto })
       .subscribe(res => res ? this.sucessoNotification() : this.falhaNotification());
   }
 

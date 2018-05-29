@@ -24,6 +24,12 @@ export class ProdutoService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
+  editarProduto(produto: Produto): Observable <Produto> {
+    return this._http.post(`${environment.API_ENDPOINT}/api/produtos/${produto._id}`, produto, options)
+      .map(res => res.json() as any)
+      .catch(ManipuladorErro.lidaComErro);
+  }
+
   getProduto(id): Observable <Produto> {
     return this._http.get(`${environment.API_ENDPOINT}/api/produtos/${id}`)
       .map(res => res.json() as any)

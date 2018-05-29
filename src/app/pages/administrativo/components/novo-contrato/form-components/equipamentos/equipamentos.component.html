@@ -1,16 +1,17 @@
-<ba-card cardTitle="equipamentos" [formGroup]="equipamentoControl">
+<ba-card cardTitle="equipamento">
   <div class="row">
+
     <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3">
-      <label for="typeahead-focus">Pesquise o equipamento</label>
+      <label for="typeahead-focus">Dados do Equipamento</label>
       <input id="typeahead-basic" type="text" class="form-control mb-3" />
       <div class="list-group list-group-flush small scrollbar" id="style-1">
-        <div *ngFor="let equipamento of equipamentos">
-          <a class="list-group-item list-group-item-action">
+        <div *ngFor="let equip of equips">
+          <a class="list-group-item list-group-item-action" (click)="equipamentoSelecionado(equip)">
             <div class="media">
               <div class="media-body">
-                <strong>{{ equipamento?.modelo }}</strong>
+                <strong>{{ equip?.modelo }}</strong>
                 <p>
-                  <small>{{ equipamento?.fabricante }}</small>
+                  <small>{{ equip?.fabricante }}</small>
                 </p>
               </div>
             </div>
@@ -19,176 +20,138 @@
       </div>
     </div>
 
-    <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9">
-      <label>Relação de equipamentos</label>
-      <div class="equipamentos scrollbar" id="style-1">
-        <div class="list-group list-group-flush small">
-          <a class="list-group-item">
-            <h4>CATACRA FIT</h4>
-            <div class="media-body">
+    <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9" [formGroup]="formProposta">
+      <div formArrayName="equipamentos">
+        <div *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index" [formGroupName]='i'>
+
+          <div class="row pt-4">
+
+            <div class="col-md-6 col-sm-12 col-xs-12 col-lg-3">
+              <div class="media">
+                <img class="d-flex mr-3" src="assets/img/equipamento.jpg" width="80" height="80" alt="">
+                <div class="media-body">
+                  <h6 class="mt-0 mb-1 text-primary">
+                    {{ equipamento.modelo }}
+                  </h6>{{ equipamento.fabricante }}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-5">
+              <label>Nº de Série</label>
+              <input type="text" formControlName="numero_serie" class="form-control">
+            </div>
+
+            <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
+              <label for="visita">Visita ?</label>
+              <select class="form-control" formControlName="visita" id="visita">
+                <option value=true>Sim</option>
+                <option value=false>Não</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
+              <label>Valor</label>
+              <input type="number" formControlName="valor" class="form-control">
+            </div>
+
+            <div class="col-12">
+              <hr>
+            </div>
+
+            <div class="col-12">
               <div class="row">
-                <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3">
-                  <label>Nº de Série</label>
-                  <input type="text" class="form-control">
+
+                <div class="form-group col-md-6 col-sm-6 col-lg-3">
+                  <label for="cep">CEP</label>
+                  <input type="text" class="form-control" id="cep">
                 </div>
 
-                <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
-                  <label for="visita">Visita ?</label>
-                  <select class="form-control" id="visita">
-                    <option value=true>Sim</option>
-                    <option value=false>Não</option>
-                  </select>
+                <div class="form-group col-md-6 col-sm-6 col-lg-4">
+                  <label for="rua">Rua</label>
+                  <input type="text" class="form-control" id="rua">
                 </div>
 
-                <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
-                  <label>Valor</label>
-                  <input type="number" class="form-control">
+                <div class="form-group col-md-6 col-sm-6 col-lg-2">
+                  <label for="numero">N°</label>
+                  <input type="text" class="form-control" id="numero">
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-lg-3">
+                  <label for="bairro">Bairro</label>
+                  <input type="text" class="form-control" id="bairro">
                 </div>
 
-                <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-1">
-                  <button class="btn btn-outline-danger p-2 mt-3">
-                    <i class="fa fa-trash m-1"></i>
-                  </button>
+                <div class="form-group col-md-6 col-sm-6 col-lg-5">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" class="form-control" id="cidade">
                 </div>
 
-                <div class="col-12">
-                  <div class="row">
+                <div class="form-group col-md-6 col-sm-6 col-lg-3">
+                  <label for="uf">Estado</label>
+                  <input type="text" class="form-control" id="uf">
+                </div>
 
-                    <div class="form-group col-md-6 col-sm-6 col-lg-3">
-                      <label for="cep">CEP</label>
-                      <input type="text" class="form-control" id="cep">
-                    </div>
 
-                    <div class="form-group col-md-6 col-sm-6 col-lg-4">
-                      <label for="rua">Rua</label>
-                      <input type="text" class="form-control" id="rua">
-                    </div>
+                <div class="form-group col-md-6 col-sm-6 col-lg-4">
+                  <label for="ponto_referencia">Ponto de referência
+                    <small>(opc.)</small>
+                  </label>
+                  <input type="text" class="form-control" id="ponto_referencia">
+                </div>
 
-                    <div class="form-group col-md-6 col-sm-6 col-lg-2">
-                      <label for="numero">N°</label>
-                      <input type="text" class="form-control" id="numero">
-                    </div>
-                    <div class="form-group col-md-6 col-sm-6 col-lg-3" >
-                      <label for="bairro">Bairro</label>
-                      <input type="text" class="form-control" id="bairro">
-                    </div>
+                <div class="form-group col-md-6 col-sm-6 col-lg-8">
+                  <label for="complemento">Complemento
+                    <small>(opc.)</small>
+                  </label>
+                  <input type="text" class="form-control" id="complemento">
+                </div>
 
-                   <div class="form-group col-md-6 col-sm-6 col-lg-5">
-                      <label for="cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cidade">
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-lg-3">
-                      <label for="uf">Estado</label>
-                      <input type="text" class="form-control" id="uf">
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-lg-4">
-                      <label for="complemento">Complemento
-                        <small>(opc.)</small>
-                      </label>
-                      <input type="text" class="form-control" id="complemento">
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6 col-lg-8">
-                      <label for="ponto_referencia">Ponto de referência
-                        <small>(opc.)</small>
-                      </label>
-                      <input type="text" class="form-control" id="ponto_referencia">
-                    </div>
-
-                  </div>
+                <div class="col-md-6 col-sm-6 col-lg-4">
+                  <button class="btn btn-success mt-3 p-1">ADICIONAR EQUIPAMENTO</button>
                 </div>
 
               </div>
             </div>
-          </a>
 
-          <a class="list-group-item">
-              <h4>CATACRA FIT</h4>
-              <div class="media-body">
-                <div class="row">
-                  <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-3">
-                    <label>Nº de Série</label>
-                    <input type="text" class="form-control">
-                  </div>
-
-                  <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
-                    <label for="visita">Visita ?</label>
-                    <select class="form-control" id="visita">
-                      <option value=true>Sim</option>
-                      <option value=false>Não</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
-                    <label>Valor</label>
-                    <input type="number" class="form-control">
-                  </div>
-
-                  <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-1">
-                    <button class="btn btn-outline-danger p-2 mt-3">
-                      <i class="fa fa-trash m-1"></i>
-                    </button>
-                  </div>
-
-                  <div class="col-12">
-                    <div class="row">
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-3">
-                        <label for="cep">CEP</label>
-                        <input type="text" class="form-control" id="cep">
-                      </div>
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-4">
-                        <label for="rua">Rua</label>
-                        <input type="text" class="form-control" id="rua">
-                      </div>
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-2">
-                        <label for="numero">N°</label>
-                        <input type="text" class="form-control" id="numero">
-                      </div>
-                      <div class="form-group col-md-6 col-sm-6 col-lg-3" >
-                        <label for="bairro">Bairro</label>
-                        <input type="text" class="form-control" id="bairro">
-                      </div>
-
-                     <div class="form-group col-md-6 col-sm-6 col-lg-5">
-                        <label for="cidade">Cidade</label>
-                        <input type="text" class="form-control" id="cidade">
-                      </div>
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-3">
-                        <label for="uf">Estado</label>
-                        <input type="text" class="form-control" id="uf">
-                      </div>
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-4">
-                        <label for="complemento">Complemento
-                          <small>(opc.)</small>
-                        </label>
-                        <input type="text" class="form-control" id="complemento">
-                      </div>
-
-                      <div class="form-group col-md-6 col-sm-6 col-lg-8">
-                        <label for="ponto_referencia">Ponto de referência
-                          <small>(opc.)</small>
-                        </label>
-                        <input type="text" class="form-control" id="ponto_referencia">
-                      </div>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </a>
+          </div>
         </div>
       </div>
-      <button class="btn btn-primary mt-3" id="btn-salvar">SALVAR CONTRATO</button>
     </div>
-  </div>
 
+  </div>
+</ba-card>
+
+<ba-card cardTitle="relação de equipamentos">
+  <div class="row">
+
+    <div class="col-12">
+      <div class="equipamentos scrollbar" id="style-1">
+        <div class="list-group list-group-flush small" [formGroup]="formProposta">
+          <div formArrayName="equipamentos">
+            <div class="list-group-item d-inline" *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index"
+              [formGroupName]='i'>
+              <div class="media">
+                <img class="d-flex mr-3" src="assets/img/equipamento.jpg" width="45" height="45" alt="">
+                <div class="media-body">
+                  <h6 class="mt-0 mb-1">
+                    <strong>{{ equipamento.modelo }}</strong>
+                  </h6>Very nice! I wish I was there! That looks amazing!
+                  <div class="text-muted smaller">
+                    <strong>$</strong>{{ equipamento.valor }}
+                  </div>
+                </div>
+              </div>
+              <div class="pull-right">
+                <button class="btn btn-danger btn-lg mt-1" (click)="retirarEquipamento(i)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </ba-card>
 

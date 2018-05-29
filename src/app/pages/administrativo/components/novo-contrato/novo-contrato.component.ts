@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -43,22 +43,13 @@ export default class NovoContratoComponent implements OnInit {
         celular: [''],
         observacao: ['']
       }),
-      endereco: this.fb.group({
-        cep: ['', Validators.required],
-        rua: ['', Validators.required],
-        bairro: ['', Validators.required],
-        numero: ['', Validators.required],
-        cidade: ['', Validators.required],
-        complemento: [''],
-        uf: ['', Validators.required],
-        ponto_referencia: ['']
-      }),
+      endereco: this.enderecoForm(),
       propostas: this.fb.array([
         this.fb.group({
           descricao: [''],
-          valor: [0, Validators.required],
-          equipamentos: this.fb.array([this.equipamentoForm()]),
           encerradoEm: '',
+          valor: [0, Validators.required],
+          equipamentos: this.fb.array([]),
           ativo: [true, Validators.required]
         })
       ]),
@@ -76,7 +67,7 @@ export default class NovoContratoComponent implements OnInit {
     return this.fb.group({
       modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
-      numeroSerie: ['', Validators.required],
+      numero_serie: ['', Validators.required],
       visita: ['', Validators.required],
       valor: ['', Validators.required],
       endereco: this.enderecoForm()
@@ -101,7 +92,6 @@ export default class NovoContratoComponent implements OnInit {
       ? this.removerCaracterEspecial(cnpj)
       : this.notificarFalhaEncontrarCliente();
 
-
     this.cliente$ = this.clienteService
       .retornarUm(cnpjParse).map(cliente => {
       this.novoContratoForm.get('cliente.nome_razao_social').patchValue(cliente.nome_razao_social);
@@ -111,6 +101,10 @@ export default class NovoContratoComponent implements OnInit {
       console.log(cliente);
       return cliente;
     });
+  }
+
+  get propostas(): FormArray {
+    return this.novoContratoForm.get('propostas') as FormArray;
   }
 
   mask(valorDaLinha: string) {
@@ -124,6 +118,23 @@ export default class NovoContratoComponent implements OnInit {
     } else {
       return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
     }
+  }
+
+  addEquipamento({ equipamento, indexProposta: index }) {
+    const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    equipamentos.push(this.patchEquipamento(equipamento));
+  }
+
+  removeEquipamento({ indexEquipamento, indexProposta: index }) {
+    const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    equipamentos.removeAt(indexEquipamento);
+  }
+
+  patchEquipamento(equipamento) {
+    const equipPath = this.equipamentoForm();
+    equipPath.controls['modelo'].setValue(equipamento.modelo);
+    equipPath.controls['fabricante'].setValue(equipamento.fabricante);
+    return equipPath;
   }
 
   removerCaracterEspecial(cnpj: string) {

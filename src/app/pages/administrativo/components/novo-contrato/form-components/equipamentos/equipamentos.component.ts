@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Component } from '@angular/core';
 
 import { equipamentosTemporarios } from './../../equipamento.mock.temp';
@@ -9,28 +9,35 @@ import { equipamentosTemporarios } from './../../equipamento.mock.temp';
   styleUrls: ['./equipamento.component.scss']
 })
 
-export class EquipamentosContratoComponent {
+export class EquipamentosContratoComponent implements OnInit {
 
   @Input()
-  public equipamentoControl;
+  public formProposta;
 
   @Input()
-  public clienteEncontrado;
+  public indexProposta;
 
-  public enderecoEscolhido;
-  public equipamentos = equipamentosTemporarios;
+  @Output()
+  sendEquipamento = new EventEmitter();
 
-  enderecoSelecionado(endereco) {
-    this.equipamentoControl.get('endereco.complemento').patchValue(endereco.complemento);
-    this.equipamentoControl.get('endereco.uf').patchValue(endereco.uf);
-    this.equipamentoControl.get('endereco.rua').patchValue(endereco.rua);
-    this.equipamentoControl.get('endereco.bairro').patchValue(endereco.bairro);
-    this.equipamentoControl.get('endereco.cep').patchValue(endereco.cep);
-    this.equipamentoControl.get('endereco.cidade').patchValue(endereco.cidade);
-    this.equipamentoControl.get('endereco.numero').patchValue(endereco.numero);
-    this.equipamentoControl.get('endereco.ponto_referencia').patchValue(endereco.ponto_referencia);
+  @Output()
+  removeEquipamento = new EventEmitter();
+
+  public equips = equipamentosTemporarios;
+
+  constructor() { }
+
+  ngOnInit() { }
+
+  equipamentoSelecionado(equipamento) {
+    const indexProposta = this.indexProposta;
+    this.sendEquipamento.emit({ equipamento, indexProposta });
   }
 
+  retirarEquipamento(indexEquipamento) {
+    const indexProposta = this.indexProposta;
+    this.removeEquipamento.emit({ indexEquipamento, indexProposta });
+  }
 
 }
 

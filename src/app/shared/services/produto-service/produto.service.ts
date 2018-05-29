@@ -25,7 +25,7 @@ export class ProdutoService {
   }
 
   editarProduto(produto: Produto): Observable <Produto> {
-    return this._http.post(`${environment.API_ENDPOINT}/api/produtos/${produto._id}`, produto, options)
+    return this._http.put(`${environment.API_ENDPOINT}/api/produtos/${produto._id}`, produto, options)
       .map(res => res.json() as any)
       .catch(ManipuladorErro.lidaComErro);
   }

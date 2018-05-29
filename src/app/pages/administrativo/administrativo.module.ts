@@ -13,6 +13,7 @@ import { EnderecoClienteComponent } from './components/novo-contrato/form-compon
 import { DetalhesContratoComponent } from './components/novo-contrato/form-components/detalhes/detalhes.component';
 import { EquipamentosContratoComponent } from './components/novo-contrato/form-components/equipamentos/equipamentos.component';
 import { DadosPrincipaisClienteComponent } from './components/novo-contrato/form-components/dados-principais/dados-principais.component';
+import { EquipamentoFormComponent } from './components/novo-contrato/form-components/equipamentos/equipamentos-form/equipamento-form.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DadosPrincipaisClienteComponent } from './components/novo-contrato/form
     ContatoClienteComponent,
     EnderecoClienteComponent,
     DetalhesContratoComponent,
-    EquipamentosContratoComponent
+    EquipamentosContratoComponent,
+    EquipamentoFormComponent
   ]
 })
 export class AdministrativoModule { }

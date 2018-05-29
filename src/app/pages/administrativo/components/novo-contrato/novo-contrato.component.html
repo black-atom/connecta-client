@@ -1,48 +1,58 @@
+<pre> {{ novoContratoForm.value | json }} </pre>
+
 <div class="row">
 
   <div class="col-lg-3 form-group">
     <label>Pesquisa por CPF/CNPJ</label>
     <div class="input-group">
-      <input type="text" class="form-control pull-right" [(ngModel)]='cnpjBuscar' [textMask]="{mask: mask}" (change)="getCliente(cnpjBuscar)">
+      <input type="text" class="form-control pull-right"
+        [(ngModel)]='cnpjBuscar'
+        [textMask]="{mask: mask}"
+        (change)="getCliente(cnpjBuscar)">
     </div>
   </div>
 
   <div class="col-lg-3 pl-0">
-    <button class="btn btn-primary btn-search" type="button" (change)="getCliente(cnpjBuscar)">
+    <button class="btn btn-primary btn-search" type="button"
+      (change)="getCliente(cnpjBuscar)">
       <i class="fa fa-search"></i>
     </button>
   </div>
 
+</div>
+
+<div class="row" [formGroup]="novoContratoForm">
+
   <div class="col-12">
-    <app-dados-principais-cliente
-      [clienteForm]="novoContratoForm">
+    <app-dados-principais-cliente [clienteForm]="novoContratoForm">
     </app-dados-principais-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-      <app-contato-cliente
-        [contatoControl]="novoContratoForm"
-        [clienteEncontrado]="cliente$">
+    <app-contato-cliente
+      [contatoControl]="novoContratoForm"
+      [clienteEncontrado]="cliente$">
     </app-contato-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
     <app-endereco-cliente
-        [enderecoControl]="novoContratoForm"
-        [clienteEncontrado]="cliente$">
+      [enderecoControl]="novoContratoForm"
+      [clienteEncontrado]="cliente$">
     </app-endereco-cliente>
   </div>
 
   <div class="col-12">
-    <app-detalhes-contrato
-      [contratoControl]="novoContratoForm">
+    <app-detalhes-contrato [contratoControl]="novoContratoForm">
     </app-detalhes-contrato>
   </div>
 
-  <div class="col-12">
-    <app-equipamentos-contrato
-      [equipamentoControl]="novoContratoForm"
-      [clienteEncontrado]="cliente$">
+  <div class="col-12" formArrayName="propostas">
+    <app-equipamentos-contrato *ngFor="let proposta of propostas.controls; let i = index"
+      [indexProposta]="i"
+      [formProposta]="proposta"
+      (sendEquipamento)="addEquipamento($event)"
+      (removeEquipamento)="removeEquipamento($event)">
     </app-equipamentos-contrato>
   </div>
 

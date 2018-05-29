@@ -17,7 +17,9 @@
  <p-column field="modelo" header="Modelo" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
  <p-column field="marca" header="Marca" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
  <p-column field="categoria" header="Categoria" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="valor" header="Valor" [sortable]="true" [style]="{'width':'100px'}"></p-column>
+ <p-column field="valor" header="Valor" [sortable]="true" [style]="{'width':'100px'}">
+    <ng-template let-produto="rowData" pTemplate="body">  {{ produto?.valor | currency: 'BRL': true }}</ng-template>
+ </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
     <ng-template let-produto="rowData" pTemplate="body">

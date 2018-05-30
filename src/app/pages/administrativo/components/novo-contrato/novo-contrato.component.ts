@@ -63,27 +63,43 @@ export default class NovoContratoComponent implements OnInit {
     });
   }
 
-  equipamentoForm() {
+  equipamentoForm({
+    modelo = '',
+    fabricante = '',
+    numero_serie = '',
+    visita = false,
+    valor = 0,
+    endereco = {}
+  } = {}): FormGroup {
     return this.fb.group({
-      modelo: ['', Validators.required],
-      fabricante: ['', Validators.required],
-      numero_serie: ['', Validators.required],
-      visita: ['', Validators.required],
-      valor: ['', Validators.required],
-      endereco: this.enderecoForm()
+      modelo: [modelo, Validators.required],
+      fabricante: [fabricante, Validators.required],
+      numero_serie: [numero_serie, Validators.required],
+      visita: [visita, Validators.required],
+      valor: [valor, Validators.required],
+      endereco: this.enderecoForm(endereco)
     });
   }
 
-  enderecoForm() {
+  enderecoForm({
+    cep = '',
+    rua = '',
+    bairro = '',
+    numero = '',
+    cidade = '',
+    complemento = '',
+    uf = '',
+    ponto_referencia = ''
+  } = {}): FormGroup {
     return this.fb.group({
-      cep: ['', Validators.required],
-      rua: ['', Validators.required],
-      bairro: ['', Validators.required],
-      numero: ['', Validators.required],
-      cidade: ['', Validators.required],
-      complemento: [''],
-      uf: ['', Validators.required],
-      ponto_referencia: ['']
+      cep: [cep, Validators.required],
+      rua: [rua, Validators.required],
+      bairro: [bairro, Validators.required],
+      numero: [numero, Validators.required],
+      cidade: [cidade, Validators.required],
+      complemento: [complemento],
+      uf: [uf, Validators.required],
+      ponto_referencia: [ponto_referencia]
     });
   }
 
@@ -122,7 +138,7 @@ export default class NovoContratoComponent implements OnInit {
 
   addEquipamento({ equipamento, indexProposta: index }) {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-    equipamentos.push(this.patchEquipamento(equipamento));
+    equipamentos.push(this.equipamentoForm(equipamento));
   }
 
   removeEquipamento({ indexEquipamento, indexProposta: index }) {

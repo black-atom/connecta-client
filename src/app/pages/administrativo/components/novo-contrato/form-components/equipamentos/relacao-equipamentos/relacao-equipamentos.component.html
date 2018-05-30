@@ -1,0 +1,26 @@
+<div class="equipamentos scrollbar" id="style-1">
+  <div class=" list-group" formArrayName="equipamentos">
+    <a class="list-group-item d-flex p-1 pt-2" *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index"
+      [formGroupName]='i'>
+      <div class="p-2">
+        <img src="assets/img/equipamento.jpg" width="75" height="75">
+      </div>
+      <div class="p-2">
+        <h6>{{ equipamento.modelo }}</h6>
+        <p>
+          {{ equipamento?.endereco?.rua + ', ' + equipamento?.endereco?.numero + ', ' + equipamento?.endereco?.bairro +', ' + equipamento?.endereco?.cidade
+          + ' - ' + equipamento?.endereco?.uf + '- ' + equipamento?.endereco?.cep }}</p>
+        <p>
+          <strong>$</strong>{{ equipamento.valor }}</p>
+      </div>
+      <div class="ml-auto d-inline-flex p-2">
+        <button type="button" class="btn btn-light btn-lg text-right mr-2">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-lg text-right">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </a>
+  </div>
+</div>

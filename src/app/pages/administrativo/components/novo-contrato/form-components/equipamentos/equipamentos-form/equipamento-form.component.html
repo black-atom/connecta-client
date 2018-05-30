@@ -1,16 +1,37 @@
-<!-- <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9" [formGroup]="formProposta">
-  <div formArrayName="equipamentos">
-    <div *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index" [formGroupName]='i'>
+<pre>{{ formEquipamento.value | json }}</pre>
 
-      <div class="row pt-4">
+<div class="row">
+
+    <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3">
+      <label for="typeahead-focus">Dados do Equipamento</label>
+      <input id="typeahead-basic" type="text" class="form-control mb-3" />
+      <div class="list-group list-group-flush small scrollbar" id="style-1">
+        <div *ngFor="let equip of equips">
+          <a class="list-group-item list-group-item-action" (click)="selecionarEquipamento(equip)">
+            <div class="media">
+              <div class="media-body">
+                <strong>{{ equip?.modelo }}</strong>
+                <p>
+                  <small>{{ equip?.fabricante }}</small>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9">
+
+      <div class="row pt-4" [formGroup]="formEquipamento">
 
         <div class="col-md-6 col-sm-12 col-xs-12 col-lg-3">
           <div class="media">
             <img class="d-flex mr-3" src="assets/img/equipamento.jpg" width="80" height="80" alt="">
             <div class="media-body">
               <h6 class="mt-0 mb-1 text-primary">
-                {{ equipamento.modelo }}
-              </h6>{{ equipamento.fabricante }}
+                {{ formEquipamento.get('modelo').value }}
+              </h6>{{ formEquipamento.get('fabricante').value }}
             </div>
           </div>
         </div>
@@ -36,63 +57,62 @@
         <div class="col-12">
           <hr>
         </div>
-
-        <div class="col-12">
-          <div class="row">
-
-            <div class="form-group col-md-6 col-sm-6 col-lg-3">
-              <label for="cep">CEP</label>
-              <input type="text" class="form-control" id="cep">
-            </div>
-
-            <div class="form-group col-md-6 col-sm-6 col-lg-4">
-              <label for="rua">Rua</label>
-              <input type="text" class="form-control" id="rua">
-            </div>
-
-            <div class="form-group col-md-6 col-sm-6 col-lg-2">
-              <label for="numero">N°</label>
-              <input type="text" class="form-control" id="numero">
-            </div>
-            <div class="form-group col-md-6 col-sm-6 col-lg-3">
-              <label for="bairro">Bairro</label>
-              <input type="text" class="form-control" id="bairro">
-            </div>
-
-            <div class="form-group col-md-6 col-sm-6 col-lg-5">
-              <label for="cidade">Cidade</label>
-              <input type="text" class="form-control" id="cidade">
-            </div>
-
-            <div class="form-group col-md-6 col-sm-6 col-lg-3">
-              <label for="uf">Estado</label>
-              <input type="text" class="form-control" id="uf">
-            </div>
+      </div>
 
 
-            <div class="form-group col-md-6 col-sm-6 col-lg-4">
-              <label for="ponto_referencia">Ponto de referência
-                <small>(opc.)</small>
-              </label>
-              <input type="text" class="form-control" id="ponto_referencia">
-            </div>
+      <div class="row" [formGroup]="formEquipamento.controls['endereco']">
 
-            <div class="form-group col-md-6 col-sm-6 col-lg-8">
-              <label for="complemento">Complemento
-                <small>(opc.)</small>
-              </label>
-              <input type="text" class="form-control" id="complemento">
-            </div>
+        <div class="form-group col-md-6 col-sm-6 col-lg-3">
+          <label for="cep">CEP</label>
+          <input type="text" formControlName="cep" class="form-control" id="cep">
+        </div>
 
-            <div class="col-md-6 col-sm-6 col-lg-4">
-              <button class="btn btn-success mt-3 p-1">ADICIONAR EQUIPAMENTO</button>
-            </div>
+        <div class="form-group col-md-6 col-sm-6 col-lg-4">
+          <label for="rua">Rua</label>
+          <input type="text" formControlName="rua" class="form-control" id="rua">
+        </div>
 
-          </div>
+        <div class="form-group col-md-6 col-sm-6 col-lg-2">
+          <label for="numero">N°</label>
+          <input type="text" formControlName="numero" class="form-control" id="numero">
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-lg-3">
+          <label for="bairro">Bairro</label>
+          <input type="text" formControlName="bairro" class="form-control" id="bairro">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-5">
+          <label for="cidade">Cidade</label>
+          <input type="text" formControlName="cidade" class="form-control" id="cidade">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-3">
+          <label for="uf">Estado</label>
+          <input type="text" formControlName="uf" class="form-control" id="uf">
+        </div>
+
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-4">
+          <label for="ponto_referencia">Ponto de referência
+            <small>(opc.)</small>
+          </label>
+          <input type="text" formControlName="ponto_referencia" class="form-control" id="ponto_referencia">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-8">
+          <label for="complemento">Complemento
+            <small>(opc.)</small>
+          </label>
+          <input type="text" formControlName="complemento" class="form-control" id="complemento">
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-lg-4">
+          <button class="btn btn-success mt-3 p-1" (click)="adicionarEquipamento()">ADICIONAR EQUIPAMENTO</button>
         </div>
 
       </div>
+
     </div>
-  </div>
+
+
 </div>
- -->

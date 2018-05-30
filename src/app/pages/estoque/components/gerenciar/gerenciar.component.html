@@ -13,11 +13,11 @@
  rowHover="true"
  sortField="createdAt" styleClass="borderless">
 
- <p-column field="descricao" header="Descrição Produto" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="modelo" header="Modelo" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="marca" header="Marca" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="categoria" header="Categoria" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="valor" header="Valor" [sortable]="true" [style]="{'width':'100px'}">
+ <p-column field="descricao" header="Descrição Produto" [filter]="true" [style]="{'width':'100px'}"></p-column>
+ <p-column field="modelo" header="Modelo" [filter]="true" [style]="{'width':'100px'}"></p-column>
+ <p-column field="marca" header="Marca" [filter]="true" [style]="{'width':'100px'}"></p-column>
+ <p-column field="categoria" header="Categoria" [filter]="true" [style]="{'width':'100px'}"></p-column>
+ <p-column field="valor" header="Valor" [style]="{'width':'100px'}">
     <ng-template let-produto="rowData" pTemplate="body">  {{ produto?.valor | currency: 'BRL': true }}</ng-template>
  </p-column>
 

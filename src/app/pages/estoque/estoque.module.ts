@@ -12,6 +12,7 @@ import { NovoComponent } from './components/novo/novo.component';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
 import { EditarComponent } from './components/editar/editar.component';
 import { routing } from './estoque.routing';
+import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,11 @@ import { routing } from './estoque.routing';
     EstoqueComponent,
     NovoComponent,
     GerenciarComponent,
-    EditarComponent
+    EditarComponent,
+    ModalImagemComponent
+  ],
+  entryComponents: [
+    ModalImagemComponent
   ],
   providers: [
     ModuloCompartilhado,

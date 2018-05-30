@@ -48,4 +48,14 @@ export class ProdutoService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
+  uploadProductImage (formdata, productID) {
+    const headers2: Headers = new Headers({
+      'Content-Type': 'multipart/form-data'
+    });
+    return this._http.post(`${environment.API_ENDPOINT}/api/produtos/${productID}/imagem`, formdata, {
+      headers: null
+    })
+      .map((res) => res.json() as ResponseProdutos)
+      .catch(ManipuladorErro.lidaComErro);
+  }
 }

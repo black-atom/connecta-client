@@ -29,7 +29,7 @@
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
       <label>Dia de vencimento</label>
-      <input type="number" formControlName="dia_vencimento" class="form-control">
+      <input [textMask]="{ mask : patternRange }" formControlName="dia_vencimento" class="form-control">
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">

@@ -8,5 +8,6 @@ export class DetalhesContratoComponent {
 
   @Input()
   public contratoControl;
-
+  public patternRange = [/\d/, /\d/];
+  // '\d[1-3]';
 }

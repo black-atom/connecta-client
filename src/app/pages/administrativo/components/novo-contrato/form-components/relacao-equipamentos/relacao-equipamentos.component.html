@@ -1,0 +1,37 @@
+<ba-card cardTitle="relação de equipamentos" [formGroup]="formProposta">
+  <div class="equipamentos scrollbar" id="style-1">
+    <div class=" list-group" formArrayName="equipamentos">
+      <a class="list-group-item d-flex p-1 pt-2"
+        *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index"
+        [formGroupName]='i'>
+
+        <div class="p-2">
+          <img src="assets/img/equipamento.jpg" width="75" height="75">
+        </div>
+
+        <div class="p-2">
+          <h6>{{ equipamento.modelo }}</h6>
+          <p>
+            {{ equipamento?.endereco?.rua + ',
+            ' + equipamento?.endereco?.numero + ',
+            ' + equipamento?.endereco?.bairro +',
+            ' + equipamento?.endereco?.cidade+ ' -
+            ' + equipamento?.endereco?.uf + '-
+            ' + equipamento?.endereco?.cep }}</p>
+          <p>
+            {{ equipamento.valor | currency: 'BRL': true }}
+          </p>
+        </div>
+
+        <div class="ml-auto d-inline-flex p-2">
+          <button class="btn btn-light btn-lg text-right mr-2"type="button" (click)="editarEquipamento(equipamento)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-danger btn-lg text-right" type="button"(click)="retirarEquipamento(equipamento)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </a>
+    </div>
+  </div>
+</ba-card>

@@ -4,9 +4,8 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@ang
 import { Observable } from 'rxjs/Observable';
 
 import { ClienteService, NotificacaoService } from '../../../../shared/services';
-import { Cliente } from '../../../../models';
 import { equipamentosTemporarios } from './equipamento.mock.temp';
-
+import { Cliente } from '../../../../models';
 @Component({
   selector: 'app-novo-contrato',
   templateUrl: './novo-contrato.component.html',
@@ -17,6 +16,7 @@ export default class NovoContratoComponent implements OnInit {
   public cnpjBuscar;
   public novoContratoForm: FormGroup;
   public cliente$: Observable<Cliente>;
+  public patternRange = '\d[1-3]';
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +56,7 @@ export default class NovoContratoComponent implements OnInit {
       numero_contrato: ['', Validators.required],
       data_adesao: ['', Validators.required],
       data_encerramento: ['', Validators.required],
-      dia_vencimento: ['', Validators.required],
+      dia_vencimento: ['', [Validators.required, Validators.pattern(this.patternRange)]],
       tipo: ['', Validators.required],
       ativo: [true, Validators.required],
       resumo_contrato: ['', Validators.required]
@@ -110,13 +110,13 @@ export default class NovoContratoComponent implements OnInit {
 
     this.cliente$ = this.clienteService
       .retornarUm(cnpjParse).map(cliente => {
-      this.novoContratoForm.get('cliente.nome_razao_social').patchValue(cliente.nome_razao_social);
-      this.novoContratoForm.get('cliente.inscricao_estadual').patchValue(cliente.inscricao_estadual);
-      this.novoContratoForm.get('cliente.nome_fantasia').patchValue(cliente.nome_fantasia);
-      this.novoContratoForm.get('cliente.cnpj_cpf').patchValue(cliente.cnpj_cpf);
-      console.log(cliente);
-      return cliente;
-    });
+        this.novoContratoForm.get('cliente.nome_razao_social').patchValue(cliente.nome_razao_social);
+        this.novoContratoForm.get('cliente.inscricao_estadual').patchValue(cliente.inscricao_estadual);
+        this.novoContratoForm.get('cliente.nome_fantasia').patchValue(cliente.nome_fantasia);
+        this.novoContratoForm.get('cliente.cnpj_cpf').patchValue(cliente.cnpj_cpf);
+        console.log(cliente);
+        return cliente;
+      });
   }
 
   get propostas(): FormArray {

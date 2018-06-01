@@ -24,38 +24,14 @@ export class EquipamentosContratoComponent implements OnInit {
   @Output()
   removeEquipamento = new EventEmitter();
 
-  public formEquipamento: FormGroup;
-
-  public equips = equipamentosTemporarios;
   public equipamentoSelecionado;
 
   constructor(
     private fb: FormBuilder
   ) { }
 
-  ngOnInit() {
-    this.equipamentoForm();
-  }
+  ngOnInit() { }
 
-  equipamentoForm() {
-    this.formEquipamento = this.fb.group({
-      modelo: ['', Validators.required],
-      fabricante: ['', Validators.required],
-      numero_serie: ['', Validators.required],
-      visita: ['', Validators.required],
-      valor: ['', Validators.required],
-      endereco: {
-        cep: ['', Validators.required],
-        rua: ['', Validators.required],
-        bairro: ['', Validators.required],
-        numero: ['', Validators.required],
-        cidade: ['', Validators.required],
-        complemento: [''],
-        uf: ['', Validators.required],
-        ponto_referencia: ['']
-      }
-    });
-  }
 
   selecionarEquipamento(equipamento) {
     const indexProposta = this.indexProposta;

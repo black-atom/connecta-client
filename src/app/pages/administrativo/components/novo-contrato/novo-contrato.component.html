@@ -1,19 +1,23 @@
-<pre> {{ novoContratoForm.value | json }} </pre>
+<!-- <pre> {{ novoContratoForm.value | json }} </pre> -->
 
 <div class="row">
 
-  <div class="col-lg-3 form-group">
+  <div class="col-3">
     <label>Pesquisa por CPF/CNPJ</label>
     <div class="input-group">
-      <input type="text" class="form-control pull-right"
+      <input
+        type="text"
+        class="form-control pull-right"
         [(ngModel)]='cnpjBuscar'
         [textMask]="{mask: mask}"
         (change)="getCliente(cnpjBuscar)">
     </div>
   </div>
 
-  <div class="col-lg-3 pl-0">
-    <button class="btn btn-primary btn-search" type="button"
+  <div class="col-3 pl-0">
+    <button
+      class="btn btn-primary btn-search"
+      type="button"
       (change)="getCliente(cnpjBuscar)">
       <i class="fa fa-search"></i>
     </button>
@@ -24,7 +28,8 @@
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
-    <app-dados-principais-cliente [clienteForm]="novoContratoForm">
+    <app-dados-principais-cliente
+      [clienteForm]="novoContratoForm">
     </app-dados-principais-cliente>
   </div>
 
@@ -43,17 +48,59 @@
   </div>
 
   <div class="col-12">
-    <app-detalhes-contrato [contratoControl]="novoContratoForm">
+    <app-detalhes-contrato
+      [contratoControl]="novoContratoForm">
     </app-detalhes-contrato>
   </div>
 
-  <div class="col-12" formArrayName="propostas">
-    <app-equipamentos-contrato *ngFor="let proposta of propostas.controls; let i = index"
-      [indexProposta]="i"
-      [formProposta]="proposta"
-      (sendEquipamento)="addEquipamento($event)"
-      (removeEquipamento)="removeEquipamento($event)">
-    </app-equipamentos-contrato>
+  <div formArrayName="propostas">
+    <div *ngFor="let proposta of propostas.controls; let i = index">
+
+      <div class="col-12">
+        <app-form-equip
+          (sendEquipamento)="addEquipamento($event)"
+          [indexProposta]="i">
+        </app-form-equip>
+      </div>
+
+      <div class="col-12">
+        <app-relacao-equipamentos
+          (removeEquipamento)="removeEquipamento($event)"
+          [indexProposta]="i"
+          [formProposta]="proposta">
+        </app-relacao-equipamentos>
+      </div>
+
+      <div class="col-12">
+        <ba-card>
+          <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+              <button
+                class="btn btn-primary btn-with-icon"
+                type="submit"
+                [disabled]="novoContratoForm.invalid">
+                <i class="ion-android-checkmark-circle"></i>
+                Cadastrar
+              </button>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <button
+                class="btn btn-danger btn-with-icon"
+                type="reset"
+                (click)="novoContratoForm.reset()"
+                [disabled]="novoContratoForm.pristine">
+                <i class="ion-trash-a"></i>
+                Limpar
+              </button>
+            </div>
+
+          </div>
+        </ba-card>
+      </div>
+
+    </div>
   </div>
 
 </div>

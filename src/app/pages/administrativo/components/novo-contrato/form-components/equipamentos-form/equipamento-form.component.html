@@ -1,6 +1,6 @@
-<!-- <pre>{{ formEquipamento.value | json }}</pre> -->
+<pre>{{ formEquipamento.value | json }}</pre>
 
-<!-- <pre>{{ formEquipamento.valid }}</pre> -->
+<pre>{{ formEquipamento.valid }}</pre>
 
 <ba-card cardTitle="equipamento">
   <div class="row">
@@ -11,6 +11,7 @@
       <div class="list-group list-group-flush small scrollbar" id="style-1">
         <div *ngFor="let equip of equips">
           <a class="list-group-item list-group-item-action" (click)="selecionarEquipamento(equip)">
+            <img class="d-flex mr-3" src="assets/img/equipamento.jpg" width="45" height="45" alt="">
             <div class="media">
               <div class="media-body">
                 <strong>{{ equip?.modelo }}</strong>

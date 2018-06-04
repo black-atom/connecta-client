@@ -1,4 +1,6 @@
-<!-- <pre> {{ novoContratoForm.value | json }} </pre> -->
+<pre> {{ novoContratoForm.value | json }} </pre>
+
+<pre>{{ novoContratoForm.valid | json }}</pre>
 
 <div class="row">
 
@@ -79,7 +81,8 @@
               <button
                 class="btn btn-primary btn-with-icon"
                 type="submit"
-                [disabled]="novoContratoForm.invalid">
+                (click)="cadastrarContrato()"
+                [disabled]="!novoContratoForm.valid">
                 <i class="ion-android-checkmark-circle"></i>
                 Cadastrar
               </button>

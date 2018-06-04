@@ -6,7 +6,12 @@
       [ngModelOptions]="{ standalone: true }"
       (change)="contatoSelecionado(contatoEscolhido)">
       <option [ngValue]="contato" *ngFor="let contato of (clienteEncontrado | async)?.contatos">
-        {{ contato?.nome + ', ' + contato?.email +', ' + contato?.telefone +', '+ contato?.celular +', '+ contato?.observacao }}
+        {{
+          contato?.nome + ',
+          ' + contato?.email +',
+          ' + contato?.telefone +',
+          '+ contato?.celular
+        }}
       </option>
     </select>
   </div>

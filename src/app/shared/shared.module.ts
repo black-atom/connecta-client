@@ -16,7 +16,8 @@ import {
   LoginService,
   NotificacaoService,
   MonitoramentoService,
-  AvaliacoesService
+  AvaliacoesService,
+  ContratoService
 } from './services';
 
 
@@ -72,6 +73,7 @@ export function formatacaoDaData () {
     LoginService,
     ClienteService,
     FuncionarioService,
+    ContratoService,
     AtendimentoService,
     NotificacaoService,
     MonitoramentoService,

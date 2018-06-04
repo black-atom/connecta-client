@@ -10,12 +10,10 @@ import { AdministrativoComponent } from './administrativo.component';
 import { ContatoClienteComponent } from './components/novo-contrato/form-components/contato/contato.component';
 import { EnderecoClienteComponent } from './components/novo-contrato/form-components/endereco/endereco.component';
 import { DetalhesContratoComponent } from './components/novo-contrato/form-components/detalhes/detalhes.component';
-import { EquipamentosContratoComponent } from './components/novo-contrato/form-components/equipamentos/equipamentos.component';
 import { DadosPrincipaisClienteComponent } from './components/novo-contrato/form-components/dados-principais/dados-principais.component';
-import { EquipamentoFormComponent } from './components/novo-contrato/form-components/equipamentos-form/equipamento-form.component';
 import { RelacaoEquipamentosComponent } from './components/novo-contrato/form-components/relacao-equipamentos/relacao-equipamentos.component';
-import { NovoContratoComponent } from './components';
-
+import { EquipamentoFormComponent } from './components/novo-contrato/form-components/equipamentos-form/equipamento-form.component';
+import { NovoContratoComponent } from './components/novo-contrato/novo-contrato.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +30,6 @@ import { NovoContratoComponent } from './components';
     ContatoClienteComponent,
     EnderecoClienteComponent,
     DetalhesContratoComponent,
-    EquipamentosContratoComponent,
     EquipamentoFormComponent,
     RelacaoEquipamentosComponent
   ]

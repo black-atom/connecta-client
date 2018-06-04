@@ -4,9 +4,19 @@
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
       <label>Nº do contrato</label>
       <input type="text" formControlName="numero_contrato" class="form-control">
+      <span class="text-danger"
+        *ngIf="contratoControl.get('numero_contrato').hasError('required') &&
+        contratoControl.get('numero_contrato').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+        <span class="text-danger"
+        *ngIf="contratoControl.get('data_adesao').hasError('required') &&
+        contratoControl.get('data_adesao').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
       <label for="param_busca">Data de Adesão</label>
       <div class="input-group">
         <input class="form-control" formControlName="data_adesao" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
@@ -14,6 +24,7 @@
           <i class="ion-calendar"></i>
         </button>
       </div>
+
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
@@ -25,19 +36,34 @@
           <i class="ion-calendar"></i>
         </button>
       </div>
+      <span class="text-danger"
+        *ngIf="contratoControl.get('data_encerramento').hasError('required') &&
+        contratoControl.get('data_encerramento').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
       <label>Dia de vencimento</label>
       <input [textMask]="{ mask : patternRange }" formControlName="dia_vencimento" class="form-control">
+      <span class="text-danger"
+        *ngIf="contratoControl.get('dia_vencimento').hasError('required') &&
+        contratoControl.get('dia_vencimento').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
       <label for="selecionar_tipo">Subsequente ?</label>
-      <select class="form-control" formControlName="tipo" id="selecionar_tipo">
-        <option>Sim</option>
-        <option>Não</option>
+      <select class="form-control" formControlName="subsequente" id="selecionar_tipo">
+        <option value=true>Sim</option>
+        <option value=false>Não</option>
       </select>
+      <span class="text-danger"
+        *ngIf="contratoControl.get('subsequente').hasError('required') &&
+        contratoControl.get('subsequente').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
@@ -48,6 +74,11 @@
         <option>Trimestral</option>
         <option>Anual</option>
       </select>
+      <span class="text-danger"
+        *ngIf="contratoControl.get('tipo').hasError('required') &&
+        contratoControl.get('tipo').touched">
+        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      </span>
     </div>
 
     <div class="col-12 mb-3">

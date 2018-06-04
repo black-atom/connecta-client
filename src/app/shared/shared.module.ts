@@ -17,7 +17,11 @@ import {
   NotificacaoService,
   MonitoramentoService,
   AvaliacoesService,
+<<<<<<< HEAD
   ProdutoService
+=======
+  ContratoService
+>>>>>>> feat: added new service contrato.
 } from './services';
 
 
@@ -73,6 +77,7 @@ export function formatacaoDaData () {
     LoginService,
     ClienteService,
     FuncionarioService,
+    ContratoService,
     AtendimentoService,
     NotificacaoService,
     MonitoramentoService,

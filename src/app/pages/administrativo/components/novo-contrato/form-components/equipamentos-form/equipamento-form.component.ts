@@ -55,7 +55,6 @@ export class EquipamentoFormComponent implements OnInit {
         enderecoForm.get('cidade').patchValue(dados.localidade);
         enderecoForm.get('uf').patchValue(dados.uf);
     });
-    console.log(enderecoForm.value);
   }
 
   equipamentoForm() {

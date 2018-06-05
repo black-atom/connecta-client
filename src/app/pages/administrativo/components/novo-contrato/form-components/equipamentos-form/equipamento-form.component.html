@@ -29,19 +29,29 @@
 
       <div class="row pt-4" [formGroup]="formEquipamento">
 
-        <div class="col-md-6 col-sm-12 col-xs-12 col-lg-3">
-          <div class="media">
-            <img class="d-flex mr-3" src="assets/img/equipamento.jpg" width="80" height="80" alt="">
-            <div class="media-body" *ngIf="formEquipamento.get('modelo').value">
+        <div class="col-12 mb-2">
+          <div class="media list-group-item">
+            <h6
+              class="mt-4 mb-4 text-center"
+              *ngIf="!formEquipamento.get('modelo').value">
+              Selecione um Equipamento
+            </h6>
+            <img class="d-flex mr-3" *ngIf="formEquipamento.get('modelo').value" src="assets/img/equipamento.jpg" width="65" height="65" alt="">
+            <div
+              class="media-body"
+              *ngIf="formEquipamento.get('modelo').value">
               <h6 class="mt-0 mb-1 text-primary">
                 {{ formEquipamento.get('modelo').value }}
               </h6>{{ formEquipamento.get('fabricante').value }}
             </div>
-            <h6 class="mt-4" *ngIf="!formEquipamento.get('modelo').value">Selecione um Equipamento</h6>
           </div>
         </div>
 
-        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-5">
+        <div class="col-12">
+          <hr>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
           <label>Nº de Série</label>
           <input type="text" formControlName="numero_serie" class="form-control">
         </div>
@@ -54,7 +64,7 @@
           </select>
         </div>
 
-        <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2">
+        <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-4">
           <label>Valor</label>
           <input type="number" formControlName="valor" class="form-control">
         </div>
@@ -63,7 +73,6 @@
           <hr>
         </div>
       </div>
-
 
       <div class="row" [formGroup]="formEquipamento.controls['endereco']">
 
@@ -80,26 +89,26 @@
 
         <div class="form-group col-md-6 col-sm-6 col-lg-4">
           <label for="rua">Rua</label>
-          <input type="text" formControlName="rua" class="form-control" id="rua">
+          <input type="text" formControlName="rua" class="form-control" autocomplete="false" id="rua">
         </div>
 
         <div class="form-group col-md-6 col-sm-6 col-lg-2">
           <label for="numero">N°</label>
-          <input type="text" formControlName="numero" class="form-control" id="numero">
+          <input type="text" formControlName="numero" class="form-control" autocomplete="false" id="numero">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-lg-3">
           <label for="bairro">Bairro</label>
-          <input type="text" formControlName="bairro" class="form-control" id="bairro">
+          <input type="text" formControlName="bairro" class="form-control" autocomplete="false" id="bairro">
         </div>
 
         <div class="form-group col-md-6 col-sm-6 col-lg-5">
           <label for="cidade">Cidade</label>
-          <input type="text" formControlName="cidade" class="form-control" id="cidade">
+          <input type="text" formControlName="cidade" class="form-control" autocomplete="false" id="cidade">
         </div>
 
         <div class="form-group col-md-6 col-sm-6 col-lg-3">
           <label for="uf">Estado</label>
-          <input type="text" formControlName="uf" class="form-control" id="uf">
+          <input type="text" formControlName="uf" class="form-control" autocomplete="false" id="uf">
         </div>
 
 
@@ -107,21 +116,32 @@
           <label for="ponto_referencia">Ponto de referência
             <small>(opc.)</small>
           </label>
-          <input type="text" formControlName="ponto_referencia" class="form-control" id="ponto_referencia">
+          <input type="text" formControlName="ponto_referencia" class="form-control" autocomplete="false" id="ponto_referencia">
         </div>
 
         <div class="form-group col-md-6 col-sm-6 col-lg-8">
           <label for="complemento">Complemento
             <small>(opc.)</small>
           </label>
-          <input type="text" formControlName="complemento" class="form-control" id="complemento">
+          <input type="text" formControlName="complemento" class="form-control" autocomplete="false" id="complemento">
         </div>
 
         <div class="col-md-6 col-sm-6 col-lg-4">
-          <button class="btn btn-success mt-3 btn-lg p-1"
+          <button
+            class="btn btn-success mt-4 p-2"
+            *ngIf="!buttonEditar"
             [disabled]="!formEquipamento.valid"
             (click)="salvarEquipamento()">
-            <i class="fa fa-plus"></i> Adicionar Equipamento</button>
+            <i class="fa fa-plus"></i>
+            Adicionar Equipamento
+          </button>
+          <button
+            class="btn btn-outline-success mt-4 p-2"
+            *ngIf="buttonEditar"
+            (click)="editarEquipamento()">
+            <i class="fa fa-edit"></i>
+            Editar Equipamento
+          </button>
         </div>
 
       </div>

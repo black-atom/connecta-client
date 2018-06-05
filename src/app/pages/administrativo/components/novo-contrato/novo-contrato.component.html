@@ -18,8 +18,8 @@
 
   <div class="col-3 pl-0">
     <button
-      class="btn btn-primary btn-search"
       type="button"
+      class="btn btn-primary btn-search"
       (change)="getCliente(cnpjBuscar)">
       <i class="fa fa-search"></i>
     </button>
@@ -60,16 +60,20 @@
 
       <div class="col-12">
         <app-form-equip
+          [indexProposta]="i"
+          [equipamento]="equipamento"
+          [indexEquipamento]="indexEquipamento"
           (sendEquipamento)="addEquipamento($event)"
-          [indexProposta]="i">
+          (editEquipamento)="editarEquipamento($event)">
         </app-form-equip>
       </div>
 
       <div class="col-12">
         <app-relacao-equipamentos
-          (removeEquipamento)="removeEquipamento($event)"
           [indexProposta]="i"
-          [formProposta]="proposta">
+          [formProposta]="proposta"
+          (editEquipamento)="getEquipamentoEdit($event)"
+          (removeEquipamento)="removeEquipamento($event)">
         </app-relacao-equipamentos>
       </div>
 
@@ -79,10 +83,10 @@
 
             <div class="col-md-6 col-sm-12">
               <button
-                class="btn btn-primary btn-with-icon"
                 type="submit"
-                (click)="cadastrarContrato()"
-                [disabled]="!novoContratoForm.valid">
+                class="btn btn-primary btn-with-icon"
+                [disabled]="!novoContratoForm.valid"
+                (click)="cadastrarContrato()">
                 <i class="ion-android-checkmark-circle"></i>
                 Cadastrar
               </button>
@@ -90,10 +94,10 @@
 
             <div class="col-md-6 col-sm-12">
               <button
-                class="btn btn-danger btn-with-icon"
                 type="reset"
-                (click)="novoContratoForm.reset()"
-                [disabled]="novoContratoForm.pristine">
+                class="btn btn-danger btn-with-icon"
+                [disabled]="novoContratoForm.pristine"
+                (click)="novoContratoForm.reset()">
                 <i class="ion-trash-a"></i>
                 Limpar
               </button>

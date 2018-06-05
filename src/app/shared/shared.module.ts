@@ -17,11 +17,8 @@ import {
   NotificacaoService,
   MonitoramentoService,
   AvaliacoesService,
-<<<<<<< HEAD
-  ProdutoService
-=======
+  ProdutoService,
   ContratoService
->>>>>>> feat: added new service contrato.
 } from './services';
 
 

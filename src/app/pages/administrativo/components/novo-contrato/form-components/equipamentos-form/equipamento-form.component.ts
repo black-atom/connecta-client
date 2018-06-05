@@ -1,50 +1,90 @@
-import { CepService } from './../../../../../../shared/services/cep-service/cep.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
+import { CepService } from './../../../../../../shared/services/cep-service/cep.service';
 import { equipamentosTemporarios } from './../../equipamento.mock.temp';
 import { DadosEndereco } from '../../../../../../models';
+import { NotificacaoService } from '../../../../../../shared/services';
+
 
 @Component({
   selector: 'app-form-equip',
   templateUrl: './equipamento-form.component.html',
   styleUrls: ['./equipamento-form.component.scss']
 })
-export class EquipamentoFormComponent implements OnInit {
+export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   @Input()
   indexProposta;
+
+  @Input()
+  equipamento;
+
+  @Input()
+  indexEquipamento;
+
+  @Output()
+  editEquipamento = new EventEmitter();
 
   @Output()
   sendEquipamento = new EventEmitter();
 
   public formEquipamento: FormGroup;
   public equips = equipamentosTemporarios;
-  private mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
-
+  public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  public buttonEditar = false;
 
   constructor(
     private fb: FormBuilder,
-    private cepService: CepService
+    private cepService: CepService,
+    private notificacaoService: NotificacaoService
   ) { }
 
   ngOnInit() {
     this.equipamentoForm();
   }
 
-  selecionarEquipamento(equipamento) {
-    this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
-    this.formEquipamento.get('fabricante').patchValue(equipamento.fabricante);
+  ngOnChanges(changes) {
+    const formEquip = changes.equipamento.currentValue;
+    if (formEquip !== undefined) {
+    this.buttonEditar = true;
+
+      this.formEquipamento.patchValue(formEquip);
+
+    }
   }
 
   salvarEquipamento() {
     const indexProposta = this.indexProposta;
     const equipamento = this.formEquipamento.value;
     this.sendEquipamento.emit({ equipamento, indexProposta });
+    this.resetForm();
+    this.notificarAdicionadoSucesso();
   }
 
-  adicionarEquipamento() {
-    this.sendEquipamento.emit(this.formEquipamento.value);
+  editarEquipamento() {
+    console.log(this.indexEquipamento, 'edit');
+    console.log(this.equipamento, 'edit');
+    this.buttonEditar = false;
+    this.editEquipamento.emit({
+      equipamento: this.formEquipamento.value,
+      indexEquipamento: this.indexEquipamento,
+      indexProposta: this.indexProposta
+    });
+    this.resetForm();
+    this.notificarEditadoSucesso();
+  }
+
+  resetForm() {
+    // this.indexEquipamento = null;
+    // this.equipamento = null;
+    this.equipamentoForm();
+  }
+
+  selecionarEquipamento(equipamento) {
+
+    this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
+    this.formEquipamento.get('fabricante').patchValue(equipamento.fabricante);
   }
 
   buscaPorCep(cep: string) {
@@ -75,6 +115,14 @@ export class EquipamentoFormComponent implements OnInit {
         ponto_referencia: ['']
       })
     });
+  }
+
+  notificarAdicionadoSucesso() {
+    this.notificacaoService.notificarSucesso('Produto adicionado com sucesso!', '');
+  }
+
+  notificarEditadoSucesso() {
+    this.notificacaoService.notificarSucesso('Produto editado com sucesso!', '');
   }
 
 }

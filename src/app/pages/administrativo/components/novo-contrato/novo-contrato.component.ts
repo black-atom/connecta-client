@@ -1,13 +1,13 @@
+import { OnInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-
 import { Observable } from 'rxjs/Observable';
 
-import { ClienteService, NotificacaoService } from '../../../../shared/services';
-import { equipamentosTemporarios } from './equipamento.mock.temp';
-import { Cliente } from '../../../../models';
-import { OnInit, Component } from '@angular/core';
+import { ClienteService, NotificacaoService, ContratoService } from '../../../../shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
-import { ContratoService } from '../../../../shared/services/contrato-service/contrato.service';
+
+import { Cliente } from '../../../../models';
+import { equipamentosTemporarios } from './equipamento.mock.temp';
+
 @Component({
   selector: 'app-novo-contrato',
   templateUrl: './novo-contrato.component.html',
@@ -16,9 +16,10 @@ import { ContratoService } from '../../../../shared/services/contrato-service/co
 export class NovoContratoComponent implements OnInit {
 
   public cnpjBuscar;
+  public equipamento;
+  public indexEquipamento;
   public novoContratoForm: FormGroup;
   public cliente$: Observable<Cliente>;
-  public patternRange = '\d[1-3]';
 
   constructor(
     private fb: FormBuilder,
@@ -125,22 +126,21 @@ export class NovoContratoComponent implements OnInit {
     return this.novoContratoForm.get('propostas') as FormArray;
   }
 
-  mask(valorDaLinha: string) {
-    if (valorDaLinha === undefined) {
-      valorDaLinha = '';
-    }
-
-    const valor = valorDaLinha.replace(/\D+/g, '');
-    if (valor.length > 11) {
-      return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
-    } else {
-      return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
-    }
-  }
-
   addEquipamento({ equipamento, indexProposta: index }) {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.push(this.equipamentoForm(equipamento));
+  }
+
+  editarEquipamento({ equipamento, indexEquipamento, indexProposta: index }) {
+    const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    equipamentos.at(indexEquipamento).patchValue(equipamento);
+  }
+
+  getEquipamentoEdit({ equipamento, index }) {
+    this.equipamento = equipamento;
+    this.indexEquipamento = index;
+    // const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    // equipamentos.at(index).patchValue(equipamento);
   }
 
   removeEquipamento({ indexEquipamento, indexProposta: index }) {
@@ -164,11 +164,11 @@ export class NovoContratoComponent implements OnInit {
   }
 
   notificarFalhaCadastro() {
-    this.notificacaoService.notificarAviso('Falha ao cadastrar o contrato!', '');
+    this.notificacaoService.notificarErro('Falha ao cadastrar o contrato!', '');
   }
 
   notificarSucesso() {
-    this.notificacaoService.notificarAviso('Contrato cadastrado com sucesso!', '');
+    this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
   }
 
 
@@ -188,6 +188,19 @@ export class NovoContratoComponent implements OnInit {
 
   parseData(data) {
     return new Date(data.year, data.month - 1, data.day);
+  }
+
+  mask(valorDaLinha: string) {
+    if (valorDaLinha === undefined) {
+      valorDaLinha = '';
+    }
+
+    const valor = valorDaLinha.replace(/\D+/g, '');
+    if (valor.length > 11) {
+      return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    } else {
+      return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    }
   }
 
   replaceFieldsAtendimento(contrato) {

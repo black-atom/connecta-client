@@ -6,17 +6,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RelacaoEquipamentosComponent {
 
-  @Output()
-  editEquipamento = new EventEmitter();
-
-  @Output()
-  removeEquipamento = new EventEmitter();
-
   @Input()
   formProposta;
 
   @Input()
   indexProposta;
+
+  @Output()
+  editEquipamento = new EventEmitter();
+
+  @Output()
+  removeEquipamento = new EventEmitter();
 
   constructor() { }
 
@@ -25,9 +25,9 @@ export class RelacaoEquipamentosComponent {
     this.removeEquipamento.emit({ indexEquipamento, indexProposta });
   }
 
-  editarEquipamento(indexEquipamento) {
+  editarEquipamento(equipamento, index) {
     const indexProposta = this.indexProposta;
-    this.editEquipamento.emit({ indexEquipamento, indexProposta });
+    this.editEquipamento.emit({ equipamento, index });
   }
 
 }

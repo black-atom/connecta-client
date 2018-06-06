@@ -1,11 +1,12 @@
+
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
-import { CepService } from './../../../../../../shared/services/cep-service/cep.service';
-import { equipamentosTemporarios } from './../../equipamento.mock.temp';
-import { DadosEndereco } from '../../../../../../models';
-import { NotificacaoService } from '../../../../../../shared/services';
+import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 
+import { DadosEndereco, Produto } from 'app/models';
+import { propNameQuery } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-form-equip',
@@ -15,13 +16,13 @@ import { NotificacaoService } from '../../../../../../shared/services';
 export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   @Input()
-  indexProposta;
-
-  @Input()
   equipamento;
 
   @Input()
-  indexEquipamento;
+  indexProposta: number;
+
+  @Input()
+  indexEquipamento: number;
 
   @Output()
   editEquipamento = new EventEmitter();
@@ -30,35 +31,67 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   sendEquipamento = new EventEmitter();
 
   public formEquipamento: FormGroup;
-  public equips = equipamentosTemporarios;
+  public produtos$: Observable<any[]>;
+  public buttonEditar: boolean = false;
   public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
-  public buttonEditar = false;
+  public carregando: boolean = true;
+  public totalRecords;
 
   constructor(
     private fb: FormBuilder,
     private cepService: CepService,
+    private produtoService: ProdutoService,
     private notificacaoService: NotificacaoService
   ) { }
 
   ngOnInit() {
     this.equipamentoForm();
+    this.produtos$ = this.produtoService.produtosLazyLoad()
+    .map(({ produtos, count }) => {
+      this.totalRecords = count;
+      this.carregando = false;
+      return produtos;
+    });
   }
 
   ngOnChanges(changes) {
     const formEquip = changes.equipamento.currentValue;
-    if (formEquip !== undefined) {
-    this.buttonEditar = true;
-
+    if (formEquip) {
+      this.buttonEditar = true;
       this.formEquipamento.patchValue(formEquip);
-
     }
+  }
+
+  filterEvents({ filters, first, rows }) {
+    const queryFormatter = propNameQuery(filters);
+    const newQuery: any = {
+      ...queryFormatter('descricao'),
+      ...queryFormatter('marca'),
+      ...queryFormatter('modelo'),
+      ...queryFormatter('categoria')
+    };
+    return newQuery;
+  }
+
+  loadProdutosLazy(event) {
+    const query = this.filterEvents(event);
+    const skip = event.first;
+    const limit = event.rows;
+
+    this.produtos$ = this.produtoService
+      .produtosLazyLoad(skip, limit, query)
+        .map(({ produtos, count }) => {
+          this.totalRecords = count;
+          this.carregando = false;
+          return produtos;
+        });
   }
 
   salvarEquipamento() {
     const indexProposta = this.indexProposta;
     const equipamento = this.formEquipamento.value;
     this.sendEquipamento.emit({ equipamento, indexProposta });
-    this.resetForm();
+    // this.resetForm();
     this.notificarAdicionadoSucesso();
   }
 
@@ -76,34 +109,35 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   resetForm() {
-    // this.indexEquipamento = null;
-    // this.equipamento = null;
     this.equipamentoForm();
+    this.buttonEditar = false;
   }
 
-  selecionarEquipamento(equipamento) {
-
+  selecionarEquipamento(equipamento: Produto): void {
     this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
-    this.formEquipamento.get('fabricante').patchValue(equipamento.fabricante);
+    this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
+    this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
+    this.formEquipamento.get('valor').patchValue(equipamento.valor);
   }
 
-  buscaPorCep(cep: string) {
+  buscaPorCep(cep: string): void {
     const enderecoForm = this.formEquipamento.get('endereco');
     this.cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-        enderecoForm.get('rua').patchValue(dados.logradouro);
-        enderecoForm.get('bairro').patchValue(dados.bairro);
-        enderecoForm.get('cidade').patchValue(dados.localidade);
-        enderecoForm.get('uf').patchValue(dados.uf);
+      enderecoForm.get('rua').patchValue(dados.logradouro);
+      enderecoForm.get('bairro').patchValue(dados.bairro);
+      enderecoForm.get('cidade').patchValue(dados.localidade);
+      enderecoForm.get('uf').patchValue(dados.uf);
     });
   }
 
-  equipamentoForm() {
+  equipamentoForm(): void {
     this.formEquipamento = this.fb.group({
       modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
-      numero_serie: ['', [Validators.required, Validators.minLength(4)]],
+      numeroSerie: ['', [Validators.required, Validators.minLength(4)]],
       visita: ['', Validators.required],
       valor: ['', Validators.required],
+      imagemPath: '',
       endereco: this.fb.group({
         cep: ['', Validators.required],
         rua: ['', Validators.required],

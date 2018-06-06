@@ -17,6 +17,7 @@ export class NovoContratoComponent implements OnInit {
 
   public cnpjBuscar;
   public equipamento;
+  public valorTotalContrato;
   public indexEquipamento;
   public novoContratoForm: FormGroup;
   public cliente$: Observable<Cliente>;
@@ -50,38 +51,37 @@ export class NovoContratoComponent implements OnInit {
       endereco: this.enderecoForm(),
       propostas: this.fb.array([
         this.fb.group({
-          descricao: '',
-          encerradoEm: '',
           valor: 0,
           equipamentos: this.fb.array([]),
           ativo: true
         })
       ]),
-      numero_contrato: ['', [Validators.required, Validators.maxLength(60)]],
-      data_adesao: ['', Validators.required],
-      data_encerramento: ['', Validators.required],
-      dia_vencimento: ['', Validators.required],
+      numeroContrato: ['', [Validators.required, Validators.maxLength(60)]],
+      dataAdesao: ['', Validators.required],
+      diaVencimento: ['', Validators.required],
       subsequente: ['', Validators.required],
       tipo: ['', Validators.required],
       ativo: [true, Validators.required],
-      resumo_contrato: ['']
+      resumoContrato: ['']
     });
   }
 
   equipamentoForm({
     modelo = '',
     fabricante = '',
-    numero_serie = '',
+    numeroSerie = '',
     visita = false,
     valor = 0,
+    imagemPath = '',
     endereco = {}
   } = {}): FormGroup {
     return this.fb.group({
       modelo: [modelo, Validators.required],
       fabricante: [fabricante, Validators.required],
-      numero_serie: [numero_serie, [Validators.required, Validators.minLength(4)]],
+      numeroSerie: [numeroSerie, [Validators.required, Validators.minLength(4)]],
       visita: [visita, Validators.required],
       valor: [valor, Validators.required],
+      imagemPath: '',
       endereco: this.enderecoForm(endereco)
     });
   }
@@ -129,6 +129,8 @@ export class NovoContratoComponent implements OnInit {
   addEquipamento({ equipamento, indexProposta: index }) {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.push(this.equipamentoForm(equipamento));
+    this.calculaValorTotalContrato(index, equipamentos.value);
+    console.log(this.valorTotalContrato);
   }
 
   editarEquipamento({ equipamento, indexEquipamento, indexProposta: index }) {
@@ -155,6 +157,12 @@ export class NovoContratoComponent implements OnInit {
     return equipPath;
   }
 
+  calculaValorTotalContrato(index, equipamentos) {
+    this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
+      return total + equipamento.valor;
+    }, 0);
+  }
+
   removerCaracterEspecial(cnpj: string) {
     return cnpj.replace(/\D+/g, '');
   }
@@ -173,18 +181,19 @@ export class NovoContratoComponent implements OnInit {
 
 
   cadastrarContrato() {
-    // const contratoFormatado = this.replaceFieldsAtendimento(this.novoContratoForm.value);
-    // console.log(contratoFormatado);
-    this.contratoService.novoContrato(this.novoContratoForm.value).subscribe(
-      () => {},
-          erro => this.notificarFalhaCadastro(),
-            () => {
-              this.novoContratoForm.reset();
-              this.initContratoForm();
-              this.notificarSucesso();
-            }
-    );
+    const contratoFormatado = this.replaceFieldsAtendimento(this.novoContratoForm.value);
+    console.log(contratoFormatado);
+    // this.contratoService.novoContrato(this.novoContratoForm.value).subscribe(
+    //   () => {},
+    //       erro => this.notificarFalhaCadastro(),
+    //         () => {
+    //           this.initContratoForm();
+    //           this.notificarSucesso();
+    //         }
+    // );
   }
+
+
 
   parseData(data) {
     return new Date(data.year, data.month - 1, data.day);
@@ -229,12 +238,10 @@ export class NovoContratoComponent implements OnInit {
         uf: contrato.endereco.uf,
         ponto_referencia: contrato.endereco.ponto_referencia
       },
-      data_adesao: this.parseData(contrato.data_adesao),
-      data_encerramento: this.parseData(contrato.data_encerramento)
+      dataAdesao: this.parseData(contrato.dataAdesao)
     };
 
     return { ...contrato, ...novoContrato };
   }
-
 
 }

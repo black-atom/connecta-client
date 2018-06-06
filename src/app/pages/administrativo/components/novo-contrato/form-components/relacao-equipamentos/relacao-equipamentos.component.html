@@ -1,5 +1,6 @@
 <ba-card cardTitle="relação de equipamentos" [formGroup]="formProposta">
-  <div class="scrollbar" id="style-1">
+
+  <div class="list-group list-group-flush small scrollbar" id="style-1">
     <div formArrayName="equipamentos">
       <a class="list-group-item d-flex p-1 pt-2"
         *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index"
@@ -10,7 +11,8 @@
         </div>
 
         <div class="p-2">
-          <h6>{{ equipamento.modelo }}</h6>
+          <h6>{{ equipamento?.modelo }}</h6>
+          <p *ngIf="equipamento?.numeroSerie">{{'Nº de Série: ' + equipamento?.numeroSerie }}</p>
           <p>
             {{ equipamento?.endereco?.rua + ',
             ' + equipamento?.endereco?.numero + ',
@@ -19,7 +21,7 @@
             ' + equipamento?.endereco?.uf + '-
             ' + equipamento?.endereco?.cep }}</p>
           <p>
-            {{ equipamento.valor | currency: 'BRL': true }}
+            {{ equipamento?.valor | currency: 'BRL': true }}
           </p>
         </div>
 
@@ -32,6 +34,18 @@
           </button>
         </div>
       </a>
+
+
     </div>
+
+
   </div>
+   <!-- *ngIf="valorTotal" -->
+   <div class="card text-white bg-success pull-right mt-4 mb-1" *ngIf="valorTotal" style="max-width: 18rem;" >
+      <div class="card-body">
+        <h4 class="text-white bold">VALOR TOTAL</h4>
+        <h3 class="text-white text-right bold">{{ valorTotal | currency: 'BRL': true }}</h3>
+        <!-- {{ valorTotal | currency: 'BRL': true }} -->
+      </div>
+    </div>
 </ba-card>

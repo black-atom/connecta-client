@@ -1,6 +1,6 @@
-<pre> {{ novoContratoForm.value | json }} </pre>
+<!-- <pre> {{ novoContratoForm.value | json }} </pre> -->
 
-<pre>{{ novoContratoForm.valid | json }}</pre>
+<!-- <pre>{{ novoContratoForm.valid | json }}</pre> -->
 
 <div class="row">
 
@@ -72,6 +72,7 @@
         <app-relacao-equipamentos
           [indexProposta]="i"
           [formProposta]="proposta"
+          [valorTotal]="valorTotalContrato"
           (editEquipamento)="getEquipamentoEdit($event)"
           (removeEquipamento)="removeEquipamento($event)">
         </app-relacao-equipamentos>
@@ -98,7 +99,7 @@
                 class="btn btn-danger btn-with-icon"
                 [disabled]="novoContratoForm.pristine"
                 (click)="novoContratoForm.reset()">
-                <i class="ion-trash-a"></i>
+                <i class="fa fa-trash"></i>
                 Limpar
               </button>
             </div>

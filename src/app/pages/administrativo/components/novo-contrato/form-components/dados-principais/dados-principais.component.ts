@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dados-principais-cliente',
-  templateUrl: './dados-principais.component.html'
+  templateUrl: './dados-principais.component.html',
+  styleUrls: ['./dados-principais.component.scss']
 })
 export class DadosPrincipaisClienteComponent {
 

@@ -3,6 +3,11 @@ p {
   text-transform: uppercase;
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
 div .pesquisa button {
   width: 45px;
 }

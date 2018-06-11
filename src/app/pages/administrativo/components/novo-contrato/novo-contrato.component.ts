@@ -2,10 +2,10 @@ import { OnInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { ClienteService, NotificacaoService, ContratoService } from '../../../../shared/services';
+import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
-import { Cliente } from '../../../../models';
+import { Cliente } from 'app/models';
 import { equipamentosTemporarios } from './equipamento.mock.temp';
 
 @Component({
@@ -17,6 +17,7 @@ export class NovoContratoComponent implements OnInit {
 
   public cnpjBuscar;
   public equipamento;
+  public qtdEquipamentos;
   public valorTotalContrato;
   public indexEquipamento;
   public novoContratoForm: FormGroup;
@@ -42,9 +43,9 @@ export class NovoContratoComponent implements OnInit {
         nome_fantasia: ['']
       }),
       contato: this.fb.group({
-        email: ['', Validators.required],
+        email: [''],
         nome: [''],
-        telefone: ['', Validators.required],
+        telefone: [''],
         celular: [''],
         observacao: ['']
       }),
@@ -112,11 +113,12 @@ export class NovoContratoComponent implements OnInit {
     const cnpjParse = cnpj
       ? this.removerCaracterEspecial(cnpj)
       : this.notificarFalhaEncontrarCliente();
-
     this.cliente$ = this.clienteService
       .retornarUm(cnpjParse).map(cliente => {
         if (cliente) {
           this.novoContratoForm.get('cliente').patchValue(cliente);
+        } else {
+          this.notificarFalhaEncontrarCliente();
         }
         return cliente;
       });
@@ -130,31 +132,33 @@ export class NovoContratoComponent implements OnInit {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.push(this.equipamentoForm(equipamento));
     this.calculaValorTotalContrato(index, equipamentos.value);
-    console.log(this.valorTotalContrato);
+    this.qtdEquipamentos = equipamentos.value.length;
   }
 
   editarEquipamento({ equipamento, indexEquipamento, indexProposta: index }) {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.at(indexEquipamento).patchValue(equipamento);
-  }
-
-  getEquipamentoEdit({ equipamento, index }) {
-    this.equipamento = equipamento;
-    this.indexEquipamento = index;
-    // const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-    // equipamentos.at(index).patchValue(equipamento);
+    this.calculaValorTotalContrato(index, equipamentos.value);
+    this.qtdEquipamentos = equipamentos.value.length;
   }
 
   removeEquipamento({ indexEquipamento, indexProposta: index }) {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.removeAt(indexEquipamento);
+    this.calculaValorTotalContrato(index, equipamentos.value);
+    this.qtdEquipamentos = equipamentos.value.length;
   }
 
-  patchEquipamento(equipamento) {
-    const equipPath = this.equipamentoForm();
-    equipPath.controls['modelo'].setValue(equipamento.modelo);
-    equipPath.controls['fabricante'].setValue(equipamento.fabricante);
-    return equipPath;
+  getEquipamentoEdit({ equipamento, index }) {
+    this.equipamento = equipamento;
+    this.indexEquipamento = index;
+  }
+
+  resetForm() {
+    this.cnpjBuscar = '';
+    this.qtdEquipamentos = 0;
+    this.valorTotalContrato = 0;
+    this.initContratoForm();
   }
 
   calculaValorTotalContrato(index, equipamentos) {
@@ -163,53 +167,17 @@ export class NovoContratoComponent implements OnInit {
     }, 0);
   }
 
-  removerCaracterEspecial(cnpj: string) {
-    return cnpj.replace(/\D+/g, '');
-  }
-
-  notificarFalhaEncontrarCliente() {
-    this.notificacaoService.notificarAviso('Cliente não encontrado!', '');
-  }
-
-  notificarFalhaCadastro() {
-    this.notificacaoService.notificarErro('Falha ao cadastrar o contrato!', '');
-  }
-
-  notificarSucesso() {
-    this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
-  }
-
-
   cadastrarContrato() {
     const contratoFormatado = this.replaceFieldsAtendimento(this.novoContratoForm.value);
-    console.log(contratoFormatado);
-    // this.contratoService.novoContrato(this.novoContratoForm.value).subscribe(
-    //   () => {},
-    //       erro => this.notificarFalhaCadastro(),
-    //         () => {
-    //           this.initContratoForm();
-    //           this.notificarSucesso();
-    //         }
-    // );
-  }
-
-
-
-  parseData(data) {
-    return new Date(data.year, data.month - 1, data.day);
-  }
-
-  mask(valorDaLinha: string) {
-    if (valorDaLinha === undefined) {
-      valorDaLinha = '';
-    }
-
-    const valor = valorDaLinha.replace(/\D+/g, '');
-    if (valor.length > 11) {
-      return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
-    } else {
-      return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
-    }
+    this.contratoService.novoContrato(contratoFormatado)
+    .subscribe(
+      () => {},
+      erro => this.notificarFalhaCadastro(),
+        () => {
+          this.resetForm();
+          this.notificarSucesso();
+        }
+    );
   }
 
   replaceFieldsAtendimento(contrato) {
@@ -238,10 +206,44 @@ export class NovoContratoComponent implements OnInit {
         uf: contrato.endereco.uf,
         ponto_referencia: contrato.endereco.ponto_referencia
       },
-      dataAdesao: this.parseData(contrato.dataAdesao)
+      dataAdesao: this.parseData(contrato.dataAdesao),
+      valor: this.valorTotalContrato
     };
 
     return { ...contrato, ...novoContrato };
+  }
+
+  parseData(data) {
+    return new Date(data.year, data.month - 1, data.day);
+  }
+
+  removerCaracterEspecial(cnpj: string) {
+    return cnpj.replace(/\D+/g, '');
+  }
+
+  mask(valorDaLinha: string) {
+    if (valorDaLinha === undefined) {
+      valorDaLinha = '';
+    }
+
+    const valor = valorDaLinha.replace(/\D+/g, '');
+    if (valor.length > 11) {
+      return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    } else {
+      return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    }
+  }
+
+  notificarFalhaEncontrarCliente() {
+    this.notificacaoService.notificarAviso('Cliente não encontrado!', '');
+  }
+
+  notificarFalhaCadastro() {
+    this.notificacaoService.notificarErro('Falha ao cadastrar o contrato!', '');
+  }
+
+  notificarSucesso() {
+    this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
   }
 
 }

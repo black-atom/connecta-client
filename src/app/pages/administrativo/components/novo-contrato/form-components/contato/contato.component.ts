@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-contato-cliente',
   templateUrl: './contato.component.html'
 })
-export class ContatoClienteComponent {
+export class ContatoClienteComponent implements OnChanges {
 
   @Input()
   public contatoControl;
@@ -15,6 +15,13 @@ export class ContatoClienteComponent {
   public contatoEscolhido;
 
   constructor() { }
+
+  ngOnChanges(changes) {
+    const contato = changes.clienteEncontrado;
+    if (!contato) {
+      this.contatoEscolhido = { };
+    }
+  }
 
   contatoSelecionado(contato) {
     this.contatoControl.get('contato.nome').patchValue(contato.nome);

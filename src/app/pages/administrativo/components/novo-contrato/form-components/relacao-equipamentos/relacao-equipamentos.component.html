@@ -1,4 +1,4 @@
-<ba-card cardTitle="relação de equipamentos" [formGroup]="formProposta">
+<ba-card cardTitle="relação de produtos" [formGroup]="formProposta">
 
   <div class="list-group list-group-flush small scrollbar" id="style-1">
     <div formArrayName="equipamentos">
@@ -12,7 +12,6 @@
 
         <div class="p-2">
           <h6>{{ equipamento?.modelo }}</h6>
-          <p *ngIf="equipamento?.numeroSerie">{{'Nº de Série: ' + equipamento?.numeroSerie }}</p>
           <p>
             {{ equipamento?.endereco?.rua + ',
             ' + equipamento?.endereco?.numero + ',
@@ -21,7 +20,9 @@
             ' + equipamento?.endereco?.uf + '-
             ' + equipamento?.endereco?.cep }}</p>
           <p>
-            {{ equipamento?.valor | currency: 'BRL': true }}
+            <span class="badge badge-success p-2">{{ equipamento?.valor | currency: 'BRL': true }}</span>
+            <span class="badge badge-primary p-2" *ngIf="equipamento?.visita === 'true'">VISITA</span>
+            <span class="badge badge-warning p-2" *ngIf="equipamento?.numeroSerie">{{'Nº ' + equipamento?.numeroSerie }}</span>
           </p>
         </div>
 
@@ -35,17 +36,18 @@
         </div>
       </a>
 
+      <h6 class="text-center text-secundary mt-5 mb-5" *ngIf="formProposta.value.equipamentos.length === 0">Não há produtos!</h6>
 
     </div>
-
-
   </div>
-   <!-- *ngIf="valorTotal" -->
-   <div class="card text-white bg-success pull-right mt-4 mb-1" *ngIf="valorTotal" style="max-width: 18rem;" >
-      <div class="card-body">
-        <h4 class="text-white bold">VALOR TOTAL</h4>
-        <h3 class="text-white text-right bold">{{ valorTotal | currency: 'BRL': true }}</h3>
-        <!-- {{ valorTotal | currency: 'BRL': true }} -->
-      </div>
+
+  <div class="card text-white bg-success pull-right mt-4 mb-1"
+    *ngIf="qtdEquipamentos > 0"
+    style="max-width: 18rem; max-height: 50px;" >
+    <div class="card-body">
+      <h4 class="text-white bold">TOTAL {{ valorTotal | currency: 'BRL': true }}</h4>
+      <h3 class="text-white text-right bold"></h3>
     </div>
+  </div>
+
 </ba-card>

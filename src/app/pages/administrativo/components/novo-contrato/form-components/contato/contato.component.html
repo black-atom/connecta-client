@@ -1,5 +1,6 @@
 <ba-card cardTitle="Contato">
-  <div class="form-group">
+  <div class="form-group"
+    [class.has-success]="contatoControl.get('contato.email').value && (clienteEncontrado | async)">
     <label for="selecionar_contato">Selecionar contato</label>
     <select class="form-control" id="selecionar_contato"
       [(ngModel)]="contatoEscolhido"

@@ -1,22 +1,20 @@
 <ba-card class="col-12" cardTitle="detalhes do contrato" [formGroup]="contratoControl">
     <div class="row">
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4"
+      [class.has-error]="contratoControl.get('numeroContrato').hasError('required') && contratoControl.get('numeroContrato').touched"
+      [class.has-success]="contratoControl.get('numeroContrato').valid">
       <label>Nº do contrato</label>
       <input type="text" formControlName="numeroContrato" class="form-control">
-      <span class="text-danger"
-        *ngIf="contratoControl.get('numeroContrato').hasError('required') &&
-        contratoControl.get('numeroContrato').touched">
-        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      <span class="text-danger small" *ngIf="contratoControl.get('numeroContrato').hasError('required') && contratoControl.get('numeroContrato').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
       </span>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
-        <span class="text-danger"
-        *ngIf="contratoControl.get('dataAdesao').hasError('required') &&
-        contratoControl.get('dataAdesao').touched">
-        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
-      </span>
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
+      [class.has-error]="contratoControl.get('dataAdesao').hasError('required') && contratoControl.get('dataAdesao').touched"
+      [class.has-success]="contratoControl.get('dataAdesao').valid">
       <label for="param_busca">Data de Adesão</label>
       <div class="input-group">
         <input class="form-control" formControlName="dataAdesao" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
@@ -24,33 +22,40 @@
           <i class="ion-calendar"></i>
         </button>
       </div>
-
-    </div>
-
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
-      <label>Dia de vencimento</label>
-      <input [textMask]="{ mask : patternRange }" formControlName="diaVencimento" class="form-control">
-      <span class="text-danger"
-        *ngIf="contratoControl.get('diaVencimento').hasError('required') &&
-        contratoControl.get('diaVencimento').touched">
-        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      <span class="text-danger small" *ngIf="contratoControl.get('dataAdesao').hasError('required') && contratoControl.get('dataAdesao').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
       </span>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
+      [class.has-error]="contratoControl.get('diaVencimento').hasError('required') && contratoControl.get('diaVencimento').touched"
+      [class.has-success]="contratoControl.get('diaVencimento').valid">
+      <label>Dia de vencimento</label>
+      <input [textMask]="{ mask : patternRange }" formControlName="diaVencimento" class="form-control">
+      <span class="text-danger small" *ngIf="contratoControl.get('diaVencimento').hasError('required') && contratoControl.get('diaVencimento').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
+      </span>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
+      [class.has-error]="contratoControl.get('subsequente').hasError('required') && contratoControl.get('subsequente').touched"
+      [class.has-success]="contratoControl.get('subsequente').valid">
       <label for="selecionar_tipo">Subsequente ?</label>
       <select class="form-control" formControlName="subsequente" id="selecionar_tipo">
         <option [ngValue]=true>Sim</option>
         <option [ngValue]=false>Não</option>
       </select>
-      <span class="text-danger"
-        *ngIf="contratoControl.get('subsequente').hasError('required') &&
-        contratoControl.get('subsequente').touched">
-        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      <span class="text-danger small" *ngIf="contratoControl.get('subsequente').hasError('required') && contratoControl.get('subsequente').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
       </span>
     </div>
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
+      [class.has-error]="contratoControl.get('tipo').hasError('required') && contratoControl.get('tipo').touched"
+      [class.has-success]="contratoControl.get('tipo').valid">
       <label for="selecionar_tipo">Selecione o Tipo</label>
       <select class="form-control" formControlName="tipo" id="selecionar_tipo">
         <option>Mensal</option>
@@ -58,15 +63,14 @@
         <option>Trimestral</option>
         <option>Anual</option>
       </select>
-      <span class="text-danger"
-        *ngIf="contratoControl.get('tipo').hasError('required') &&
-        contratoControl.get('tipo').touched">
-        <i class="fa fa-close text-danger"></i> Campo Obrigatório!
+      <span class="text-danger small" *ngIf="contratoControl.get('tipo').hasError('required') && contratoControl.get('tipo').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
       </span>
     </div>
 
     <div class="col-12 mb-3">
-      <div class="form-group">
+      <div class="form-group" [class.has-success]="contratoControl.get('resumoContrato').value">
         <label for="testes_efetuados">Resumo do contrato</label>
         <textarea class="form-control" formControlName="resumoContrato" rows="6" id="testes_efetuados">
         </textarea>

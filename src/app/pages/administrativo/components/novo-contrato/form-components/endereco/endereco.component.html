@@ -1,5 +1,6 @@
 <ba-card cardTitle="Endereço do contrato">
-  <div class="form-group">
+  <div class="form-group"
+    [class.has-success]="enderecoControl.get('endereco.cep').value && (clienteEncontrado | async)">
     <label for="selecionar_endereco">Selecionar endereço</label>
     <select class="form-control" id="selecionar_endereco" [(ngModel)]="enderecoEscolhido" [ngModelOptions]="{ standalone: true }"
       (change)="enderecoSelecionado(enderecoEscolhido)">

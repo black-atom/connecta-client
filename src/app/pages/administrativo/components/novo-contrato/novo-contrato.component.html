@@ -1,7 +1,3 @@
-<!-- <pre> {{ novoContratoForm.value | json }} </pre> -->
-
-<!-- <pre>{{ novoContratoForm.valid | json }}</pre> -->
-
 <div class="row">
 
   <div class="col-3">
@@ -12,7 +8,7 @@
         class="form-control pull-right"
         [(ngModel)]='cnpjBuscar'
         [textMask]="{mask: mask}"
-        (change)="getCliente(cnpjBuscar)">
+        (blur)="getCliente(cnpjBuscar)">
     </div>
   </div>
 
@@ -20,7 +16,7 @@
     <button
       type="button"
       class="btn btn-primary btn-search"
-      (change)="getCliente(cnpjBuscar)">
+      (click)="getCliente(cnpjBuscar)">
       <i class="fa fa-search"></i>
     </button>
   </div>
@@ -73,6 +69,7 @@
           [indexProposta]="i"
           [formProposta]="proposta"
           [valorTotal]="valorTotalContrato"
+          [qtdEquipamentos]="qtdEquipamentos"
           (editEquipamento)="getEquipamentoEdit($event)"
           (removeEquipamento)="removeEquipamento($event)">
         </app-relacao-equipamentos>
@@ -86,7 +83,7 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-with-icon"
-                [disabled]="!novoContratoForm.valid"
+                [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
                 (click)="cadastrarContrato()">
                 <i class="ion-android-checkmark-circle"></i>
                 Cadastrar
@@ -98,7 +95,7 @@
                 type="reset"
                 class="btn btn-danger btn-with-icon"
                 [disabled]="novoContratoForm.pristine"
-                (click)="novoContratoForm.reset()">
+                (click)="resetForm()">
                 <i class="fa fa-trash"></i>
                 Limpar
               </button>
@@ -112,6 +109,4 @@
   </div>
 
 </div>
-
-<!-- <pre>{{ cliente$ | async | json }}</pre> -->
 

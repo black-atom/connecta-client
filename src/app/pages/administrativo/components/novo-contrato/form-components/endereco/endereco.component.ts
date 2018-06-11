@@ -1,17 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-endereco-cliente',
   templateUrl: './endereco.component.html'
 })
-export class EnderecoClienteComponent {
+export class EnderecoClienteComponent implements OnChanges {
 
   @Input()
-  public enderecoControl;
+  public enderecoControl: FormGroup;
 
   @Input()
   public clienteEncontrado;
 
   public enderecoEscolhido;
+
+  ngOnChanges(changes) {
+    const endereco = changes.enderecoEscolhido;
+    if (!endereco) {
+      this.enderecoEscolhido = { };
+    }
+  }
 
   enderecoSelecionado(endereco) {
     this.enderecoControl.get('endereco.complemento').patchValue(endereco.complemento);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dados-principais-cliente',
@@ -10,7 +10,14 @@ export class DadosPrincipaisClienteComponent {
   @Input()
   public clienteForm;
 
+  @Output()
+  buscarCliente = new EventEmitter();
+
   constructor() { }
+
+  pesquisarCliente(cnpj) {
+    this.buscarCliente.emit(cnpj);
+  }
 
   mask(valorDaLinha: string) {
     if (valorDaLinha === undefined) {

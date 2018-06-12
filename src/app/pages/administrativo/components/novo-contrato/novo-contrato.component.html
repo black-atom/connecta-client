@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
 
   <div class="col-3">
     <label>Pesquisa por CPF/CNPJ</label>
@@ -21,13 +21,14 @@
     </button>
   </div>
 
-</div>
+</div> -->
 
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
     <app-dados-principais-cliente
-      [clienteForm]="novoContratoForm">
+      [clienteForm]="novoContratoForm"
+      (buscarCliente)="getCliente($event)">
     </app-dados-principais-cliente>
   </div>
 

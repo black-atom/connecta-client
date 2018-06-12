@@ -50,7 +50,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.equipamentoForm();
     this.initFormPesquisa();
-    this.atualizaProdutosLazy();
+    this.getProdutos();
   }
 
   ngOnChanges(changes) {
@@ -80,10 +80,8 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   getProdutos() {
-    return this.produtoService.produtosLazyLoad()
-      .map(({ produtos }) => {
-        return produtos;
-      });
+    this.produtos$ = this.produtoService.produtosLazyLoad(0, 10, {})
+      .map(({ produtos }) => produtos);
   }
 
   atualizaProdutosLazy() {

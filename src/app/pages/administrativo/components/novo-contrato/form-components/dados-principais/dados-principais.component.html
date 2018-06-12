@@ -1,25 +1,31 @@
+<pre>{{ clienteForm.controls.cliente.value | json }}</pre>
+<pre>{{ clienteForm.controls.cliente.valid | json }}</pre>
+
 <ba-card cardTitle="Dados principais" [formGroup]="clienteForm.controls.cliente">
   <div class="row">
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
-      [class.has-success]="clienteForm.get('cliente.cnpj_cpf').value">
+      [class.has-success]="clienteForm.get('cliente.cnpj_cpf').valid">
       <label for="cnpj_cpf">CNPJ ou CPF</label>
-      <input type="text" [textMask]="{mask: mask}" disabled formControlName="cnpj_cpf" class="form-control" id="cnpj_cpf">
+      <input type="text" [textMask]="{mask: mask}" formControlName="cnpj_cpf" class="form-control" (change)="pesquisarCliente(clienteForm.value.cliente.cnpj_cpf)" id="cnpj_cpf">
     </div>
 
     <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
+      [formGroup]="clienteForm.controls.cliente"
       [class.has-success]="clienteForm.get('cliente.nome_razao_social').value">
       <label for="nome_razao_social">Razão social ou nome</label>
       <input type="text" class="form-control" disabled formControlName="nome_razao_social" id="nome_razao_social">
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
+      [formGroup]="clienteForm.controls.cliente"
       [class.has-success]="clienteForm.get('cliente.inscricao_estadual').value">
       <label for="inscricao_estadual">Inscrição estadual</label>
       <input type="text" class="form-control" disabled formControlName="inscricao_estadual" id="inscricao_estadual">
     </div>
 
     <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
+      [formGroup]="clienteForm.controls.cliente"
       [class.has-success]="clienteForm.get('cliente.nome_fantasia').value">
       <label for="nome_fantasia">Nome fantasia</label>
       <input type="text" class="form-control" disabled formControlName="nome_fantasia" id="nome_fantasia">

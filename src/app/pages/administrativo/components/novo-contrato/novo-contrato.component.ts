@@ -1,12 +1,11 @@
 import { OnInit, Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 import { Cliente } from 'app/models';
-import { equipamentosTemporarios } from './equipamento.mock.temp';
 
 @Component({
   selector: 'app-novo-contrato',
@@ -37,8 +36,8 @@ export class NovoContratoComponent implements OnInit {
   initContratoForm() {
     this.novoContratoForm = this.fb.group({
       cliente: this.fb.group({
-        nome_razao_social: ['', Validators.required],
-        cnpj_cpf: ['', Validators.required],
+        nome_razao_social: [''],
+        cnpj_cpf: ['', [Validators.required, Validators.minLength(11)]],
         inscricao_estadual: [''],
         nome_fantasia: ['']
       }),
@@ -114,18 +113,23 @@ export class NovoContratoComponent implements OnInit {
   }
 
   getCliente(cnpj) {
-    const cnpjParse = cnpj
-      ? this.removerCaracterEspecial(cnpj)
-      : this.notificarFalhaEncontrarCliente();
-    this.cliente$ = this.clienteService
-      .retornarUm(cnpjParse).map(cliente => {
+    const cnpjParse = this.removerCaracterEspecial(cnpj);
+    if (cnpjParse) {
+      this.cliente$ = this.clienteService
+      .retornarUm(cnpjParse)
+      .map(cliente => {
         if (cliente) {
+
+          console.log('teste');
+
           this.novoContratoForm.get('cliente').patchValue(cliente);
         } else {
+          console.log('teste');
           this.notificarFalhaEncontrarCliente();
         }
         return cliente;
       });
+    }
   }
 
   get propostas(): FormArray {

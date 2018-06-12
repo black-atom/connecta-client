@@ -3,7 +3,7 @@
 
     <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3" [formGroup]="formPesquisa">
       <label for="pesquisa">Pesquise os Produto</label>
-      <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3"/>
+      <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3" (change)="atualizaProdutosLazy()"/>
       <div class="list-group list-group-flush small scrollbar" id="style-1">
         <h5 class="text-center mt-5" *ngIf="!(produtos$ | async)">Pesquise o produto!</h5>
         <h5 class="text-center mt-5" *ngIf="(produtos$ | async)?.length === 0">Nenhum produto encontrado!</h5>

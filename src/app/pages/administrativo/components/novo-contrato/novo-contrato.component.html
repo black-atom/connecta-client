@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 <pre>{{ novoContratoForm.value | json }}</pre>
 <pre>{{ novoContratoForm.valid | json }}</pre>
 
 <div class="row">
+=======
+<!-- <div class="row">
+>>>>>>> refactor:  removed input for improviment UX of user.
 
   <div class="col-3">
     <label>Pesquisa por CPF/CNPJ</label>
@@ -24,13 +28,14 @@
     </button>
   </div>
 
-</div>
+</div> -->
 
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
     <app-dados-principais-cliente
-      [clienteForm]="novoContratoForm">
+      [clienteForm]="novoContratoForm"
+      (buscarCliente)="getCliente($event)">
     </app-dados-principais-cliente>
   </div>
 

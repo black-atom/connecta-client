@@ -3,7 +3,7 @@
       <div class="media list-group-item" style="height: 120px; max-height: 120px">
           <img class="d-flex mr-3" [src]="equipamento.imagemPath || 'assets/img/img-default.png'" width="65" height="65" alt="">
         <div class="p-2">
-          <h6>{{ equipamento.modelo }}</h6>
+          <h6>{{ equipamento.descricao }} {{ equipamento.modelo }}</h6>
           <p>
             {{ equipamento.endereco?.rua + ',
             ' + equipamento.endereco?.numero + ',

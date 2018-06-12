@@ -11,33 +11,62 @@
   <ul class="nav-tabs">
     <li class="tab {{ tabActived === 'dadosCliente' ? 'atived': ''}}" (click)="getTab('dadosCliente')">Dados Cliente</li>
     <li class="tab {{ tabActived === 'equipamentos' ? 'atived': ''}}" (click)="getTab('equipamentos')">Equipamentos</li>
-    <li class="tab {{ tabActived === 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li>
+    <li class="tab {{ tabActived == 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li>
   </ul>
 
   <div class="name-of-client">
     <h4 class="mb-1">
       {{ contratoSelecionado?.cliente.nome_razao_social }} - {{ contratoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
     </h4>
-
-    <button type="button" class="btn btn-primary" title="Visualizado">
-      <i class="fa fa-eye" aria-hidden="true"></i>
-    </button>
-
-    <button type="button" class="btn btn-primary" title="Faturado">
-      <i class="fa fa-usd" aria-hidden="true"></i>
-    </button>
-
   </div>
 
   <div class="situacao padding-16">
-    <span class="badge badge-success p-2" >{{ contratoSelecionado?.tipo | uppercase }}</span>
+    <span class="badge badge-success p-2">{{ contratoSelecionado?.tipo | uppercase }}</span>
     <span class="badge badge-warning p-2" *ngIf="contratoSelecionado?.valor">{{ contratoSelecionado?.valor | currency: 'BRL': true }}</span>
     <span class="badge badge-primary p-2" *ngIf="contratoSelecionado.ativo">ATIVO</span>
   </div>
 
   <div class="padding-16 mt-4">
+
     <h4 *ngIf="tabActived === 'equipamentos'">Equipamentos do contrato</h4>
     <h4 *ngIf="tabActived === 'dadosCliente'">Informações do contrato</h4>
+
+    <div class="row" *ngIf="tabActived === 'financeiro'">
+      <div class="col-12">
+          <h4>Situação financeira</h4>
+      </div>
+      <div class="form-group col-4">
+        <label class="control-label" for="descricao">Descrição</label>
+        <input type="text" class="form-control">
+      </div>
+
+      <div class="form-group col-2">
+        <label class="control-label" for="descricao">Mês Referência</label>
+        <input type="text" class="form-control">
+      </div>
+
+      <div class="form-group col-2">
+        <label class="control-label" for="descricao">Valor R$</label>
+        <input type="number" class="form-control" id="valor">
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          <label for="descricao_atendimento">Status</label>
+          <select class="form-control" name="status">
+            <option value="" selected>Selecione</option>
+            <option *ngFor="let s of status">{{ s }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col-1">
+        <label for=""></label>
+        <button class="btn btn-primary btn-with-icon">
+          <i class="ion-plus"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="scrollbar-panel-list" id="style-1">
@@ -50,7 +79,7 @@
     </div>
 
     <div *ngIf="tabActived === 'financeiro'">
-      <app-financeiro [contratoSelecionadoFinanceiro]="contratoSelecionado"></app-financeiro>
+      <app-financeiro [contratoSelecionadoFinanceiro]="contratoSelecionado.financeiro"></app-financeiro>
     </div>
   </div>
 

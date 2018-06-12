@@ -12,6 +12,7 @@ export class ModalContratoComponent implements OnInit {
   contratoSelecionado: any;
 
   public tabActived = 'dadosCliente';
+  status = ['Pago', 'Aberto', 'Pendente', 'Cancelado', 'Aguardando'];
 
   constructor(public modalAtiva: NgbActiveModal) { }
 

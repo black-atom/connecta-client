@@ -215,6 +215,15 @@ export const PAGES_MENU = [{
               icon: 'ion-clipboard'
             }
           }
+        },
+        {
+          path: 'gerenciar',
+          data: {
+            menu: {
+              title: 'Gerenciar Contrato',
+              icon: 'ion-clipboard'
+            }
+          }
         }
       ]
     },

@@ -1,34 +1,5 @@
-<<<<<<< HEAD
 <pre>{{ novoContratoForm.value | json }}</pre>
 <pre>{{ novoContratoForm.valid | json }}</pre>
-
-<div class="row">
-=======
-<!-- <div class="row">
->>>>>>> refactor:  removed input for improviment UX of user.
-
-  <div class="col-3">
-    <label>Pesquisa por CPF/CNPJ</label>
-    <div class="input-group">
-      <input
-        type="text"
-        class="form-control pull-right"
-        [(ngModel)]='cnpjBuscar'
-        [textMask]="{mask: mask}"
-        (blur)="getCliente(cnpjBuscar)">
-    </div>
-  </div>
-
-  <div class="col-3 pl-0">
-    <button
-      type="button"
-      class="btn btn-primary btn-search"
-      (click)="getCliente(cnpjBuscar)">
-      <i class="fa fa-search"></i>
-    </button>
-  </div>
-
-</div> -->
 
 <div class="row" [formGroup]="novoContratoForm">
 
@@ -41,14 +12,14 @@
 
   <div class="col-md-12 col-sm-12 col-lg-6">
     <app-contato-cliente
-      [contatoControl]="novoContratoForm"
+      [contatoControl]="novoContratoForm.get('contato')"
       [clienteEncontrado]="cliente$">
     </app-contato-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
     <app-endereco-cliente
-      [enderecoControl]="novoContratoForm"
+      [enderecoControl]="novoContratoForm.get('endereco')"
       [clienteEncontrado]="cliente$">
     </app-endereco-cliente>
   </div>

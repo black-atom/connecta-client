@@ -3,7 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-endereco-cliente',
-  templateUrl: './endereco.component.html'
+  templateUrl: './endereco.component.html',
+  styleUrls: ['./endereco.component.scss']
 })
 export class EnderecoClienteComponent implements OnChanges {
 
@@ -13,6 +14,7 @@ export class EnderecoClienteComponent implements OnChanges {
   @Input()
   public clienteEncontrado;
 
+  public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   public enderecoEscolhido;
 
   ngOnChanges(changes) {

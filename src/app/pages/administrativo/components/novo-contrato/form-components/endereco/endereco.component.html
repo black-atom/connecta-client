@@ -1,13 +1,51 @@
 <ba-card cardTitle="Endereço do contrato">
   <div class="form-group"
-    [class.has-success]="enderecoControl.get('endereco.cep').value && (clienteEncontrado | async)">
-    <label for="selecionar_endereco">Selecionar endereço</label>
-    <select class="form-control" id="selecionar_endereco" [(ngModel)]="enderecoEscolhido" [ngModelOptions]="{ standalone: true }"
-      (change)="enderecoSelecionado(enderecoEscolhido)">
-      <option *ngFor="let endereco of (clienteEncontrado | async)?.enderecos" [ngValue]="endereco">
-        {{ endereco?.rua + ', ' + endereco?.numero + ',k ' + endereco?.bairro + ', ' + endereco?.cidade + ' - ' + endereco?.uf +
-        '- ' + endereco?.cep }}
-      </option>
-    </select>
+    [class.has-success]="enderecoControl.value && (clienteEncontrado | async)">
+    <div class="row" [formGroup]="enderecoControl">
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-4"
+        [class.required]="enderecoControl.value">
+          <label for="cep">CEP</label>
+          <input [textMask]="{ mask : mascaraCep }" disabled type="text" class="form-control"
+          formControlName="cep"  id="cep">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-6"
+          [class.required]="enderecoControl.value">
+          <label for="rua">Rua</label>
+          <input type="text" disabled class="form-control"
+          formControlName="rua" id="rua">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-2"
+          [class.required]="enderecoControl.value">
+          <label for="numero">N°</label>
+          <input type="text" disabled class="form-control"
+          formControlName="numero" id="numero">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-4"
+          [class.required]="enderecoControl.value">
+          <label for="bairro">Bairro</label>
+          <input type="text" disabled class="form-control"
+          formControlName="bairro" id="bairro">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-5"
+          [class.required]="enderecoControl.value">
+          <label for="cidade">Cidade</label>
+          <input type="text" disabled class="form-control"
+          formControlName="cidade" id="cidade">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-3"
+          [class.required]="enderecoControl.value">
+          <label for="uf">Estado</label>
+          <input type="text" disabled class="form-control"
+          formControlName="uf" id="uf">
+        </div>
+
+      </div>
+
   </div>
 </ba-card>

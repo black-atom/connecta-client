@@ -42,9 +42,9 @@ export class NovoContratoComponent implements OnInit {
         nome_fantasia: ['']
       }),
       contato: this.fb.group({
-        email: [''],
+        email: ['', Validators.required],
         nome: [''],
-        telefone: [''],
+        telefone: ['', Validators.required],
         celular: [''],
         observacao: ['']
       }),
@@ -112,22 +112,19 @@ export class NovoContratoComponent implements OnInit {
     });
   }
 
+  // O cliente agora terá apenas um endereço.
   getCliente(cnpj) {
     const cnpjParse = this.removerCaracterEspecial(cnpj);
     if (cnpjParse) {
-      this.cliente$ = this.clienteService
+      this.clienteService
       .retornarUm(cnpjParse)
-      .map(cliente => {
+      .subscribe(cliente => {
         if (cliente) {
-
-          console.log('teste');
-
-          this.novoContratoForm.get('cliente').patchValue(cliente);
-        } else {
-          console.log('teste');
-          this.notificarFalhaEncontrarCliente();
+          this.novoContratoForm.get('contato').patchValue(cliente.contatos[0]);
+          this.novoContratoForm.get('endereco').patchValue(cliente.enderecos[0]);
+          return this.novoContratoForm.get('cliente').patchValue(cliente);
         }
-        return cliente;
+        return this.notificarFalhaEncontrarCliente();
       });
     }
   }

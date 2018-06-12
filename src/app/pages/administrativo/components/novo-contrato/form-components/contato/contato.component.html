@@ -1,19 +1,31 @@
+<!-- <pre>{{ contatoControl.value | json }}</pre> -->
+
 <ba-card cardTitle="Contato">
-  <div class="form-group"
-    [class.has-success]="contatoControl.get('contato.email').value && (clienteEncontrado | async)">
-    <label for="selecionar_contato">Selecionar contato</label>
-    <select class="form-control" id="selecionar_contato"
-      [(ngModel)]="contatoEscolhido"
-      [ngModelOptions]="{ standalone: true }"
-      (change)="contatoSelecionado(contatoEscolhido)">
-      <option [ngValue]="contato" *ngFor="let contato of (clienteEncontrado | async)?.contatos">
-        {{
-          contato?.nome + ',
-          ' + contato?.email +',
-          ' + contato?.telefone +',
-          '+ contato?.celular
-        }}
-      </option>
-    </select>
+  <div class="form-group" [class.has-success]="contatoControl.value && (clienteEncontrado | async)">
+    <div class="row" [formGroup]="contatoControl">
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+          <label for="nome">Nome (opc.)</label>
+          <input type="text" class="form-control" formControlName="nome" id="nome">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" formControlName="email" id="email">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+          <label for="telefone">Telefone</label>
+          <input type="text" class="form-control"
+          formControlName="telefone" id="telefone" [textMask]="{ mask : mascaraTelefone }">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+          <label for="celular">Celular <small>(opc.)</small></label>
+          <input type="text" class="form-control"
+          formControlName="celular" id="celular" [textMask]="{ mask : mascaraTelefone }">
+        </div>
+
+      </div>
   </div>
 </ba-card>

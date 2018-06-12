@@ -14,6 +14,7 @@ import { DadosPrincipaisClienteComponent } from './components/novo-contrato/form
 import { RelacaoEquipamentosComponent } from './components/novo-contrato/form-components/relacao-equipamentos/relacao-equipamentos.component';
 import { EquipamentoFormComponent } from './components/novo-contrato/form-components/equipamentos-form/equipamento-form.component';
 import { NovoContratoComponent } from './components/novo-contrato/novo-contrato.component';
+import { GerenciarContratoComponent } from './components/gerenciar-contrato/gerenciar-contrato.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { NovoContratoComponent } from './components/novo-contrato/novo-contrato.
     AdministrativoComponent,
     NovoContratoComponent,
     DadosPrincipaisClienteComponent,
+    GerenciarContratoComponent,
     ContatoClienteComponent,
     EnderecoClienteComponent,
     DetalhesContratoComponent,

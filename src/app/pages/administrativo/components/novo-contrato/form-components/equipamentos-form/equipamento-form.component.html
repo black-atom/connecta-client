@@ -16,6 +16,7 @@
                 <p>
                   <small>{{ produto?.marca }}</small>
                 </p>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="produto?.categoria">{{ produto?.categoria }}</span>
               </div>
             </div>
           </a>
@@ -29,9 +30,9 @@
 
         <div class="col-12 mb-2">
           <div class="media list-group-item" style="height: 120px; max-height: 120px">
-            <img class="d-flex mr-3" *ngIf="formEquipamento.get('modelo').value" [src]="formEquipamento.get('imagemPath').value || 'assets/img/equipamento.jpg'" width="65" height="65" alt="">
-            <div class="p-2">
-              <h6>{{ formEquipamento.value.modelo }}</h6>
+            <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/equipamento.jpg'" width="65" height="65" alt="" *ngIf="equipamentoSelecionado">
+            <div class="p-2" *ngIf="equipamentoSelecionado">
+              <h6>{{ formEquipamento.value.descricao }} - {{ formEquipamento.value.modelo }}</h6>
               <p *ngIf="formEquipamento.valid && equipamentoSelecionado">
                 {{ formEquipamento.value?.endereco?.rua + ',
                 ' + formEquipamento.value?.endereco?.numero + ',
@@ -41,10 +42,11 @@
                 ' + formEquipamento.value?.endereco?.cep }}</p>
               <p *ngIf="equipamentoSelecionado">
                 <span class="badge badge-success p-2" *ngIf="formEquipamento.get('valor').dirty || formEquipamento?.value.valor || formEquipamento?.value.valor === 0">
-                  {{ formEquipamento.value.valor | currency: 'BRL': true }}
+                  {{ formEquipamento.value.valor }}
                 </span>
                 <span class="badge badge-primary p-2" *ngIf="formEquipamento.get('visita').value === 'true'">VISITA</span>
                 <span class="badge badge-warning p-2" *ngIf="formEquipamento.value?.numeroSerie">{{'Nº ' + formEquipamento.value?.numeroSerie }}</span>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="formEquipamento.value.categoria">{{ formEquipamento.value.categoria }}</span>
               </p>
             </div>
             <h6 class="mb-4 text-center" *ngIf="!formEquipamento.get('modelo').value">

@@ -68,6 +68,8 @@ export class NovoContratoComponent implements OnInit {
   }
 
   equipamentoForm({
+    descricao = '',
+    categoria = '',
     modelo = '',
     fabricante = '',
     numeroSerie = '',
@@ -77,12 +79,14 @@ export class NovoContratoComponent implements OnInit {
     endereco = {}
   } = {}): FormGroup {
     return this.fb.group({
+      descricao: [descricao, Validators.required],
+      categoria: [categoria, Validators.required],
       modelo: [modelo, Validators.required],
       fabricante: [fabricante, Validators.required],
-      numeroSerie: [numeroSerie, [Validators.required, Validators.minLength(4)]],
+      numeroSerie: [numeroSerie],
       visita: [visita, Validators.required],
       valor: [valor, Validators.required],
-      imagemPath: '',
+      imagemPath: [imagemPath],
       endereco: this.enderecoForm(endereco)
     });
   }

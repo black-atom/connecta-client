@@ -119,6 +119,8 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   selecionarEquipamento(equipamento: Produto): void {
+    this.formEquipamento.get('descricao').patchValue(equipamento.descricao);
+    this.formEquipamento.get('categoria').patchValue(equipamento.categoria);
     this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
     this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
     this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
@@ -142,11 +144,13 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   equipamentoForm(): void {
     this.formEquipamento = this.fb.group({
+      descricao: ['', Validators.required],
+      categoria: ['', Validators.required],
       modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
-      numeroSerie: ['', Validators.minLength(4)],
       visita: ['', Validators.required],
       valor: ['', Validators.required],
+      numeroSerie: '',
       imagemPath: '',
       endereco: this.fb.group({
         cep: ['', Validators.required],

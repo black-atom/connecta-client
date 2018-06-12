@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-12 mb-2"  *ngFor="let equipamento of propostaAtiva?.equipamentos; let i = index">
+      <div class="media list-group-item" style="height: 120px; max-height: 120px">
+          <img class="d-flex mr-3" [src]="equipamento.imagemPath || 'assets/img/img-default.png'" width="65" height="65" alt="">
+        <div class="p-2">
+          <h6>{{ equipamento.modelo }}</h6>
+          <p>
+            {{ equipamento.endereco?.rua + ',
+            ' + equipamento.endereco?.numero + ',
+            ' + equipamento.endereco?.bairro +',
+            ' + equipamento.endereco?.cidade+ ' -
+            ' + equipamento.endereco?.uf + '-
+            ' + equipamento.endereco?.cep }}</p>
+          <p>
+            <span class="badge badge-success p-2" >
+              {{ equipamento.valor | currency: 'BRL': true }}
+            </span>
+            <span class="badge badge-primary p-2" *ngIf="equipamento?.visita">VISITA</span>
+            <span class="badge badge-warning p-2" *ngIf="equipamento?.numeroSerie">{{'Nº ' + equipamento?.numeroSerie }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+</div>

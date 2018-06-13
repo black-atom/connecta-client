@@ -1,15 +1,15 @@
 <ba-card cardTitle="protuto">
   <div class="row">
 
-    <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-3" [formGroup]="formPesquisa">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-4" [formGroup]="formPesquisa">
       <label for="pesquisa">Pesquise os Produto</label>
-      <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3" (change)="atualizaProdutosLazy()"/>
+      <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3"/>
       <div class="list-group list-group-flush small scrollbar" id="style-1">
-        <h5 class="text-center mt-5" *ngIf="!(produtos$ | async)">Pesquise o produto!</h5>
-        <h5 class="text-center mt-5" *ngIf="(produtos$ | async)?.length === 0">Nenhum produto encontrado!</h5>
-        <div *ngFor="let produto of produtos$ | async">
-          <a class="list-group-item list-group-item-action" (click)="selecionarEquipamento(produto)">
-            <img class="d-flex mr-3" [src]="produto?.imagemURL || 'assets/img/equipamento.jpg'" width="45" height="45" alt="">
+        <h5 class="text-center mt-5" *ngIf="!(produtos)">Pesquise o produto!</h5>
+        <h5 class="text-center mt-5" *ngIf="(produtos)?.length === 0">Nenhum produto encontrado!</h5>
+        <div *ngFor="let produto of produtos">
+          <a class="list-group-item list-group-item-action text-truncate" (click)="selecionarEquipamento(produto)">
+            <img class="d-flex mr-3" [src]="produto?.imagemURL || 'assets/img/image.png'" width="45" height="45" alt="">
             <div class="media">
               <div class="media-body">
                 <strong>{{ produto?.descricao }} - {{ produto?.modelo }}</strong>
@@ -24,16 +24,16 @@
       </div>
     </div>
 
-    <div class="form-group col-md-7 col-sm-12 col-xs-12 col-lg-9 mt-3">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-8 mt-3" style="clear: right;">
 
       <div class="row pt-2" [formGroup]="formEquipamento">
 
         <div class="col-12 mb-2">
-          <div class="media list-group-item" style="height: 120px; max-height: 120px">
-            <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/equipamento.jpg'" width="65" height="65" alt="" *ngIf="equipamentoSelecionado">
+          <div class="media list-group-item">
+            <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/image.png'" width="65" height="65" alt="" *ngIf="equipamentoSelecionado">
             <div class="p-2" *ngIf="equipamentoSelecionado">
               <h6>{{ formEquipamento.value.descricao }} - {{ formEquipamento.value.modelo }}</h6>
-              <p *ngIf="formEquipamento.valid && equipamentoSelecionado">
+              <p class="text-uppercase" *ngIf="formEquipamento.valid && equipamentoSelecionado && formEquipamento.get('visita').value">
                 {{ formEquipamento.value?.endereco?.rua + ',
                 ' + formEquipamento.value?.endereco?.numero + ',
                 ' + formEquipamento.value?.endereco?.bairro +',
@@ -42,14 +42,14 @@
                 ' + formEquipamento.value?.endereco?.cep }}</p>
               <p *ngIf="equipamentoSelecionado">
                 <span class="badge badge-success p-2" *ngIf="formEquipamento.get('valor').dirty || formEquipamento?.value.valor || formEquipamento?.value.valor === 0">
-                  {{ formEquipamento.value.valor }}
+                  {{ formEquipamento.value.valor | currency: 'BRL': true }}
                 </span>
-                <span class="badge badge-primary p-2" *ngIf="formEquipamento.get('visita').value === 'true'">VISITA</span>
+                <span class="badge badge-primary p-2" *ngIf="formEquipamento.get('visita').value">VISITA</span>
                 <span class="badge badge-warning p-2" *ngIf="formEquipamento.value?.numeroSerie">{{'Nº ' + formEquipamento.value?.numeroSerie }}</span>
                 <span class="badge badge-info text-uppercase p-2" *ngIf="formEquipamento.value.categoria">{{ formEquipamento.value.categoria }}</span>
               </p>
             </div>
-            <h6 class="mb-4 text-center" *ngIf="!formEquipamento.get('modelo').value">
+            <h6 class="mb-4 mt-4 text-center" *ngIf="!formEquipamento.get('modelo').value">
               Selecione um Produto!
             </h6>
           </div>
@@ -69,9 +69,9 @@
           [class.has-error]="formEquipamento.get('visita').hasError('required') && formEquipamento.get('visita').touched"
           [class.has-success]="formEquipamento.get('visita').valid">
           <label for="visita">Visita ?</label>
-          <select class="form-control" formControlName="visita" id="visita">
-            <option value=true>Sim</option>
-            <option value=false>Não</option>
+          <select class="form-control" formControlName="visita" id="visita" (change)="ativaEndereco(formEquipamento.get('visita').value)">
+            <option [ngValue]=true>Sim</option>
+            <option [ngValue]=false>Não</option>
           </select>
           <span class="text-danger small mt-0" *ngIf="formEquipamento.get('visita').hasError('required') && formEquipamento.get('visita').touched">
             <i class="fa fa-remove text-danger"></i>
@@ -174,7 +174,7 @@
           <input type="text" formControlName="ponto_referencia" class="form-control" autocomplete="false" id="ponto_referencia">
         </div>
 
-        <div class="form-group col-md-6 col-sm-6 col-lg-6"
+        <div class="form-group col-md-6 col-sm-6 col-lg-5"
           [class.has-success]="formEquipamento.controls['endereco'].get('complemento').value">
           <label for="complemento">Complemento
             <small>(opc.)</small>
@@ -201,7 +201,7 @@
           </button>
         </div>
 
-        <div class="col-md-6 col-sm-6 col-lg-2">
+        <div class="col-md-6 col-sm-6 col-lg-3">
           <button
             class="btn btn-danger mt-4 p-2"
             *ngIf="!buttonEditar"

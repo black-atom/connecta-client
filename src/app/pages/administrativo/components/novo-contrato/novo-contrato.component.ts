@@ -101,13 +101,13 @@ export class NovoContratoComponent implements OnInit {
     ponto_referencia = ''
   } = {}): FormGroup {
     return this.fb.group({
-      cep: [cep, Validators.required],
-      rua: [rua, Validators.required],
-      bairro: [bairro, Validators.required],
-      numero: [numero, Validators.required],
-      cidade: [cidade, Validators.required],
+      cep: [cep],
+      rua: [rua],
+      bairro: [bairro],
+      numero: [numero],
+      cidade: [cidade],
       complemento: [complemento],
-      uf: [uf, Validators.required],
+      uf: [uf],
       ponto_referencia: [ponto_referencia]
     });
   }

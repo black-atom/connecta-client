@@ -6,7 +6,6 @@ import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms'
 import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 
 import { DadosEndereco, Produto } from 'app/models';
-import { propNameQuery } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-form-equip',
@@ -30,11 +29,12 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   @Output()
   sendEquipamento = new EventEmitter();
 
+  public produtos;
   public formEquipamento: FormGroup;
   public formPesquisa: FormGroup;
   public pesquisaControl: FormControl;
-  public produtos$: Observable<any[]>;
   public carregando: boolean = true;
+  public primeiroGet: boolean = true;
   public buttonEditar: boolean = false;
   public equipamentoSelecionado: boolean = false;
   public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -48,16 +48,23 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.equipamentoForm();
+    this.buttonEditar = false;
+    this.equipamentoSelecionado = false;
     this.initFormPesquisa();
+    this.equipamentoForm();
+    this.atualizaProdutosLazy();
     this.getProdutos();
   }
 
   ngOnChanges(changes) {
+    this.initFormPesquisa();
+    this.equipamentoForm();
     const formEquip = changes.equipamento.currentValue;
     if (formEquip) {
       this.buttonEditar = true;
+      this.equipamentoSelecionado = true;
       this.formEquipamento.patchValue(formEquip);
+      this.ativaEndereco(this.formEquipamento.get('visita').value);
     }
   }
 
@@ -67,6 +74,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       pesquisaControl: this.pesquisaControl
     });
   }
+
 
   loadProdutosLazy(event) {
     const query = { descricao: event };
@@ -80,15 +88,16 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   getProdutos() {
-    this.produtos$ = this.produtoService.produtosLazyLoad(0, 10, {})
-      .map(({ produtos }) => produtos);
+    this.produtoService.produtosLazyLoad(0, 10, {})
+    .subscribe(({ produtos }) => this.produtos = produtos);
   }
 
   atualizaProdutosLazy() {
-    this.produtos$ = this.pesquisaControl.valueChanges
+    this.pesquisaControl.valueChanges
     .debounceTime(500)
     .distinctUntilChanged()
-    .switchMap(param => this.loadProdutosLazy(param));
+    .switchMap(param => this.loadProdutosLazy(param))
+    .subscribe(produtos => this.produtos = produtos);
   }
 
   salvarEquipamento() {
@@ -101,6 +110,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   editarEquipamento() {
     this.buttonEditar = false;
+    this.equipamentoSelecionado = false;
     this.editEquipamento.emit({
       equipamento: this.formEquipamento.value,
       indexEquipamento: this.indexEquipamento,
@@ -114,6 +124,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     this.equipamentoForm();
     this.buttonEditar = false;
     this.equipamentoSelecionado = false;
+    this.ativaEndereco(false);
   }
 
   selecionarEquipamento(equipamento: Produto): void {
@@ -151,16 +162,58 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       numeroSerie: '',
       imagemPath: '',
       endereco: this.fb.group({
-        cep: ['', Validators.required],
-        rua: ['', Validators.required],
-        bairro: ['', Validators.required],
-        numero: ['', Validators.required],
-        cidade: ['', Validators.required],
-        complemento: [''],
-        uf: ['', Validators.required],
-        ponto_referencia: ['']
+        cep: [{ value: '', disabled: true }, Validators.required],
+        rua: [{ value: '', disabled: true }, Validators.required],
+        bairro: [{ value: '', disabled: true }, Validators.required],
+        numero: [{ value: '', disabled: true }, Validators.required],
+        cidade: [{ value: '', disabled: true }, Validators.required],
+        complemento: [{ value: '', disabled: true }],
+        uf: [{ value: '', disabled: true }, Validators.required],
+        ponto_referencia: [{ value: '', disabled: true }]
       })
     });
+  }
+
+  ativaEndereco(value) {
+    if (value) {
+      this.formEquipamento.get('endereco.cep').enable();
+      this.formEquipamento.get('endereco.rua').enable();
+      this.formEquipamento.get('endereco.bairro').enable();
+      this.formEquipamento.get('endereco.numero').enable();
+      this.formEquipamento.get('endereco.cidade').enable();
+      this.formEquipamento.get('endereco.complemento').enable();
+      this.formEquipamento.get('endereco.uf').enable();
+      this.formEquipamento.get('endereco.ponto_referencia').enable();
+    } else {
+      this.formEquipamento.get('endereco.cep').disable();
+      this.formEquipamento.get('endereco.rua').disable();
+      this.formEquipamento.get('endereco.bairro').disable();
+      this.formEquipamento.get('endereco.numero').disable();
+      this.formEquipamento.get('endereco.cidade').disable();
+      this.formEquipamento.get('endereco.complemento').disable();
+      this.formEquipamento.get('endereco.uf').disable();
+      this.formEquipamento.get('endereco.ponto_referencia').disable();
+
+      this.formEquipamento.get('endereco.cep').setValue('');
+      this.formEquipamento.get('endereco.rua').setValue('');
+      this.formEquipamento.get('endereco.bairro').setValue('');
+      this.formEquipamento.get('endereco.numero').setValue('');
+      this.formEquipamento.get('endereco.cidade').setValue('');
+      this.formEquipamento.get('endereco.complemento').setValue('');
+      this.formEquipamento.get('endereco.uf').setValue('');
+      this.formEquipamento.get('endereco.ponto_referencia').setValue('');
+    }
+  }
+
+  desabilita() {
+    this.formEquipamento.get('endereco.cep').disable();
+    this.formEquipamento.get('endereco.rua').disable();
+    this.formEquipamento.get('endereco.bairro').disable();
+    this.formEquipamento.get('endereco.numero').disable();
+    this.formEquipamento.get('endereco.cidade').disable();
+    this.formEquipamento.get('endereco.complemento').disable();
+    this.formEquipamento.get('endereco.uf').disable();
+    this.formEquipamento.get('endereco.ponto_referencia').disable();
   }
 
   notificarAdicionadoSucesso() {

@@ -1,5 +1,5 @@
-import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dados-principais-cliente',
@@ -15,7 +15,13 @@ export class DadosPrincipaisClienteComponent implements OnInit {
   buscarCliente = new EventEmitter();
 
   @Output()
+  buscarClienteEhVincular = new EventEmitter();
+
+  @Output()
   sendCnpjAssociado = new EventEmitter();
+
+  @Output()
+  removeCnpjAssociado = new EventEmitter();
 
   constructor() { }
 
@@ -25,8 +31,16 @@ export class DadosPrincipaisClienteComponent implements OnInit {
     this.sendCnpjAssociado.emit();
   }
 
+  removerCnpj(cnpj) {
+    this.removeCnpjAssociado.emit(cnpj);
+  }
+
   pesquisarCliente(cnpj) {
     this.buscarCliente.emit(cnpj);
+  }
+
+  pesquisarClienteEhVincular(index, cnpj) {
+    this.buscarClienteEhVincular.emit({ cnpj, index });
   }
 
   mask(valorDaLinha: string) {

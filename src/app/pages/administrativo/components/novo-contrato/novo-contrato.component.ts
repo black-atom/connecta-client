@@ -36,12 +36,11 @@ export class NovoContratoComponent implements OnInit {
   initContratoForm() {
     this.novoContratoForm = this.fb.group({
       cliente: this.fb.group({
-        nome_razao_social: [''],
+        nome_razao_social: '',
         cnpj_cpf: ['', [Validators.required, Validators.minLength(11)]],
-        inscricao_estadual: [''],
-        nome_fantasia: ['']
+        inscricao_estadual: '',
+        nome_fantasia: ''
       }),
-
       cnpjAssociados: this.fb.array([]),
 
       contato: this.fb.group({
@@ -122,11 +121,19 @@ export class NovoContratoComponent implements OnInit {
     nome_fantasia = ''
   } = {}): FormGroup {
     return this.fb.group({
-      nome_razao_social: [nome_razao_social],
-      cnpj_cpf: [cnpj_cpf, Validators.required, Validators.minLength(11)],
+      nome_razao_social: [nome_razao_social, Validators.required],
+      cnpj_cpf: [cnpj_cpf, [Validators.required, Validators.minLength(11)]],
       inscricao_estadual: [inscricao_estadual],
       nome_fantasia: [nome_fantasia]
     });
+  }
+
+  get propostas(): FormArray {
+    return this.novoContratoForm.get('propostas') as FormArray;
+  }
+
+  get cnpjAssociados(): FormArray {
+    return this.novoContratoForm.get('cnpjAssociados') as FormArray;
   }
 
   getCliente(cnpj) {
@@ -145,17 +152,40 @@ export class NovoContratoComponent implements OnInit {
     }
   }
 
-  get propostas(): FormArray {
-    return this.novoContratoForm.get('propostas') as FormArray;
+  getClienteEhVincular(cnpj) {
+    const cnpjParse = this.removerCaracterEspecial(cnpj.cnpj);
+    if (this.validaVincular(cnpjParse)) {
+      return this.notificarFalhaAssosiar();
+    }
+    if (cnpjParse) {
+      this.clienteService
+      .retornarUm(cnpjParse)
+      .subscribe(cliente => {
+        if (cliente) {
+          return this.cnpjAssociados.at(cnpj.index).patchValue(cliente);
+        }
+        return this.notificarFalhaEncontrarCliente();
+      });
+    }
   }
 
-  get cnpjAssociados(): FormArray {
-    return this.novoContratoForm.get('cnpjAssociados') as FormArray;
+  validaVincular(cnpj) {
+    const cnpjPrincial = this.novoContratoForm.get('cliente.cnpj_cpf').value;
+    const cnpjVinculados = this.cnpjAssociados.value;
+    cnpjVinculados.pop();
+    if (cnpj === cnpjPrincial || cnpjVinculados.some(res => res.cnpj_cpf === cnpj)) {
+      return true;
+    }
   }
 
-  associarCnpj() {
+  adicionarCampoVincularCnpj() {
     const cnpjAssociados = <FormArray> this.cnpjAssociados;
     cnpjAssociados.push(this.clienteForm());
+  }
+
+  removerCnpj(index) {
+    const cnpjAssociados = <FormArray> this.cnpjAssociados;
+    cnpjAssociados.removeAt(index);
   }
 
   addEquipamento({ equipamento, indexProposta: index }) {
@@ -266,6 +296,10 @@ export class NovoContratoComponent implements OnInit {
 
   notificarFalhaEncontrarCliente() {
     this.notificacaoService.notificarAviso('Cliente não encontrado!', '');
+  }
+
+  notificarFalhaAssosiar() {
+    this.notificacaoService.notificarAviso('CNPJ já está associado!', '');
   }
 
   notificarFalhaCadastro() {

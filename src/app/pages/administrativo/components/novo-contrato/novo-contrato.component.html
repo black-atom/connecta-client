@@ -1,4 +1,4 @@
-<pre>{{ novoContratoForm.value | json }}</pre>
+<!-- <pre>{{ novoContratoForm.value | json }}</pre> -->
 
 <div class="row" [formGroup]="novoContratoForm">
 
@@ -6,7 +6,9 @@
     <app-dados-principais-cliente
       [parentForm]="novoContratoForm"
       (buscarCliente)="getCliente($event)"
-      (sendCnpjAssociado)="associarCnpj($event)">
+      (buscarClienteEhVincular)="getClienteEhVincular($event)"
+      (removeCnpjAssociado)="removerCnpj($event)"
+      (sendCnpjAssociado)="adicionarCampoVincularCnpj()">
     </app-dados-principais-cliente>
   </div>
 

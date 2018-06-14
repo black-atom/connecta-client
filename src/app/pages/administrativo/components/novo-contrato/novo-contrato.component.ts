@@ -41,6 +41,9 @@ export class NovoContratoComponent implements OnInit {
         inscricao_estadual: [''],
         nome_fantasia: ['']
       }),
+
+      cnpjAssociados: this.fb.array([]),
+
       contato: this.fb.group({
         email: ['', Validators.required],
         nome: [''],
@@ -112,7 +115,20 @@ export class NovoContratoComponent implements OnInit {
     });
   }
 
-  // O cliente agora terá apenas um endereço.
+  clienteForm({
+    nome_razao_social = '',
+    cnpj_cpf = '',
+    inscricao_estadual = '',
+    nome_fantasia = ''
+  } = {}): FormGroup {
+    return this.fb.group({
+      nome_razao_social: [nome_razao_social],
+      cnpj_cpf: [cnpj_cpf, Validators.required, Validators.minLength(11)],
+      inscricao_estadual: [inscricao_estadual],
+      nome_fantasia: [nome_fantasia]
+    });
+  }
+
   getCliente(cnpj) {
     const cnpjParse = this.removerCaracterEspecial(cnpj);
     if (cnpjParse) {
@@ -131,6 +147,15 @@ export class NovoContratoComponent implements OnInit {
 
   get propostas(): FormArray {
     return this.novoContratoForm.get('propostas') as FormArray;
+  }
+
+  get cnpjAssociados(): FormArray {
+    return this.novoContratoForm.get('cnpjAssociados') as FormArray;
+  }
+
+  associarCnpj() {
+    const cnpjAssociados = <FormArray> this.cnpjAssociados;
+    cnpjAssociados.push(this.clienteForm());
   }
 
   addEquipamento({ equipamento, indexProposta: index }) {

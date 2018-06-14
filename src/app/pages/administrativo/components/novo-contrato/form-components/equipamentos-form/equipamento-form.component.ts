@@ -1,5 +1,4 @@
 
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
@@ -64,7 +63,6 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       this.buttonEditar = true;
       this.equipamentoSelecionado = true;
       this.formEquipamento.patchValue(formEquip);
-      this.ativaEndereco(this.formEquipamento.get('visita').value);
     }
   }
 
@@ -124,7 +122,6 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     this.equipamentoForm();
     this.buttonEditar = false;
     this.equipamentoSelecionado = false;
-    this.ativaEndereco(false);
   }
 
   selecionarEquipamento(equipamento: Produto): void {
@@ -162,58 +159,16 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       numeroSerie: '',
       imagemPath: '',
       endereco: this.fb.group({
-        cep: [{ value: '', disabled: true }, Validators.required],
-        rua: [{ value: '', disabled: true }, Validators.required],
-        bairro: [{ value: '', disabled: true }, Validators.required],
-        numero: [{ value: '', disabled: true }, Validators.required],
-        cidade: [{ value: '', disabled: true }, Validators.required],
-        complemento: [{ value: '', disabled: true }],
-        uf: [{ value: '', disabled: true }, Validators.required],
-        ponto_referencia: [{ value: '', disabled: true }]
+        cep: [''],
+        rua: [''],
+        bairro: [''],
+        numero: [''],
+        cidade: [''],
+        complemento: [''],
+        uf: [''],
+        ponto_referencia: ['']
       })
     });
-  }
-
-  ativaEndereco(value) {
-    if (value) {
-      this.formEquipamento.get('endereco.cep').enable();
-      this.formEquipamento.get('endereco.rua').enable();
-      this.formEquipamento.get('endereco.bairro').enable();
-      this.formEquipamento.get('endereco.numero').enable();
-      this.formEquipamento.get('endereco.cidade').enable();
-      this.formEquipamento.get('endereco.complemento').enable();
-      this.formEquipamento.get('endereco.uf').enable();
-      this.formEquipamento.get('endereco.ponto_referencia').enable();
-    } else {
-      this.formEquipamento.get('endereco.cep').disable();
-      this.formEquipamento.get('endereco.rua').disable();
-      this.formEquipamento.get('endereco.bairro').disable();
-      this.formEquipamento.get('endereco.numero').disable();
-      this.formEquipamento.get('endereco.cidade').disable();
-      this.formEquipamento.get('endereco.complemento').disable();
-      this.formEquipamento.get('endereco.uf').disable();
-      this.formEquipamento.get('endereco.ponto_referencia').disable();
-
-      this.formEquipamento.get('endereco.cep').setValue('');
-      this.formEquipamento.get('endereco.rua').setValue('');
-      this.formEquipamento.get('endereco.bairro').setValue('');
-      this.formEquipamento.get('endereco.numero').setValue('');
-      this.formEquipamento.get('endereco.cidade').setValue('');
-      this.formEquipamento.get('endereco.complemento').setValue('');
-      this.formEquipamento.get('endereco.uf').setValue('');
-      this.formEquipamento.get('endereco.ponto_referencia').setValue('');
-    }
-  }
-
-  desabilita() {
-    this.formEquipamento.get('endereco.cep').disable();
-    this.formEquipamento.get('endereco.rua').disable();
-    this.formEquipamento.get('endereco.bairro').disable();
-    this.formEquipamento.get('endereco.numero').disable();
-    this.formEquipamento.get('endereco.cidade').disable();
-    this.formEquipamento.get('endereco.complemento').disable();
-    this.formEquipamento.get('endereco.uf').disable();
-    this.formEquipamento.get('endereco.ponto_referencia').disable();
   }
 
   notificarAdicionadoSucesso() {

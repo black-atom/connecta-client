@@ -1,9 +1,12 @@
+<pre>{{ novoContratoForm.value | json }}</pre>
+
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
     <app-dados-principais-cliente
-      [clienteForm]="novoContratoForm"
-      (buscarCliente)="getCliente($event)">
+      [parentForm]="novoContratoForm"
+      (buscarCliente)="getCliente($event)"
+      (sendCnpjAssociado)="associarCnpj($event)">
     </app-dados-principais-cliente>
   </div>
 
@@ -51,37 +54,37 @@
         </app-relacao-equipamentos>
       </div>
 
-      <div class="col-12">
-        <ba-card>
-          <div class="row">
-
-            <div class="col-md-6 col-sm-12">
-              <button
-                type="submit"
-                class="btn btn-primary btn-with-icon"
-                [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
-                (click)="cadastrarContrato()">
-                <i class="ion-android-checkmark-circle"></i>
-                Cadastrar
-              </button>
-            </div>
-
-            <div class="col-md-6 col-sm-12">
-              <button
-                type="reset"
-                class="btn btn-danger btn-with-icon"
-                [disabled]="novoContratoForm.pristine"
-                (click)="resetForm()">
-                <i class="fa fa-trash"></i>
-                Limpar
-              </button>
-            </div>
-
-          </div>
-        </ba-card>
-      </div>
-
     </div>
+  </div>
+
+  <div class="col-12">
+    <ba-card>
+      <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+          <button
+            type="submit"
+            class="btn btn-primary btn-with-icon"
+            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
+            (click)="cadastrarContrato()">
+            <i class="ion-android-checkmark-circle"></i>
+            Cadastrar
+          </button>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <button
+            type="reset"
+            class="btn btn-danger btn-with-icon"
+            [disabled]="novoContratoForm.pristine"
+            (click)="resetForm()">
+            <i class="fa fa-trash"></i>
+            Limpar
+          </button>
+        </div>
+
+      </div>
+    </ba-card>
   </div>
 
 </div>

@@ -1,6 +1,7 @@
+import { ModalAlertComponent } from './../modal-alert/modal-alert.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 
 import { Atendimento, Cliente, ContatoCliente, EnderecoCliente } from './../../../../models';
 import { AtendimentoService, ClienteService } from './../../../../shared/services';
@@ -10,6 +11,7 @@ import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactiva
 
 import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -20,9 +22,11 @@ import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
   private subscription: Subscription;
-  public clienteEncontrado: Cliente;
+  public clienteEncontrado$: Observable<Cliente>;
   public contatoEscolhido: ContatoCliente;
   public enderecoEscolhido: EnderecoCliente;
+  public atendimentosCount;
+
   public formAtendimento: FormGroup;
   public novoAtendimentoEditarCampos: Boolean = true;
 
@@ -30,7 +34,8 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
               private _atendimentoServiceService: AtendimentoService,
               private _notificacaoService: NotificacaoService,
               private _clienteService: ClienteService,
-              private _ngbDateParserFormatter: NgbDateParserFormatter) { }
+              private _ngbDateParserFormatter: NgbDateParserFormatter,
+              private _servicoModal: NgbModal) { }
 
   ngOnInit() {
     this.formulario();
@@ -78,17 +83,23 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
 
   buscarCliente(cnpj) {
     if (cnpj) {
-     this.subscription = this._clienteService.retornarUm(cnpj)
-      .subscribe(res => {
-          if (res) {
-            this.formAtendimento.get('cliente.nome_razao_social').patchValue(res.nome_razao_social);
-            this.formAtendimento.get('cliente.inscricao_estadual').patchValue(res.inscricao_estadual);
-            this.formAtendimento.get('cliente.nome_fantasia').patchValue(res.nome_fantasia);
-            this.clienteEncontrado = res;
-          } else {
-            this.notificarFalhaEncontrarCliente();
-          }
-      });
+     this.clienteEncontrado$ = this._clienteService.retornarUm(cnpj)
+      .map(cliente => {
+         if (cliente) {
+          this.formAtendimento.get('cliente.nome_razao_social').patchValue(cliente.nome_razao_social);
+          this.formAtendimento.get('cliente.inscricao_estadual').patchValue(cliente.inscricao_estadual);
+          this.formAtendimento.get('cliente.nome_fantasia').patchValue(cliente.nome_fantasia);
+         }
+          return cliente;
+      }).switchMap(cliente => {
+        if(cliente) {
+          return this._atendimentoServiceService.getLatestAtendimento(cliente.cnpj_cpf)
+          .map((atendimentos) => {
+            setTimeout(() => atendimentos.length > 3 ? this.abrirModalDeConfirmacao(cliente, atendimentos.length) : '', 0) 
+            return cliente;
+          });
+        }
+      });    
     }
   }
 
@@ -222,11 +233,10 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     }
   }
 
-
   cadastrarAtendimento(atendimento: Atendimento) {
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
     atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
-    atendimentoFormatado.estado = 'agendado';
+    atendimentoFormatado.estado = this.atendimentosCount > 3 ? 'bloqueado' : 'agendado';
     const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
 
     this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
@@ -248,6 +258,11 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         }
     }
       return true;
+  }
+
+  abrirModalDeConfirmacao(cliente, totalAtendimentos) {
+    const referenciaModal = this._servicoModal.open(ModalAlertComponent);
+    referenciaModal.componentInstance.informacoes = { cliente, totalAtendimentos };
   }
 
   notificarSucesso() {

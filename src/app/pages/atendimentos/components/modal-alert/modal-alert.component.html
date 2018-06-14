@@ -1,0 +1,16 @@
+    <div class="modal-header">
+      <h4 class="modal-title">Atenção!</h4>
+      <button type="button" class="close" aria-label="Close" >
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <h5>O cliente 
+        <strong>{{ informacoes?.cliente?.nome_razao_social | uppercase }}</strong> já teve 
+        <strong>{{ informacoes?.totalAtendimentos }} atendimentos</strong> em um período inferior ou igual à 30 dias o atendimento ficará bloqueado aguardando a liberação dos supervisores!</h5>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="fecharModal()">Continuar</button>
+    </div>

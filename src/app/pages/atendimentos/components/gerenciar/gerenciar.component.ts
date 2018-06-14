@@ -1,3 +1,4 @@
+import { DesbloquearModalComponent } from './../desbloquear-modal/desbloquear-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
@@ -33,26 +34,31 @@ export class GerenciarComponent implements OnInit {
 
 
   ngOnInit() {
-    this.atendimentos$ = this._atendimentoService
-      .atendimentosLazyLoad(this.query)
-        .map(({ atendimentos, count }) => {
-          this.totalRecords = count;
-          this.carregando = false;
-          return atendimentos;
-        });
+    this.getAtendimentos();
   }
 
+  getAtendimentos() {
+    this.atendimentos$ = this._atendimentoService
+    .atendimentosLazyLoad(this.query)
+      .map(({ atendimentos, count }) => {
+        this.totalRecords = count;
+        this.carregando = false;
+        return atendimentos;
+      });
+  }
   mudarEstiloLinha(atendimento) {
     const estado = atendimento.motivos.find(motivo => motivo.estado === 'reagendado');
 
+    // tslint:disable-next-line:curly
+    if (atendimento.liberacao && atendimento.liberacao._id) return 'liberado';
     // tslint:disable-next-line:curly
     if (estado && atendimento.estado !== 'cancelado' && atendimento.estado !== 'associado') return 'reagendado';
     // tslint:disable-next-line:curly
     if (atendimento.estado === 'cancelado') return 'cancelado';
     // tslint:disable-next-line:curly
     if (atendimento.estado === 'associado') return 'associado';
-
-
+    // tslint:disable-next-line:curly
+    if (atendimento.estado === 'bloqueado') return 'bloqueado';
     return 'padrao';
   }
 
@@ -66,6 +72,17 @@ export class GerenciarComponent implements OnInit {
           );
           referenciaModal.componentInstance.atendimentoSelecionado = res;
         });
+  }
+
+  checkedLastAtendimento(atendimento) {
+    const referenciaModal = this._servicoModal.open(
+      DesbloquearModalComponent,
+      this.opcoesModal
+    );
+    referenciaModal.componentInstance.atendimentoSelecionado = atendimento;
+    referenciaModal.result
+      .then(res => this.getAtendimentos())
+      .catch(() => {});
   }
 
   filterEvents({ filters, first, rows }) {

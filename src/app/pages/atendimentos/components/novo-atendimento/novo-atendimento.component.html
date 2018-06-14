@@ -17,7 +17,7 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 col-lg-6">
     <ba-card cardTitle="Contato">
-        <div class="form-group">
+        <div class="form-group" *ngIf="clienteEncontrado$ | async; let clienteEncontrado">
             <label for="selecionar_contato">Selecionar contato</label>
             <select class="form-control" id="selecionar_contato"
             [(ngModel)]="contatoEscolhido"
@@ -42,7 +42,7 @@
 <!-- Card com os inputs das informações de endereço do cliente -->
   <div class="col-md-12 col-sm-12 col-lg-6">
     <ba-card cardTitle="Endereço">
-        <div class="form-group">
+        <div class="form-group" *ngIf="clienteEncontrado$ | async; let clienteEncontrado">
             <label for="selecionar_endereco">Selecionar endereço</label>
             <select class="form-control" id="selecionar_endereco"
             [(ngModel)]="enderecoEscolhido"
@@ -100,4 +100,3 @@
    </div>
  </div>
 </form>
-

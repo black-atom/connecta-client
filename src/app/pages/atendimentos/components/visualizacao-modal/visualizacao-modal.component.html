@@ -19,6 +19,7 @@
       {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
       {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
     </h5>
+    <h5>Visita autorizada por: {{ atendimentoSelecionado.liberacao.nome_supervisor | uppercase }}</h5>
   </div>
   <div class="situacao">
      <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">

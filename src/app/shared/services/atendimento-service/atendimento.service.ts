@@ -61,6 +61,12 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  getLatestAtendimento(cnpjCpf, days = 30) {
+    return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos/latest`, { params: { cnpj_cpf: cnpjCpf, days } })
+                     .map(res => res.json() as Atendimento[])
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
   atendimentosLazyLoad(query): Observable <any> {
     return this._http.get(`${environment.API_ENDPOINT}/api/atendimentos`, { params: { ...query } })
                      .map((res) => res.json())

@@ -1,6 +1,6 @@
 import { DesbloquearModalComponent } from './../desbloquear-modal/desbloquear-modal.component';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AtendimentoService } from './../../../../shared/services';
@@ -14,11 +14,12 @@ import { removeMaskFromPropTable, propNameQuery, formatQuery } from 'app/shared/
   templateUrl: './gerenciar.component.html',
   styleUrls: ['./gerenciar.component.scss']
 })
-export class GerenciarComponent implements OnInit {
+export class GerenciarComponent implements OnInit, OnDestroy {
 
   public atendimentos$: Observable<Atendimento[]>;
   public atendimentoSelecionado: Atendimento;
   public carregando: boolean = true;
+  private subscription: Subscription;
 
   public totalRecords;
   private query = { skip : 0, limit : 25 };
@@ -38,7 +39,7 @@ export class GerenciarComponent implements OnInit {
   }
 
   getAtendimentos() {
-    this.atendimentos$ = this._atendimentoService
+  this.atendimentos$ = this._atendimentoService
     .atendimentosLazyLoad(this.query)
       .map(({ atendimentos, count }) => {
         this.totalRecords = count;
@@ -63,14 +64,23 @@ export class GerenciarComponent implements OnInit {
   }
 
   abrirModalDeDetalhes(atendimentoSelecionado) {
-    this._atendimentoService
+    this.subscription = this._atendimentoService
       .retornarUm(atendimentoSelecionado)
         .subscribe(res => {
           const referenciaModal = this._servicoModal.open(
             VisualizacaoModalComponent,
             this.opcoesModal
           );
-          referenciaModal.componentInstance.atendimentoSelecionado = res;
+          if (res.imagens) {
+            return referenciaModal.componentInstance.atendimentoSelecionado = {
+              ...res,
+              imagens: res.imagens.map(imagem => ({
+                ...imagem,
+                url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+              }))
+            };
+          }
+          return referenciaModal.componentInstance.atendimentoSelecionado = { ...res, imagens: [] };
         });
   }
 
@@ -120,9 +130,25 @@ export class GerenciarComponent implements OnInit {
   }
 
   print(atendimento): void {
-    this._atendimentoService.retornarUm(atendimento).subscribe(res => this.atendimentoSelecionado = res);
+    this.subscription = this._atendimentoService.retornarUm(atendimento).subscribe(res => {
+      if (res.imagens) {
+        return this.atendimentoSelecionado = {
+          ...res,
+          imagens: res.imagens.map(imagem => ({
+            ...imagem,
+            url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+          }))
+        };
+      }
+      return this.atendimentoSelecionado = { ...res, imagens: [] };
+    });
     setTimeout(() => window.print(), 500);
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
 }

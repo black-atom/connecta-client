@@ -114,14 +114,19 @@ export class AtendimentosConcluidosComponent implements OnInit, OnDestroy {
         this.opcoesModal
       );
 
-    this.getOneAtendimento(_id)
-    .map((atendimento: Atendimento) => ({
-      ...atendimento,
-      imagens: atendimento.imagens.map(imagem => ({
-        ...imagem,
-        url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
-      }))
-    }))
+  this.subscription = this.getOneAtendimento(_id)
+    .map((atendimento: Atendimento) => {
+      if (atendimento.imagens) {
+        return {
+          ...atendimento,
+          imagens: atendimento.imagens.map(imagem => ({
+            ...imagem,
+            url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+          }))
+        };
+      }
+      return { ...atendimento, imagens: [] };
+    })
     .subscribe(atendimento =>
       referenciaModal.componentInstance.atendimentoSelecionado = atendimento);
   }

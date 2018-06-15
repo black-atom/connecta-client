@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
 import { NotificationsService } from 'angular2-notifications';
@@ -17,7 +17,7 @@ import { NotificacaoService } from '../../../../shared/services/notificacao-serv
   templateUrl: './associar.component.html',
   styleUrls: ['./associar.component.scss']
 })
-export class AssociarComponent implements OnInit {
+export class AssociarComponent implements OnInit, OnDestroy {
   public atendimentos: Atendimento[] = [];
   public atendimentoASerRemovido;
   public funcionarioSelecionado;
@@ -26,6 +26,8 @@ export class AssociarComponent implements OnInit {
   public dataSelecionada: any;
   private date = new Date();
   public inputDate: any;
+  private subscription: Subscription;
+  atendimentoSelecionado;
 
   public tecnicos$: Observable<Funcionario[]>;
 
@@ -108,7 +110,7 @@ export class AssociarComponent implements OnInit {
             const estado = 'associado';
             return { ...atendimento, tecnico, estado };
           });
-          this._atendimentoService
+          this.subscription = this._atendimentoService
             .atualizarTodosAtendimentos(arrayDeAtendimentos)
             .subscribe(() => this.getFuncionariosEAtendimentos());
         }
@@ -117,16 +119,18 @@ export class AssociarComponent implements OnInit {
   }
 
   abrirModalDeConfirmacao(conteudo, atendimento, funcionario) {
+    this.subscription = this._atendimentoService.retornarUm(atendimento._id).subscribe(res => this.atendimentoSelecionado = res);
     this.funcionarioSelecionado = funcionario;
-    this.atendimentoASerRemovido = atendimento;
+    this.atendimentoASerRemovido = this.atendimentoSelecionado;
     this._servicoModal.open(conteudo);
   }
 
-  removerAtendimento(atendimentoSelecionadoParaRemover) {
+  removerAtendimento() {
     const tecnico = { nome: null };
     const estado = 'agendado';
-    const atendimento = { ...atendimentoSelecionadoParaRemover, tecnico, estado };
-    this._atendimentoService
+    const atendimento = { ...this.atendimentoSelecionado, tecnico, estado };
+
+    this.subscription = this._atendimentoService
       .atualizarAtendimento(atendimento)
       .subscribe(() => this.getFuncionariosEAtendimentos());
   }
@@ -136,6 +140,12 @@ export class AssociarComponent implements OnInit {
       'Erro',
       'Não é possível remover um atendimento iniciado ou concluído'
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

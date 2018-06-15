@@ -52,15 +52,16 @@ export class AssociarComponent implements OnInit {
   getFuncionariosEAtendimentos() {
     this.tecnicos$ = this._funcionarioService
       .retornarFuncionarioPorFuncao(this.funcao)
-      .switchMap(resFuncionarios =>
+      .map(({ funcionarios }) => funcionarios.filter(funcionario => funcionario.ativo))
+      .switchMap(funcionarios =>
         this._atendimentoService
         .getAtendimentosPorData({
           estado: 'associado',
           data_atendimento: this.dataPassadoPeloUsuario(this.inputDate).toString()
         })
-        .map(resAtendimento =>
-          resFuncionarios.funcionarios.map(funcionario => {
-            const atendimentoTecnico = resAtendimento.atendimentos.filter(
+        .map(({ atendimentos }) =>
+          funcionarios.map(funcionario => {
+            const atendimentoTecnico = atendimentos.filter(
               atendimento => atendimento.tecnico._id === funcionario._id
             );
             return { ...funcionario, atendimentos: atendimentoTecnico };

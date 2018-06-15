@@ -32,7 +32,7 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
     }
 
     this._atendimentoService
-      .atualizarAtendimento({ ...atendimento, isViewed })
+      .atualizarAtendimentoTecnica({ ...atendimento, isViewed })
       .subscribe(atendimentoRes => this.atendimentoSelecionado = atendimentoRes);
   }
 
@@ -48,7 +48,7 @@ export class AtendimentoConcluidoDetalhesComponent implements OnInit {
     }
 
     this._atendimentoService
-      .atualizarAtendimento({ ...atendimento, isViewed, faturamento })
+      .atualizarAtendimentoTecnica({ ...atendimento, isViewed, faturamento })
       .subscribe(atendimentoRes => this.atendimentoSelecionado = atendimentoRes);
   }
 

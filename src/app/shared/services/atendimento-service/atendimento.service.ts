@@ -73,5 +73,15 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+
+  atualizarAtendimentoTecnica(atendimento): Observable <Atendimento> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this._http.put(`${environment.API_ENDPOINT}/api/atendimentos-checked/${atendimento._id}/`, atendimento, options)
+                     .map(res => res.json() as Atendimento)
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }
 

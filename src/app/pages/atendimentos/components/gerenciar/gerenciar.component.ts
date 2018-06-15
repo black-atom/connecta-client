@@ -20,6 +20,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
   public atendimentoSelecionado: Atendimento;
   public carregando: boolean = true;
   private subscription: Subscription;
+  public bloqueados$: Observable<any>;
 
   public totalRecords;
   private query = { skip : 0, limit : 25 };
@@ -36,6 +37,24 @@ export class GerenciarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAtendimentos();
+    this.getBloqueados();
+  }
+
+  getBloqueados() {
+    const query = {
+      estado: 'bloqueado'
+    };
+
+    this.bloqueados$ = this._atendimentoService.atendimentosLazyLoad(query).map(({ atendimentos, count }) => {
+      const today = new Date();
+      const parseDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toString;
+      const bloqueados = {
+        hoje: atendimentos.filter(atendimento => atendimento.data_atendimento === parseDate).length,
+        total: count
+      };
+      console.log(bloqueados);
+      return bloqueados;
+    });
   }
 
   getAtendimentos() {
@@ -106,6 +125,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       ...queryFormatter('endereco.cidade'),
       ...queryFormatter('tipo'),
       ...queryFormatter('tecnico.nome'),
+      ...queryFormatter('estado'),
       ...queryFormatter('createdBy'),
       skip : first,
       limit : rows

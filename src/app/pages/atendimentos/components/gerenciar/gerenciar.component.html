@@ -1,3 +1,27 @@
+<div class="no-print" *ngIf="bloqueados$ | async; let bloqueados">
+  <div class="row mb-4">
+    <div class="col-6">
+      <div class="card-custom ">
+        <div class="content-info-card text-center">
+          <div class="value bloqueado">{{ bloqueados.total || 0 }}</div>
+          <div class="title">TOTAL BLOQUEADO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card-custom">
+        <div class="content-info-card text-center">
+          <div class="value bloqueado">{{ bloqueados.hoje || 0 }}</div>
+          <div class="title">TOTAL BLOQUEADO HOJE</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="no-print mt-4">
+
 <p-dataTable
 [value]="atendimentos$ | async"
 [lazy]="true"
@@ -14,7 +38,7 @@
  rowHover="true"
  sortField="createdAt"
  styleClass="borderless"
- class="no-print">
+ class="no-print mt-4">
  <!-- [rowTrackBy]="rowTrackBy" -->
   <p-column field="data_atendimento" header="Data" [filter]="true" [style]="{'width':'70px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
@@ -112,6 +136,7 @@
   </ng-template>
 
 </p-dataTable>
+</div>
 
 <app-atendimento-print
   [atendimentoSelecionado]="atendimentoSelecionado"

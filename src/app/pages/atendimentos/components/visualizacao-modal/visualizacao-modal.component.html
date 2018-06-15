@@ -65,10 +65,17 @@
         Para editar este atendimento, você deve desassociar!
       </h6>
     </div>
+
+    <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.estado === 'bloqueado'">
+        <h6 class="text-muted destaque-danger">
+          Atendimento aguardando liberação do supervisor!
+        </h6>
+      </div>
+
   <button type="button"
     class="btn btn-info"
     (click)="fecharModal()"
-    *ngIf="!atendimentoSelecionado.tecnico.nome"
+    *ngIf="!atendimentoSelecionado.tecnico.nome && atendimentoSelecionado.estado !== 'bloqueado'"
     routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
     title="Edite informações do atendimento">
     <i class="fa fa-pencil"></i>

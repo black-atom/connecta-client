@@ -1,7 +1,5 @@
 <form [formGroup]="formFuncionario"
 (ngSubmit)="cadastrarTecnico(formFuncionario.value)" novalidate>
-{{ formFuncionario.value.login | json }}
-{{ formFuncionario.value.ativo | json }}
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">

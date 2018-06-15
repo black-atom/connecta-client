@@ -68,13 +68,18 @@ export class AtendimentosConcluidosComponent implements OnInit {
         .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
       )
       .map(({ atendimentos }) => atendimentos)
-      .map((atendimentos: Atendimento[]) => atendimentos.map(atendimento => ({
-        ...atendimento,
-        imagens: atendimento.imagens.map(imagem => ({
-          ...imagem,
-          url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
-        }))
-      })))
+      .map((atendimentos: Atendimento[]) => atendimentos.map(atendimento => {
+        if (atendimento.imagens) {
+          return {
+            ...atendimento,
+            imagens: atendimento.imagens.map(imagem => ({
+              ...imagem,
+              url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+            }))
+          };
+        }
+        return { ...atendimento, imagens: [] };
+      }))
       .switchMap((atendimentos) => {
         return this._atividadeService
           .getAllAtividadesPorData({ createdAt: this.dataPassadoPeloUsuario(this.inputDate) })

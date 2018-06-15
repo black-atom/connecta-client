@@ -92,14 +92,14 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
          }
           return cliente;
       }).switchMap(cliente => {
-        if(cliente) {
+        if (cliente) {
           return this._atendimentoServiceService.getLatestAtendimento(cliente.cnpj_cpf)
           .map((atendimentos) => {
-            setTimeout(() => atendimentos.length > 3 ? this.abrirModalDeConfirmacao(cliente, atendimentos.length) : '', 0) 
+            this.atendimentosCount = atendimentos.length;
             return cliente;
           });
         }
-      });    
+      });
     }
   }
 
@@ -240,7 +240,11 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
 
     this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
-      () => {},
+      ({ cliente: { nome_razao_social } }) => {
+
+        // tslint:disable-next-line:no-unused-expression
+        this.atendimentosCount > 3 ? this.abrirModalDeConfirmacao(nome_razao_social, this.atendimentosCount) : nome_razao_social;
+      },
           erro => this.notificarFalhaCadastro(),
             () => {
               this.formAtendimento.reset();

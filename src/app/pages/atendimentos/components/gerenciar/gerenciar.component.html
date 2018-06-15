@@ -48,6 +48,14 @@
   </p-column>
 
 
+  <p-column field="endereco.cep" header="Cep" [filter]="true" [style]="{'width':'100px'}">
+      <ng-template let-atendimento="rowData" pTemplate="body">
+        {{ atendimento?.endereco.cep | cep }}
+      </ng-template>
+    </p-column>
+
+
+
   <p-column field="estado" header="Situação" [filter]="true" [style]="{'width':'90px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.estado  | uppercase }}
@@ -88,7 +96,7 @@
 
   <p-column styleClass="col-button" [style]="{'width':'30px'}">
       <ng-template let-atendimento="rowData" pTemplate="body">
-        <button type="button" class="info" pButton icon="fa fa-print"(click)="print(atendimento)"></button>
+        <button type="button" class="info" pButton icon="fa fa-print"(click)="print(atendimento._id)"></button>
       </ng-template>
     </p-column>
 

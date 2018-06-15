@@ -87,11 +87,12 @@ export class GerenciarComponent implements OnInit {
 
   filterEvents({ filters, first, rows }) {
     const queryFormatter = propNameQuery(filters);
-    const newQuery: any = {
+    const queryParse: any = {
       ...queryFormatter('data_atendimento'),
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
       ...queryFormatter('endereco.bairro'),
+      ...queryFormatter('endereco.cep'),
       ...queryFormatter('endereco.cidade'),
       ...queryFormatter('tipo'),
       ...queryFormatter('tecnico.nome'),
@@ -99,6 +100,7 @@ export class GerenciarComponent implements OnInit {
       skip : first,
       limit : rows
     };
+    const newQuery = removeMaskFromPropTable('endereco.cep')(queryParse);
     return newQuery;
   }
 
@@ -118,7 +120,7 @@ export class GerenciarComponent implements OnInit {
   }
 
   print(atendimento): void {
-    this.atendimentoSelecionado = atendimento;
+    this._atendimentoService.retornarUm(atendimento).subscribe(res => this.atendimentoSelecionado = res);
     setTimeout(() => window.print(), 500);
   }
 

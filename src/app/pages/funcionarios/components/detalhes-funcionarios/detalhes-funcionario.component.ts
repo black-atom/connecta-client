@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -21,7 +21,7 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
   private id: string;
   public funcionarioRecebido: Funcionario;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  public tipo: string[] = [];
+
   public editarCamposTipo: boolean = true;
 
   constructor(private _funcionarioService: FuncionarioService,
@@ -53,7 +53,10 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
       login: this._fb.group({
         username: ['', Validators.required],
         password: [''],
-        tipo: ['']
+        tipo: this._fb.array([
+          new FormControl(''),
+          new FormControl('')
+        ])
       }),
       habilitacao: this._fb.group({
         numero: [''],
@@ -77,7 +80,8 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
         cidade: ['', [Validators.required]],
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
-      })
+      }),
+      ativo: ['true', Validators.required]
     });
  }
 
@@ -85,21 +89,11 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
     this.subscription = this._funcionarioService.retornarUm(this.id).subscribe((dados) => {
       dados.login.password = '';
       this.formEdicaoFuncionario.patchValue(dados);
-      this.tipo = dados.login.tipo;
       this.funcionarioRecebido = dados;
     });
   }
 
-  permissao(perm) {
-    const index = this.tipo.indexOf(perm);
-    if (perm && index === -1) {
-      this.tipo.push(perm);
-    }else if (index !== -1) {
-      this.tipo.splice(index, 1, perm);
-    }
-  }
-
-  replaceFieldsFuncionario(funcionario: Funcionario) {
+  replaceFieldsFuncionario(funcionario) {
 
     const functionarioFormatado = {
       cpf : removeMaskFromProp('cpf')(funcionario),
@@ -117,14 +111,20 @@ export class DetalhesFuncionarioComponent implements OnInit, OnDestroy, IFormCan
       cep : removeMaskFromProp('cep')(funcionario.endereco)
     };
 
-    return { ...funcionario, ...functionarioFormatado, contato, endereco };
+    const ativo = funcionario.ativo === 'true' || funcionario.ativo === true ? true : false;
+
+    const login = {
+      ...funcionario.login,
+      tipo: funcionario.login.tipo.filter(t => t.length > 0)
+    };
+
+    return { ...funcionario, ...functionarioFormatado, contato, endereco, ativo, login };
   }
 
   atualizarTecnico(funcionario: Funcionario) {
 
     const funcionarioFormatado = this.replaceFieldsFuncionario(funcionario);
     funcionarioFormatado._id = this.id;
-    funcionarioFormatado.login.tipo = this.tipo;
 
     if (funcionarioFormatado.login.hasOwnProperty('password') && funcionarioFormatado.login.password.length <= 0 ) {
           delete funcionarioFormatado.login.password;

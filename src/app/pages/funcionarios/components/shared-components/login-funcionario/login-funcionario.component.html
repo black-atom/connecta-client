@@ -1,43 +1,46 @@
-<div class="row" [formGroup]="formLoginFuncionario">
+<div class="row" [formGroup]="formLoginFuncionario.get('login')">
+  <div class="col-12">
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="username">Usuário</label>
+        <input type="text" class="form-control" formControlName="username" id="username">
+      </div>
 
-  <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
-    <label for="username">Usuário</label>
-    <input type="text" class="form-control"
-    formControlName="username" id="username">
-  </div>
-
-  <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
-    <label for="senha">Senha</label>
-    <input type="password" class="form-control"
-    formControlName="password" id="password">
-  </div>
-
-  <div class="col-md-8 col-sm- col-lg-6" *ngIf="disabled">
-    <div class="form-group">
-      <label for="descricao_atendimento">Permissão 1</label>
-      <select class="form-control" name="permissao1"
-      [(ngModel)]="tipoEscolhido"
-      [ngModelOptions]="{standalone: true}"
-      (change)="permissao(tipoEscolhido)">
-        <option value="" disabled selected>Selecione</option>
-        <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
-      </select>
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" formControlName="password" id="password">
+      </div>
     </div>
   </div>
 
-
-  <div class="col-md-8 col-sm- col-lg-6" *ngIf="disabled">
-    <div class="form-group">
-      <label for="descricao_atendimento">Permissão 2</label>
-      <select class="form-control" name="permissao2"
-      [(ngModel)]="tipoEscolhido2"
-      [ngModelOptions]="{standalone: true}"
-      (change)="permissao(tipoEscolhido2)">
-        <option value="" selected>Selecione</option>
-        <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
-      </select>
+  <div class="col-12" *ngIf="disabled">
+    <div class="row" formArrayName="tipo">
+      <div class="col-md-6 col-sm-12 col-lg-6" *ngFor="let tipo of tipos.controls; index as i">
+        <div class="form-group">
+          <label for="descricao_atendimento">Permissão {{ i + 1}}</label>
+          <select class="form-control" name="permissao1" [formControlName]="i">
+            <option value="" selected>Selecione</option>
+            <option [ngValue]="tipo" *ngFor="let tipo of tipoFuncionario">{{tipo}}</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
-
-
 </div>
+
+<div class="row" [formGroup]="formLoginFuncionario" *ngIf="disabled">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="descricao_atendimento">Inativar Funcionário</label>
+            <select class="form-control" name="permissao1" formControlName="ativo">
+                <option value=""  disabled selected>Selecione</option>
+                <option value="true" type="boolean">Ativo</option>
+                <option value="false" type="boolean">Inativo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

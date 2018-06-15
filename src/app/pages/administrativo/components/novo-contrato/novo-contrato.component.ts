@@ -310,4 +310,15 @@ export class NovoContratoComponent implements OnInit {
     this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
   }
 
+  podeDesativar() {
+    if (this.novoContratoForm.touched) {
+      if ( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }

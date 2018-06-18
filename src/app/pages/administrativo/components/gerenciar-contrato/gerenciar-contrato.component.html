@@ -42,8 +42,8 @@
 </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
-    <ng-template let-produto="rowData" pTemplate="body">
-      <button type="button" pButton icon="fa fa-pencil"></button>
+    <ng-template let-contrato="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/administrativo/editar/{{ contrato._id }}"></button>
     </ng-template>
   </p-column>
 

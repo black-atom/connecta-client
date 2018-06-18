@@ -1,0 +1,93 @@
+<pre>{{ editarContratoForm.value | json }}</pre>
+
+<div class="row" [formGroup]="editarContratoForm">
+
+  <div class="col-12">
+    <app-dados-principais-cliente
+      [parentForm]="editarContratoForm"
+      (buscarCliente)="getCliente($event)"
+      (buscarClienteEhVincular)="getClienteEhVincular($event)"
+      (removeCnpjAssociado)="removerCnpj($event)"
+      (sendCnpjAssociado)="adicionarCampoVincularCnpj()">
+    </app-dados-principais-cliente>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-lg-6">
+    <app-contato-cliente
+      [contatoControl]="editarContratoForm.get('contato')"
+      [clienteEncontrado]="cliente$">
+    </app-contato-cliente>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-lg-6">
+    <app-endereco-cliente
+      [enderecoControl]="editarContratoForm.get('endereco')"
+      [clienteEncontrado]="cliente$">
+    </app-endereco-cliente>
+  </div>
+
+  <div class="col-12">
+    <app-detalhes-contrato
+      [contratoControl]="editarContratoForm">
+    </app-detalhes-contrato>
+  </div>
+
+  <div formArrayName="propostas">
+    <div *ngFor="let proposta of propostas.controls; let i = index">
+
+      <div class="col-12">
+        <app-form-equip
+          [indexProposta]="i"
+          [equipamento]="equipamento"
+          [indexEquipamento]="indexEquipamento"
+          (sendEquipamento)="addEquipamento($event)"
+          (editEquipamento)="editarEquipamento($event)">
+        </app-form-equip>
+      </div>
+
+      <div class="col-12">
+        <app-relacao-equipamentos
+          [indexProposta]="i"
+          [formProposta]="proposta"
+          [valorTotal]="valorTotalContrato"
+          [qtdEquipamentos]="qtdEquipamentos"
+          (editEquipamento)="getEquipamentoEdit($event)"
+          (removeEquipamento)="removeEquipamento($event)">
+        </app-relacao-equipamentos>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-12">
+    <ba-card>
+      <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+          <button
+            type="submit"
+            class="btn btn-primary btn-with-icon"
+            [disabled]="!editarContratoForm.valid || qtdEquipamentos === 0"
+            (click)="cadastrarContrato()">
+            <i class="ion-android-checkmark-circle"></i>
+            Cadastrar
+          </button>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <button
+            type="reset"
+            class="btn btn-danger btn-with-icon"
+            [disabled]="editarContratoForm.pristine"
+            (click)="resetForm()">
+            <i class="fa fa-trash"></i>
+            Limpar
+          </button>
+        </div>
+
+      </div>
+    </ba-card>
+  </div>
+
+</div>
+

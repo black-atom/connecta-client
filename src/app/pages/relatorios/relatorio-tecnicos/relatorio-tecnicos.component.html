@@ -41,11 +41,11 @@
                 {{ (atividade?.atendimento?.cliente?.cnpj_cpf | rgCnpjCpf) || '' }}
               </strong>
             </div>
-            <div *ngIf="atividade?.atendimento?.avaliacao[0]?.valor" class="mb-3">
+            <!-- <div *ngIf="atividade?.atendimento?.avaliacao[0]?.valor" class="mb-3">
               <strong>
                 <i class="fa fa-star fa-x2"></i>{{ ' ' + atividade?.atendimento?.avaliacao[0]?.valor }}
               </strong>
-            </div>
+            </div> -->
             <div class="text-center m-5" *ngIf="!atividade?.monitoramentos.length">
               NÃO HÁ INTERAÇÃO
             </div>

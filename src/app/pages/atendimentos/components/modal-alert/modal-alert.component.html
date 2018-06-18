@@ -1,0 +1,15 @@
+    <div class="modal-header">
+      <div class="title-modal-alert">
+          <img src="/assets/icons/exclamation-mark.svg" alt="">
+          <h1 class="modal-title">Atenção!</h1>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <h5>O cliente <strong>{{ informacoes?.cliente | uppercase }}</strong> já teve <strong>{{ informacoes?.totalAtendimentos }}
+         atendimentos</strong> em um período inferior ou igual à 30 dias o atendimento ficará bloqueado aguardando a liberação!</h5>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="fecharModal()">Fechar</button>
+    </div>

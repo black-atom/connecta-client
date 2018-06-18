@@ -1,0 +1,90 @@
+<div class="modal-header">
+  <h4>Total de visitas nos últimos {{ day }} dias é <span *ngIf="latestAtendimentos$ | async; let atendimentos">{{ atendimentos.length }} </span>!</h4>
+  <span></span>
+  <div class="btn-group mr-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-secondary" (click)="lastDay(30)">30</button>
+    <button type="button" class="btn btn-secondary" (click)="lastDay(60)">60</button>
+    <button type="button" class="btn btn-secondary" (click)="lastDay(90)">90</button>
+  </div>
+</div>
+
+<div class="modal-body scrollbar-panel-list" id="style-1">
+
+    <div class="row p-2">
+
+        <!-- início do atendimento -->
+        <div class="card col-12" *ngFor="let atendimento of latestAtendimentos$ | async; let i = index">
+            <div class="row card-text">
+              <!-- início do conteúdo do card -->
+              <div class="col-11">
+                <div class="row" >
+
+                  <div class="pointer col-10 pt-4 ">
+                    <h6 class="razao-social text-truncate"> {{ atendimento?.cliente?.nome_razao_social }} - {{ atendimento?.cliente?.cnpj_cpf | rgCnpjCpf }}</h6>
+                    <p class="sub-title mb-2">
+                      <i class="ion-location"></i>
+                      {{ atendimento?.endereco?.rua }},
+                      {{ atendimento?.endereco?.numero }} -
+                      {{ atendimento?.endereco?.bairro }},
+                      {{ atendimento?.endereco?.cidade }} -
+                      {{ atendimento?.endereco?.cep }}
+                    </p>
+                  </div>
+                  <div class="pointer col-2 pt-4 ">
+                    <h3> #{{ i + 1 }}</h3>
+                  </div>
+
+                  <!-- inicio do collapse-->
+                  <div class="col-12 text-center">
+                    <div>
+                      <div class="row text-justify">
+                        <div class="col-6"><p><strong>Data Atendimento:</strong> {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy' }} </p></div>
+                        <div class="col-6"><p><strong>Tipo:</strong> {{ atendimento?.tipo }} </p></div>
+                        <div class="col-6"><p><strong>Equipamento:</strong> {{ atendimento?.modelo_equipamento }} </p></div>
+                        <div class="col-12"><p><strong>Problema:</strong> {{ atendimento?.descricao }} </p></div>
+                        <div class="col-12"><p><strong>Testes Efetuados:</strong> {{ atendimento?.testes_efetuados }} </p></div>
+                        <div class="col-12"><p><strong>Aberto por:</strong> {{ atendimento?.createdBy | uppercase }} </p></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- fim do collapse-->
+
+                </div>
+              </div>
+              <!-- fim do conteúdo do card -->
+
+
+            </div>
+          </div>
+          <!-- fim do atendimento -->
+        </div>
+
+</div>
+
+<div class="modal-footer">
+  <h5 class="mt-4">Entre com os dados de algum supervisor para autorizar à visita!</h5>
+  <form [formGroup]="formUnlock">
+      <div class="row">
+          <div class="form-group col-4" *ngIf="funcionarios$ | async; let funcionarios">
+            <label for="username">Nome Supervisor</label>
+            <select class="form-control" id="username" formControlName="username">
+                <option value="" selected>Selecione Responsável</option>
+              <option *ngFor="let funcionario of funcionarios">
+                {{ funcionario?.login.username | uppercase }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-4">
+            <label class="control-label" for="descricao">Senha</label>
+            <input type="password" class="form-control" formControlName="password" autocomplete="new-password">
+          </div>
+
+          <div class="col-4">
+            <label for=""> </label>
+            <button class="btn btn-danger btn-with-icon" [disabled]="!formUnlock.valid" (click)="autorizarVisita(formUnlock.value)">
+              <i class="fa fa-lock"></i> Autorizar</button>
+          </div>
+        </div>
+  </form>
+</div>

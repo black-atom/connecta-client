@@ -15,13 +15,13 @@
 
  <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
-    {{ contrato?.cliente.nome_razao_social }}
+    {{ contrato?.cliente?.nome_razao_social }}
   </ng-template>
 </p-column>
 
 <p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [filter]="true" [style]="{'width':'90px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
-    {{ contrato?.cliente.cnpj_cpf | rgCnpjCpf }}
+    {{ contrato?.cliente?.cnpj_cpf | rgCnpjCpf }}
   </ng-template>
 </p-column>
 

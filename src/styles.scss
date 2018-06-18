@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import './app/theme/sass/conf/conf.scss';
 
 .btn {
@@ -29,6 +28,16 @@ span {
   color: #707070;
 }
 
+.bloqueado {
+  font-weight: bold;
+  color: #6A090C;
+}
+
+.liberado {
+  font-weight: bold;
+  color: #1b1b1b;
+}
+
 .cancelado {
   font-weight: bold;
   color: #FF2A2A;
@@ -42,6 +51,12 @@ span {
 .associado {
   color: rgba(0, 2, 117, 0.918);
   font-weight: bold;
+}
+
+.inicio-atendimento {
+  font-weight: bold;
+  color: rgb(27, 27, 27);
+  background: rgb(255, 244, 144) !important;
 }
 
 .aberto-por-tecnica {

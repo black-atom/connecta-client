@@ -1,6 +1,5 @@
 <form [formGroup]="formEdicaoFuncionario"
 (ngSubmit)="atualizarTecnico(formEdicaoFuncionario.value)" novalidate>
-
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">
@@ -50,10 +49,7 @@
         <ba-card cardTitle="Login">
           <app-login-funcionario
           [disabled]="editarCamposTipo"
-          (tipoSelecionado)="permissao($event)"
-          [tipoEscolhido]="tipo[0]"
-          [tipoEscolhido2]="tipo[1]"
-          [formLoginFuncionario]="formEdicaoFuncionario.controls.login">
+          [formLoginFuncionario]="formEdicaoFuncionario">
           </app-login-funcionario>
         </ba-card>
       </div>

@@ -19,6 +19,7 @@
       {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
       {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
     </h5>
+    <h5 *ngIf="atendimentoSelecionado?.liberacao?.nome_supervisor">Visita autorizada por: {{ atendimentoSelecionado?.liberacao?.nome_supervisor | uppercase }}</h5>
   </div>
   <div class="situacao">
      <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">
@@ -56,19 +57,25 @@
     </div>
   </div>
 
-  <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.tecnico.nome">
-    <h6 class="text-muted destaque-danger">
-      Para editar este atendimento, você deve desassociar!
-    </h6>
-  </div>
-
 </div>
 
 <div class="modal-footer" *ngIf="!atendimentoSelecionado?.assinatura?.atendimentoID">
+  <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.tecnico.nome">
+      <h6 class="text-muted destaque-danger">
+        Para editar este atendimento, você deve desassociar!
+      </h6>
+    </div>
+
+    <div class="col-12 mt-4 text-center" *ngIf="atendimentoSelecionado.estado === 'bloqueado'">
+        <h6 class="text-muted destaque-danger">
+          Atendimento aguardando liberação do supervisor!
+        </h6>
+      </div>
+
   <button type="button"
     class="btn btn-info"
     (click)="fecharModal()"
-    [disabled]="atendimentoSelecionado.tecnico.nome"
+    *ngIf="!atendimentoSelecionado.tecnico.nome && atendimentoSelecionado.estado !== 'bloqueado'"
     routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
     title="Edite informações do atendimento">
     <i class="fa fa-pencil"></i>

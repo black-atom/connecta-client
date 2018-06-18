@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 
 import { NotificacaoService, FuncionarioService, CepService } from './../../../../shared/services';
@@ -17,9 +17,7 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
   private subscription: Subscription;
   public formFuncionario: FormGroup;
   public emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  public tipo: string[] = [];
   public editarCamposTipo = true;
-  public permissaoRecebida;
 
    constructor(private _fb: FormBuilder,
                private _funcionarioService: FuncionarioService,
@@ -40,7 +38,10 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
       login: this._fb.group({
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
-        tipo: ['']
+        tipo: this._fb.array([
+          new FormControl(''),
+          new FormControl('')
+        ])
       }),
 
       habilitacao: this._fb.group({
@@ -65,21 +66,13 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
         cidade: ['', [Validators.required]],
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
-      })
+      }),
+      ativo: [true, Validators.required]
     });
   }
 
 
-  permissao(perm) {
-    const index = this.tipo.indexOf(perm);
-    if (perm && index === -1) {
-      this.tipo.push(perm);
-    }else if (index !== -1) {
-      this.tipo.splice(index, 1, perm);
-    }
-  }
-
-  replaceFieldsFuncionario(funcionario: Funcionario) {
+  replaceFieldsFuncionario(funcionario) {
 
     const functionarioFormatado = {
       cpf : removeMaskFromProp('cpf')(funcionario),
@@ -97,18 +90,24 @@ export class NovoFuncionarioComponent implements OnInit, OnDestroy, IFormCanDeac
       cep : removeMaskFromProp('cep')(funcionario.endereco)
     };
 
-    return { ...funcionario, ...functionarioFormatado, contato, endereco };
+
+    const ativo = funcionario.ativo === 'true' || funcionario.ativo === true ? true : false;
+
+    const login = {
+      ...funcionario.login,
+      tipo: funcionario.login.tipo.filter(t => t.length > 0)
+    };
+
+    return { ...funcionario, ...functionarioFormatado, contato, endereco, ativo, login };
   }
 
 
   cadastrarTecnico(funcionario: Funcionario) {
-
     const funcionarioFormatado = this.replaceFieldsFuncionario(funcionario);
-    funcionarioFormatado.login.tipo = this.tipo;
 
     this.subscription = this._funcionarioService.novoFuncionario(funcionarioFormatado)
       .subscribe(
-        () => {},
+        (res) => res ? this.iniciarFormFuncionario() : {},
           erro => this.falhaNoCadastro(),
             () => this.sucessoNoCadastro()
       );

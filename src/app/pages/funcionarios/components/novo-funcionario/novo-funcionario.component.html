@@ -1,6 +1,5 @@
 <form [formGroup]="formFuncionario"
 (ngSubmit)="cadastrarTecnico(formFuncionario.value)" novalidate>
-
   <!-- Card com os inputs de dados principais do funcionário -->
   <div class="row">
     <div class="col-12">
@@ -54,8 +53,7 @@ carteira de habilitação do funcionário -->
           <ba-card cardTitle="Login">
             <app-login-funcionario
             [disabled]="editarCamposTipo"
-            (tipoSelecionado)="permissao($event)"
-            [formLoginFuncionario]="formFuncionario.controls.login">
+            [formLoginFuncionario]="formFuncionario">
             </app-login-funcionario>
           </ba-card>
         </div>
@@ -76,7 +74,7 @@ carteira de habilitação do funcionário -->
 
           <div class="col-md-6 col-sm-12">
             <button type="reset" class="btn btn-danger btn-with-icon"
-             (click)="formFuncionario.reset()"
+             (click)="iniciarFormFuncionario()"
              [disabled]="formFuncionario.pristine">
             <i class="ion-trash-a"></i>Limpar</button>
           </div>

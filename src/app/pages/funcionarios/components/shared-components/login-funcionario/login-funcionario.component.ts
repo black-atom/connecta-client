@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 
 import { TIPOFUNCIONARIOMOCK } from './../../../../../utils/mocks/';
 
@@ -17,23 +17,12 @@ export class LoginFuncionarioComponent implements OnInit {
   @Input()
   disabled: boolean;
 
-  @Output()
-  tipoSelecionado = new EventEmitter();
-
-  @Input()
-  tipoEscolhido;
-  @Input()
-  tipoEscolhido2;
-
   public tipoFuncionario: String[] = TIPOFUNCIONARIOMOCK;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  permissao(tipo) {
-   this.tipoSelecionado.emit(tipo);
-  }
+  get tipos(): FormArray { return this.formLoginFuncionario.controls.login.get('tipo') as FormArray; }
 
 }

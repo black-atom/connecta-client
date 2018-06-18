@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
+import { NotificationsService } from '../../../../shared/services';
 
 import { TIPOATENDIMENTOMOCK } from './../../../../utils/mocks/tipo-atendimento.mock';
 import { Atendimento, DadosEndereco, ContatoCliente, EnderecoCliente, Cliente } from './../../../../models';
@@ -31,6 +32,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
   constructor(private _atendimentoService: AtendimentoService,
               private _activatedRoute: ActivatedRoute,
+              private _notificationsService: NotificationsService,
               private _cepService: CepService,
               private _fb: FormBuilder,
               private _router: Router,
@@ -93,7 +95,7 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
       observacao: [''],
       estacionamento: ['', Validators.required]
    });
-  }
+}
 
   buscarCliente(cnpj) {
     if (cnpj) {
@@ -331,6 +333,19 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
     return { ...atendimento, ...fieldUpdate[atendimento.tipo] };
   }
 
+  // tslint:disable-next-line:variable-name
+  salveNewNotification(nome_razao_social, data_atendimento, createdBy, _id) {
+    const notification = {
+      title: 'Atendimento alterado',
+      message: `${nome_razao_social}`,
+      user_created: createdBy,
+      date: new Date(),
+      id_data: _id,
+      groups: ['5b28114b24d87b7014c29d4b']
+    };
+    return this._notificationsService.postNotification(notification).subscribe(res => console.log(res));
+  }
+
 
   atualizarAtendimento(atendimento) {
     const atendimentoParse = this.parserAtendimento(atendimento);
@@ -341,7 +356,9 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
 
     this.subscription = this._atendimentoService.atualizarAtendimento(atendimentoFormatado)
       .subscribe(
-        () => {},
+        ({ cliente: { nome_razao_social }, data_atendimento, updatedBy, _id }) => {
+          this.salveNewNotification(nome_razao_social, data_atendimento, updatedBy, _id);
+        },
           erro => this.falhaNaEdicao(),
             () => this.sucessoNaEdicao()
     );

@@ -10,4 +10,4 @@ export * from './atividade-service/atividade.service';
 export * from './avaliacoes/avaliacoes.service';
 export * from './produto-service/produto.service';
 export * from './contrato-service/contrato.service';
-
+export * from './notifications/notifications.service';

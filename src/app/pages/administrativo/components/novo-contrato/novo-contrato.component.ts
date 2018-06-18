@@ -192,6 +192,7 @@ export class NovoContratoComponent implements OnInit {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.push(this.equipamentoForm(equipamento));
     this.calculaValorTotalContrato(index, equipamentos.value);
+    (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
     this.qtdEquipamentos = equipamentos.value.length;
   }
 
@@ -199,6 +200,7 @@ export class NovoContratoComponent implements OnInit {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.at(indexEquipamento).patchValue(equipamento);
     this.calculaValorTotalContrato(index, equipamentos.value);
+    (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
     this.qtdEquipamentos = equipamentos.value.length;
   }
 
@@ -206,6 +208,7 @@ export class NovoContratoComponent implements OnInit {
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.removeAt(indexEquipamento);
     this.calculaValorTotalContrato(index, equipamentos.value);
+    (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
     this.qtdEquipamentos = equipamentos.value.length;
   }
 

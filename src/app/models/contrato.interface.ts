@@ -24,7 +24,7 @@ export interface ContratoSchema {
   endereco: EnderecoCliente;
   contato: ContatoCliente;
   tipo: string;
-  dataAdessao: Date;
+  dataAdesao: Date;
   dataEncerramento: Date;
   valor: number;
   propostas: Proposta[];

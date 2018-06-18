@@ -47,8 +47,7 @@ export class NovoContratoComponent implements OnInit {
         email: ['', Validators.required],
         nome: [''],
         telefone: ['', Validators.required],
-        celular: [''],
-        observacao: ['']
+        celular: ['']
       }),
       endereco: this.enderecoForm(),
       propostas: this.fb.array([
@@ -270,7 +269,9 @@ export class NovoContratoComponent implements OnInit {
         ponto_referencia: contrato.endereco.ponto_referencia
       },
       dataAdesao: this.parseData(contrato.dataAdesao),
-      valor: this.valorTotalContrato
+      valor: this.valorTotalContrato,
+      diaVencimento: this.novoContratoForm.get('diaVencimento').value,
+      resumoContrato: this.novoContratoForm.get('resumoContrato').value
     };
 
     return { ...contrato, ...novoContrato };

@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: AdministrativoComponent,
     children: [
-      { path: 'gerenciar', component: GerenciarContratoComponent }
+      { path: 'gerenciar', component: GerenciarContratoComponent },
       { path: 'novo', component: NovoContratoComponent, canDeactivate: [FormCanDeactivateGuard] }
     ]
   }

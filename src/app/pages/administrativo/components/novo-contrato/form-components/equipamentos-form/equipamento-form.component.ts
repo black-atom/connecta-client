@@ -1,12 +1,10 @@
 
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 
 import { DadosEndereco, Produto } from 'app/models';
-import { propNameQuery } from 'app/shared/utils/StringUtils';
 
 @Component({
   selector: 'app-form-equip',
@@ -30,11 +28,12 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   @Output()
   sendEquipamento = new EventEmitter();
 
+  public produtos;
   public formEquipamento: FormGroup;
   public formPesquisa: FormGroup;
   public pesquisaControl: FormControl;
-  public produtos$: Observable<any[]>;
   public carregando: boolean = true;
+  public primeiroGet: boolean = true;
   public buttonEditar: boolean = false;
   public equipamentoSelecionado: boolean = false;
   public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -48,15 +47,21 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.equipamentoForm();
+    this.buttonEditar = false;
+    this.equipamentoSelecionado = false;
     this.initFormPesquisa();
+    this.equipamentoForm();
     this.atualizaProdutosLazy();
+    this.getProdutos();
   }
 
   ngOnChanges(changes) {
+    this.initFormPesquisa();
+    this.equipamentoForm();
     const formEquip = changes.equipamento.currentValue;
     if (formEquip) {
       this.buttonEditar = true;
+      this.equipamentoSelecionado = true;
       this.formEquipamento.patchValue(formEquip);
     }
   }
@@ -67,6 +72,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       pesquisaControl: this.pesquisaControl
     });
   }
+
 
   loadProdutosLazy(event) {
     const query = { descricao: event };
@@ -80,17 +86,16 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   getProdutos() {
-    return this.produtoService.produtosLazyLoad()
-      .map(({ produtos }) => {
-        return produtos;
-      });
+    this.produtoService.produtosLazyLoad(0, 10, {})
+    .subscribe(({ produtos }) => this.produtos = produtos);
   }
 
   atualizaProdutosLazy() {
-    this.produtos$ = this.pesquisaControl.valueChanges
+    this.pesquisaControl.valueChanges
     .debounceTime(500)
     .distinctUntilChanged()
-    .switchMap(param => this.loadProdutosLazy(param));
+    .switchMap(param => this.loadProdutosLazy(param))
+    .subscribe(produtos => this.produtos = produtos);
   }
 
   salvarEquipamento() {
@@ -103,6 +108,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   editarEquipamento() {
     this.buttonEditar = false;
+    this.equipamentoSelecionado = false;
     this.editEquipamento.emit({
       equipamento: this.formEquipamento.value,
       indexEquipamento: this.indexEquipamento,
@@ -119,6 +125,8 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   selecionarEquipamento(equipamento: Produto): void {
+    this.formEquipamento.get('descricao').patchValue(equipamento.descricao);
+    this.formEquipamento.get('categoria').patchValue(equipamento.categoria);
     this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
     this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
     this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
@@ -142,20 +150,22 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   equipamentoForm(): void {
     this.formEquipamento = this.fb.group({
+      descricao: ['', Validators.required],
+      categoria: ['', Validators.required],
       modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
-      numeroSerie: ['', Validators.minLength(4)],
       visita: ['', Validators.required],
       valor: ['', Validators.required],
+      numeroSerie: '',
       imagemPath: '',
       endereco: this.fb.group({
-        cep: ['', Validators.required],
-        rua: ['', Validators.required],
-        bairro: ['', Validators.required],
-        numero: ['', Validators.required],
-        cidade: ['', Validators.required],
+        cep: [''],
+        rua: [''],
+        bairro: [''],
+        numero: [''],
+        cidade: [''],
         complemento: [''],
-        uf: ['', Validators.required],
+        uf: [''],
         ponto_referencia: ['']
       })
     });

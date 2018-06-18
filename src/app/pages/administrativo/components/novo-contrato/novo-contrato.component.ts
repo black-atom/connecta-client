@@ -1,12 +1,11 @@
 import { OnInit, Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 import { Cliente } from 'app/models';
-import { equipamentosTemporarios } from './equipamento.mock.temp';
 
 @Component({
   selector: 'app-novo-contrato',
@@ -37,15 +36,17 @@ export class NovoContratoComponent implements OnInit {
   initContratoForm() {
     this.novoContratoForm = this.fb.group({
       cliente: this.fb.group({
-        nome_razao_social: ['', Validators.required],
-        cnpj_cpf: ['', Validators.required],
-        inscricao_estadual: [''],
-        nome_fantasia: ['']
+        nome_razao_social: '',
+        cnpj_cpf: ['', [Validators.required, Validators.minLength(11)]],
+        inscricao_estadual: '',
+        nome_fantasia: ''
       }),
+      cnpjAssociados: this.fb.array([]),
+
       contato: this.fb.group({
-        email: [''],
+        email: ['', Validators.required],
         nome: [''],
-        telefone: [''],
+        telefone: ['', Validators.required],
         celular: [''],
         observacao: ['']
       }),
@@ -68,6 +69,8 @@ export class NovoContratoComponent implements OnInit {
   }
 
   equipamentoForm({
+    descricao = '',
+    categoria = '',
     modelo = '',
     fabricante = '',
     numeroSerie = '',
@@ -77,12 +80,14 @@ export class NovoContratoComponent implements OnInit {
     endereco = {}
   } = {}): FormGroup {
     return this.fb.group({
+      descricao: [descricao, Validators.required],
+      categoria: [categoria, Validators.required],
       modelo: [modelo, Validators.required],
       fabricante: [fabricante, Validators.required],
-      numeroSerie: [numeroSerie, [Validators.required, Validators.minLength(4)]],
+      numeroSerie: [numeroSerie],
       visita: [visita, Validators.required],
       valor: [valor, Validators.required],
-      imagemPath: '',
+      imagemPath: [imagemPath],
       endereco: this.enderecoForm(endereco)
     });
   }
@@ -98,34 +103,89 @@ export class NovoContratoComponent implements OnInit {
     ponto_referencia = ''
   } = {}): FormGroup {
     return this.fb.group({
-      cep: [cep, Validators.required],
-      rua: [rua, Validators.required],
-      bairro: [bairro, Validators.required],
-      numero: [numero, Validators.required],
-      cidade: [cidade, Validators.required],
+      cep: [cep],
+      rua: [rua],
+      bairro: [bairro],
+      numero: [numero],
+      cidade: [cidade],
       complemento: [complemento],
-      uf: [uf, Validators.required],
+      uf: [uf],
       ponto_referencia: [ponto_referencia]
     });
   }
 
-  getCliente(cnpj) {
-    const cnpjParse = cnpj
-      ? this.removerCaracterEspecial(cnpj)
-      : this.notificarFalhaEncontrarCliente();
-    this.cliente$ = this.clienteService
-      .retornarUm(cnpjParse).map(cliente => {
-        if (cliente) {
-          this.novoContratoForm.get('cliente').patchValue(cliente);
-        } else {
-          this.notificarFalhaEncontrarCliente();
-        }
-        return cliente;
-      });
+  clienteForm({
+    nome_razao_social = '',
+    cnpj_cpf = '',
+    inscricao_estadual = '',
+    nome_fantasia = ''
+  } = {}): FormGroup {
+    return this.fb.group({
+      nome_razao_social: [nome_razao_social, Validators.required],
+      cnpj_cpf: [cnpj_cpf, [Validators.required, Validators.minLength(11)]],
+      inscricao_estadual: [inscricao_estadual],
+      nome_fantasia: [nome_fantasia]
+    });
   }
 
   get propostas(): FormArray {
     return this.novoContratoForm.get('propostas') as FormArray;
+  }
+
+  get cnpjAssociados(): FormArray {
+    return this.novoContratoForm.get('cnpjAssociados') as FormArray;
+  }
+
+  getCliente(cnpj) {
+    const cnpjParse = this.removerCaracterEspecial(cnpj);
+    if (cnpjParse) {
+      this.clienteService
+      .retornarUm(cnpjParse)
+      .subscribe(cliente => {
+        if (cliente) {
+          this.novoContratoForm.get('contato').patchValue(cliente.contatos[0]);
+          this.novoContratoForm.get('endereco').patchValue(cliente.enderecos[0]);
+          return this.novoContratoForm.get('cliente').patchValue(cliente);
+        }
+        return this.notificarFalhaEncontrarCliente();
+      });
+    }
+  }
+
+  getClienteEhVincular(cnpj) {
+    const cnpjParse = this.removerCaracterEspecial(cnpj.cnpj);
+    if (this.validaVincular(cnpjParse)) {
+      return this.notificarFalhaAssosiar();
+    }
+    if (cnpjParse) {
+      this.clienteService
+      .retornarUm(cnpjParse)
+      .subscribe(cliente => {
+        if (cliente) {
+          return this.cnpjAssociados.at(cnpj.index).patchValue(cliente);
+        }
+        return this.notificarFalhaEncontrarCliente();
+      });
+    }
+  }
+
+  validaVincular(cnpj) {
+    const cnpjPrincial = this.novoContratoForm.get('cliente.cnpj_cpf').value;
+    const cnpjVinculados = this.cnpjAssociados.value;
+    cnpjVinculados.pop();
+    if (cnpj === cnpjPrincial || cnpjVinculados.some(res => res.cnpj_cpf === cnpj)) {
+      return true;
+    }
+  }
+
+  adicionarCampoVincularCnpj() {
+    const cnpjAssociados = <FormArray> this.cnpjAssociados;
+    cnpjAssociados.push(this.clienteForm());
+  }
+
+  removerCnpj(index) {
+    const cnpjAssociados = <FormArray> this.cnpjAssociados;
+    cnpjAssociados.removeAt(index);
   }
 
   addEquipamento({ equipamento, indexProposta: index }) {
@@ -238,12 +298,27 @@ export class NovoContratoComponent implements OnInit {
     this.notificacaoService.notificarAviso('Cliente não encontrado!', '');
   }
 
+  notificarFalhaAssosiar() {
+    this.notificacaoService.notificarAviso('CNPJ já está associado!', '');
+  }
+
   notificarFalhaCadastro() {
     this.notificacaoService.notificarErro('Falha ao cadastrar o contrato!', '');
   }
 
   notificarSucesso() {
     this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
+  }
+
+  podeDesativar() {
+    if (this.novoContratoForm.touched) {
+      if ( confirm('Deseja sair da página? Todos os dados serão perdidos!')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true;
   }
 
 }

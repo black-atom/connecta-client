@@ -19,6 +19,7 @@ import { ModalContratoComponent } from './components/modal-contrato/modal-contra
 import { DadosClienteComponent } from './components/modal-contrato/dados-cliente/dados-cliente.component';
 import { EquipamentosComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
 import { FinanceiroComponent } from './components/modal-contrato/financeiro/financeiro.component';
+import { FormCanDeactivateGuard } from '../../shared/guards/form-deactivate.guard';
 
 @NgModule({
   imports: [
@@ -28,6 +29,9 @@ import { FinanceiroComponent } from './components/modal-contrato/financeiro/fina
     TextMaskModule,
     ModuloCompartilhado,
     routing
+  ],
+  providers: [
+    FormCanDeactivateGuard
   ],
   declarations: [
     AdministrativoComponent,

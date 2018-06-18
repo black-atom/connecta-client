@@ -20,6 +20,7 @@ import { DadosClienteComponent } from './components/modal-contrato/dados-cliente
 import { EquipamentosComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
 import { FinanceiroComponent } from './components/modal-contrato/financeiro/financeiro.component';
 import { FormCanDeactivateGuard } from '../../shared/guards/form-deactivate.guard';
+import { EditarContratoComponent } from './components/editar-contrato/editar-contrato.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import { FormCanDeactivateGuard } from '../../shared/guards/form-deactivate.guar
     ModalContratoComponent,
     DadosClienteComponent,
     EquipamentosComponent,
-    FinanceiroComponent
+    FinanceiroComponent,
+    EditarContratoComponent
   ],
   entryComponents: [
     ModalContratoComponent,

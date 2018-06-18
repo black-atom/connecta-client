@@ -1,0 +1,55 @@
+<p-dataTable
+[value]="contratos$ | async"
+[lazy]="true"
+[rows]="25"
+[paginator]="true"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadContratosLazy($event)"
+[pageLinks]="5"
+[responsive]="true"
+[sortOrder]="-1"
+[loading]="carregando"
+ loadingIcon="ion-load-a"
+ rowHover="true"
+ sortField="createdAt" styleClass="borderless">
+
+ <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    {{ contrato?.cliente.nome_razao_social }}
+  </ng-template>
+</p-column>
+
+<p-column field="cliente.cnpj_cpf" header="CNPJ/CPF" [filter]="true" [style]="{'width':'90px'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    {{ contrato?.cliente.cnpj_cpf | rgCnpjCpf }}
+  </ng-template>
+</p-column>
+
+<p-column field="tipo" header="TIPO" [filter]="true" [style]="{'width':'70px'}"></p-column>
+
+
+<p-column field="valor" header="VALOR" [style]="{'width':'70px'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    {{ contrato?.valor | currency: 'BRL': true }}
+  </ng-template>
+</p-column>
+
+
+<p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    <button type="button" class="info" pButton icon="fa fa-info" (click)="abrirModalDeDetalhes(contrato._id)"></button>
+  </ng-template>
+</p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-produto="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil"></button>
+    </ng-template>
+  </p-column>
+
+  <ng-template pTemplate="emptymessage">
+      <p *ngIf="carregando" >Buscando contratos...</p>
+      <p *ngIf="!carregando">Nenhum contrato foi encontrado</p>
+  </ng-template>
+
+</p-dataTable>

@@ -1,5 +1,4 @@
-import { forEach } from '@angular/router/src/utils/collection';
-import { OnInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -154,12 +153,22 @@ export class EditarContratoComponent implements OnInit {
       this.editarContratoForm.get('contato').patchValue(contrato.contato);
       this.editarContratoForm.get('endereco').patchValue(contrato.endereco);
       this.editarContratoForm.get('numeroContrato').patchValue(contrato.numeroContrato);
-      console.log(contrato.propostas);
+      this.editarContratoForm.get('diaVencimento').patchValue(contrato.diaVencimento);
+      this.editarContratoForm.get('subsequente').patchValue(contrato.subsequente);
+      this.editarContratoForm.get('tipo').patchValue(contrato.tipo);
+      this.editarContratoForm.get('resumoContrato').patchValue(contrato.resumoContrato);
+      this.editarContratoForm.get('dataAdesao').patchValue( this.parseDateForPathValue(contrato.dataAdesao));
       contrato.propostas.forEach(() => {
         this.propostaForm();
       });
       this.editarContratoForm.get('propostas').patchValue(contrato.propostas);
     });
+  }
+
+  parseDateForPathValue(date) {
+    const data = new Date(date);
+    const parseDate = { year: data.getFullYear(), month: data.getMonth() + 1, day: data.getDate() };
+    return parseDate;
   }
 
   get propostas(): FormArray {

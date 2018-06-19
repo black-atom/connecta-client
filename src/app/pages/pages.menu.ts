@@ -76,6 +76,38 @@ export const PAGES_MENU = [{
       ]
     },
     {
+      path: 'administrativo',
+      data: {
+        menu: {
+          title: 'Administrativo',
+          icon: 'ion-clipboard',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
+        {
+          path: 'novo',
+          data: {
+            menu: {
+              title: 'Novo Contrato',
+              icon: 'ion-clipboard'
+            }
+          }
+        },
+        {
+          path: 'gerenciar',
+          data: {
+            menu: {
+              title: 'Gerenciar Contrato',
+              icon: 'ion-clipboard'
+            }
+          }
+        }
+      ]
+    },
+    {
       path: 'estoque',
       data: {
         menu: {
@@ -193,38 +225,6 @@ export const PAGES_MENU = [{
           }
         }
       }
-      ]
-    },
-    {
-      path: 'administrativo',
-      data: {
-        menu: {
-          title: 'Administrativo',
-          icon: 'ion-clipboard',
-          selected: false,
-          expanded: false,
-          order: 300
-        }
-      },
-      children: [
-        {
-          path: 'novo',
-          data: {
-            menu: {
-              title: 'Novo Contrato',
-              icon: 'ion-clipboard'
-            }
-          }
-        },
-        {
-          path: 'gerenciar',
-          data: {
-            menu: {
-              title: 'Gerenciar Contrato',
-              icon: 'ion-clipboard'
-            }
-          }
-        }
       ]
     },
     {

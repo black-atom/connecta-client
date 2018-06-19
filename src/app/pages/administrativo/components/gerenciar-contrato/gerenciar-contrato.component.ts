@@ -1,8 +1,9 @@
+import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { propNameQuery } from 'app/shared/utils/StringUtils';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ContratoService } from './../../../../shared/services/contrato-service/contrato.service';
+import { ContratoService } from 'app/shared/services/contrato-service/contrato.service';
 import { ModalContratoComponent } from './../modal-contrato/modal-contrato.component';
 
 @Component({
@@ -52,7 +53,8 @@ export class GerenciarContratoComponent implements OnInit {
     const newQuery: any = {
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
-      ...queryFormatter('tipo')
+      ...queryFormatter('tipo'),
+      ...queryFormatter('numeroContrato')
     };
     return newQuery;
   }

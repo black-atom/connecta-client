@@ -31,4 +31,13 @@ export class ContratoService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
+  atualizarContrato(contrato): Observable <any> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this.http.put(`${environment.API_ENDPOINT}/api/contratos/${contrato._id}/`, contrato, options)
+                    .map(res => res.json() as any)
+                    .catch(ManipuladorErro.lidaComErro);
+  }
+
 }

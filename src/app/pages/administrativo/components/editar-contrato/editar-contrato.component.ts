@@ -19,6 +19,7 @@ export class EditarContratoComponent implements OnInit {
   public cnpjBuscar: string;
   public equipamento;
   public valorTotalContrato;
+  public contratoRecibido;
   public qtdEquipamentos: number;
   public indexEquipamento: number;
   public subscription: Subscription;
@@ -131,11 +132,13 @@ export class EditarContratoComponent implements OnInit {
   }
 
   propostaForm({
+    _id = '',
     valor = 0,
     equipamentos = this.fb.array([]),
     ativo = true
   } = {}): FormGroup {
     return this.fb.group({
+      _id: [_id],
       valor: [valor],
       equipamentos,
       ativo: [ativo]
@@ -158,10 +161,12 @@ export class EditarContratoComponent implements OnInit {
       this.editarContratoForm.get('tipo').patchValue(contrato.tipo);
       this.editarContratoForm.get('resumoContrato').patchValue(contrato.resumoContrato);
       this.editarContratoForm.get('dataAdesao').patchValue( this.parseDateForPathValue(contrato.dataAdesao));
-      contrato.propostas.forEach(() => {
-        this.propostaForm();
-      });
-      this.editarContratoForm.get('propostas').patchValue(contrato.propostas);
+      this.editarContratoForm.get('propostas').patchValue(contrato.propostas.filter(proposta => proposta.ativo));
+      const equipamentos = contrato.propostas.find(proposta => proposta.ativo).equipamentos;
+      const equipamentosForm = this.editarContratoForm.get('propostas') as FormArray;
+      const equiArray = equipamentosForm.at(0).get('equipamentos') as FormArray;
+      equipamentos.map(equipamento => equiArray.push(this.fb.group(equipamento)));
+      this.contratoRecibido = contrato;
     });
   }
 
@@ -273,17 +278,10 @@ export class EditarContratoComponent implements OnInit {
     }, 0);
   }
 
-  cadastrarContrato() {
-    const contratoFormatado = this.replaceFieldsAtendimento(this.editarContratoForm.value);
-    this.contratoService.novoContrato(contratoFormatado)
-    .subscribe(
-      () => {},
-      erro => this.notificarFalhaCadastro(),
-        () => {
-          this.resetForm();
-          this.notificarSucesso();
-        }
-    );
+  atualizarContrato(contrato) {
+    const propostas = this.contratoRecibido.propostas.map(proposta => proposta._id === contrato.propostas[0]._id ? contrato.propostas[0] : proposta);
+    const contratoAlterado = { ...this.contratoRecibido, ...contrato, propostas };
+    this.contratoService.atualizarContrato(contratoAlterado).subscribe(res => res ? this.notificarSucesso() : this.notificarFalhaEditar() );
   }
 
   replaceFieldsAtendimento(contrato) {
@@ -348,12 +346,12 @@ export class EditarContratoComponent implements OnInit {
     this.notificacaoService.notificarAviso('CNPJ já está associado!', '');
   }
 
-  notificarFalhaCadastro() {
-    this.notificacaoService.notificarErro('Falha ao cadastrar o contrato!', '');
+  notificarFalhaEditar() {
+    this.notificacaoService.notificarErro('Falha ao editar o contrato!', '');
   }
 
   notificarSucesso() {
-    this.notificacaoService.notificarSucesso('Contrato cadastrado com sucesso!', '');
+    this.notificacaoService.notificarSucesso('Contrato editado com sucesso!', '');
   }
 
   podeDesativar() {

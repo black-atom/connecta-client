@@ -68,9 +68,9 @@
             type="submit"
             class="btn btn-primary btn-with-icon"
             [disabled]="!editarContratoForm.valid || qtdEquipamentos === 0"
-            (click)="cadastrarContrato()">
+            (click)="atualizarContrato(editarContratoForm.value)">
             <i class="ion-android-checkmark-circle"></i>
-            Cadastrar
+            Editar
           </button>
         </div>
 
@@ -78,10 +78,9 @@
           <button
             type="reset"
             class="btn btn-danger btn-with-icon"
-            [disabled]="editarContratoForm.pristine"
-            (click)="resetForm()">
+            [routerLink]="['/pages/administrativo/gerenciar']">
             <i class="fa fa-trash"></i>
-            Limpar
+            Voltar
           </button>
         </div>
 

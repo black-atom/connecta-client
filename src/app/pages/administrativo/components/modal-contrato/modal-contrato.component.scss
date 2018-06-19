@@ -1,0 +1,97 @@
+.content-modal {
+  padding-right: 1px;
+  min-height: 500px !important;
+  max-height: 500px !important;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+div ul.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+div.content-modal ul.nav-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.name-of-client {
+  padding: 16px 16px 0 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul li.tab {
+  padding: 10px;
+  background: #dddddd;
+  color: #34495e;
+  border: 1px solid #ddd;
+}
+
+ul li:hover {
+  background:rgb(245, 245, 245);
+  border-color:rgb(245, 245, 245);
+}
+
+ul li.atived {
+  background: #fff;
+  color: #34495e;
+  border-bottom: 1px solid #fff;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 2px;
+}
+#style-1::-webkit-scrollbar-thumb {
+  background-color: #0093D7;
+}
+#style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 147, 215, 0.3);
+}
+
+.scrollbar-panel-list {
+  padding: 15px;
+  float: left;
+  height: 500px;
+  margin-bottom: 25px;
+  margin-left: 0px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+button.button-special {
+  border: none;
+  background: #0093D7;
+  color: #fff;
+  margin: 0 2px;
+}
+
+.name-of-client button {
+  width: 45px;
+  height: auto;
+  margin: 0 2px;
+}
+
+.padding-16 {
+  padding: 0 16px;
+}
+
+.situacao {
+  display: flex;
+}
+
+.text-green {
+  color: green;
+}
+
+.badge {
+  font-size: 0.9em;
+}

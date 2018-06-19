@@ -1,0 +1,114 @@
+<form [formGroup]="formProduto" novalidate>
+    <ba-card cardTitle="Dados do Produto">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-8">
+              <div class="row">
+                <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                  <label class="control-label" for="descricao">Descrição do Produto</label>
+                  <input type="text" class="form-control" formControlName="descricao">
+                  <small class="ion-close text text-danger" *ngIf="formProduto.get('descricao').hasError('required') && formProduto.get('descricao').touched"> Obrigatório!</small>
+                </div>
+                <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                  <label class="control-label" for="modelo">Modelo</label>
+                  <input type="text" class="form-control" formControlName="modelo">
+                  <small class="ion-close text text-danger" *ngIf="formProduto.get('modelo').hasError('required') && formProduto.get('modelo').touched"> Obrigatório!</small>
+                </div>
+
+                <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                  <label class="control-label" for="marca">Marca/Fabricante</label>
+                  <small class="ion-close text text-danger" *ngIf="formProduto.get('marca').hasError('required') && formProduto.get('marca').touched"> Obrigatório!</small>
+                  <input type="text" class="form-control" formControlName="marca">
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                  <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" name="categoria" formControlName="categoria" (click)="resetFormArrayPeca(formProduto.value.categoria)">
+                      <option value="" selected>Selecione</option>
+                      <option *ngFor="let categoria of categoriaProdutos">{{ categoria }}</option>
+                      <small class="ion-close text text-danger" *ngIf="formProduto.get('categoria').hasError('required') && formProduto.get('categoria').touched"> Obrigatório!</small>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                  <label for="descricao_atendimento">Valor</label>
+                  <div class="input-group">
+                    <label class="input-group-addon">R$</label>
+                    <input type="number" class="form-control" formControlName="valor" id="valor">
+                    <small class="ion-close text text-danger" *ngIf="formProduto.get('valor').hasError('required') && formProduto.get('valor').touched"> Obrigatório!</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-4 imagem-produto text-center">
+             <div> <img  [src]="produtoRecebido?.imagemURL ? produtoRecebido?.imagemURL : '/assets/img/image.png'" src="" (click)="abrirModalAnexarImagem(produtoRecebido)"></div>
+              <button class="button-remove-image btn btn-danger btn-with-icon" (click)="removeFoto(formProduto.value)"><i class="fa fa-trash"></i></button>
+            </div>
+            </div>
+        </div>
+        </div>
+      <hr>
+      <div class="row" *ngIf="formProduto.get('categoria').value === 'relógio'
+      || formProduto.get('categoria').value === 'catraca'
+      || formProduto.get('categoria').value === 'acionador'
+      || formProduto.get('categoria').value === 'controle de acesso'">
+        <div class="col-8"><h3>Adicionar Peças de Trocas para o Produto</h3></div>
+        <div class="col-4">
+          <button class="btn btn-primary btn-with-icon" [disabled]="formProduto.invalid" (click)="adicionarPeca()">
+            <i class="ion-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div formArrayName="pecas" class="well well-lg">
+        <div class="row" *ngFor="let peca of pecas.controls; let i=index" [formGroupName]="i">
+
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label class="control-label" for="descricao">Descrição da Peça</label>
+            <input type="text" class="form-control" formControlName="descricao" (keyup)="searchPeca(peca.value.descricao)">
+            <small class="ion-close text text-danger" *ngIf="formProduto.controls['pecas'].at(i).get('descricao').hasError('required')
+            && formProduto.controls['pecas'].at(i).get('descricao').touched"> Obrigatório!</small>
+            <ul *ngIf="!formProduto.controls['pecas'].at(i).get('valor').valid">
+              <li class="autocomplete-item" *ngFor="let pecaProduto of pecasProduto$ | async" (click)="pecaSelecionada(pecaProduto, i)">{{ pecaProduto.descricao }}</li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label for="valor">Valor</label>
+            <div class="input-group">
+              <label class="input-group-addon">R$</label>
+              <input type="number" class="form-control" formControlName="valor" id="valor">
+              <small class="ion-close text text-danger"
+              *ngIf="formProduto.controls['pecas'].at(i).get('valor').hasError('required')
+              && formProduto.controls['pecas'].at(i).get('valor').touched"> Obrigatório!
+            </small>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-2">
+              <label for=""> </label>
+              <button class="btn btn-danger btn-with-icon" (click)="removerPeca(i)">
+                <i class="ion-close"></i>
+              </button>
+            </div>
+        </div>
+      </div>
+    </ba-card>
+
+    <div class="row">
+      <div class="col-12">
+        <ba-card>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <button type="submit" class="btn btn-primary btn-with-icon" [disabled]="formProduto.invalid" (click)="editarProduto(formProduto.value)">
+                <i class="ion-android-checkmark-circle"></i>Salvar</button>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <button type="reset" class="btn btn-danger btn-with-icon" [routerLink]="['/pages/estoque/gerenciar']">
+                <i class="ion-return"></i>Voltar</button>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+  </form>

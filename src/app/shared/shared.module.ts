@@ -16,7 +16,9 @@ import {
   LoginService,
   NotificacaoService,
   MonitoramentoService,
-  AvaliacoesService
+  AvaliacoesService,
+  ProdutoService,
+  ContratoService
 } from './services';
 
 
@@ -72,10 +74,12 @@ export function formatacaoDaData () {
     LoginService,
     ClienteService,
     FuncionarioService,
+    ContratoService,
     AtendimentoService,
     NotificacaoService,
     MonitoramentoService,
     AvaliacoesService,
+    ProdutoService,
     I18n,
     {
       provide: AuthHttp,

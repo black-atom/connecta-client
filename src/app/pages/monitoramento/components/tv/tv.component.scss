@@ -1,0 +1,122 @@
+.card-custom {
+  padding: 5%;
+  background: #fff;
+  border-radius: 3px;
+  border-bottom: 3px solid;
+}
+
+div.content-info-card div.value {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.content-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-custom div.title {
+  font-size: 1em;
+}
+
+.border-danger {
+  border-color: red;
+}
+
+.border-success {
+  border-color: green;
+}
+
+.border-warning {
+  border-color: #F1D13A;
+}
+
+.border-info {
+  border-color: #002EB9;
+}
+
+.card-tecnico {
+  background: white;
+  border-radius: 3px;
+  border-bottom: 3px solid;
+  width: 100%;
+  padding: 1%;
+  font-weight: bold;
+  font-size: 0.8em;
+  box-shadow: 0 1px 1px #000;
+}
+
+.concluido-span {
+  color: #002EB9;
+  font-size: 1.6em;
+}
+.pendente-span {
+  color: red;
+  font-size: 1.6em;
+}
+
+.status-tecnico {
+  font-size: 1em;
+}
+.text-center-info {
+  text-align: center;
+}
+
+.PAUSE_ATIVIDADE {
+  border-color: #F1D13A;
+}
+.INICIO_ATIVIDADE {
+  border-color: green;
+}
+
+.INICIO_DESLOCAMENTO {
+  border-color: red;
+}
+.FIM_DESLOCAMENTO {
+  border-color: #F1D13A;
+}
+
+.activity-now {
+  text-align: left;
+}
+.almoco {
+  color: green;
+}
+
+@media  screen and (max-width:  870px) {
+  .content-info-card {
+    display: block;
+    text-align: center;
+    font-size: 1em;
+  }
+  div.title {
+    padding-top: 20px;
+  }
+  div.value {
+    padding-top: 10px;
+  }
+
+  div.card-tecnico {
+    height: 150px;
+    font-size: 0.7em;
+  }
+}
+
+@media  screen and (max-width:  1024px) {
+  div.card-tecnico {
+    height: 130px;
+  }
+}
+
+@media  screen and (max-width:  972px) {
+  div.card-tecnico {
+    font-size: 0.7em;
+  }
+}
+
+@media  screen and (max-width:  571px) {
+  div.card-tecnico {
+    font-size: 1em;
+  }
+}

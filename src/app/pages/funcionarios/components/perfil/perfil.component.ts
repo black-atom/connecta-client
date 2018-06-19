@@ -1,7 +1,7 @@
 import { AppState } from '../../../../redux';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -64,7 +64,10 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
       login: this._fb.group({
         username: ['', [Validators.required]],
         password: [''],
-        tipo: ['', [Validators.required]]
+        tipo: this._fb.array([
+          new FormControl(''),
+          new FormControl('')
+        ])
       }),
 
       habilitacao: this._fb.group({
@@ -89,7 +92,8 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
         cidade: ['', [Validators.required]],
         uf: ['', [Validators.required]],
         ponto_referencia: ['']
-      })
+      }),
+      ativo: [true, Validators.required]
     });
  }
 
@@ -111,7 +115,6 @@ export class PerfilComponent implements OnInit, IFormCanDeactivate {
       funcionario.contato.telefone = funcionario.contato.telefone.replace(/\D+/g, '');
       funcionario.endereco.cep = funcionario.endereco.cep.replace(/\D+/g, '');
       funcionario._id = this.id;
-      funcionario.login.tipo = this.funcionarioRecebido.login.tipo;
 
       if (funcionario.login.password.length <= 0) {
         delete funcionario.login.password;

@@ -2,6 +2,7 @@ import { Atendimento } from './../../../../models/atendimento.interface';
 import {
   Component,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 
 import {
@@ -9,7 +10,7 @@ import {
   NgbModalOptions,
 } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 import {
   AtendimentoService,
@@ -25,8 +26,9 @@ import { Atividade } from '../../../../models';
   templateUrl: './atendimentos-concluidos.component.html',
   styleUrls: ['./atendimentos-concluidos.component.scss']
 })
-export class AtendimentosConcluidosComponent implements OnInit {
+export class AtendimentosConcluidosComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public atendimentos$: Observable<any[]>;
   private count = 1;
   public atendimentoSelecionado;
@@ -68,13 +70,18 @@ export class AtendimentosConcluidosComponent implements OnInit {
         .atendimentosLazyLoad({ ...this.query, data_atendimento: this.dataPassadoPeloUsuario(this.inputDate) })
       )
       .map(({ atendimentos }) => atendimentos)
-      .map((atendimentos: Atendimento[]) => atendimentos.map(atendimento => ({
-        ...atendimento,
-        imagens: atendimento.imagens.map(imagem => ({
-          ...imagem,
-          url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
-        }))
-      })))
+      .map((atendimentos: Atendimento[]) => atendimentos.map(atendimento => {
+        if (atendimento.imagens) {
+          return {
+            ...atendimento,
+            imagens: atendimento.imagens.map(imagem => ({
+              ...imagem,
+              url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+            }))
+          };
+        }
+        return { ...atendimento, imagens: [] };
+      }))
       .switchMap((atendimentos) => {
         return this._atividadeService
           .getAllAtividadesPorData({ createdAt: this.dataPassadoPeloUsuario(this.inputDate) })
@@ -82,12 +89,7 @@ export class AtendimentosConcluidosComponent implements OnInit {
             return atendimentos
             .map(atendimento => {
               const atividadeFound = atividades.length > 0
-                ? atividades.find(
-                    (at: Atividade) => (
-                      at.atendimento_id === atendimento._id
-                        && at.funcionario_id === atendimento.tecnico._id
-                    )
-                  )
+                ? atividades.find((at: Atividade) => (at.atendimento_id === atendimento._id))
                 : null;
 
               return !atividadeFound ?
@@ -112,19 +114,22 @@ export class AtendimentosConcluidosComponent implements OnInit {
         this.opcoesModal
       );
 
-    this.getOneAtendimento(_id)
-    .map((atendimento: Atendimento) => ({
-      ...atendimento,
-      imagens: atendimento.imagens.map(imagem => ({
-        ...imagem,
-        url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
-      }))
-    }))
+  this.subscription = this.getOneAtendimento(_id)
+    .map((atendimento: Atendimento) => {
+      if (atendimento.imagens) {
+        return {
+          ...atendimento,
+          imagens: atendimento.imagens.map(imagem => ({
+            ...imagem,
+            url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+          }))
+        };
+      }
+      return { ...atendimento, imagens: [] };
+    })
     .subscribe(atendimento =>
       referenciaModal.componentInstance.atendimentoSelecionado = atendimento);
   }
-
-
 
   dataPassadoPeloUsuario(dataSelecionada) {
     const dataFormatada = new Date(
@@ -136,7 +141,18 @@ export class AtendimentosConcluidosComponent implements OnInit {
   }
 
   print(atendimento): void {
-    this.atendimentoSelecionado = atendimento;
+    this.subscription = this._atendimentoService.retornarUm(atendimento).subscribe(res => {
+      if (res.imagens) {
+        return this.atendimentoSelecionado = {
+          ...res,
+          imagens: res.imagens.map(imagem => ({
+            ...imagem,
+            url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
+          }))
+        };
+      }
+      return this.atendimentoSelecionado = { ...res, imagens: [] };
+    });
     setTimeout(() => window.print(), 500);
   }
 
@@ -147,7 +163,15 @@ export class AtendimentosConcluidosComponent implements OnInit {
     if (monitoramento.status === 'INICIO_DESLOCAMENTO' ) return 'aberto-por-tecnica';
     // tslint:disable-next-line:curly
     if (monitoramento.status === 'FIM_ATIVIDADE' || monitoramento.status === 'cancelado' ) return 'reagendado';
+        // tslint:disable-next-line:curly
+    if (monitoramento.status === 'INICIO_ATIVIDADE') return 'inicio-atendimento';
     return 'padrao';
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

@@ -14,20 +14,28 @@
  sortField="nome" styleClass="borderless"
 >
 
-  <p-column field="nome" header="Nome" [sortable]="true" [filter]="true" [style]="{'width':'100px'}">
+  <p-column field="nome" header="Nome" [filter]="true" [style]="{'width':'100px'}">
   </p-column>
 
-  <p-column field="cpf" header="CPF" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px', 'text-align': 'center'}">
+  <p-column field="cpf" header="CPF" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'100px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       {{ funcionario.cpf | rgCnpjCpf }}
     </ng-template>
   </p-column>
 
-  <p-column field="rg" header=" RG" [sortable]="true" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'60px', 'text-align': 'center'}">
+  <p-column field="rg" header=" RG" [filter]="true" filterMatchMode="startsWith" [style]="{'width':'60px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">
       {{ funcionario.rg | rgCnpjCpf }}
     </ng-template>
   </p-column>
+
+
+  <p-column field="ativo" header="Situação" filterMatchMode="startsWith" [style]="{'width':'60px', 'text-align': 'center'}">
+    <ng-template let-funcionario="rowData" pTemplate="body">
+      {{ funcionario.ativo ? 'Ativo' : 'Inativo' }}
+    </ng-template>
+  </p-column>
+
 
   <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
     <ng-template let-funcionario="rowData" pTemplate="body">

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-4 mt-4" *ngFor="let tecnico of tecnicos$ | async; let tecnico">
+  <div class="col-3 mt-4" *ngFor="let tecnico of tecnicos$ | async; let tecnico">
     <app-card-tecnico-detail [tecnicoDetail]="tecnico"></app-card-tecnico-detail>
   </div>
 </div>

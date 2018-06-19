@@ -54,7 +54,7 @@
     </div>
 
     <div *ngIf="tabActived === 'fotos'">
-      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado.imagens"></app-fotos-atendimento>
+      <app-fotos-atendimento [fotosAtendimento]="atendimentoSelecionado?.imagens"></app-fotos-atendimento>
     </div>
 
     <div *ngIf="tabActived === 'assinatura'">

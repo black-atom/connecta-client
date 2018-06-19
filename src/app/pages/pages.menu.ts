@@ -1,18 +1,49 @@
 export const PAGES_MENU = [{
   path: 'pages',
   children: [
-     {
-     path: 'monitoramento',
-      data: {
-         menu: {
-          title: 'Monitoramento',
-          icon: 'ion-arrow-graph-up-right',
-          selected: false,
-          expanded: false,
-          order: 250
-        }
-      }
-    },
+    {
+      path: 'tv',
+       data: {
+          menu: {
+           title: 'Monitoramento',
+           icon: 'ion-arrow-graph-up-right',
+           selected: false,
+           expanded: false,
+           order: 250
+         }
+       }
+     },
+    // {
+    //   path: 'monitoramento',
+    //   data: {
+    //     menu: {
+    //       title: 'Monitoramento',
+    //       icon: 'ion-arrow-graph-up-right',
+    //       selected: false,
+    //       expanded: false,
+    //       order: 250
+    //     }
+    //   },
+    //   children: [{
+    //     path: 'monitoramento-tecnicos',
+    //     data: {
+    //       menu: {
+    //         title: 'Monitoramento',
+    //         icon: 'ion-arrow-graph-up-right'
+    //       }
+    //     }
+    //   },
+    //   {
+    //     path: 'tv',
+    //     data: {
+    //       menu: {
+    //         title: 'TV',
+    //         icon: 'ion-clipboard'
+    //       }
+    //     }
+    //   }
+    //   ]
+    // },
     {
       path: 'clientes',
       data: {
@@ -25,23 +56,54 @@ export const PAGES_MENU = [{
         }
       },
       children: [{
-          path: 'novo',
-          data: {
-            menu: {
-              title: 'Novo',
-              icon: 'ion-person-add'
-            }
-          }
-        },
-        {
-          path: 'gerenciar',
-          data: {
-            menu: {
-              title: 'Gerenciar',
-              icon: 'ion-clipboard'
-            }
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
           }
         }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+    {
+      path: 'estoque',
+      data: {
+        menu: {
+          title: 'Estoque',
+          icon: 'fa fa fa-archive',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [{
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
+          }
+        }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
       ]
     },
     {
@@ -56,32 +118,32 @@ export const PAGES_MENU = [{
         }
       },
       children: [{
-          path: 'novo',
-          data: {
-            menu: {
-              title: 'Novo',
-              icon: 'ion-person-add'
-            }
-          }
-        },
-        {
-          path: 'gerenciar',
-          data: {
-            menu: {
-              title: 'Gerenciar',
-              icon: 'ion-clipboard'
-            }
-          }
-        },
-        {
-          path: 'perfil',
-          data: {
-            menu: {
-              title: 'Perfil',
-              icon: 'ion-person'
-            }
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
           }
         }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      },
+      {
+        path: 'perfil',
+        data: {
+          menu: {
+            title: 'Perfil',
+            icon: 'ion-person'
+          }
+        }
+      }
       ]
     },
     {
@@ -96,20 +158,61 @@ export const PAGES_MENU = [{
         }
       },
       children: [{
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
+          }
+        }
+      },
+      {
+        path: 'associar',
+        data: {
+          menu: {
+            title: 'Associar',
+            icon: 'ion-person'
+          }
+        }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      },
+      {
+        path: 'gerenciar-concluidos',
+        data: {
+          menu: {
+            title: 'Concluídos',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+    {
+      path: 'administrativo',
+      data: {
+        menu: {
+          title: 'Administrativo',
+          icon: 'ion-clipboard',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
+        {
           path: 'novo',
           data: {
             menu: {
-              title: 'Novo',
-              icon: 'ion-person-add'
-            }
-          }
-        },
-        {
-          path: 'associar',
-          data: {
-            menu: {
-              title: 'Associar',
-              icon: 'ion-person'
+              title: 'Novo Contrato',
+              icon: 'ion-clipboard'
             }
           }
         },
@@ -117,16 +220,7 @@ export const PAGES_MENU = [{
           path: 'gerenciar',
           data: {
             menu: {
-              title: 'Gerenciar',
-              icon: 'ion-clipboard'
-            }
-          }
-        },
-        {
-          path: 'gerenciar-concluidos',
-          data: {
-            menu: {
-              title: 'Concluídos',
+              title: 'Gerenciar Contrato',
               icon: 'ion-clipboard'
             }
           }
@@ -178,6 +272,6 @@ export const PAGES_MENU = [{
     //   }]
     // }
   ]
- }
+}
 ];
 

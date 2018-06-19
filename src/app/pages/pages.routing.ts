@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-
 import { Pages } from './pages.component';
 import { LoggedGuardService } from './../shared/guards/logged-guard.service';
 
@@ -20,6 +19,8 @@ export const routes: Routes = [
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },
+      { path: 'administrativo', loadChildren: './administrativo/administrativo.module#AdministrativoModule' },
+      { path: 'estoque', loadChildren: './estoque/estoque.module#EstoqueModule' },
       { path: 'relatorios', loadChildren: './relatorios/relatorios.module#RelatoriosModule' },
       { path: 'sac', loadChildren: './sac/sac.module#SacModule' }
     ]

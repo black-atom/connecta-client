@@ -19,30 +19,30 @@
 
   <div class="col-6">
     <small class="">Contato: </small>
-    <small class=" destaque">{{ atendimentoSelecionado?.contato.nome }}</small>
+    <small class=" destaque">{{ atendimentoSelecionado?.contato?.nome }}</small>
   </div>
 
   <div class="col-6">
     <small class="">Telefone: </small>
     <small class=" destaque">
-      ({{ atendimentoSelecionado?.contato.telefone | slice: 0:2 }})
-      {{ atendimentoSelecionado?.contato.telefone | slice: 2:6 }} -
-      {{ atendimentoSelecionado?.contato.telefone | slice: 6:10 }}
+      ({{ atendimentoSelecionado?.contato?.telefone | slice: 0:2 }})
+      {{ atendimentoSelecionado?.contato?.telefone | slice: 2:6 }} -
+      {{ atendimentoSelecionado?.contato?.telefone | slice: 6:10 }}
     </small>
   </div>
 
   <div class="col-6">
     <small class="">celular: </small>
     <small class=" destaque">
-      ({{ atendimentoSelecionado?.contato.celular | slice: 0:2 }})
-      {{ atendimentoSelecionado?.contato.celular | slice: 2:6 }} -
-      {{ atendimentoSelecionado?.contato.celular | slice: 6:10 }}
+      ({{ atendimentoSelecionado?.contato?.celular | slice: 0:2 }})
+      {{ atendimentoSelecionado?.contato?.celular | slice: 2:6 }} -
+      {{ atendimentoSelecionado?.contato?.celular | slice: 6:10 }}
     </small>
   </div>
 
   <div class="col-6">
     <small class="">Email: </small>
-    <small class=" destaque">{{ atendimentoSelecionado?.contato.email }}</small>
+    <small class=" destaque">{{ atendimentoSelecionado?.contato?.email }}</small>
   </div>
 
 
@@ -54,23 +54,23 @@
   <div class="col-12">
     <small class="">Endereço: </small>
     <small class=" destaque">
-      {{ atendimentoSelecionado?.endereco.rua }},
-      {{ atendimentoSelecionado?.endereco.numero }} -
-      {{ atendimentoSelecionado?.endereco.bairro }},
-      {{ atendimentoSelecionado?.endereco.cidade }},
-      {{ atendimentoSelecionado?.endereco.uf }} -
-      {{ atendimentoSelecionado?.endereco.cep | cep }}
+      {{ atendimentoSelecionado?.endereco?.rua }},
+      {{ atendimentoSelecionado?.endereco?.numero }} -
+      {{ atendimentoSelecionado?.endereco?.bairro }},
+      {{ atendimentoSelecionado?.endereco?.cidade }},
+      {{ atendimentoSelecionado?.endereco?.uf }} -
+      {{ atendimentoSelecionado?.endereco?.cep | cep }}
     </small>
   </div>
 
   <div class="col-6" *ngIf="atendimentoSelecionado?.endereco.complemento">
     <small class="">Complemento: </small>
-    <small class=" destaque">{{ atendimentoSelecionado?.endereco.complemento }}</small>
+    <small class=" destaque">{{ atendimentoSelecionado?.endereco?.complemento }}</small>
   </div>
 
-  <div class="col-6" *ngIf="atendimentoSelecionado?.endereco.ponto_referencia">
+  <div class="col-6" *ngIf="atendimentoSelecionado?.endereco?.ponto_referencia">
     <small class="">Ponto de Referencia: </small>
-    <small class=" destaque">{{ atendimentoSelecionado?.endereco.ponto_referencia }}</small>
+    <small class=" destaque">{{ atendimentoSelecionado?.endereco?.ponto_referencia }}</small>
   </div>
 
   <hr class="col-12">
@@ -159,11 +159,11 @@
   </div>
 
   <div class="col-6" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.software">
-    <small class="destaque">Software: {{ atendimentoSelecionado?.relatorio?.treinamento.software }}</small>
+    <small class="destaque">Software: {{ atendimentoSelecionado?.relatorio?.treinamento?.software }}</small>
   </div>
 
   <div class="col-6" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.caminho_rede">
-    <small class="destaque">Caminho da rede: {{ atendimentoSelecionado?.relatorio?.treinamento.caminho_rede }}</small>
+    <small class="destaque">Caminho da rede: {{ atendimentoSelecionado?.relatorio?.treinamento?.caminho_rede }}</small>
   </div>
 
   <div class="col-12 mt-2" *ngIf="atendimentoSelecionado?.relatorio?.treinamento.software">

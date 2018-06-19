@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Anexar Imagem ao Produto?</h4>
+</div>
+
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="form-group col-12">
+        <label class="control-label" for="descricao">Anexa Imagem de até  <small>100kb Formatos jpg, jpeg, png</small>  <small ><img *ngIf="load" class="load-image" src="/assets/img/load.gif" alt=""></small></label>
+        <input class="form-control" type="file" (change)="upload($event)" accept=".jpg,.jpeg,.png">
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-danger btn-with-icon" (click)="fecharModal()" [disabled]="uploadedImage || load && uploadedImage !== true">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

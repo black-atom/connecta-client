@@ -1,0 +1,227 @@
+<ba-card cardTitle="protuto">
+  <div class="row">
+
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-4" [formGroup]="formPesquisa">
+      <label for="pesquisa">Pesquise os Produto</label>
+      <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3"/>
+      <div class="list-group list-group-flush small scrollbar" id="style-1">
+        <h5 class="text-center mt-5" *ngIf="!(produtos)">Pesquise o produto!</h5>
+        <h5 class="text-center mt-5" *ngIf="(produtos)?.length === 0">Nenhum produto encontrado!</h5>
+        <div *ngFor="let produto of produtos">
+          <a class="list-group-item list-group-item-action text-truncate" (click)="selecionarEquipamento(produto)">
+            <img class="d-flex mr-3" [src]="produto?.imagemURL || 'assets/img/image.png'" width="45" height="45" alt="">
+            <div class="media">
+              <div class="media-body">
+                <strong>{{ produto?.descricao }} - {{ produto?.modelo }}</strong>
+                <p>
+                  <small>{{ produto?.marca }}</small>
+                </p>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="produto?.categoria">{{ produto?.categoria }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-8 mt-3">
+
+      <div class="row pt-2" [formGroup]="formEquipamento">
+
+        <div class="col-12 mb-2">
+          <div class="media list-group-item">
+            <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/image.png'" width="65" height="65" alt="" *ngIf="equipamentoSelecionado">
+            <div class="p-2" *ngIf="equipamentoSelecionado">
+              <h6>{{ formEquipamento.value.descricao }} - {{ formEquipamento.value.modelo }}</h6>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.rua').value && formEquipamento.get('endereco.numero').value">
+                {{ formEquipamento.value?.endereco?.rua + ',
+                ' + formEquipamento.value?.endereco?.numero + ',
+                ' + formEquipamento.value?.endereco?.bairro +',
+                ' + formEquipamento.value?.endereco?.cidade+ ' -
+                ' + formEquipamento.value?.endereco?.uf + '-
+                ' + formEquipamento.value?.endereco?.cep }}</p>
+              <p *ngIf="equipamentoSelecionado">
+                <span class="badge badge-success p-2" *ngIf="formEquipamento.get('valor').dirty || formEquipamento?.value.valor || formEquipamento?.value.valor === 0">
+                  {{ formEquipamento.value.valor | currency: 'BRL': true }}
+                </span>
+                <span class="badge badge-primary p-2" *ngIf="formEquipamento.get('visita').value">VISITA</span>
+                <span class="badge badge-warning p-2" *ngIf="formEquipamento.value?.numeroSerie">{{'Nº ' + formEquipamento.value?.numeroSerie }}</span>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="formEquipamento.value.categoria">{{ formEquipamento.value.categoria }}</span>
+              </p>
+            </div>
+            <h6 class="mb-4 mt-4 text-center" *ngIf="!formEquipamento.get('modelo').value">
+              Selecione um Produto!
+            </h6>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <hr>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6 mb-0"
+          [class.has-success]="formEquipamento.get('numeroSerie').value">
+          <label>Nº de Série</label>
+          <input type="text" formControlName="numeroSerie" class="form-control">
+        </div>
+
+        <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-2 mb-0"
+          [class.has-error]="formEquipamento.get('visita').hasError('required') && formEquipamento.get('visita').touched"
+          [class.has-success]="formEquipamento.get('visita').valid">
+          <label for="visita">Visita ?</label>
+          <select class="form-control" formControlName="visita" id="visita">
+            <option [ngValue]=true>Sim</option>
+            <option [ngValue]=false>Não</option>
+          </select>
+          <span class="text-danger small mt-0" *ngIf="formEquipamento.get('visita').hasError('required') && formEquipamento.get('visita').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-3 col-sm-12 col-xs-12 col-lg-4 mb-0">
+          <label for="valor">Valor</label>
+          <div class="input-group" [class.has-error]="formEquipamento.get('valor').hasError('required') && formEquipamento.get('valor').touched"
+            [class.has-success]="formEquipamento.get('valor').valid">
+            <div class="input-group-addon">$</div>
+            <input type="number" class="form-control" formControlName="valor" id="valor">
+          </div>
+          <span class="text-danger small" *ngIf="formEquipamento.get('valor').hasError('required') && formEquipamento.get('valor').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="col-12">
+          <hr>
+        </div>
+
+      </div>
+
+      <div class="row" [formGroup]="formEquipamento.controls['endereco']">
+        <div class="form-group col-md-6 col-sm-6 col-lg-3"
+          [class.has-error]="formEquipamento.controls['endereco'].get('cep').hasError('required') && formEquipamento.controls['endereco'].get('cep').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('cep').value">
+          <label for="cep">CEP</label>
+          <input type="text" id="cep" formControlName="cep" class="form-control" [textMask]="{ mask : mascaraCep }" (blur)="buscaPorCep($event.target.value)"
+            >
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('cep').hasError('required') && formEquipamento.controls['endereco'].get('cep').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-4"
+          [class.has-error]="formEquipamento.controls['endereco'].get('rua').hasError('required') && formEquipamento.controls['endereco'].get('rua').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('rua').value">
+          <label for="rua">Rua</label>
+          <input type="text" formControlName="rua" class="form-control" autocomplete="false" id="rua">
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('rua').hasError('required') && formEquipamento.controls['endereco'].get('rua').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-2"
+          [class.has-error]="formEquipamento.controls['endereco'].get('numero').hasError('required') && formEquipamento.controls['endereco'].get('numero').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('numero').value">
+          <label for="numero">N°</label>
+          <input type="text" formControlName="numero" class="form-control" autocomplete="false" id="numero">
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('numero').hasError('required') && formEquipamento.controls['endereco'].get('numero').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-3"
+          [class.has-error]="formEquipamento.controls['endereco'].get('bairro').hasError('required') && formEquipamento.controls['endereco'].get('bairro').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('bairro').value">
+          <label for="bairro">Bairro</label>
+          <input type="text" formControlName="bairro" class="form-control" autocomplete="false" id="bairro">
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('bairro').hasError('required') && formEquipamento.controls['endereco'].get('bairro').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-5"
+          [class.has-error]="formEquipamento.controls['endereco'].get('cidade').hasError('required') && formEquipamento.controls['endereco'].get('cidade').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('cidade').value">
+          <label for="cidade">Cidade</label>
+          <input type="text" formControlName="cidade" class="form-control" autocomplete="false" id="cidade">
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('cidade').hasError('required') && formEquipamento.controls['endereco'].get('cidade').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-3"
+          [class.has-error]="formEquipamento.controls['endereco'].get('uf').hasError('required') && formEquipamento.controls['endereco'].get('uf').touched"
+          [class.has-success]="formEquipamento.controls['endereco'].get('uf').value">
+          <label for="uf">Estado</label>
+          <input type="text" formControlName="uf" class="form-control" autocomplete="false" id="uf">
+          <span class="text-danger small" *ngIf="formEquipamento.controls['endereco'].get('uf').hasError('required') && formEquipamento.controls['endereco'].get('uf').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-4"
+          [class.has-success]="formEquipamento.controls['endereco'].get('ponto_referencia').value">
+          <label for="ponto_referencia">Ponto de referência
+            <small>(opc.)</small>
+          </label>
+          <input type="text" formControlName="ponto_referencia" class="form-control" autocomplete="false" id="ponto_referencia">
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6 col-lg-5"
+          [class.has-success]="formEquipamento.controls['endereco'].get('complemento').value">
+          <label for="complemento">Complemento
+            <small>(opc.)</small>
+          </label>
+          <input type="text" formControlName="complemento" class="form-control" autocomplete="false" id="complemento">
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-lg-4">
+          <button
+            class="btn btn-success mt-4 p-2"
+            *ngIf="!buttonEditar"
+            [disabled]="!formEquipamento.valid"
+            (click)="salvarEquipamento()">
+            <i class="fa fa-plus"></i>
+            Adicionar Produto
+          </button>
+          <button
+            class="btn btn-outline-success mt-4 p-2"
+            *ngIf="buttonEditar"
+            [disabled]="!formEquipamento.valid"
+            (click)="editarEquipamento()">
+            <i class="fa fa-edit"></i>
+            Editar Produto
+          </button>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-lg-3">
+          <button
+            class="btn btn-danger mt-4 p-2"
+            *ngIf="!buttonEditar"
+            [disabled]="!formEquipamento.dirty"
+            (click)="resetForm()">
+            <i class="fa fa-trash"></i>
+            Limpar
+          </button>
+          <button
+            class="btn btn-danger mt-4 p-2"
+            *ngIf="buttonEditar"
+            (click)="resetForm()">
+            <i class="fa fa-remove"></i>
+            Cancelar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</ba-card>
+

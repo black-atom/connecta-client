@@ -1,0 +1,80 @@
+<div class="row ">
+  <div class="data  col-12">
+    <h4>Data {{ data | date: 'dd/MM/yyyy' }}</h4>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-3 col-lg-3 col-sm-3">
+    <div class="card-custom ">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.pendentes  || 0 }}</div>
+        <div class="title">TOTAL PENDENTE</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3 col-lg-3 col-sm-3">
+    <div class="card-custom ">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.emExecucao || 0 }}</div>
+        <div class="title">TOTAL EM EXECUÇÃO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-lg-3 col-sm-3">
+    <div class="card-custom ">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.pausadas  || 0 }}</div>
+        <div class="title">TOTAL PAUSADO</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3 col-lg-3 col-sm-3">
+    <div class="card-custom ">
+      <div class="content-info-card">
+        <div class="value">{{ totalAtividades?.concluidas || 0 }}</div>
+        <div class="title">TOTAL CONCLUÍDO</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-lg-4 col-sm-6 mt-2" *ngFor="let tecnico of tecnicos$ | async">
+    <div class="card-tecnico {{ tecnico?.atividadeAtual?.status }}">
+        <div class="row">
+          <div class="col-4 text-center-info">
+            <img class="rounded-circle" width="46" height="46" [src]="tecnico?.foto_url ? tecnico?.foto_url : '/assets/img/user.svg'">
+          </div>
+          <div class="col-8">
+            {{ tecnico?.funcionarioName }}
+          </div>
+          <div class="col-4 almoco text-center-info"> <span>{{ tecnico?.almoco ? 'Almoço' : '' }}</span><span> {{ tecnico?.almoco?.status && tecnico?.almoco?.status ==='FIM_ATIVIDADE' ? 'OK' : '' }}</span></div>
+          <div class="col-8 text-center-info">
+            <span class="concluido-span"> {{ tecnico?.totalConcluidos || 0 }}</span>
+            <span>/</span>
+            <span class="pendente-span">{{ tecnico?.totalAtividade || 0 }} </span>
+            <br/>concluido
+          </div>
+          <div class="col-4"></div>
+          <div class="col-8 text-center-info status-tecnico">Status :<span>{{ tecnico?.status }}</span> <span  *ngIf="tecnico?.atividadeAtual?.tipo !== 'atendimento'">
+             {{ tecnico?.atividadeAtual?.tipo === 'almoco' ? 'Almoço' : tecnico?.atividadeAtual?.tipo | uppercase  }}</span></div>
+          <div class="col-8 mt-2"
+            *ngIf="tecnico?.atividadeAtual?.atendimento?.cliente?.nome_razao_social && tecnico?.atividadeAtual?.tipo === 'atendimento'">
+              {{ tecnico?.atividadeAtual?.atendimento?.cliente?.nome_razao_social | uppercase  | slice: 0:22 }}...
+          </div>
+          <div class="col-8 mt-2"
+          *ngIf="tecnico?.atividadeAtual?.tipo !== 'atendimento'">
+            {{ tecnico?.atividadeAtual?.tipo | uppercase  }}
+        </div>
+          <div class="col-4 mt-2" *ngIf="tecnico?.countTime">  Há 0{{ tecnico?.countTime }} min</div>
+        </div>
+      </div>
+  </div>
+
+</div>

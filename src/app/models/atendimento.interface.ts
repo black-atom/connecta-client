@@ -26,6 +26,10 @@ export interface Atendimento {
   updatedAt: string;
   updatedBy: string;
   isViewed: boolean;
+  liberacao: {
+    _id: string;
+    nome_supervisor: string
+  };
   faturamento: {
     status: boolean;
     faturamentoAt: Date;

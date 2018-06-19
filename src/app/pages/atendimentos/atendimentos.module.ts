@@ -28,6 +28,8 @@ import { FotosAtendimentoComponent } from './components/atendimentos-concluidos/
 import { FaturamentoComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/faturamento/faturamento.component';
 import { AssinaturaComponent } from './components/atendimentos-concluidos/atendimento-concluido-detalhes/assinatura/assinatura.component';
 import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/atendimento-print/atendimento-print.component';
+import { DesbloquearModalComponent } from './components/desbloquear-modal/desbloquear-modal.component';
+import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/
   entryComponents: [
     AtendimentosDisponiveisComponent,
     AtendimentoConcluidoDetalhesComponent,
-    VisualizacaoModalComponent
+    VisualizacaoModalComponent,
+    DesbloquearModalComponent,
+    ModalAlertComponent
   ],
   declarations: [
     AtendimentosComponent,
@@ -64,7 +68,9 @@ import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/
     FotosAtendimentoComponent,
     FaturamentoComponent,
     AssinaturaComponent,
-    AtendimentoPrintComponent
+    AtendimentoPrintComponent,
+    DesbloquearModalComponent,
+    ModalAlertComponent
   ],
   providers: [
     ModuloCompartilhado,

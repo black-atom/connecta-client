@@ -63,3 +63,13 @@ export const EQUIPAMENTOS: String[] = [
   'ZPM R410',
   'ZPM RC 1000'
 ];
+
+export const categoriaProdutos: String[] = [
+  'acessório',
+  'acionador',
+  'controle de acesso',
+  'catraca',
+  'relógio',
+  'peça',
+  'software'
+];

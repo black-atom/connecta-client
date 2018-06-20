@@ -1,7 +1,7 @@
 <ba-card class="col-12" cardTitle="detalhes do contrato" [formGroup]="contratoControl">
     <div class="row">
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4"
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
       [class.has-error]="contratoControl.get('numeroContrato').hasError('required') && contratoControl.get('numeroContrato').touched"
       [class.has-success]="contratoControl.get('numeroContrato').valid">
       <label>Nº do contrato</label>

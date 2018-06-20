@@ -230,7 +230,7 @@ export class NovoContratoComponent implements OnInit {
   }
 
   cadastrarContrato() {
-    const contratoFormatado = this.replaceFieldsAtendimento(this.novoContratoForm.value);
+    const contratoFormatado = this.replaceFieldsContrato(this.novoContratoForm.value);
     this.contratoService.novoContrato(contratoFormatado)
     .subscribe(
       () => {},
@@ -242,7 +242,7 @@ export class NovoContratoComponent implements OnInit {
     );
   }
 
-  replaceFieldsAtendimento(contrato) {
+  replaceFieldsContrato(contrato) {
 
     const novoContrato = {
       cliente: {

@@ -29,6 +29,23 @@
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
+      *ngIf="!disabled"
+      [class.has-error]="contratoControl.get('dataEncerramento').hasError('required') && contratoControl.get('dataEncerramento').touched"
+      [class.has-success]="contratoControl.get('dataEncerramento').valid">
+      <label for="param_busca">Data de Encerramento</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="dataEncerramento" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+        <button class="input-group-addon" (click)="a.toggle()" type="button">
+          <i class="ion-calendar"></i>
+        </button>
+      </div>
+      <span class="text-danger small" *ngIf="contratoControl.get('dataEncerramento').hasError('required') && contratoControl.get('dataEncerramento').touched">
+        <i class="fa fa-remove text-danger"></i>
+        Requerido!
+      </span>
+    </div>
+
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
       [class.has-error]="contratoControl.get('diaVencimento').hasError('required') && contratoControl.get('diaVencimento').touched"
       [class.has-success]="contratoControl.get('diaVencimento').valid">
       <label>Dia de vencimento</label>

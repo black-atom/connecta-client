@@ -63,6 +63,7 @@ export class EditarContratoComponent implements OnInit {
       ]),
       numeroContrato: ['', [Validators.required, Validators.maxLength(60)]],
       dataAdesao: ['', Validators.required],
+      dataEncerramento: ['', Validators.required],
       diaVencimento: ['', Validators.required],
       subsequente: ['', Validators.required],
       tipo: ['', Validators.required],
@@ -281,6 +282,7 @@ export class EditarContratoComponent implements OnInit {
   atualizarContrato(contrato) {
     const propostas = this.contratoRecibido.propostas.map(proposta => proposta._id === contrato.propostas[0]._id ? contrato.propostas[0] : proposta);
     const contratoAlterado = { ...this.contratoRecibido, ...contrato, propostas };
+    console.log(contratoAlterado);
     this.contratoService.atualizarContrato(contratoAlterado).subscribe(res => res ? this.notificarSucesso() : this.notificarFalhaEditar() );
   }
 
@@ -311,6 +313,7 @@ export class EditarContratoComponent implements OnInit {
         ponto_referencia: contrato.endereco.ponto_referencia
       },
       dataAdesao: this.parseData(contrato.dataAdesao),
+      dataEncerramento: this.parseData(contrato.dataEncerramento),
       valor: this.valorTotalContrato
     };
 

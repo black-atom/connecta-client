@@ -10,7 +10,7 @@ export class DetalhesContratoComponent {
   public contratoControl;
 
   @Input()
-  public disabled;
+  public disabled: boolean = false;
 
   public patternRange = [/\d/, /\d/];
 

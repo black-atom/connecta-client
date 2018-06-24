@@ -1,3 +1,84 @@
-<p>
-  Financeiro em Desenvolvimento
-</p>
+<pre>{{ financeiroForm.value | json }}</pre>
+
+<div [formGroup]="financeiroForm">
+  <div formArrayName="financeiro" *ngFor="let divida of financeiro.controls; let i = index">
+    <div [formGroupName]="i">
+
+      <pre>{{ divida.valid }}</pre>
+
+      <div class="row">
+
+        <div class="form-group col-4"
+          [class.has-error]="divida.get('descricao').hasError('required') && divida.get('descricao').touched"
+          [class.has-success]="divida.get('descricao').valid">
+          <label class="control-label" for="descricao">Descrição</label>
+          <input type="text" class="form-control" formControlName="descricao" id="descricao">
+          <span class="text-danger small" *ngIf="divida.get('descricao').hasError('required') && divida.get('descricao').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-2"
+          [class.has-error]="divida.get('mesVirgente').hasError('required') && divida.get('mesVirgente').touched"
+          [class.has-success]="divida.get('mesVirgente').valid">
+
+          <label for="param_busca">Data de Adesão</label>
+          <div class="input-group">
+            <input class="form-control" formControlName="mesVirgente" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+            <button class="input-group-addon" (click)="a.toggle()" type="button">
+              <i class="ion-calendar"></i>
+            </button>
+          </div>
+          <span class="text-danger small" *ngIf="divida.get('mesVirgente').hasError('required') && divida.get('mesVirgente').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-2"
+          [class.has-error]="divida.get('valor').hasError('required') && divida.get('valor').touched"
+          [class.has-success]="divida.get('valor').valid">
+          <label class="control-label" for="valor">Valor R$</label>
+          <input type="number" class="form-control" formControlName="valor" id="valor">
+          <span class="text-danger small" *ngIf="divida.get('valor').hasError('required') && divida.get('valor').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="col-3 form-group"
+          [class.has-error]="divida.get('status').hasError('required') && divida.get('status').touched"
+          [class.has-success]="divida.get('status').valid">
+          <label for="descricao_atendimento">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="status">
+            <option value="" selected>Selecione</option>
+            <option *ngFor="let s of status" [ngValue]="s" >{{ s }}</option>
+          </select>
+          <span class="text-danger small" *ngIf="divida.get('status').hasError('required') && divida.get('status').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-1">
+          <label for="adicionar"></label>
+          <button class="btn btn-success btn-with-icon" id="adicionar" [disabled]="!divida.valid">
+            <i class="fa fa-check"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-success" (click)="addDivida()">
+      <i class="fa fa-plus"></i>
+      Adicionar Divida
+    </button>
+  </div>
+</div>
+

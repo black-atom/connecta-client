@@ -22,6 +22,7 @@ import { DetalhesContratoComponent } from './components/form-components/detalhes
 import { EquipamentoFormComponent } from './components/form-components/equipamentos-form/equipamento-form.component';
 import { RelacaoEquipamentosComponent } from './components/form-components/relacao-equipamentos/relacao-equipamentos.component';
 import { HistoricoComponent } from './components/modal-contrato/historico/historico.component';
+import { MotivoComponent } from './components/form-components/motivo/motivo.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { HistoricoComponent } from './components/modal-contrato/historico/histor
     EquipamentosComponent,
     FinanceiroComponent,
     HistoricoComponent,
+    MotivoComponent,
     EditarContratoComponent
   ],
   entryComponents: [

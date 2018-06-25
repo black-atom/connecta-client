@@ -56,8 +56,18 @@
           (removeEquipamento)="removeEquipamento($event)">
         </app-relacao-equipamentos>
       </div>
-
     </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-12">
+    <ba-card cardTitle="motivo">
+      <app-motivo [motivoForm]="motivoForm">
+      </app-motivo>
+    </ba-card>
   </div>
 
   <div class="col-12">
@@ -68,6 +78,7 @@
           <button
             type="submit"
             class="btn btn-primary btn-with-icon"
+            [disabled]="!motivoForm.valid"
             (click)="atualizarContrato(editarContratoForm.value)">
             <i class="ion-android-checkmark-circle"></i>
             Editar
@@ -87,6 +98,7 @@
       </div>
     </ba-card>
   </div>
-
 </div>
+
+
 

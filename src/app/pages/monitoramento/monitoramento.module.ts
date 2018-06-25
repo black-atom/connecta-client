@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './monitoramento.routing';
 import { MonitoramentoComponent } from './monitoramento.component';
-import { FlexLayoutModule, toAlignContentValue } from '@angular/flex-layout';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -28,7 +27,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   imports: [
     CommonModule,
     NgaModule,
-    FlexLayoutModule,
     ModuloCompartilhado,
     NgbModule,
     SwiperModule.forRoot(SWIPER_CONFIG),

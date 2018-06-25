@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,6 +31,8 @@ import { AssinaturaComponent } from './components/atendimentos-concluidos/atendi
 import { AtendimentoPrintComponent } from './components/atendimentos-concluidos/atendimento-print/atendimento-print.component';
 import { DesbloquearModalComponent } from './components/desbloquear-modal/desbloquear-modal.component';
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
+import { AssociarMapComponent } from './components/associar-map';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { ModalAlertComponent } from './components/modal-alert/modal-alert.compon
     NgxErrorsModule,
     TextMaskModule,
     LightboxModule,
-    routing
+    routing,
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAPS_API_KEY
+    })
   ],
   entryComponents: [
     AtendimentosDisponiveisComponent,
@@ -70,7 +76,8 @@ import { ModalAlertComponent } from './components/modal-alert/modal-alert.compon
     AssinaturaComponent,
     AtendimentoPrintComponent,
     DesbloquearModalComponent,
-    ModalAlertComponent
+    ModalAlertComponent,
+    AssociarMapComponent
   ],
   providers: [
     ModuloCompartilhado,

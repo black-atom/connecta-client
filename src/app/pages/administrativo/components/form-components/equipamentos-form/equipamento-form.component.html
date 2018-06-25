@@ -40,6 +40,12 @@
                 ' + formEquipamento.value?.endereco?.cidade+ ' -
                 ' + formEquipamento.value?.endereco?.uf + '-
                 ' + formEquipamento.value?.endereco?.cep }}</p>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.ponto_referencia').value && formEquipamento.get('endereco.ponto_referencia').value">
+                {{ 'ponto de referência: ' + formEquipamento.value?.endereco?.ponto_referencia }}
+              </p>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.complemento').value && formEquipamento.get('endereco.complemento').value">
+                {{ 'complemento: ' + formEquipamento.value?.endereco?.complemento }}
+              </p>
               <p *ngIf="equipamentoSelecionado">
                 <span class="badge badge-success p-2" *ngIf="formEquipamento.get('valor').dirty || formEquipamento?.value.valor || formEquipamento?.value.valor === 0">
                   {{ formEquipamento.value.valor | currency: 'BRL': true }}

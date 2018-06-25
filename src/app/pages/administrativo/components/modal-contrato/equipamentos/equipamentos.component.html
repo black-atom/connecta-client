@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12 mb-2"  *ngFor="let equipamento of propostaAtiva?.equipamentos; let i = index">
-      <div class="media list-group-item" style="height: 120px; max-height: 120px">
+      <div class="media list-group-item">
           <img class="d-flex mr-3" [src]="equipamento.imagemPath || 'assets/img/img-default.png'" width="65" height="65" alt="">
         <div class="p-2">
           <h6>{{ equipamento.descricao }} {{ equipamento.modelo }}</h6>
@@ -11,12 +11,17 @@
             ' + equipamento.endereco?.cidade+ ' -
             ' + equipamento.endereco?.uf + '-
             ' + equipamento.endereco?.cep }}</p>
+            <p class="text-uppercase" *ngIf="equipamento?.endereco?.ponto_referencia">
+              {{ 'ponto de referência: ' + equipamento?.endereco?.ponto_referencia }}
+            </p>
+            <p class="text-uppercase" *ngIf="equipamento?.endereco?.complemento">
+              {{ 'complemento: ' + equipamento?.endereco?.complemento }}
+            </p>
           <p>
-            <span class="badge badge-success p-2" >
-              {{ equipamento.valor | currency: 'BRL': true }}
-            </span>
+            <span class="badge badge-success p-2">{{ equipamento?.valor | currency: 'BRL': true }}</span>
             <span class="badge badge-primary p-2" *ngIf="equipamento?.visita">VISITA</span>
             <span class="badge badge-warning p-2" *ngIf="equipamento?.numeroSerie">{{'Nº ' + equipamento?.numeroSerie }}</span>
+            <span class="badge badge-info text-uppercase p-2" *ngIf="equipamento?.categoria">{{ equipamento?.categoria }}</span>
           </p>
         </div>
       </div>

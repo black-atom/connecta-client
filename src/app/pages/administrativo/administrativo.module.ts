@@ -21,6 +21,7 @@ import { EnderecoClienteComponent } from './components/form-components/endereco/
 import { DetalhesContratoComponent } from './components/form-components/detalhes/detalhes.component';
 import { EquipamentoFormComponent } from './components/form-components/equipamentos-form/equipamento-form.component';
 import { RelacaoEquipamentosComponent } from './components/form-components/relacao-equipamentos/relacao-equipamentos.component';
+import { HistoricoComponent } from './components/modal-contrato/historico/historico.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { RelacaoEquipamentosComponent } from './components/form-components/relac
     DadosClienteComponent,
     EquipamentosComponent,
     FinanceiroComponent,
+    HistoricoComponent,
     EditarContratoComponent
   ],
   entryComponents: [

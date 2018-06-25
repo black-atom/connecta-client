@@ -1,8 +1,9 @@
 <div>
   <ul class="header">
     <li *ngIf="tabActived === 'dadosCliente'">Informações do contrato</li>
+    <li *ngIf="tabActived === 'historico'">Histórico do contrato</li>
     <li *ngIf="tabActived === 'equipamentos'">Equipamentos do contrato</li>
-    <li  *ngIf="tabActived === 'financeiro'">Situação financeira</li>
+    <li *ngIf="tabActived === 'financeiro'">Situação financeira</li>
     <li (click)="fecharModal()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </li>
@@ -12,6 +13,7 @@
 <div class="content-modal">
   <ul class="nav-tabs">
     <li class="tab {{ tabActived === 'dadosCliente' ? 'atived': ''}}" (click)="getTab('dadosCliente')">Dados Cliente</li>
+    <li class="tab {{ tabActived === 'historico' ? 'atived': ''}}" (click)="getTab('historico')">Histórico</li>
     <li class="tab {{ tabActived === 'equipamentos' ? 'atived': ''}}" (click)="getTab('equipamentos')">Equipamentos</li>
     <li class="tab {{ tabActived == 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li>
   </ul>
@@ -33,6 +35,10 @@
   <div class="scrollbar-panel-list" id="style-1">
     <div *ngIf="tabActived === 'dadosCliente'">
       <app-dados-cliente [contratoSelecionadoDetail]="contratoSelecionado"></app-dados-cliente>
+    </div>
+
+    <div *ngIf="tabActived === 'historico'">
+      <app-historico [contratoSelecionadoHistorico]="contratoSelecionado"></app-historico>
     </div>
 
     <div *ngIf="tabActived === 'equipamentos'">

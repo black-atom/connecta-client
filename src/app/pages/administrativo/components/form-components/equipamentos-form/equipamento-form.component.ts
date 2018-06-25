@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
+import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 import { DadosEndereco, Produto } from 'app/models';
 
@@ -135,8 +136,9 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   buscaPorCep(cep: string): void {
-    if (cep) {
-      const enderecoForm = this.formEquipamento.get('endereco');
+    const enderecoForm = this.formEquipamento.get('endereco') as FormGroup;
+    const cepIsValid = removeMaskFromProp('cep')(enderecoForm.value);
+    if (cepIsValid.length === 8) {
       this.cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
         if (dados) {
           enderecoForm.get('rua').patchValue(dados.logradouro);

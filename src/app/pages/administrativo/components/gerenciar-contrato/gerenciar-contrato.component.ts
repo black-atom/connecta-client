@@ -52,7 +52,8 @@ export class GerenciarContratoComponent implements OnInit {
     const newQuery: any = {
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
-      ...queryFormatter('tipo')
+      ...queryFormatter('tipo'),
+      ...queryFormatter('numeroContrato')
     };
     return newQuery;
   }

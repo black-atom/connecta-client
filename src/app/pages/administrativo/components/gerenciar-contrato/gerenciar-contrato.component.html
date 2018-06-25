@@ -9,11 +9,11 @@
 [responsive]="true"
 [sortOrder]="-1"
 [loading]="carregando"
- loadingIcon="ion-load-a"
- rowHover="true"
- sortField="createdAt" styleClass="borderless">
+loadingIcon="ion-load-a"
+rowHover="true"
+sortField="createdAt" styleClass="borderless">
 
- <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
+<p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
     {{ contrato?.cliente?.nome_razao_social }}
   </ng-template>
@@ -27,13 +27,17 @@
 
 <p-column field="tipo" header="TIPO" [filter]="true" [style]="{'width':'70px'}"></p-column>
 
+<p-column field="numeroContrato" header="Nº Contrato"  [filter]="true" [style]="{'width':'70px'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    {{ contrato?.numeroContrato }}
+  </ng-template>
+</p-column>
 
 <p-column field="valor" header="VALOR" [style]="{'width':'70px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
     {{ contrato?.valor | currency: 'BRL': true }}
   </ng-template>
 </p-column>
-
 
 <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
   <ng-template let-contrato="rowData" pTemplate="body">

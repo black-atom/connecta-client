@@ -24,7 +24,6 @@ export class EditarContratoComponent implements OnInit {
   public indexEquipamento: number;
   public subscription: Subscription;
   public editarContratoForm: FormGroup;
-  public motivoForm: FormGroup;
   public cliente$: Observable<Cliente>;
 
   constructor(
@@ -38,7 +37,6 @@ export class EditarContratoComponent implements OnInit {
   ngOnInit() {
     this.obterIdContrato();
     this.initContratoForm();
-    this.initMotivoForm();
     this.getContrato();
   }
 
@@ -138,21 +136,15 @@ export class EditarContratoComponent implements OnInit {
     _id = '',
     valor = 0,
     equipamentos = this.fb.array([]),
-    ativo = true
+    ativo = true,
+    descricao = ''
   } = {}): FormGroup {
     return this.fb.group({
       _id: [_id],
       valor: [valor],
       equipamentos,
-      ativo: [ativo]
-    });
-  }
-
-  initMotivoForm({
-    motivo = ''
-  } = {}): FormGroup {
-    return this.motivoForm = this.fb.group({
-      motivo: [motivo, [Validators.required, Validators.minLength(4)]]
+      ativo: [ativo],
+      descricao: [descricao, [Validators.required, Validators.minLength(4)]]
     });
   }
 

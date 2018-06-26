@@ -56,48 +56,59 @@
           (removeEquipamento)="removeEquipamento($event)">
         </app-relacao-equipamentos>
       </div>
-    </div>
-  </div>
 
-</div>
+      <div [formGroupName]="i">
 
-<div class="row">
-
-  <div class="col-12">
-    <ba-card cardTitle="motivo">
-      <app-motivo [motivoForm]="motivoForm">
-      </app-motivo>
-    </ba-card>
-  </div>
-
-  <div class="col-12">
-    <ba-card>
-      <div class="row">
-
-        <div class="col-md-6 col-sm-12">
-          <button
-            type="submit"
-            class="btn btn-primary btn-with-icon"
-            [disabled]="!motivoForm.valid"
-            (click)="atualizarContrato(editarContratoForm.value)">
-            <i class="ion-android-checkmark-circle"></i>
-            Editar
-          </button>
+        <div class="col-12">
+          <ba-card cardTitle="motivo">
+            <div class="form-group"
+              [class.has-error]="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched"
+              [class.has-success]="proposta.get('descricao').valid">
+              <label for="descricao">Adicione o motivo da alteração:</label>
+              <textarea class="form-control" formControlName="descricao" rows="8" id="descricao">
+            </textarea>
+            <span class="text-danger small" *ngIf="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched">
+              <i class="fa fa-remove text-danger"></i>
+              Requerido!
+            </span>
+            </div>
+          </ba-card>
         </div>
 
-        <div class="col-md-6 col-sm-12">
-          <button
-            type="reset"
-            class="btn btn-danger btn-with-icon"
-            [routerLink]="['/pages/administrativo/gerenciar']">
-            <i class="fa fa-trash"></i>
-            Voltar
-          </button>
+        <div class="col-12">
+          <ba-card>
+            <div class="row">
+
+              <div class="col-md-6 col-sm-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-with-icon"
+                  [disabled]="!proposta.get('descricao').valid"
+                  (click)="atualizarContrato(editarContratoForm.value)">
+                  <i class="ion-android-checkmark-circle"></i>
+                  Editar
+                </button>
+              </div>
+
+              <div class="col-md-6 col-sm-12">
+                <button
+                  type="reset"
+                  class="btn btn-danger btn-with-icon"
+                  [routerLink]="['/pages/administrativo/gerenciar']">
+                  <i class="fa fa-trash"></i>
+                  Voltar
+                </button>
+              </div>
+
+            </div>
+          </ba-card>
         </div>
 
       </div>
-    </ba-card>
+
+    </div>
   </div>
+
 </div>
 
 

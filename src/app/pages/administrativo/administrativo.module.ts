@@ -10,8 +10,6 @@ import { AdministrativoComponent } from './administrativo.component';
 import { NovoContratoComponent } from './components/novo-contrato/novo-contrato.component';
 import { GerenciarContratoComponent } from './components/gerenciar-contrato/gerenciar-contrato.component';
 import { ModalContratoComponent } from './components/modal-contrato/modal-contrato.component';
-import { DadosClienteComponent } from './components/modal-contrato/dados-cliente/dados-cliente.component';
-import { EquipamentosComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
 import { FinanceiroComponent } from './components/modal-contrato/financeiro/financeiro.component';
 import { FormCanDeactivateGuard } from '../../shared/guards/form-deactivate.guard';
 import { EditarContratoComponent } from './components/editar-contrato/editar-contrato.component';
@@ -22,6 +20,9 @@ import { DetalhesContratoComponent } from './components/form-components/detalhes
 import { EquipamentoFormComponent } from './components/form-components/equipamentos-form/equipamento-form.component';
 import { RelacaoEquipamentosComponent } from './components/form-components/relacao-equipamentos/relacao-equipamentos.component';
 import { HistoricoComponent } from './components/modal-contrato/historico/historico.component';
+import { EquipamentosModalComponent } from './components/modal-contrato/components/equipamentos/equipamentos.component';
+import { DetalhesContratoModalComponent } from './components/modal-contrato/dados-cliente/detalhes.component';
+import { AnexosModalComponent } from './components/modal-contrato/anexos/anexos.component';
 
 @NgModule({
   imports: [
@@ -46,17 +47,18 @@ import { HistoricoComponent } from './components/modal-contrato/historico/histor
     EquipamentoFormComponent,
     RelacaoEquipamentosComponent,
     ModalContratoComponent,
-    DadosClienteComponent,
-    EquipamentosComponent,
+    AnexosModalComponent,
     FinanceiroComponent,
     HistoricoComponent,
-    EditarContratoComponent
+    DetalhesContratoModalComponent,
+    EditarContratoComponent,
+    EquipamentosModalComponent
   ],
   entryComponents: [
     ModalContratoComponent,
-    DadosClienteComponent,
-    EquipamentosComponent,
-    FinanceiroComponent
+    AnexosModalComponent,
+    FinanceiroComponent,
+    DetalhesContratoModalComponent
   ]
 })
 export class AdministrativoModule { }

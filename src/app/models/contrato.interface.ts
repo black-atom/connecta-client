@@ -1,24 +1,40 @@
 import { Cliente, EnderecoCliente, ContatoCliente } from './cliente.interface';
 
 export interface EquipamentoContrato {
-  modelo: string;
+  _id: string;
+  valor: 200;
+  visita: false;
+  numeroSerie: string;
   fabricante: string;
-  numeroSerie: number;
-  visita: boolean;
-  valor: number;
-  endereco: EnderecoCliente;
+  modelo: string;
+  categoria: string;
+  descricao: string;
+  imagemPath?: string;
+  endereco?: EnderecoProduto;
+}
+
+export interface EnderecoProduto {
+  complemento: string;
+  ponto_referencia: string;
+  cep: string;
+  uf: string;
+  cidade: string;
+  bairro: string;
+  numero: string;
+  rua: string;
 }
 
 export interface Proposta {
+  _id: string;
+  ativo: boolean;
+  encerradoEm: Date;
+  criadoEm: Date;
   descricao: string;
   valor: number;
   equipamentos: EquipamentoContrato[];
-  criadoEm: Date;
-  encerradoEm: Date;
-  ativo: boolean;
 }
 
-export interface ContratoSchema {
+export interface Contrato {
   _id: string;
   cliente: Cliente;
   endereco: EnderecoCliente;

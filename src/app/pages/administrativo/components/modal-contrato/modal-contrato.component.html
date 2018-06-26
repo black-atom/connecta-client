@@ -11,6 +11,7 @@
 </div>
 
 <div class="content-modal">
+
   <ul class="nav-tabs">
     <li class="tab {{ tabActived === 'dadosCliente' ? 'atived': ''}}" (click)="getTab('dadosCliente')">Dados Cliente</li>
     <li class="tab {{ tabActived === 'historico' ? 'atived': ''}}" (click)="getTab('historico')">Histórico</li>
@@ -18,36 +19,42 @@
     <li class="tab {{ tabActived == 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li>
   </ul>
 
-  <div class="name-of-client">
-    <h4 class="mb-1">
-      {{ contratoSelecionado?.cliente.nome_razao_social }} - {{ contratoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
-    </h4>
-  </div>
+  <div class="m-2">
+    <div class="name-of-client">
+      <h4 class="mb-1">
+        {{ contratoSelecionado?.cliente.nome_razao_social }} <span class="pull-right">{{ contratoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}</span>
+      </h4>
+    </div>
 
-  <div class="situacao padding-16">
-    <span class="badge badge-success p-2">{{ contratoSelecionado?.tipo | uppercase }}</span>
-    <span class="badge badge-warning p-2" *ngIf="contratoSelecionado?.valor">{{ contratoSelecionado?.valor | currency: 'BRL': true }}</span>
-    <span class="badge badge-primary p-2" *ngIf="contratoSelecionado.ativo">ATIVO</span>
+    <div class="situacao padding-16">
+      <span class="badge badge-warning p-2 m-1" *ngIf="contratoSelecionado?.valor">Nº {{ contratoSelecionado?.numeroContrato}}</span>
+      <span class="badge badge-success p-2 m-1" *ngIf="contratoSelecionado?.valor">{{ contratoSelecionado?.valor | currency: 'BRL': true }}</span>
+      <span class="badge badge-primary p-2 m-1" *ngIf="contratoSelecionado.ativo">ATIVO</span>
+      <span class="badge badge-info p-2 m-1">{{ contratoSelecionado?.tipo | uppercase }}</span>
+
+    </div>
   </div>
 
   <div class="padding-16 mt-4">
 
-  <div class="scrollbar-panel-list" id="style-1">
-    <div *ngIf="tabActived === 'dadosCliente'">
-      <app-dados-cliente [contratoSelecionadoDetail]="contratoSelecionado"></app-dados-cliente>
+    <div class="scrollbar-panel-list" id="style-1">
+      <div *ngIf="tabActived === 'dadosCliente'">
+        <app-detalhes-modal [contrato]="contratoSelecionado"></app-detalhes-modal>
+      </div>
+
+      <div *ngIf="tabActived === 'historico'">
+        <app-historico [contrato]="contratoSelecionado"></app-historico>
+      </div>
+
+      <div *ngIf="tabActived === 'equipamentos'">
+        <app-anexos-modal [contrato]="contratoSelecionado"></app-anexos-modal>
+      </div>
+
+      <div *ngIf="tabActived === 'financeiro'">
+        <app-financeiro [contratoSelecionadoFinanceiro]="contratoSelecionado.financeiro"></app-financeiro>
+      </div>
     </div>
 
-    <div *ngIf="tabActived === 'historico'">
-      <app-historico [contratoSelecionadoHistorico]="contratoSelecionado"></app-historico>
-    </div>
-
-    <div *ngIf="tabActived === 'equipamentos'">
-      <app-equipamentos [contratoSelecionadoEquipamentos]="contratoSelecionado"></app-equipamentos>
-    </div>
-
-    <div *ngIf="tabActived === 'financeiro'">
-      <app-financeiro [contratoSelecionadoFinanceiro]="contratoSelecionado.financeiro"></app-financeiro>
-    </div>
   </div>
 
 </div>

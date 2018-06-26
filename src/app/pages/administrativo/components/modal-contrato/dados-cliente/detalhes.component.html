@@ -1,0 +1,62 @@
+<div class="card m-1 p-2">
+
+    <div class="row mb-2">
+
+      <div class="col-12">
+        <strong>Detalhes</strong>
+      </div>
+
+      <div class="col-6">
+        Data Adessão: {{ contrato?.dataAdesao | date: 'dd/MM/yyyy' }}
+      </div>
+
+    </div>
+
+    <div class="row mb-2">
+
+      <div class="col-12">
+        <strong>Endereço</strong>
+      </div>
+
+      <div class="col-12">
+        {{ contrato?.endereco.rua }},
+        {{ contrato?.endereco.numero }} -
+        {{ contrato?.endereco.bairro }},
+        {{ contrato?.endereco.cidade }},
+        {{ contrato?.endereco.uf }} -
+        {{ contrato?.endereco.cep | cep }}
+      </div>
+
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12">
+        <strong>Contato</strong>
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.dataEncerramento">
+        Data Encerramento: {{ contrato?.dataEncerramento | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.nome">
+        {{ contrato?.contato.nome }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.telefone">
+        Telefone: ({{ contrato?.contato.telefone | slice: 0:2 }})
+        {{ contrato?.contato.telefone| slice: 2:6 }} -
+        {{ contrato?.contato.telefone | slice: 6:10 }}
+      </div>
+
+      <div class="col-6 " *ngIf="contrato?.contato.celular">
+        celular: ({{ contrato?.contato.celular | slice: 0:2 }})
+        {{ contrato?.contato.celular | slice: 2:6 }} -
+        {{ contrato?.contato.celular | slice: 6:10 }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.email">
+        Email: {{ contrato?.contato.email }}
+      </div>
+    </div>
+
+</div>

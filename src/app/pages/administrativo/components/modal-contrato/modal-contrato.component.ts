@@ -11,7 +11,7 @@ export class ModalContratoComponent implements OnInit {
   @Input()
   contratoSelecionado: any;
 
-  public tabActived = 'dadosCliente';
+  public tabActived = 'detalhes';
 
   constructor(public modalAtiva: NgbActiveModal) { }
 

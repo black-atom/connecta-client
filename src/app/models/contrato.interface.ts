@@ -41,7 +41,10 @@ export interface Contrato {
   contato: ContatoCliente;
   tipo: string;
   dataAdesao: Date;
+  diaVencimento: number;
   dataEncerramento: Date;
+  resumoContrato: string;
+  numeroContrato: string;
   valor: number;
   propostas: Proposta[];
   ativo: boolean;

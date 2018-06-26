@@ -20,9 +20,9 @@ import { DetalhesContratoComponent } from './components/form-components/detalhes
 import { EquipamentoFormComponent } from './components/form-components/equipamentos-form/equipamento-form.component';
 import { RelacaoEquipamentosComponent } from './components/form-components/relacao-equipamentos/relacao-equipamentos.component';
 import { HistoricoComponent } from './components/modal-contrato/historico/historico.component';
-import { EquipamentosModalComponent } from './components/modal-contrato/components/equipamentos/equipamentos.component';
-import { DetalhesContratoModalComponent } from './components/modal-contrato/dados-cliente/detalhes.component';
 import { AnexosModalComponent } from './components/modal-contrato/anexos/anexos.component';
+import { EquipamentosModalComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
+import { DetalhesContratoModalComponent } from './components/modal-contrato/detalhes/detalhes.component';
 
 @NgModule({
   imports: [

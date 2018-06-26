@@ -1,15 +1,13 @@
 <div class="mb-1" *ngFor="let proposta of propostas">
 
-<!-- relação de equipamentos -->
 <div class="row card m-1 mb-3">
 
-  <div class="col-12 mb-3">
-    <h6 class="text-seccundary mt-3 mb-2">Detalhes do Contrato</h6>
+  <div class="col-12 mb-3 mt-3">
+    <p *ngIf="proposta.descricao"><strong>Descrição: </strong>{{ proposta.descricao }}</p>
     <span *ngIf="proposta.valor" class="badge badge-success p-2">{{ proposta?.valor | currency: 'BRL': true }}</span>
     <span *ngIf="proposta.criadoEm" class="badge badge-info p-2">início: {{ proposta.criadoEm | date: 'dd/MM/yyyy' }}</span>
     <span *ngIf="proposta.encerradoEm" class="badge badge-info p-2">editado: {{ + proposta.encerradoEm | date: 'dd/MM/yyyy' }}</span>
     <span *ngIf="proposta.equipamentos" class="badge badge-warning pull-right p-2"> Qtd. Produtos: {{ + proposta.equipamentos.length }}</span>
-    <p *ngIf="proposta.descricao" class="mt-3"><strong>Descrição: </strong>{{ proposta.descricao }}</p>
   </div>
 
   <div class="col-12 mb-3 border">
@@ -19,7 +17,6 @@
     </div>
   </div>
 </div>
-<!-- relação de equipamentos -->
 
 
 

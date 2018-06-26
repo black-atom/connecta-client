@@ -1,4 +1,4 @@
-<div class="card m-1 p-2">
+<div class="card m-1 p-2 mb-3">
 
     <div class="row mb-2">
 
@@ -6,8 +6,24 @@
         <strong>Detalhes</strong>
       </div>
 
-      <div class="col-6">
+      <div class="col-6"  *ngIf="contrato?.dataAdesao">
         Data Adessão: {{ contrato?.dataAdesao | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6"  *ngIf="contrato?.numeroContrato">
+        Nº do Contrato: {{ contrato?.numeroContrato }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.dataEncerramento">
+        Data Encerramento: {{ contrato?.dataEncerramento | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.diaVencimento">
+        Dia de Vencimento: {{ contrato?.diaVencimento }}
+      </div>
+
+      <div class="col-12">
+        Resumo do Contrato: {{ contrato?.resumoContrato }}
       </div>
 
     </div>
@@ -58,5 +74,11 @@
         Email: {{ contrato?.contato.email }}
       </div>
     </div>
+</div>
 
+<div class="row card m-1 p-2">
+  <div class="col-12">
+    <strong class="mb-4 text-center">Produtos</strong>
+    <app-equipamentos-modal [equipamentos]="equipamentos"></app-equipamentos-modal>
+  </div>
 </div>

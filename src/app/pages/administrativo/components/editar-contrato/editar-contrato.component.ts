@@ -152,7 +152,7 @@ export class EditarContratoComponent implements OnInit {
     motivo = ''
   } = {}): FormGroup {
     return this.motivoForm = this.fb.group({
-      motivo: [motivo, Validators.required]
+      motivo: [motivo, [Validators.required, Validators.minLength(4)]]
     });
   }
 
@@ -178,6 +178,7 @@ export class EditarContratoComponent implements OnInit {
       const equipamentosForm = this.editarContratoForm.get('propostas') as FormArray;
       const equiArray = equipamentosForm.at(0).get('equipamentos') as FormArray;
       equipamentos.map(equipamento => equiArray.push(this.fb.group(equipamento)));
+      this.calculaTotalInicioEditar(equipamentos);
       const cnpjAssociadosForm = this.editarContratoForm.get('cnpjAssociados') as FormArray;
       contrato.cnpjAssociados.map(cnpj => cnpjAssociadosForm.push(this.clienteForm(cnpj)));
       this.contratoRecibido = contrato;
@@ -287,6 +288,12 @@ export class EditarContratoComponent implements OnInit {
   }
 
   calculaValorTotalContrato(index, equipamentos) {
+    this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
+      return total + equipamento.valor;
+    }, 0);
+  }
+
+  calculaTotalInicioEditar(equipamentos) {
     this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
       return total + equipamento.valor;
     }, 0);

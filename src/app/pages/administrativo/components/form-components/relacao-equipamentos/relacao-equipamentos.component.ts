@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -34,7 +34,6 @@ export class RelacaoEquipamentosComponent {
   }
 
   editarEquipamento(equipamento, index: number): void {
-    const indexProposta = this.indexProposta;
     this.editEquipamento.emit({ equipamento, index });
   }
 

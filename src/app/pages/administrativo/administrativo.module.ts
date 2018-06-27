@@ -23,6 +23,7 @@ import { HistoricoComponent } from './components/modal-contrato/historico/histor
 import { AnexosModalComponent } from './components/modal-contrato/anexos/anexos.component';
 import { EquipamentosModalComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
 import { DetalhesContratoModalComponent } from './components/modal-contrato/detalhes/detalhes.component';
+import { EncerramentoComponent } from './components/form-components/encerrar/encerrar.component';
 
 @NgModule({
   imports: [
@@ -52,13 +53,15 @@ import { DetalhesContratoModalComponent } from './components/modal-contrato/deta
     HistoricoComponent,
     DetalhesContratoModalComponent,
     EditarContratoComponent,
-    EquipamentosModalComponent
+    EquipamentosModalComponent,
+    EncerramentoComponent
   ],
   entryComponents: [
     ModalContratoComponent,
     AnexosModalComponent,
     FinanceiroComponent,
-    DetalhesContratoModalComponent
+    DetalhesContratoModalComponent,
+    EncerramentoComponent
   ]
 })
 export class AdministrativoModule { }

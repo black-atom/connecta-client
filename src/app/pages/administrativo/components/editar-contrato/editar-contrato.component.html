@@ -28,7 +28,6 @@
 
   <div class="col-12">
     <app-detalhes-contrato
-      [disabled]=false
       [contratoControl]="editarContratoForm">
     </app-detalhes-contrato>
   </div>
@@ -82,7 +81,7 @@
               <div class="col-md-6 col-sm-12">
                 <button
                   type="submit"
-                  class="btn btn-primary btn-with-icon"
+                  class="btn btn-primary btn-with-icon p-2"
                   [disabled]="!proposta.get('descricao').valid"
                   (click)="atualizarContrato(editarContratoForm.value)">
                   <i class="ion-android-checkmark-circle"></i>
@@ -93,7 +92,7 @@
               <div class="col-md-6 col-sm-12">
                 <button
                   type="reset"
-                  class="btn btn-danger btn-with-icon"
+                  class="btn btn-danger btn-with-icon p-2"
                   [routerLink]="['/pages/administrativo/gerenciar']">
                   <i class="fa fa-trash"></i>
                   Voltar
@@ -102,6 +101,10 @@
 
             </div>
           </ba-card>
+        </div>
+
+        <div class="col-12 mb-5">
+          <app-encerramento></app-encerramento>
         </div>
 
       </div>

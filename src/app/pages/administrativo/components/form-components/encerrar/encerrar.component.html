@@ -1,0 +1,47 @@
+<ba-card cardTitle="inativar contrato">
+  <div class="row">
+
+    <div class="col-12" *ngIf="showCard">
+      <div class="row">
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+          <label class="control-label" for="descricao">Descrição</label>
+          <textarea class="form-control" rows="15" id="descricao"></textarea>
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <label for="param_busca">Data de Encerramento</label>
+          <div class="input-group">
+            <input class="form-control p-2" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+            <button class="input-group-addon p-2" (click)="a.toggle()" type="button">
+              <i class="ion-calendar"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+          <button class="btn btn-danger text-center mt-4 p-2">
+            INATIVAR
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <button class="btn btn-danger p-2"
+        *ngIf="!showCard"
+        (click)="collapseCard()">
+        INATIVAR CONTRATO
+      </button>
+      <button class="btn btn-info mt-4 p-2"
+        *ngIf="showCard"
+        (click)="collapseCard()">
+        CANCELAR
+      </button>
+    </div>
+
+
+  </div>
+
+</ba-card>

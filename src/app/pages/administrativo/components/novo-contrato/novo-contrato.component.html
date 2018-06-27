@@ -28,7 +28,6 @@
 
   <div class="col-12">
     <app-detalhes-contrato
-      [disabled]=true
       [contratoControl]="novoContratoForm">
     </app-detalhes-contrato>
   </div>
@@ -67,7 +66,7 @@
         <div class="col-md-6 col-sm-12">
           <button
             type="submit"
-            class="btn btn-primary btn-with-icon"
+            class="btn btn-primary btn-with-icon p-2"
             [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
             (click)="cadastrarContrato()">
             <i class="ion-android-checkmark-circle"></i>
@@ -78,7 +77,7 @@
         <div class="col-md-6 col-sm-12">
           <button
             type="reset"
-            class="btn btn-danger btn-with-icon"
+            class="btn btn-danger btn-with-icon p-2"
             [disabled]="novoContratoForm.pristine"
             (click)="resetForm()">
             <i class="fa fa-trash"></i>

@@ -1,8 +1,9 @@
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { propNameQuery } from 'app/shared/utils/StringUtils';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
 import { Observable } from 'rxjs';
-import { ContratoService } from './../../../../shared/services/contrato-service/contrato.service';
+import { propNameQuery } from 'app/shared/utils/StringUtils';
+import { ContratoService } from 'app/shared/services/contrato-service/contrato.service';
 import { ModalContratoComponent } from './../modal-contrato/modal-contrato.component';
 
 @Component({
@@ -72,4 +73,7 @@ export class GerenciarContratoComponent implements OnInit {
         });
   }
 
+  changeColorText(contrato) {
+    if (!contrato.ativo) { return 'text-danger'; }
+  }
 }

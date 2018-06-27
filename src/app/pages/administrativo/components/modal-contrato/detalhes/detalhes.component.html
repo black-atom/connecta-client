@@ -1,3 +1,17 @@
+<div class="card m-1 p-2 mb-3" *ngIf="(contrato?.cnpjAssociados).length > 0">
+  <div class="row mb-2">
+
+    <div class="col-12 mb-3">
+      <strong>CNPJ Associados</strong>
+    </div>
+
+    <div class="col-12 mb-1" *ngFor="let cliente of contrato?.cnpjAssociados">
+      {{ cliente?.nome_razao_social }} <span class="pull-right">{{ cliente?.cnpj_cpf | rgCnpjCpf }}</span>
+    </div>
+
+  </div>
+</div>
+
 <div class="card m-1 p-2 mb-3">
 
     <div class="row mb-2">
@@ -77,8 +91,10 @@
 </div>
 
 <div class="row card m-1 p-2">
-  <div class="col-12">
-    <strong class="mb-4 text-center">Produtos</strong>
-    <app-equipamentos-modal [equipamentos]="equipamentos"></app-equipamentos-modal>
+  <div class="row">
+    <div class="col-12">
+      <strong class="mb-4 text-center">Produtos</strong>
+      <app-equipamentos-modal [equipamentos]="equipamentos"></app-equipamentos-modal>
+    </div>
   </div>
 </div>

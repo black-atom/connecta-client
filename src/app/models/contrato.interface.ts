@@ -48,4 +48,15 @@ export interface Contrato {
   valor: number;
   propostas: Proposta[];
   ativo: boolean;
+  financeiro: Financeiro[];
+  cnpjAssociados: Cliente[];
+}
+
+export interface Financeiro {
+  _id: string;
+  mesVirgente: string;
+  status: string;
+  observacao: string;
+  descricao: string;
+  valor: number;
 }

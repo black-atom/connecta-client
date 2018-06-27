@@ -1,5 +1,7 @@
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Proposta, Contrato } from 'app/models';
 
 @Component({
   selector: 'app-modal-contrato',
@@ -9,19 +11,29 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ModalContratoComponent implements OnInit {
 
   @Input()
-  contratoSelecionado: any;
+  public contratoSelecionado: Contrato;
+
+  public propostas: Proposta[];
 
   public tabActived = 'detalhes';
 
   constructor(public modalAtiva: NgbActiveModal) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.filterPropostas();
+  }
 
   fecharModal() {
     this.modalAtiva.close();
   }
+
   getTab(tabSelecionada) {
     this.tabActived = tabSelecionada;
+  }
+
+  filterPropostas(): void {
+    const propostas = this.contratoSelecionado.propostas;
+    this.propostas = propostas.reverse();
   }
 
 }

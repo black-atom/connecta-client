@@ -26,16 +26,17 @@
       </h4>
     </div>
 
-    <div class="situacao padding-16">
+    <div class="col-12">
       <span class="badge badge-warning p-2 m-1" *ngIf="contratoSelecionado?.valor">Nº {{ contratoSelecionado?.numeroContrato}}</span>
       <span class="badge badge-success p-2 m-1" *ngIf="contratoSelecionado?.valor">{{ contratoSelecionado?.valor | currency: 'BRL': true }}</span>
-      <span class="badge badge-primary p-2 m-1" *ngIf="contratoSelecionado.ativo">ATIVO</span>
+      <span class="badge badge-info p-2 m-1" *ngIf="contratoSelecionado.ativo">SUBSEQUENTE</span>
       <span class="badge badge-info p-2 m-1">{{ contratoSelecionado?.tipo | uppercase }}</span>
-
+      <span class="badge badge-primary pull-right p-2 m-1" *ngIf="contratoSelecionado.ativo">ATIVO</span>
+      <span class="badge badge-danger pull-right p-2 m-1" *ngIf="!contratoSelecionado.ativo">INATIVO</span>
     </div>
   </div>
 
-  <div class="padding-16 mt-4">
+  <div class="padding-16 mt-2">
 
     <div class="scrollbar-panel-list" id="style-1">
       <div *ngIf="tabActived === 'detalhes'">
@@ -43,7 +44,7 @@
       </div>
 
       <div *ngIf="tabActived === 'historico'">
-        <app-historico [contrato]="contratoSelecionado"></app-historico>
+        <app-historico [propostas]="propostas"></app-historico>
       </div>
 
       <div *ngIf="tabActived === 'anexos'">

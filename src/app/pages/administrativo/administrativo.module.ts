@@ -24,6 +24,8 @@ import { AnexosModalComponent } from './components/modal-contrato/anexos/anexos.
 import { EquipamentosModalComponent } from './components/modal-contrato/equipamentos/equipamentos.component';
 import { DetalhesContratoModalComponent } from './components/modal-contrato/detalhes/detalhes.component';
 import { EncerramentoComponent } from './components/form-components/encerrar/encerrar.component';
+import { MotivoComponent } from './components/form-components/motivo/motivo.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -32,10 +34,12 @@ import { EncerramentoComponent } from './components/form-components/encerrar/enc
     FormsModule,
     TextMaskModule,
     ModuloCompartilhado,
+    NgbModule,
     routing
   ],
   providers: [
-    FormCanDeactivateGuard
+    FormCanDeactivateGuard,
+    NgbActiveModal
   ],
   declarations: [
     AdministrativoComponent,
@@ -54,7 +58,8 @@ import { EncerramentoComponent } from './components/form-components/encerrar/enc
     DetalhesContratoModalComponent,
     EditarContratoComponent,
     EquipamentosModalComponent,
-    EncerramentoComponent
+    EncerramentoComponent,
+    MotivoComponent
   ],
   entryComponents: [
     ModalContratoComponent,

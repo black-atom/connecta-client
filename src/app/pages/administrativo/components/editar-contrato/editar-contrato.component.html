@@ -58,20 +58,18 @@
 
       <div [formGroupName]="i">
 
-        <div class="col-12">
-          <ba-card cardTitle="motivo">
-            <div class="form-group"
-              [class.has-error]="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched"
-              [class.has-success]="proposta.get('descricao').valid">
-              <label for="descricao">Adicione o motivo da alteração:</label>
-              <textarea class="form-control" formControlName="descricao" rows="8" id="descricao">
-            </textarea>
-            <span class="text-danger small" *ngIf="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched">
-              <i class="fa fa-remove text-danger"></i>
-              Requerido!
-            </span>
-            </div>
-          </ba-card>
+        <app-motivo
+          [proposta]="proposta"
+          [showMotivo]="showMotivo">
+        </app-motivo>
+
+        <div class="col-12 mb-5">
+          <app-encerramento
+            [contrato]="editarContratoForm"
+            [proposta]="proposta"
+            (showMotivo)="collapseMotivo()"
+            (encerrarContrato)="encerrarContrato(editarContratoForm.value)">
+          </app-encerramento>
         </div>
 
         <div class="col-12">
@@ -101,10 +99,6 @@
 
             </div>
           </ba-card>
-        </div>
-
-        <div class="col-12 mb-5">
-          <app-encerramento></app-encerramento>
         </div>
 
       </div>

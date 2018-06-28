@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
 import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
@@ -23,6 +23,7 @@ export class EditarContratoComponent implements OnInit {
   public qtdEquipamentos: number;
   public indexEquipamento: number;
   public subscription: Subscription;
+  public showMotivo: boolean = true;
   public editarContratoForm: FormGroup;
   public cliente$: Observable<Cliente>;
 
@@ -164,7 +165,10 @@ export class EditarContratoComponent implements OnInit {
       this.editarContratoForm.get('tipo').patchValue(contrato.tipo);
       this.editarContratoForm.get('resumoContrato').patchValue(contrato.resumoContrato);
       this.editarContratoForm.get('dataAdesao').patchValue( this.parseDateForPathValue(contrato.dataAdesao));
-      this.editarContratoForm.get('propostas').patchValue(contrato.propostas.filter(proposta => proposta.ativo));
+      const propostaAtiva = contrato.propostas.filter(proposta => proposta.ativo);
+      propostaAtiva[0].descricao = '';
+      this.editarContratoForm.get('propostas').patchValue(propostaAtiva);
+      console.log(propostaAtiva);
       const equipamentos = contrato.propostas.find(proposta => proposta.ativo).equipamentos;
       this.qtdEquipamentos = equipamentos.length;
       const equipamentosForm = this.editarContratoForm.get('propostas') as FormArray;
@@ -299,6 +303,15 @@ export class EditarContratoComponent implements OnInit {
     this.contratoService.atualizarContrato(parseContrato).subscribe(res => res ? this.notificarSucesso() : this.notificarFalhaEditar() );
   }
 
+  encerrarContrato(contrato) {
+    const propostas = this.contratoRecibido.propostas.map(proposta => proposta._id === contrato.propostas[0]._id ? contrato.propostas[0] : proposta);
+    const contratoAlterado = { ...this.contratoRecibido, ...contrato, propostas };
+    const parseContrato = this.replaceFieldsContrato(contratoAlterado);
+    parseContrato.ativo = false;
+    console.log(parseContrato);
+    this.contratoService.atualizarContrato(parseContrato).subscribe(res => res ? this.notificarSucesso() : this.notificarFalhaEditar() );
+  }
+
   replaceFieldsContrato(contrato) {
 
     const novoContrato = {
@@ -382,4 +395,9 @@ export class EditarContratoComponent implements OnInit {
     }
     return true;
   }
+
+  collapseMotivo(): void {
+    this.showMotivo === true ? this.showMotivo = false : this.showMotivo = true;
+  }
+
 }

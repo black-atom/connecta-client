@@ -36,7 +36,7 @@
         Dia de Vencimento: {{ contrato?.diaVencimento }}
       </div>
 
-      <div class="col-12">
+      <div class="col-12" *ngIf="contrato?.resumoContrato">
         Resumo do Contrato: {{ contrato?.resumoContrato }}
       </div>
 

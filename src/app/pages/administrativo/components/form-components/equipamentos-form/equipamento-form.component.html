@@ -98,6 +98,24 @@
           </span>
         </div>
 
+        <div class="form-group col-12"
+          [class.has-error]="formEquipamento.get('cnpjCliente').hasError('required') && formEquipamento.get('cnpjCliente').touched"
+          [class.has-success]="formEquipamento.get('cnpjCliente').valid">
+          <label for="cnpjCliente">Cliente</label>
+          <select class="form-control" formControlName="cnpjCliente" id="cnpjCliente">
+            <option [value]="contrato.get('cliente.cnpj_cpf').value">
+              {{ contrato.get('cliente.nome_razao_social').value + ' - ' }} {{ contrato.get('cliente.cnpj_cpf').value | rgCnpjCpf }}
+            </option>
+            <option [value]="cnpj.cnpj_cpf" *ngFor="let cnpj of contrato?.get('cnpjAssociados').value">
+              {{ cnpj.nome_razao_social + ' - ' }} {{ cnpj.cnpj_cpf | rgCnpjCpf }}
+            </option>
+          </select>
+          <span class="text-danger small mt-0" *ngIf="formEquipamento.get('cnpjCliente').hasError('required') && formEquipamento.get('cnpjCliente').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
         <div class="col-12">
           <hr>
         </div>

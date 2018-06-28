@@ -15,13 +15,16 @@ import { DadosEndereco, Produto } from 'app/models';
 export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   @Input()
-  equipamento;
+  public contrato: FormGroup;
 
   @Input()
-  indexProposta: number;
+  public equipamento;
 
   @Input()
-  indexEquipamento: number;
+  public indexProposta: number;
+
+  @Input()
+  public indexEquipamento: number;
 
   @Output()
   editEquipamento = new EventEmitter();
@@ -160,6 +163,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       valor: ['', Validators.required],
       numeroSerie: '',
       imagemPath: '',
+      cnpjCliente: ['', Validators.required],
       endereco: this.fb.group({
         cep: [''],
         rua: [''],

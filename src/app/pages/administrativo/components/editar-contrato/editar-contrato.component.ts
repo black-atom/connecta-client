@@ -82,10 +82,12 @@ export class EditarContratoComponent implements OnInit {
     visita = false,
     valor = 0,
     imagemPath = '',
+    cnpjCliente = '',
     endereco = {}
   } = {}): FormGroup {
     return this.fb.group({
       descricao: [descricao, Validators.required],
+      cnpjCliente: [cnpjCliente, Validators.required],
       categoria: [categoria, Validators.required],
       modelo: [modelo, Validators.required],
       fabricante: [fabricante, Validators.required],

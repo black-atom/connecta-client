@@ -6,7 +6,20 @@
     </div>
 
     <div class="col-12 mb-1" *ngFor="let cliente of contrato?.cnpjAssociados">
-      {{ cliente?.nome_razao_social }} <span class="pull-right">{{ cliente?.cnpj_cpf | rgCnpjCpf }}</span>
+      <div class="bold">
+        {{ cliente?.nome_razao_social }} <span class="pull-right">{{ cliente?.cnpj_cpf | rgCnpjCpf }}</span>
+      </div>
+      <div class="small">
+        <div *ngFor="let equipamento of filterEquipamentosByCnpj(cliente?.cnpj_cpf)">
+          - {{ equipamento.descricao }} <span class="pull-right">{{ equipamento.valor | currency: 'BRL': true }}</span>
+        </div>
+      </div>
+      <div class="small">
+        <div *ngIf="cliente?.cnpj_cpf">
+          <span class="pull-right bold">TOTAL: {{ calcTotalEquipamentos(cliente?.cnpj_cpf) | currency: 'BRL': true }}</span>
+        </div>
+      </div>
+      <hr class="mt-4 mb-2" *ngIf="(contrato?.cnpjAssociados).length > 1">
     </div>
 
   </div>

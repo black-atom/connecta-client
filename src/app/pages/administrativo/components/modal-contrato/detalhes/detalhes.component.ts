@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Contrato, EquipamentoContrato, Proposta } from 'app/models/contrato.interface';
+import { Contrato, EquipamentoContrato, Proposta } from 'app/models';
 
 @Component({
   selector: 'app-detalhes-modal',
@@ -21,8 +21,22 @@ export class DetalhesContratoModalComponent implements OnInit {
   }
 
   filterPropostaAtiva() {
-    const propostaAtiva = this.contrato.propostas.filter(proposta => proposta.ativo) as Proposta[];
-    this.equipamentos = propostaAtiva[0].equipamentos;
+    const propostas = this.contrato.propostas;
+    const propostaAtiva = propostas.filter(proposta => proposta.ativo) as Proposta[];
+    propostaAtiva.map(res => this.equipamentos = res.equipamentos);
+  }
+
+  filterEquipamentosByCnpj(cnpj: string) {
+    const equips = [];
+    this.equipamentos.filter(equip => equip.cnpjCliente === cnpj ? equips.push(equip) : '');
+    return equips;
+  }
+
+  calcTotalEquipamentos(cnpj: string) {
+    const equipamentos = this.filterEquipamentosByCnpj(cnpj);
+    return equipamentos.reduce((total, equipamento) => {
+      return total + equipamento.valor;
+    }, 0);
   }
 
 }

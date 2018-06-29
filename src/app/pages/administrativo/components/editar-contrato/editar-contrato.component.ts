@@ -170,7 +170,6 @@ export class EditarContratoComponent implements OnInit {
       const propostaAtiva = contrato.propostas.filter(proposta => proposta.ativo);
       propostaAtiva[0].descricao = '';
       this.editarContratoForm.get('propostas').patchValue(propostaAtiva);
-      console.log(propostaAtiva);
       const equipamentos = contrato.propostas.find(proposta => proposta.ativo).equipamentos;
       this.qtdEquipamentos = equipamentos.length;
       const equipamentosForm = this.editarContratoForm.get('propostas') as FormArray;

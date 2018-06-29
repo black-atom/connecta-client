@@ -5,7 +5,7 @@ import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms'
 import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
-import { DadosEndereco, Produto } from 'app/models';
+import { DadosEndereco, Produto, Cliente } from 'app/models';
 
 @Component({
   selector: 'app-form-equip',
@@ -151,6 +151,18 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
         }
       });
     }
+  }
+
+  filterTodosClientes(): Cliente[] {
+    const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
+    const cliente = this.contrato.get('cliente').value;
+    return [cliente, ...cnpjAssociados];
+  }
+
+  returnRazaoSocial(cnpj: string): string {
+    const clientesDoContrato: Cliente[] = this.filterTodosClientes();
+    const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
+    return nomeCliente.nome_razao_social;
   }
 
   equipamentoForm(): void {

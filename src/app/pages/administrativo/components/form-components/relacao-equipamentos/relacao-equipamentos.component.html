@@ -12,6 +12,9 @@
 
         <div class="p-2">
           <h6>{{ equipamento.descricao }} - {{ equipamento?.modelo }}</h6>
+          <p class="text-uppercase" *ngIf="equipamento?.cnpjCliente">
+            {{ returnRazaoSocial(equipamento?.cnpjCliente)  }} - {{ equipamento?.cnpjCliente | rgCnpjCpf }}
+          </p>
           <p class="text-uppercase" *ngIf="equipamento?.endereco?.rua">
             {{ equipamento?.endereco?.rua + ',
             ' + equipamento?.endereco?.numero + ',

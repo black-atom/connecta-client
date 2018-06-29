@@ -12,7 +12,9 @@
 
   <div class="col-12 mb-3 border">
     <div>
-      <app-equipamentos-modal [equipamentos]="proposta.equipamentos">
+      <app-equipamentos-modal
+        [contrato]="contrato"
+        [equipamentos]="proposta.equipamentos">
       </app-equipamentos-modal>
     </div>
   </div>

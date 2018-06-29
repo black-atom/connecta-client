@@ -94,7 +94,10 @@
   <div class="row">
     <div class="col-12">
       <strong class="mb-4 text-center">Produtos</strong>
-      <app-equipamentos-modal [equipamentos]="equipamentos"></app-equipamentos-modal>
+      <app-equipamentos-modal
+        [contrato]="contrato"
+        [equipamentos]="equipamentos">
+      </app-equipamentos-modal>
     </div>
   </div>
 </div>

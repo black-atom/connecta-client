@@ -44,7 +44,9 @@
       </div>
 
       <div *ngIf="tabActived === 'historico'">
-        <app-historico [propostas]="propostas"></app-historico>
+        <app-historico
+          [contrato]="contratoSelecionado"
+          [propostas]="propostas"></app-historico>
       </div>
 
       <div *ngIf="tabActived === 'anexos'">

@@ -1,4 +1,4 @@
-<pre>{{ editarContratoForm.value | json }}</pre>
+<!-- <pre>{{ editarContratoForm.value | json }}</pre> -->
 
 <div class="row" [formGroup]="editarContratoForm">
 
@@ -49,6 +49,7 @@
       <div class="col-12">
         <app-relacao-equipamentos
           [indexProposta]="i"
+          [contrato]="editarContratoForm"
           [formProposta]="proposta"
           [valorTotal]="valorTotalContrato"
           [qtdEquipamentos]="qtdEquipamentos"

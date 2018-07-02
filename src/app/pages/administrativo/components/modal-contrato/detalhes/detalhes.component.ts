@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Contrato, EquipamentoContrato, Proposta } from 'app/models';
 
+class MyLabel {
+  constructor(public year: number, public isCollapsed: boolean) { }
+}
+
 @Component({
   selector: 'app-detalhes-modal',
   templateUrl: './detalhes.component.html',
@@ -13,11 +17,22 @@ export class DetalhesContratoModalComponent implements OnInit {
   public contrato: Contrato;
 
   public equipamentos: EquipamentoContrato[];
+  public expandedRowIndex = '';
+
+  public messages = [];
+  labels: MyLabel[];
 
   constructor() { }
 
   ngOnInit() {
     this.filterPropostaAtiva();
+    for (let i = 0; i < 5; i++) {
+      this.messages.push({
+        firstName: `firstName-${i}`,
+        lastName: `lastName-${i}`,
+        empId: Math.floor(Math.random() * 1000)
+      });
+    }
   }
 
   filterPropostaAtiva() {
@@ -37,6 +52,10 @@ export class DetalhesContratoModalComponent implements OnInit {
     return equipamentos.reduce((total, equipamento) => {
       return total + equipamento.valor;
     }, 0);
+  }
+
+  changeExpanded(id) {
+    this.expandedRowIndex === id ? this.expandedRowIndex = '' : this.expandedRowIndex = id;
   }
 
 }

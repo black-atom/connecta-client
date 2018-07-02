@@ -6,17 +6,22 @@
     </div>
 
     <div class="col-12 mb-1" *ngFor="let cliente of contrato?.cnpjAssociados">
-      <div class="bold">
+      <div class="small">
         {{ cliente?.nome_razao_social }} <span class="pull-right">{{ cliente?.cnpj_cpf | rgCnpjCpf }}</span>
       </div>
-      <div class="small">
-        <div *ngFor="let equipamento of filterEquipamentosByCnpj(cliente?.cnpj_cpf)">
-          - {{ equipamento.descricao }} <span class="pull-right">{{ equipamento.valor | currency: 'BRL': true }}</span>
-        </div>
+      <div class="text-center">
+        <a class="btn-more animated pulse pointer" (click)="changeExpanded(cliente?.cnpj_cpf)">
+          <img *ngIf="expandedRowIndex === ''" src="assets/icons/collapse.png" alt="more">
+          <img *ngIf="expandedRowIndex === cliente?.cnpj_cpf" src="assets/icons/collapse-out.png"  alt="more">
+        </a>
       </div>
-      <div class="small">
+      <div class="small" [ngbCollapse]="(expandedRowIndex !== cliente?.cnpj_cpf)">
+        <div *ngFor="let equipamento of filterEquipamentosByCnpj(cliente?.cnpj_cpf)">
+          - {{ equipamento.descricao }}
+          <span class="pull-right">{{ equipamento.valor | currency: 'BRL': true }}</span>
+        </div>
         <div *ngIf="cliente?.cnpj_cpf">
-          <span class="pull-right bold">TOTAL: {{ calcTotalEquipamentos(cliente?.cnpj_cpf) | currency: 'BRL': true }}</span>
+          <span class="pull-right">TOTAL: {{ calcTotalEquipamentos(cliente?.cnpj_cpf) | currency: 'BRL': true }}</span>
         </div>
       </div>
       <hr class="mt-4 mb-2" *ngIf="(contrato?.cnpjAssociados).length > 1">

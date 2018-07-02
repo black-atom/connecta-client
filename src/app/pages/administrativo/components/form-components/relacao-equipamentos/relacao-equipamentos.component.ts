@@ -1,7 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Cliente } from 'app/models';
+import { ModalEdicaoComponent } from '../modal-edicao/modal-edicao.component';
 
 @Component({
   selector: 'app-relacao-equipamentos',
@@ -31,11 +33,13 @@ export class RelacaoEquipamentosComponent {
   @Output()
   removeEquipamento = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private modalService: NgbModal
+  ) { }
 
-  retirarEquipamento(indexEquipamento: number): void {
+  retirarEquipamento(equipamento, index: number): void {
     const indexProposta = this.indexProposta;
-    this.removeEquipamento.emit({ indexEquipamento, indexProposta });
+    this.removeEquipamento.emit({ equipamento, indexProposta, index });
   }
 
   editarEquipamento(equipamento, index: number): void {
@@ -52,6 +56,19 @@ export class RelacaoEquipamentosComponent {
     const clientesDoContrato: Cliente[] = this.filterTodosClientes();
     const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
     return nomeCliente.nome_razao_social;
+  }
+
+  openModalEdicao(equipamento, index) {
+    const referenciaModal = this.modalService.open(
+      ModalEdicaoComponent
+    );
+    referenciaModal.componentInstance.equipamento = equipamento;
+    referenciaModal.componentInstance.showEncerradoEm = true;
+    referenciaModal.result.then(resultadoDaModal => {
+      if (resultadoDaModal) {
+        this.retirarEquipamento(resultadoDaModal, index);
+      }
+    }).catch(error => error);
   }
 
 }

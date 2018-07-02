@@ -264,9 +264,12 @@ export class EditarContratoComponent implements OnInit {
     this.qtdEquipamentos = equipamentos.value.length;
   }
 
-  removeEquipamento({ indexEquipamento, indexProposta: index }) {
+  removeEquipamento({ equipamento, indexProposta: index, index: indexEquipamento }) {
+    console.log('equipamento', equipamento);
+    console.log('index', index);
+    console.log('indexEquipamento', indexEquipamento);
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-    equipamentos.removeAt(indexEquipamento);
+    equipamentos.at(indexEquipamento).patchValue(equipamento);
     this.calculaValorTotalContrato(index, equipamentos.value);
     (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
     this.qtdEquipamentos = equipamentos.value.length;
@@ -285,8 +288,9 @@ export class EditarContratoComponent implements OnInit {
   }
 
   calculaValorTotalContrato(index, equipamentos) {
+    const hasEncerradoEm = equip => equip.encerradoEm ? 0 : equip.valor;
     this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
-      return total + equipamento.valor;
+      return total + hasEncerradoEm(equipamento);
     }, 0);
   }
 

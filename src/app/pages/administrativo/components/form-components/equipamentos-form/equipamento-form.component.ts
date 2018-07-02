@@ -1,11 +1,13 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
 import { DadosEndereco, Produto, Cliente } from 'app/models';
+import { ModalEdicaoComponent } from '../modal-edicao/modal-edicao.component';
 
 @Component({
   selector: 'app-form-equip',
@@ -47,7 +49,8 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private cepService: CepService,
     private produtoService: ProdutoService,
-    private notificacaoService: NotificacaoService
+    private notificacaoService: NotificacaoService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -199,6 +202,19 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   notificarEditadoSucesso() {
     this.notificacaoService.notificarSucesso('Produto editado com sucesso!', '');
+  }
+
+  openModalEdicao(equipamento) {
+    const referenciaModal = this.modalService.open(
+      ModalEdicaoComponent
+    );
+    referenciaModal.componentInstance.equipamento = equipamento;
+    referenciaModal.componentInstance.showEncerradoEm = false;
+    referenciaModal.result.then(resultadoDaModal => {
+      if (resultadoDaModal) {
+        this.editarEquipamento();
+      }
+    }).catch(error => error);
   }
 
 }

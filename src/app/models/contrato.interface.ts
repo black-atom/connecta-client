@@ -10,6 +10,8 @@ export interface EquipamentoContrato {
   categoria: string;
   descricao: string;
   cnpjCliente: string;
+  encerradoEm?: string;
+  motivo?: string;
   imagemPath?: string;
   endereco?: EnderecoProduto;
 }

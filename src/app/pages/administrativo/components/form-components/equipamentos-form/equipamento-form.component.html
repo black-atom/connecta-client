@@ -222,7 +222,7 @@
             class="btn btn-outline-success mt-4 p-2"
             *ngIf="buttonEditar"
             [disabled]="!formEquipamento.valid"
-            (click)="editarEquipamento()">
+            (click)="openModalEdicao(formEquipamento.value)">
             <i class="fa fa-edit"></i>
             Editar Produto
           </button>

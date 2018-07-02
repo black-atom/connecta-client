@@ -26,6 +26,7 @@ import { DetalhesContratoModalComponent } from './components/modal-contrato/deta
 import { EncerramentoComponent } from './components/form-components/encerrar/encerrar.component';
 import { MotivoComponent } from './components/form-components/motivo/motivo.component';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalEdicaoComponent } from './components/form-components/modal-edicao/modal-edicao.component';
 
 @NgModule({
   imports: [
@@ -59,14 +60,16 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     EditarContratoComponent,
     EquipamentosModalComponent,
     EncerramentoComponent,
-    MotivoComponent
+    MotivoComponent,
+    ModalEdicaoComponent
   ],
   entryComponents: [
     ModalContratoComponent,
     AnexosModalComponent,
     FinanceiroComponent,
     DetalhesContratoModalComponent,
-    EncerramentoComponent
+    EncerramentoComponent,
+    ModalEdicaoComponent
   ]
 })
 export class AdministrativoModule { }

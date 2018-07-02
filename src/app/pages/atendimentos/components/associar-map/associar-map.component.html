@@ -1,3 +1,35 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<div class="row">
+  <div class="col-md-6 col-sm-12 col-lg-4 col-xs-12">
+    <label for="param_busca">Pesquisar por data</label>
+    <div class="input-group">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" (ngModelChange)="getAllAtendimentos()"
+        id="param_busca">
+      <button class="input-group-addon" (click)="d.toggle()" type="button">
+        <i class="ion-calendar"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+  <agm-marker class="shadow-text" [latitude]="atendimento?.location?.coordinates[0]" [longitude]="atendimento?.location?.coordinates[1]"
+    [label]="atendimento?.tecnico?.nome | uppercase" [iconUrl]="atendimento?.tecnico?.nome ? icon : ''" [title]="atendimento?.cliente?.nome_razao_social | uppercase"
+    *ngFor="let atendimento of atendimentos$ | async; let i = index">
+
+    <agm-info-window [disableAutoPan]="false" #infoWindow>
+      <h1 id="infoTitle">{{ atendimento?.cliente?.nome_razao_social }}</h1>
+      <p id="contentInfoMap">Equipamento: {{ atendimento?.modelo_equipamento }} N:{{ atendimento?.numero_equipamento }}</p>
+      <p id="contentInfoMap">Serviço: {{ atendimento?.problema }}</p>
+      <p id="contentInfoMap"> Observação: {{ atendimento?.observacao }}</p>
+      <a class="btn btn-attention pull-right">Associar Tecnico? </a>
+      <div class="form-group">
+        <label for="tecnico">Técnico</label>
+        <select class="form-control" name="tecnico">
+          <option value="" selected>Selecione</option>
+          <option *ngFor="let tecnico of tecnicos$ | async">{{ tecnico?.nome | split: 0 | uppercase }}</option>
+        </select>
+      </div>
+      <button class="button-remove-image btn btn-danger btn-with-icon" (click)="associarTecnico(atendimento?._id)">Associar</button>
+    </agm-info-window>
+  </agm-marker>
 </agm-map>

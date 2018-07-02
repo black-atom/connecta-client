@@ -2,3 +2,36 @@ agm-map {
   height: 80vh;
   width: 100%;
 }
+
+#infoTitle {
+  font-family: Arial, Helvetica;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #373D3F;
+}
+
+
+#contentInfoMap {
+  font-family: Arial, Helvetica;
+  font-size: 1.1em;
+  color: rgb(36, 36, 36);
+  text-align: justify;
+}
+
+#tecnico {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#tecnico li {
+  list-style: none;
+  text-align: center;
+  width: 150px;
+}
+
+#tecnico li img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}

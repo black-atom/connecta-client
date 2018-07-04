@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AtendimentoService, FuncionarioService } from 'app/shared/services';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-associar-map',
@@ -9,29 +10,53 @@ import { AtendimentoService, FuncionarioService } from 'app/shared/services';
 })
 export class AssociarMapComponent implements OnInit {
 
-  lat = -23.719012;
-  lng = -46.523961;
+  lat = -23.724693;
+  lng = -46.534283;
 
   public totalyAtendimentos;
   public atendimentos$: Observable<any[]>;
   public tecnicos$: Observable<any[]>;
   private date = new Date();
   public inputDate: any;
+  public atentimentoSubject$: Subject<any>;
+  public atendimentoOver;
+  public tecnicoSelecionado;
 
   public icon = {
-    url: '/assets/img/pin.png',
-    scaledSize: {
-      height: 35,
-      width: 35
+    selecionado: {
+      url: '/assets/img/spotlight-poi1.png',
+      scaledSize: {
+        height: 43,
+        width: 27
+      }
+    },
+    associado: {
+      url: '/assets/img/spotlight-poi2.png',
+      scaledSize: {
+        height: 43,
+        width: 27
+      }
     }
   };
 
   constructor(
     private atencimentoService: AtendimentoService,
-    private funcionarioService: FuncionarioService) { }
+    private funcionarioService: FuncionarioService
+  ) {
+    this.atentimentoSubject$ = new Subject();
+
+    this.atendimentos$ = this.atentimentoSubject$.switchMap(
+      () => {
+        return this.atencimentoService
+          .getAtendimentosPorData({ data_atendimento: this.dataPassadoPeloUsuario(this.inputDate).toString() })
+          .map(({ atendimentos, count }) => {
+            this.totalyAtendimentos = count;
+            return atendimentos;
+          });
+      });
+  }
 
   ngOnInit() {
-
     this.inputDate = {
       year: this.date.getFullYear(),
       day: this.date.getDate(),
@@ -40,18 +65,9 @@ export class AssociarMapComponent implements OnInit {
 
     this.tecnicos$ = this.funcionarioService
       .retornarFuncionarioPorFuncao({ 'login.tipo': 'tecnico' })
-        .map(({ funcionarios }) => funcionarios );
+      .map(({ funcionarios }) => funcionarios );
 
-    this.getAllAtendimentos();
-  }
-
-  getAllAtendimentos() {
-    return this.atendimentos$ = this.atencimentoService
-      .getAtendimentosPorData({ data_atendimento: this.dataPassadoPeloUsuario(this.inputDate).toString() })
-        .map(({ atendimentos, count }) => {
-            this.totalyAtendimentos = count;
-            return atendimentos;
-          });
+    setTimeout(() => this.atentimentoSubject$.next(), 0);
   }
 
    dataPassadoPeloUsuario(dataSelecionada) {
@@ -63,10 +79,19 @@ export class AssociarMapComponent implements OnInit {
     return dataFormatada;
   }
 
-  associarTecnico(tecnico, idAtendimento) {
+  associarTecnico(idAtendimento, { nome, _id }) {
+    const tecnico = { _id, nome };
     this.atencimentoService
       .associarAtendimento(idAtendimento, tecnico)
-      .subscribe(res => this.getAllAtendimentos());
+      .toPromise()
+      .then(() => this.atentimentoSubject$.next());
    }
 
+   mouseHoverAtendimento({ _id }) {
+     this.atendimentoOver = _id;
+   }
+
+   mouseLeaveAtendimento() {
+    this.atendimentoOver = null;
+   }
 }

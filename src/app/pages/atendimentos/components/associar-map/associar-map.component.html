@@ -2,8 +2,7 @@
   <div class="col-md-6 col-sm-12 col-lg-4 col-xs-12">
     <label for="param_busca">Pesquisar por data</label>
     <div class="input-group">
-      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" (ngModelChange)="getAllAtendimentos()"
-        id="param_busca">
+      <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker" name="busca_data" [(ngModel)]="inputDate" id="param_busca">
       <button class="input-group-addon" (click)="d.toggle()" type="button">
         <i class="ion-calendar"></i>
       </button>
@@ -11,25 +10,48 @@
   </div>
 </div>
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
-  <agm-marker class="shadow-text" [latitude]="atendimento?.location?.coordinates[0]" [longitude]="atendimento?.location?.coordinates[1]"
-    [label]="atendimento?.tecnico?.nome | uppercase" [iconUrl]="atendimento?.tecnico?.nome ? icon : ''" [title]="atendimento?.cliente?.nome_razao_social | uppercase"
-    *ngFor="let atendimento of atendimentos$ | async; let i = index">
+<div class="row">
 
-    <agm-info-window [disableAutoPan]="false" #infoWindow>
-      <h1 id="infoTitle">{{ atendimento?.cliente?.nome_razao_social }}</h1>
-      <p id="contentInfoMap">Equipamento: {{ atendimento?.modelo_equipamento }} N:{{ atendimento?.numero_equipamento }}</p>
-      <p id="contentInfoMap">Serviço: {{ atendimento?.problema }}</p>
-      <p id="contentInfoMap"> Observação: {{ atendimento?.observacao }}</p>
-      <a class="btn btn-attention pull-right">Associar Tecnico? </a>
-      <div class="form-group">
-        <label for="tecnico">Técnico</label>
-        <select class="form-control" name="tecnico">
-          <option value="" selected>Selecione</option>
-          <option *ngFor="let tecnico of tecnicos$ | async">{{ tecnico?.nome | split: 0 | uppercase }}</option>
-        </select>
-      </div>
-      <button class="button-remove-image btn btn-danger btn-with-icon" (click)="associarTecnico(atendimento?._id)">Associar</button>
-    </agm-info-window>
-  </agm-marker>
-</agm-map>
+  <div class="col-4 scrollbar-panel-list" id="style-1">
+    <div class="atendimento-info" *ngFor="let atendimento of atendimentos$ | async; let i = index" (mouseover)="mouseHoverAtendimento(atendimento)"
+      (mouseleave)="mouseLeaveAtendimento()">
+      <div class="client-info">{{ atendimento?.cliente.nome_razao_social }} - {{ atendimento?.cliente?.cnpj_cpf | rgCnpjCpf }}</div>
+      <div class="atendimento-detail-destaque">{{ atendimento?.modelo_equipamento }} - {{ atendimento?.numero_equipamento }}</div>
+      <div class="atendimento-detail mt-2"> <strong>Problema: </strong> {{ atendimento?.descricao }}</div>
+      <div class="atendimento-detail mt-2"><strong>Observação: </strong> {{ atendimento.observacao }}</div>
+      <div class="atendimento-detail mt-2">
+          <strong>Endereço: </strong> {{ atendimento?.endereco.rua }} N {{ atendimento?.endereco.numero }}, {{ atendimento?.endereco.bairro }}
+          {{ atendimento?.endereco.cidade }} - {{ atendimento?.endereco.uf }}</div>
+      <span class="badge badge-primary mt-3 p-2">INSTALAÇÃO + TREINAMENTO</span>
+      <span class="badge badge-danger mt-3 p-2" *ngIf="atendimento?.tecnico?.nome">ASSOCIADO TÉCNICO {{ atendimento.tecnico.nome | uppercase }}</span>
+    </div>
+  </div>
+
+  <div class="col-8">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+      <agm-marker class="shadow-text" [latitude]="atendimento?.location?.coordinates[0]" [longitude]="atendimento?.location?.coordinates[1]"
+        [iconUrl]="atendimentoOver === atendimento._id ? icon.selecionado : '' || atendimento?.tecnico?.nome ? icon.associado : '' "
+        [title]="atendimento?.cliente?.nome_razao_social | uppercase" *ngFor="let atendimento of atendimentos$ | async; let i = index" >
+
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+          <h1 id="infoTitle">{{ atendimento?.cliente?.nome_razao_social }} - {{ atendimento?.cliente?.cnpj_cpf | rgCnpjCpf }}</h1>
+          <p id="contentInfoMapEquipamento" class="mb-2">{{ atendimento?.modelo_equipamento }} - {{ atendimento?.numero_equipamento }}</p>
+          <p id="contentInfoMap">Serviço: {{ atendimento?.descricao }}</p>
+          <p id="contentInfoMap"> Observação: {{ atendimento?.observacao }}</p>
+          <p id="contentInfoMap">Endereço: {{ atendimento?.endereco.rua }} N {{ atendimento?.endereco.numero }}, {{ atendimento?.endereco.bairro }}
+            {{ atendimento?.endereco.cidade }} - {{ atendimento?.endereco.uf }}</p>
+          <a class="btn btn-attention pull-right">Associar Tecnico? </a>
+          <div class="form-group">
+            <label for="tecnico">Técnico</label>
+            <select class="form-control" name="tecnico" [(ngModel)]="tecnicoSelecionado">
+              <option value="" selected>Selecione</option>
+              <option *ngFor="let tecnico of tecnicos$ | async" [ngValue]="tecnico">{{ tecnico?.nome | split: 0 | uppercase }}</option>
+            </select>
+          </div>
+          <button class="button-remove-image btn btn-danger btn-with-icon" (click)="associarTecnico(atendimento?._id, tecnicoSelecionado)">Associar</button>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+
+</div>

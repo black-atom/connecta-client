@@ -51,16 +51,19 @@ export class GerenciarContratoComponent implements OnInit {
   filterEvents({ filters, first, rows }) {
     const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
+      ...queryFormatter('numeroContrato'),
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
-      ...queryFormatter('tipo'),
-      ...queryFormatter('numeroContrato')
+      ...queryFormatter('tipo')
     };
     return newQuery;
   }
 
   loadContratosLazy(event) {
     const query = this.filterEvents(event);
+    if (query['cliente.cnpj_cpf']) {
+      query['cliente.cnpj_cpf'] = query['cliente.cnpj_cpf'].replace(/\D+/g, '');
+    }
     const skip = event.first;
     const limit = event.rows;
 

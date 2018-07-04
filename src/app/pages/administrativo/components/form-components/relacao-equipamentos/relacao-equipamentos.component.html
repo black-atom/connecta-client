@@ -6,7 +6,6 @@
       <a class="list-group-item d-flex p-1 pt-2"
         *ngFor="let equipamento of formProposta.controls['equipamentos'].value; let i = index"
         [formGroupName]='i'>
-
         <div class="p-2">
           <img [src]="equipamento?.imagemPath || 'assets/img/image.png'" width="75" height="75">
         </div>

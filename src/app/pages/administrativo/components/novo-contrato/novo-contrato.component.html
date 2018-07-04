@@ -40,6 +40,7 @@
           [indexProposta]="i"
           [equipamento]="equipamento"
           [contrato]="novoContratoForm"
+          [isNovoContrato]="true"
           [indexEquipamento]="indexEquipamento"
           (sendEquipamento)="addEquipamento($event)"
           (editEquipamento)="editarEquipamento($event)">
@@ -50,6 +51,7 @@
         <app-relacao-equipamentos
           [indexProposta]="i"
           [contrato]="novoContratoForm"
+          [isNovoContrato]="true"
           [formProposta]="proposta"
           [valorTotal]="valorTotalContrato"
           [qtdEquipamentos]="qtdEquipamentos"

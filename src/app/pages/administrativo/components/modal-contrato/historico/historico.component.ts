@@ -20,4 +20,12 @@ export class HistoricoComponent implements OnInit {
 
   ngOnInit() { }
 
+  totalEquipamentos(proposta) {
+    const isEncerrado = equipamento => equipamento.encerradoEm !== null ? 0 : 1;
+    const equipamentos = proposta.equipamentos;
+    return equipamentos.reduce((total, equipamento) => {
+      return total + isEncerrado(equipamento);
+    }, 0);
+  }
+
 }

@@ -48,6 +48,7 @@ export interface Contrato {
   dataEncerramento: Date;
   resumoContrato: string;
   numeroContrato: string;
+  subsequente: boolean;
   valor: number;
   propostas: Proposta[];
   ativo: boolean;

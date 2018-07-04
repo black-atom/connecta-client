@@ -20,7 +20,6 @@ export class ModalContratoComponent implements OnInit {
   constructor(public modalAtiva: NgbActiveModal) { }
 
   ngOnInit() {
-    console.log('dentro da modal: ', this.contratoSelecionado);
     this.filterPropostas();
   }
 

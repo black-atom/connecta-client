@@ -27,6 +27,9 @@ export class RelacaoEquipamentosComponent {
   @Input()
   qtdEquipamentos: number;
 
+  @Input()
+  isNovoContrato: boolean;
+
   @Output()
   editEquipamento = new EventEmitter();
 
@@ -59,16 +62,19 @@ export class RelacaoEquipamentosComponent {
   }
 
   openModalEdicao(equipamento, index) {
-    const referenciaModal = this.modalService.open(
-      ModalEdicaoComponent
-    );
-    referenciaModal.componentInstance.equipamento = equipamento;
-    referenciaModal.componentInstance.showEncerradoEm = true;
-    referenciaModal.result.then(resultadoDaModal => {
-      if (resultadoDaModal) {
-        this.retirarEquipamento(resultadoDaModal, index);
-      }
-    }).catch(error => error);
+    if (!this.isNovoContrato) {
+      const referenciaModal = this.modalService.open(
+        ModalEdicaoComponent
+      );
+      referenciaModal.componentInstance.equipamento = equipamento;
+      referenciaModal.componentInstance.showEncerradoEm = true;
+      referenciaModal.result.then(resultadoDaModal => {
+        if (resultadoDaModal) {
+          this.retirarEquipamento(resultadoDaModal, index);
+        }
+      }).catch(error => error);
+    }
+    this.retirarEquipamento(equipamento, index);
   }
 
 }

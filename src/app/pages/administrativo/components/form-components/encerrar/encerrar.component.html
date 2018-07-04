@@ -4,12 +4,20 @@
     <div class="col-12" *ngIf="showCard">
       <div class="row">
 
-        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6"
+          [class.has-error]="proposta?.get('descricao').hasError('required') && proposta?.get('descricao').touched"
+          [class.has-success]="proposta?.get('descricao').valid">
           <label class="control-label" for="descricao">Descrição</label>
           <textarea class="form-control" formControlName="descricao" rows="15" id="descricao"></textarea>
+          <span class="text-danger small mt-0" *ngIf="proposta?.get('descricao').hasError('required') && proposta?.get('descricao').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
         </div>
 
-        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4" [formGroup]="contrato">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4" [formGroup]="contrato"
+          [class.has-error]="contrato?.get('dataEncerramento').touched && !contrato?.get('dataEncerramento').value"
+          [class.has-success]="contrato?.get('dataEncerramento').valid">
           <label for="param_busca">Data de Encerramento</label>
           <div class="input-group">
             <input class="form-control p-2" formControlName="dataEncerramento" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
@@ -17,6 +25,10 @@
               <i class="ion-calendar"></i>
             </button>
           </div>
+          <span class="text-danger small mt-0" *ngIf="contrato?.get('dataEncerramento').touched && !contrato?.get('dataEncerramento').value">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
         </div>
 
         <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">

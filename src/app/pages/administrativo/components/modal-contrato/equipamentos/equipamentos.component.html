@@ -24,6 +24,10 @@
         <span class="badge badge-primary p-2" *ngIf="equipamento?.visita">VISITA</span>
         <span class="badge badge-warning p-2" *ngIf="equipamento?.numeroSerie">{{'Nº ' + equipamento?.numeroSerie }}</span>
         <span class="badge badge-info text-uppercase p-2" *ngIf="equipamento?.categoria">{{ equipamento?.categoria }}</span>
+        <span class="badge badge-danger text-uppercase p-2" *ngIf="equipamento?.encerradoEm">removido: {{ equipamento?.encerradoEm | date: 'dd/MM/yyyy' }}</span>
+      </p>
+      <p *ngIf="equipamento?.motivo">
+        <span class="badge badge-info text-uppercase p-2" *ngIf="equipamento?.motivo">motivo: {{ equipamento?.motivo }}</span>
       </p>
     </div>
   </div>

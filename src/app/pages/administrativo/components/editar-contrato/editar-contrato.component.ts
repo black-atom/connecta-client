@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
 import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
@@ -265,9 +265,6 @@ export class EditarContratoComponent implements OnInit {
   }
 
   removeEquipamento({ equipamento, indexProposta: index, index: indexEquipamento }) {
-    console.log('equipamento', equipamento);
-    console.log('index', index);
-    console.log('indexEquipamento', indexEquipamento);
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
     equipamentos.at(indexEquipamento).patchValue(equipamento);
     this.calculaValorTotalContrato(index, equipamentos.value);
@@ -287,16 +284,19 @@ export class EditarContratoComponent implements OnInit {
     this.initContratoForm();
   }
 
+  hasEncerradoEm(equip) {
+    return equip.encerradoEm ? 0 : equip.valor;
+  }
+
   calculaValorTotalContrato(index, equipamentos) {
-    const hasEncerradoEm = equip => equip.encerradoEm ? 0 : equip.valor;
     this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
-      return total + hasEncerradoEm(equipamento);
+      return total + this.hasEncerradoEm(equipamento);
     }, 0);
   }
 
   calculaTotalInicioEditar(equipamentos) {
     this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
-      return total + equipamento.valor;
+      return total + this.hasEncerradoEm(equipamento);
     }, 0);
   }
 

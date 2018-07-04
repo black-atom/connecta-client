@@ -28,6 +28,9 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   @Input()
   public indexEquipamento: number;
 
+  @Input()
+  public isNovoContrato;
+
   @Output()
   editEquipamento = new EventEmitter();
 
@@ -205,16 +208,19 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   openModalEdicao(equipamento) {
-    const referenciaModal = this.modalService.open(
-      ModalEdicaoComponent
-    );
-    referenciaModal.componentInstance.equipamento = equipamento;
-    referenciaModal.componentInstance.showEncerradoEm = false;
-    referenciaModal.result.then(resultadoDaModal => {
-      if (resultadoDaModal) {
-        this.editarEquipamento();
-      }
-    }).catch(error => error);
+    if (!this.isNovoContrato) {
+      const referenciaModal = this.modalService.open(
+        ModalEdicaoComponent
+      );
+      referenciaModal.componentInstance.equipamento = equipamento;
+      referenciaModal.componentInstance.showEncerradoEm = false;
+      referenciaModal.result.then(resultadoDaModal => {
+        if (resultadoDaModal) {
+          this.editarEquipamento();
+        }
+      }).catch(error => error);
+    }
+    this.editarEquipamento();
   }
 
 }

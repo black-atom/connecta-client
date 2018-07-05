@@ -55,6 +55,7 @@ export class ModalEdicaoComponent implements OnInit {
 
   removerEquipamento(equipamento) {
     const parseEquipamento = this.parseEquipamento(equipamento);
+    console.log(parseEquipamento);
     this.modalInstance.close(parseEquipamento);
   }
 

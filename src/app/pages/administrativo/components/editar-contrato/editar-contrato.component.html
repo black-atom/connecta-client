@@ -40,6 +40,7 @@
           [indexProposta]="i"
           [contrato]="editarContratoForm"
           [equipamento]="equipamento"
+          [isNovoContrato]="false"
           [indexEquipamento]="indexEquipamento"
           (sendEquipamento)="addEquipamento($event)"
           (editEquipamento)="editarEquipamento($event)">
@@ -51,6 +52,7 @@
           [indexProposta]="i"
           [contrato]="editarContratoForm"
           [formProposta]="proposta"
+          [isNovoContrato]="false"
           [valorTotal]="valorTotalContrato"
           [qtdEquipamentos]="qtdEquipamentos"
           (editEquipamento)="getEquipamentoEdit($event)"

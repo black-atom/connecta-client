@@ -116,11 +116,11 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     this.notificarAdicionadoSucesso();
   }
 
-  editarEquipamento() {
+  editarEquipamento(equipamento) {
     this.buttonEditar = false;
     this.equipamentoSelecionado = false;
     this.editEquipamento.emit({
-      equipamento: this.formEquipamento.value,
+      equipamento,
       indexEquipamento: this.indexEquipamento,
       indexProposta: this.indexProposta
     });
@@ -207,20 +207,28 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     this.notificacaoService.notificarSucesso('Produto editado com sucesso!', '');
   }
 
+  pathMotivo(equipamento) {
+    this.formEquipamento.value.patchValue(equipamento);
+  }
+
   openModalEdicao(equipamento) {
-    if (!this.isNovoContrato) {
-      const referenciaModal = this.modalService.open(
-        ModalEdicaoComponent
-      );
-      referenciaModal.componentInstance.equipamento = equipamento;
-      referenciaModal.componentInstance.showEncerradoEm = false;
-      referenciaModal.result.then(resultadoDaModal => {
-        if (resultadoDaModal) {
-          this.editarEquipamento();
-        }
-      }).catch(error => error);
+    switch (this.isNovoContrato) {
+      case false:
+        const referenciaModal = this.modalService.open(
+          ModalEdicaoComponent
+        );
+        referenciaModal.componentInstance.equipamento = equipamento;
+        referenciaModal.componentInstance.showEncerradoEm = false;
+        referenciaModal.result.then(resultadoDaModal => {
+          if (resultadoDaModal) {
+            this.editarEquipamento(resultadoDaModal);
+          }
+        }).catch(error => error);
+        break;
+      case true: {
+        this.editarEquipamento(this.formEquipamento.value);
+      }
     }
-    this.editarEquipamento();
   }
 
 }

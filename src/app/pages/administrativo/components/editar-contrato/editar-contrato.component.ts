@@ -83,6 +83,7 @@ export class EditarContratoComponent implements OnInit {
     valor = 0,
     imagemPath = '',
     cnpjCliente = '',
+    motivo = '',
     endereco = {}
   } = {}): FormGroup {
     return this.fb.group({
@@ -95,6 +96,7 @@ export class EditarContratoComponent implements OnInit {
       visita: [visita, Validators.required],
       valor: [valor, Validators.required],
       imagemPath: [imagemPath],
+      motivo: [motivo],
       endereco: this.enderecoForm(endereco)
     });
   }

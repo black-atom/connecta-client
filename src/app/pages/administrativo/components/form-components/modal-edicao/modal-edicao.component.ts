@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal-edicao',
@@ -22,8 +22,12 @@ export class ModalEdicaoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public modalInstance: NgbActiveModal
-  ) { }
+    public modalInstance: NgbActiveModal,
+    public config: NgbDatepickerConfig
+  ) {
+    config.minDate = { year: 1970, month: 1, day: 1 };
+    config.maxDate = { year: 2070, month: 12, day: 31 };
+  }
 
   initFormEquipamento() {
     this.editEquipamento = this.fb.group({

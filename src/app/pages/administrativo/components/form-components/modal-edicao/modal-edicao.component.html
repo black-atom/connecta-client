@@ -1,0 +1,71 @@
+<div class="content">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ labelModal }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="row mb-1">
+      <div class="col-12 small">
+        <h6 class="modal-title">{{ equipamento?.descricao }}</h6>
+        <p class="text-uppercase small" *ngIf="equipamento?.endereco?.rua">
+            {{ equipamento?.endereco?.rua + ',
+            ' + equipamento?.endereco?.numero + ',
+            ' + equipamento?.endereco?.bairro +',
+            ' + equipamento?.endereco?.cidade+ ' -
+            ' + equipamento?.endereco?.uf + '-
+            ' + equipamento?.endereco?.cep }}</p>
+      </div>
+    </div>
+
+    <div class="row" [formGroup]="editEquipamento">
+      <div class="col-12 mb-3">
+        <div class="form-group"
+          [class.has-error]="editEquipamento.get('motivo').hasError('required') && editEquipamento.get('motivo').touched"
+          [class.has-success]="editEquipamento.get('motivo').valid">
+          <label for="motivo">{{ labelMotivo }}</label>
+          <textarea class="form-control" formControlName="motivo" rows="6" id="motivo">
+          </textarea>
+        </div>
+        <span class="text-danger small" *ngIf="editEquipamento.get('motivo').hasError('required') && editEquipamento.get('motivo').touched">
+          <i class="fa fa-remove text-danger"></i>
+          Requerido!
+        </span>
+      </div>
+
+      <div class="form-group col-12"
+        *ngIf="showEncerradoEm"
+        [class.has-error]="editEquipamento.get('encerradoEm').hasError('required') && editEquipamento.get('encerradoEm').touched"
+        [class.has-success]="editEquipamento.get('encerradoEm').valid">
+        <label for="param_busca">Data de Remoção</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="encerradoEm" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+          <button class="input-group-addon" (click)="a.toggle()" type="button">
+            <i class="ion-calendar"></i>
+          </button>
+        </div>
+        <span class="text-danger small" *ngIf="editEquipamento.get('encerradoEm').hasError('required') && editEquipamento.get('encerradoEm').touched">
+          <i class="fa fa-remove text-danger"></i>
+          Requerido!
+        </span>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn"
+      [class.btn-success-outline]="!showEncerradoEm"
+      [class.btn-danger]="showEncerradoEm"
+      (click)="removerEquipamento(equipamento)"
+      [disabled]="!editEquipamento.valid">
+      {{ labelButton }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="closeModal()" data-dismiss="modal">Cancelar</button>
+  </div>
+</div>
+
+

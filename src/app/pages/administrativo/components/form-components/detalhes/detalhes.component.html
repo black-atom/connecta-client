@@ -37,6 +37,8 @@
         <i class="fa fa-remove text-danger"></i>
         Requerido!
       </span>
+
+
     </div>
 
     <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-2"
@@ -71,10 +73,11 @@
 
     <div class="col-12 mb-3">
       <div class="form-group" [class.has-success]="contratoControl.get('resumoContrato').value">
-        <label for="testes_efetuados">Resumo do contrato</label>
-        <textarea class="form-control" formControlName="resumoContrato" rows="6" id="testes_efetuados">
+        <label for="resumoContrato">Resumo do contrato</label>
+        <textarea class="form-control" formControlName="resumoContrato" rows="6" id="resumoContrato">
         </textarea>
       </div>
     </div>
+
   </div>
 </ba-card>

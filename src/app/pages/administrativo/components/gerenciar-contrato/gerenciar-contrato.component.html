@@ -5,6 +5,7 @@
 [paginator]="true"
 [totalRecords]="totalRecords"
 (onLazyLoad)="loadContratosLazy($event)"
+[rowStyleClass]="changeColorText"
 [pageLinks]="5"
 [responsive]="true"
 [sortOrder]="-1"
@@ -12,6 +13,12 @@
 loadingIcon="ion-load-a"
 rowHover="true"
 sortField="createdAt" styleClass="borderless">
+
+<p-column field="numeroContrato" header="Nº Contrato"  [filter]="true" [style]="{'width':'70px'}">
+  <ng-template let-contrato="rowData" pTemplate="body">
+    {{ contrato?.numeroContrato }}
+  </ng-template>
+</p-column>
 
 <p-column field="cliente.nome_razao_social" header="Razão Social/Nome" [filter]="true" [style]="{'width':'150px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
@@ -27,12 +34,6 @@ sortField="createdAt" styleClass="borderless">
 
 <p-column field="tipo" header="TIPO" [filter]="true" [style]="{'width':'70px'}"></p-column>
 
-<p-column field="numeroContrato" header="Nº Contrato"  [filter]="true" [style]="{'width':'70px'}">
-  <ng-template let-contrato="rowData" pTemplate="body">
-    {{ contrato?.numeroContrato }}
-  </ng-template>
-</p-column>
-
 <p-column field="valor" header="VALOR" [style]="{'width':'70px'}">
   <ng-template let-contrato="rowData" pTemplate="body">
     {{ contrato?.valor | currency: 'BRL': true }}
@@ -46,8 +47,8 @@ sortField="createdAt" styleClass="borderless">
 </p-column>
 
   <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
-    <ng-template let-produto="rowData" pTemplate="body">
-      <button type="button" pButton icon="fa fa-pencil"></button>
+    <ng-template let-contrato="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" [disabled]="!contrato.ativo" routerLink="/pages/administrativo/editar/{{ contrato._id }}"></button>
     </ng-template>
   </p-column>
 

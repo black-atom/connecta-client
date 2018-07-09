@@ -1,4 +1,4 @@
-import { environment } from './../../../../environments/environment';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
@@ -29,6 +29,15 @@ export class ContratoService {
     return this.http.get(`${environment.API_ENDPOINT}/api/contratos?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
       .map((res) => res.json() as any)
       .catch(ManipuladorErro.lidaComErro);
+  }
+
+  atualizarContrato(contrato): Observable <any> {
+    const headers = new Headers({ 'Content-Type' : 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this.http.put(`${environment.API_ENDPOINT}/api/contratos/${contrato._id}/`, contrato, options)
+                    .map(res => res.json() as any)
+                    .catch(ManipuladorErro.lidaComErro);
   }
 
 }

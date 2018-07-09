@@ -1,26 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EquipamentoContrato, Cliente } from 'app/models';
+
+import { Contrato } from 'app/models';
 
 @Component({
-  selector: 'app-equipamentos',
+  selector: 'app-equipamentos-modal',
   templateUrl: './equipamentos.component.html',
   styleUrls: ['./equipamentos.component.scss']
 })
-export class EquipamentosComponent implements OnInit {
+export class EquipamentosModalComponent {
 
   @Input()
-  contratoSelecionadoEquipamentos;
-  public propostaAtiva;
+  public equipamentos: EquipamentoContrato[];
 
-  constructor() { }
+  @Input()
+  public contrato: Contrato;
 
-  ngOnInit() {
-    this.getPropostaAtiva();
+  filterTodosClientes(): Cliente[] {
+    const cnpjAssociados = this.contrato.cnpjAssociados;
+    const cliente = this.contrato.cliente;
+    return [cliente, ...cnpjAssociados];
   }
 
-  getPropostaAtiva() {
-    const { propostas } = this.contratoSelecionadoEquipamentos;
-    const filtarProposta = proposta => proposta.ativo === true;
-    this.propostaAtiva = propostas.find(filtarProposta);
+  returnRazaoSocial(cnpj: string): string {
+    const clientesDoContrato: Cliente[] = this.filterTodosClientes();
+    const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
+    return nomeCliente.nome_razao_social;
   }
 
 }

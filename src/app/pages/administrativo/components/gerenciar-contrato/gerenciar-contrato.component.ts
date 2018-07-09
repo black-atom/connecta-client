@@ -1,8 +1,10 @@
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { propNameQuery } from 'app/shared/utils/StringUtils';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
 import { Observable } from 'rxjs';
-import { ContratoService } from './../../../../shared/services/contrato-service/contrato.service';
+import { propNameQuery } from 'app/shared/utils/StringUtils';
+import { Contrato } from 'app/models';
+import { ContratoService } from 'app/shared/services/contrato-service/contrato.service';
 import { ModalContratoComponent } from './../modal-contrato/modal-contrato.component';
 
 @Component({
@@ -14,7 +16,7 @@ export class GerenciarContratoComponent implements OnInit {
 
   public contratos$: Observable<any[]>;
   public carregando: boolean = true;
-
+  public contratoSelecionado: Contrato;
   public totalRecords;
 
   private opcoesModal: NgbModalOptions = {
@@ -36,30 +38,32 @@ export class GerenciarContratoComponent implements OnInit {
   }
 
   abrirModalDeDetalhes(contratoID) {
-    this.contratoService
-      .getContrato(contratoID)
-        .subscribe(res => {
-          const referenciaModal = this._servicoModal.open(
-            ModalContratoComponent,
-            this.opcoesModal
-          );
-          referenciaModal.componentInstance.contratoSelecionado = res;
-        });
+    this.contratoService.getContrato(contratoID)
+    .subscribe(res => {
+      const referenciaModal = this._servicoModal.open(
+        ModalContratoComponent,
+        this.opcoesModal
+      );
+      referenciaModal.componentInstance.contratoSelecionado = res;
+    });
   }
 
   filterEvents({ filters, first, rows }) {
     const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
+      ...queryFormatter('numeroContrato'),
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
-      ...queryFormatter('tipo'),
-      ...queryFormatter('numeroContrato')
+      ...queryFormatter('tipo')
     };
     return newQuery;
   }
 
   loadContratosLazy(event) {
     const query = this.filterEvents(event);
+    if (query['cliente.cnpj_cpf']) {
+      query['cliente.cnpj_cpf'] = query['cliente.cnpj_cpf'].replace(/\D+/g, '');
+    }
     const skip = event.first;
     const limit = event.rows;
 
@@ -72,4 +76,7 @@ export class GerenciarContratoComponent implements OnInit {
         });
   }
 
+  changeColorText(contrato) {
+    if (!contrato.ativo) { return 'text-danger'; }
+  }
 }

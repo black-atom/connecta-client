@@ -1,0 +1,116 @@
+<!-- <pre>{{ editarContratoForm.value | json }}</pre> -->
+
+<div class="row" [formGroup]="editarContratoForm">
+
+  <div class="col-12">
+    <app-dados-principais-cliente
+      [parentForm]="editarContratoForm"
+      (buscarCliente)="getCliente($event)"
+      (buscarClienteEhVincular)="getClienteEhVincular($event)"
+      (removeCnpjAssociado)="removerCnpj($event)"
+      (sendCnpjAssociado)="adicionarCampoVincularCnpj()">
+    </app-dados-principais-cliente>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-lg-6">
+    <app-contato-cliente
+      [contatoControl]="editarContratoForm.get('contato')"
+      [clienteEncontrado]="cliente$">
+    </app-contato-cliente>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-lg-6">
+    <app-endereco-cliente
+      [enderecoControl]="editarContratoForm.get('endereco')"
+      [clienteEncontrado]="cliente$">
+    </app-endereco-cliente>
+  </div>
+
+  <div class="col-12">
+    <app-detalhes-contrato
+      [contratoControl]="editarContratoForm">
+    </app-detalhes-contrato>
+  </div>
+
+  <div formArrayName="propostas">
+    <div *ngFor="let proposta of propostas.controls; let i = index">
+
+      <div class="col-12">
+        <app-form-equip
+          [indexProposta]="i"
+          [contrato]="editarContratoForm"
+          [equipamento]="equipamento"
+          [isNovoContrato]="false"
+          [indexEquipamento]="indexEquipamento"
+          (sendEquipamento)="addEquipamento($event)"
+          (editEquipamento)="editarEquipamento($event)">
+        </app-form-equip>
+      </div>
+
+      <div class="col-12">
+        <app-relacao-equipamentos
+          [indexProposta]="i"
+          [contrato]="editarContratoForm"
+          [formProposta]="proposta"
+          [isNovoContrato]="false"
+          [valorTotal]="valorTotalContrato"
+          [qtdEquipamentos]="qtdEquipamentos"
+          (editEquipamento)="getEquipamentoEdit($event)"
+          (removeEquipamento)="removeEquipamento($event)">
+        </app-relacao-equipamentos>
+      </div>
+
+      <div [formGroupName]="i">
+
+        <app-motivo
+          [proposta]="proposta"
+          [showMotivo]="showMotivo">
+        </app-motivo>
+
+        <div class="col-12 mb-5">
+          <app-encerramento
+            [contrato]="editarContratoForm"
+            [proposta]="proposta"
+            (showMotivo)="collapseMotivo()"
+            (encerrarContrato)="encerrarContrato(editarContratoForm.value)">
+          </app-encerramento>
+        </div>
+
+        <div class="col-12">
+          <ba-card>
+            <div class="row">
+
+              <div class="col-md-6 col-sm-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-with-icon p-2"
+                  [disabled]="!proposta.get('descricao').valid"
+                  (click)="atualizarContrato(editarContratoForm.value)">
+                  <i class="ion-android-checkmark-circle"></i>
+                  Editar
+                </button>
+              </div>
+
+              <div class="col-md-6 col-sm-12">
+                <button
+                  type="reset"
+                  class="btn btn-danger btn-with-icon p-2"
+                  [routerLink]="['/pages/administrativo/gerenciar']">
+                  <i class="fa fa-trash"></i>
+                  Voltar
+                </button>
+              </div>
+
+            </div>
+          </ba-card>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+

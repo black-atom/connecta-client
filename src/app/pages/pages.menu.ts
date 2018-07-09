@@ -176,6 +176,15 @@ export const PAGES_MENU = [{
         }
       },
       {
+        path: 'associar-map',
+        data: {
+          menu: {
+            title: 'Associar Map',
+            icon: 'ion-locate'
+          }
+        }
+      },
+      {
         path: 'gerenciar',
         data: {
           menu: {

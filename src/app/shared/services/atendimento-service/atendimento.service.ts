@@ -83,5 +83,14 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
+  associarAtendimento(idAtendimento, tecnico) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers });
+
+    return this._http.post(`${environment.API_ENDPOINT}/api/atendimentos-associar/${idAtendimento}`, { tecnico }, options)
+                     .map((res) => res.json() as Atendimento)
+                     .catch(ManipuladorErro.lidaComErro);
+  }
+
 }
 

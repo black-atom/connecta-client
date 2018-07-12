@@ -1,6 +1,46 @@
 <ba-card cardTitle="produto">
   <div class="row">
 
+    <div class="form-group col-12">
+      <label for="pesquisa">Pesquise os Produto</label>
+      <input id="pesquisa" type="text" class="form-control mb-3" (keydown)="loadProdutosLazy($event.target.value)"/>
+    </div>
+
+    <div class="form-group col-12">
+      <!-- <h5 class="text-center mt-5" *ngIf="!produtos$ | async">Pesquise o produto!</h5>
+      <h5 class="text-center mt-5" *ngIf="(produtos)?.length === 0">Nenhum produto encontrado!</h5> -->
+    </div>
+
+    <div class="form-group col-12" >
+      <div class="list-group list-group-flush small scrollbar" id="style-1">
+
+        <div *ngFor="let produto of produtos$ | async">
+          <div class="list-group-item list-group-item-action text-truncate" id="list-group-custom">
+            <img class="d-flex mr-3" [src]="produto?.imagemURL || 'assets/img/image.png'" width="45" height="45" alt="">
+            <div class="media">
+              <div class="media-body">
+                <strong>{{ produto?.descricao }} - {{ produto?.modelo }}</strong>
+                <p><small>{{ produto?.marca }}</small></p>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="produto?.categoria">{{ produto?.categoria }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group col-8"></div>
+
+  </div>
+</ba-card>
+
+
+   <!--
+
+      <ba-card cardTitle="produto">
+  <div class="row">
+
     <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-4" [formGroup]="formPesquisa">
       <label for="pesquisa">Pesquise os Produto</label>
       <input id="pesquisa" type="text" formControlName="pesquisaControl" class="form-control mb-3"/>
@@ -252,3 +292,11 @@
   </div>
 </ba-card>
 
+
+
+
+
+
+
+</div>
+  </div> -->

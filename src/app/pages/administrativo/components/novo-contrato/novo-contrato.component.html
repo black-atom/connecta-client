@@ -1,36 +1,26 @@
-<!-- <pre>{{ novoContratoForm.value | json }}</pre> -->
-
+<pre>{{ novoContratoForm.value | json }}</pre>
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
     <app-dados-principais-cliente
       [parentForm]="novoContratoForm"
       (buscarCliente)="getCliente($event)"
-      (buscarClienteEhVincular)="getClienteEhVincular($event)"
-      (removeCnpjAssociado)="removerCnpj($event)"
-      (sendCnpjAssociado)="adicionarCampoVincularCnpj()">
+      (actionsForm)="actionsForm($event)">
     </app-dados-principais-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-contato-cliente
-      [contatoControl]="novoContratoForm.get('contato')"
-      [clienteEncontrado]="cliente$">
-    </app-contato-cliente>
+    <app-contato-cliente [contatoControl]="novoContratoForm.get('contato')"></app-contato-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-endereco-cliente
-      [enderecoControl]="novoContratoForm.get('endereco')"
-      [clienteEncontrado]="cliente$">
-    </app-endereco-cliente>
+    <app-endereco-cliente [enderecoControl]="novoContratoForm.get('endereco')"></app-endereco-cliente>
   </div>
 
   <div class="col-12">
-    <app-detalhes-contrato
-      [contratoControl]="novoContratoForm">
-    </app-detalhes-contrato>
+    <app-detalhes-contrato [contratoControl]="novoContratoForm"></app-detalhes-contrato>
   </div>
+
 
   <div formArrayName="propostas">
     <div *ngFor="let proposta of propostas.controls; let i = index">
@@ -41,29 +31,25 @@
           [equipamento]="equipamento"
           [contrato]="novoContratoForm"
           [isNovoContrato]="true"
-          [indexEquipamento]="indexEquipamento"
-          (sendEquipamento)="addEquipamento($event)"
-          (editEquipamento)="editarEquipamento($event)">
+          [indexEquipamento]="indexEquipamento">
         </app-form-equip>
       </div>
 
-      <div class="col-12">
+      <!-- <div class="col-12">
         <app-relacao-equipamentos
           [indexProposta]="i"
           [contrato]="novoContratoForm"
           [isNovoContrato]="true"
           [formProposta]="proposta"
           [valorTotal]="valorTotalContrato"
-          [qtdEquipamentos]="qtdEquipamentos"
-          (editEquipamento)="getEquipamentoEdit($event)"
-          (removeEquipamento)="removeEquipamento($event)">
+          [qtdEquipamentos]="qtdEquipamentos">
         </app-relacao-equipamentos>
-      </div>
+      </div> -->
 
     </div>
   </div>
 
-  <div class="col-12">
+  <!-- <div class="col-12">
     <ba-card>
       <div class="row">
 
@@ -71,8 +57,7 @@
           <button
             type="submit"
             class="btn btn-primary btn-with-icon p-2"
-            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
-            (click)="cadastrarContrato()">
+            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0">
             <i class="ion-android-checkmark-circle"></i>
             Cadastrar
           </button>
@@ -82,8 +67,7 @@
           <button
             type="reset"
             class="btn btn-danger btn-with-icon p-2"
-            [disabled]="novoContratoForm.pristine"
-            (click)="resetForm()">
+            [disabled]="novoContratoForm.pristine">
             <i class="fa fa-trash"></i>
             Limpar
           </button>
@@ -91,7 +75,6 @@
 
       </div>
     </ba-card>
-  </div>
-
+  </div> -->
 </div>
 

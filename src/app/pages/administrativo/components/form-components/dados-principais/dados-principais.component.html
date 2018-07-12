@@ -1,36 +1,31 @@
-<ba-card cardTitle="Dados principais" >
+<ba-card cardTitle="Dados principais">
   <div class="row" [formGroup]="parentForm.get('cliente')">
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
-      [class.has-success]="parentForm.get('cliente.cnpj_cpf').valid">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="parentForm.get('cliente.cnpj_cpf').valid">
       <label for="cnpj_cpf">CNPJ ou CPF</label>
-      <input type="text" [textMask]="{mask: mask}" formControlName="cnpj_cpf" class="form-control" (change)="pesquisarCliente(parentForm.get('cliente').value.cnpj_cpf)" id="cnpj_cpf">
+      <input type="text" [textMask]="{mask: mask}" formControlName="cnpj_cpf" class="form-control" (change)="pesquisarCliente($event.target.value, 'principal', null)" id="cnpj_cpf">
     </div>
 
-    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
-      [class.has-success]="parentForm.get('cliente.nome_razao_social').value">
+    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="parentForm.get('cliente.nome_razao_social')?.value">
       <label for="nome_razao_social">Razão social ou nome</label>
-      <input type="text" class="form-control" disabled formControlName="nome_razao_social" id="nome_razao_social">
+      <input type="text" class="form-control" readonly="true" formControlName="nome_razao_social" id="nome_razao_social">
     </div>
 
-    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
-      [class.has-success]="parentForm.get('cliente.inscricao_estadual').value">
+    <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="parentForm.get('cliente.inscricao_estadual')?.value">
       <label for="inscricao_estadual">Inscrição estadual</label>
-      <input type="text" class="form-control" disabled formControlName="inscricao_estadual" id="inscricao_estadual">
+      <input type="text" class="form-control" readonly="true" formControlName="inscricao_estadual" id="inscricao_estadual">
     </div>
 
-    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
-      [class.has-success]="parentForm.get('cliente.nome_fantasia').value">
+    <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="parentForm.get('cliente.nome_fantasia').value">
       <label for="nome_fantasia">Nome fantasia</label>
-      <input type="text" class="form-control" disabled formControlName="nome_fantasia" id="nome_fantasia">
+      <input type="text" class="form-control" readonly="true" formControlName="nome_fantasia" id="nome_fantasia">
     </div>
+
 
     <div class="col-12">
       <div class="row justify-content-end">
         <div class="col-md-8 col-sm-12 col-xs-12 col-lg-3">
-          <button class="btn btn-success"
-            (click)="vincularCnpj()"
-            [disabled]="!parentForm.get('cliente.nome_razao_social').value">
+          <button class="btn btn-success" (click)="actionFormEvent('add')" [disabled]="!parentForm.get('cliente.nome_razao_social')?.value">
             <i class="fa fa-plus"></i>
             Vincular CNPJ
           </button>
@@ -40,7 +35,7 @@
 
   </div>
 
-  <div class="row" *ngIf="(parentForm.controls['cnpjAssociados'].value).length > 0">
+  <div class="row" *ngIf="(parentForm.controls['cnpjAssociados']?.value).length > 0">
     <div class="col-12">
       <h6 class="card-title">cnpj vinculados</h6>
       <hr>
@@ -51,36 +46,28 @@
     <div formArrayName="cnpjAssociados" *ngFor="let cnpj of parentForm.controls['cnpjAssociados'].controls; let i = index">
       <div class="row" formGroupName="{{ i }}">
 
-        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
-          [class.has-success]="cnpj.value.cnpj_cpf">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.cnpj_cpf">
           <label>CNPJ ou CPF</label>
-          <input type="text" class="form-control" [textMask]="{mask: mask}" formControlName="cnpj_cpf" (change)="pesquisarClienteEhVincular(i, cnpj.value.cnpj_cpf)">
+          <input type="text" class="form-control" [textMask]="{mask: mask}" formControlName="cnpj_cpf" (change)="pesquisarCliente($event.target.value, 'associar', i)">
         </div>
 
-        <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3"
-          [class.has-success]="cnpj.value.nome_razao_social">
+        <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.nome_razao_social">
           <label>Razão social ou nome</label>
-          <input type="text" class="form-control" disabled formControlName="nome_razao_social">
+          <input type="text" class="form-control" readonly="true" formControlName="nome_razao_social">
         </div>
 
-        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3"
-          [class.has-success]="cnpj.value.inscricao_estadual">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.inscricao_estadual">
           <label>Inscrição estadual</label>
-          <input type="text" class="form-control" disabled formControlName="inscricao_estadual">
+          <input type="text" class="form-control" readonly="true" formControlName="inscricao_estadual">
         </div>
 
         <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3 mt-3">
-          <button class="btn btn-danger p-2"
-            (click)="removerCnpj()">
-            <i class="fa fa-trash"></i>
-            Remover
-          </button>
+          <button class="btn btn-danger p-2" (click)="actionFormEvent('remove', i)"><i class="fa fa-trash"></i> Remover</button>
         </div>
 
       </div>
 
     </div>
   </div>
+
 </ba-card>
-
-

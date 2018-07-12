@@ -1,5 +1,5 @@
 <!-- <pre>{{ editarContratoForm.value | json }}</pre> -->
-
+<!--
 <div class="row" [formGroup]="editarContratoForm">
 
   <div class="col-12">
@@ -13,17 +13,11 @@
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-contato-cliente
-      [contatoControl]="editarContratoForm.get('contato')"
-      [clienteEncontrado]="cliente$">
-    </app-contato-cliente>
+    <app-contato-cliente [contatoControl]="editarContratoForm.get('contato')"></app-contato-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-endereco-cliente
-      [enderecoControl]="editarContratoForm.get('endereco')"
-      [clienteEncontrado]="cliente$">
-    </app-endereco-cliente>
+    <app-endereco-cliente [enderecoControl]="editarContratoForm.get('endereco')"></app-endereco-cliente>
   </div>
 
   <div class="col-12">
@@ -113,4 +107,4 @@
 </div>
 
 
-
+ -->

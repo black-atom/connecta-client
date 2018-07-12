@@ -162,13 +162,11 @@ export class NovoContratoComponent implements OnInit {
     cnpjAssociados.removeAt(index);
   }
 
-  // addEquipamento({ equipamento, indexProposta: index }) {
-  //   const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-  //   equipamentos.push(this.equipamentoForm());
-  //   this.calculaValorTotalContrato(index, equipamentos.value);
-  //   (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
-  //   this.qtdEquipamentos = equipamentos.value.length;
-  // }
+  addEquipamento = ({ equipamento, indexProposta: index }) => {
+    const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    equipamentos.push(new FormGroup(equipamento));
+    (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
+  }
 
   // editarEquipamento({ equipamento, indexEquipamento, indexProposta: index }) {
   //   const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;

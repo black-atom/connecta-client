@@ -20,16 +20,7 @@ export class EquipamentoFormComponent implements OnInit {
   public contrato: FormGroup;
 
   @Input()
-  public equipamento;
-
-  @Input()
-  public indexProposta: number;
-
-  @Input()
   public indexEquipamento: number;
-
-  @Input()
-  public isNovoContrato;
 
   @Output()
   editEquipamento = new EventEmitter();
@@ -50,16 +41,16 @@ export class EquipamentoFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private cepService: CepService,
+    private cepService: CepService,
     private produtoService: ProdutoService,
-    // private notificacaoService: NotificacaoService,
+    private notificacaoService: NotificacaoService,
     // private modalService: NgbModal
   ) { }
 
   ngOnInit() {
     // this.buttonEditar = false;
     // this.equipamentoSelecionado = false;
-    // this.equipamentoForm();
+    this.equipamentoForm();
     // this.atualizaProdutosLazy();
     this.getProdutos();
   }
@@ -79,13 +70,11 @@ export class EquipamentoFormComponent implements OnInit {
   }
 
 
-  // salvarEquipamento() {
-  //   const indexProposta = this.indexProposta;
-  //   const equipamento = this.formEquipamento.value;
-  //   this.sendEquipamento.emit({ equipamento, indexProposta });
-  //   this.resetForm();
-  //   this.notificarAdicionadoSucesso();
-  // }
+  salvarEquipamento(equipamento) {
+    this.sendEquipamento.emit({ equipamento, indexProposta: 0 });
+    this.resetForm();
+    this.notificarAdicionadoSucesso();
+  }
 
   // editarEquipamento(equipamento) {
   //   this.buttonEditar = false;
@@ -99,36 +88,34 @@ export class EquipamentoFormComponent implements OnInit {
   //   this.notificarEditadoSucesso();
   // }
 
-  // resetForm() {
-  //   this.equipamentoForm();
-  //   this.buttonEditar = false;
-  //   this.equipamentoSelecionado = false;
-  // }
+  resetForm() {
+    this.equipamentoForm();
+    this.buttonEditar = false;
+  }
 
-  // selecionarEquipamento(equipamento: Produto): void {
-  //   this.formEquipamento.get('descricao').patchValue(equipamento.descricao);
-  //   this.formEquipamento.get('categoria').patchValue(equipamento.categoria);
-  //   this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
-  //   this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
-  //   this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
-  //   this.formEquipamento.markAsDirty();
-  //   this.equipamentoSelecionado = true;
-  // }
+  selecionarEquipamento(equipamento: Produto): void {
+    this.formEquipamento.get('descricao').patchValue(equipamento.descricao);
+    this.formEquipamento.get('categoria').patchValue(equipamento.categoria);
+    this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
+    this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
+    this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
+    this.formEquipamento.markAsDirty();
+  }
 
-  // buscaPorCep(cep: string): void {
-  //   const enderecoForm = this.formEquipamento.get('endereco') as FormGroup;
-  //   const cepIsValid = removeMaskFromProp('cep')(enderecoForm.value);
-  //   if (cepIsValid.length === 8) {
-  //     this.cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
-  //       if (dados) {
-  //         enderecoForm.get('rua').patchValue(dados.logradouro);
-  //         enderecoForm.get('bairro').patchValue(dados.bairro);
-  //         enderecoForm.get('cidade').patchValue(dados.localidade);
-  //         enderecoForm.get('uf').patchValue(dados.uf);
-  //       }
-  //     });
-  //   }
-  // }
+  buscaPorCep(cep: string): void {
+    const enderecoForm = this.formEquipamento.get('endereco') as FormGroup;
+    const cepIsValid = removeMaskFromProp('cep')(enderecoForm.value);
+    if (cepIsValid.length === 8) {
+      this.cepService.obterInfoEndereco(cep).subscribe((dados: DadosEndereco) => {
+        if (dados) {
+          enderecoForm.get('rua').patchValue(dados.logradouro);
+          enderecoForm.get('bairro').patchValue(dados.bairro);
+          enderecoForm.get('cidade').patchValue(dados.localidade);
+          enderecoForm.get('uf').patchValue(dados.uf);
+        }
+      });
+    }
+  }
 
   // filterTodosClientes(): Cliente[] {
   //   const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
@@ -142,33 +129,33 @@ export class EquipamentoFormComponent implements OnInit {
   //   return nomeCliente.nome_razao_social;
   // }
 
-  // equipamentoForm(): void {
-  //   this.formEquipamento = this.fb.group({
-  //     descricao: ['', Validators.required],
-  //     categoria: ['', Validators.required],
-  //     modelo: ['', Validators.required],
-  //     fabricante: ['', Validators.required],
-  //     visita: ['', Validators.required],
-  //     valor: ['', Validators.required],
-  //     numeroSerie: '',
-  //     imagemPath: '',
-  //     cnpjCliente: ['', Validators.required],
-  //     endereco: this.fb.group({
-  //       cep: [''],
-  //       rua: [''],
-  //       bairro: [''],
-  //       numero: [''],
-  //       cidade: [''],
-  //       complemento: [''],
-  //       uf: [''],
-  //       ponto_referencia: ['']
-  //     })
-  //   });
-  // }
+  equipamentoForm(): void {
+    this.formEquipamento = this.fb.group({
+      descricao: ['', Validators.required],
+      categoria: ['', Validators.required],
+      modelo: ['', Validators.required],
+      fabricante: ['', Validators.required],
+      visita: ['', Validators.required],
+      valor: ['', Validators.required],
+      numeroSerie: '',
+      imagemPath: '',
+      cnpjCliente: ['', Validators.required],
+      endereco: this.fb.group({
+        cep: [''],
+        rua: [''],
+        bairro: [''],
+        numero: [''],
+        cidade: [''],
+        complemento: [''],
+        uf: [''],
+        ponto_referencia: ['']
+      })
+    });
+  }
 
-  // notificarAdicionadoSucesso() {
-  //   this.notificacaoService.notificarSucesso('Produto adicionado com sucesso!', '');
-  // }
+  notificarAdicionadoSucesso() {
+    this.notificacaoService.notificarSucesso('Produto adicionado com sucesso!', '');
+  }
 
   // notificarCepNaoEncontrado() {
   //   this.notificacaoService.notificarAviso('O Cep não encontrado!', 'Tente novamento.');

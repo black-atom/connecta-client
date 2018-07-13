@@ -15,7 +15,7 @@ import { Cliente } from 'app/models';
 })
 export class NovoContratoComponent implements OnInit {
 
-  public equipamento;
+  public equipamento = null;
   public qtdEquipamentos;
   public valorTotalContrato;
   public indexEquipamento;
@@ -162,58 +162,56 @@ export class NovoContratoComponent implements OnInit {
     cnpjAssociados.removeAt(index);
   }
 
-  addEquipamento = ({ equipamento, indexProposta: index }) => {
+
+  actionsEquipamentoForm({ equipamento, type, indexProposta }) {
+    return type === 'add' ? this.addEquipamento(equipamento) : this.editarEquipamento(equipamento);
+  }
+
+  addEquipamento = (equipamento, index = 0) => {
+    const equipamentoAlterado = equipamento;
+    delete equipamentoAlterado.indexEquipamento;
+
     const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-    equipamentos.push(new FormGroup(equipamento));
+    equipamentos.push(this.fb.group(equipamentoAlterado));
     (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
   }
 
-  // editarEquipamento({ equipamento, indexEquipamento, indexProposta: index }) {
-  //   const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-  //   equipamentos.at(indexEquipamento).patchValue(equipamento);
-  //   this.calculaValorTotalContrato(index, equipamentos.value);
-  //   (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
-  //   this.qtdEquipamentos = equipamentos.value.length;
-  // }
+  actionsEquipamento({ indexEquipamento = null, type, equipamento }) {
+    if (type === 'remove') {
+      return this.removeEquipamento(indexEquipamento);
+    }
+    return this.getEquipamentoEdit({ indexEquipamento, ...equipamento });
+  }
 
-  // removeEquipamento({ indexEquipamento, indexProposta: index }) {
-  //   const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
-  //   equipamentos.removeAt(indexEquipamento);
-  //   this.calculaValorTotalContrato(index, equipamentos.value);
-  //   (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
-  //   this.qtdEquipamentos = equipamentos.value.length;
-  // }
+  editarEquipamento(equipamento, indexProposta = 0 ) {
+    const equipamentos = (<FormArray>this.propostas.at(indexProposta).get('equipamentos')) as FormArray;
+    equipamentos.at(equipamento.indexEquipamento).patchValue(equipamento);
+  }
 
-  // getEquipamentoEdit({ equipamento, index }) {
-  //   this.equipamento = equipamento;
-  //   this.indexEquipamento = index;
-  // }
+  removeEquipamento(indexEquipamento, indexProposta = 0) {
+    const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
+    equipamentos.removeAt(indexEquipamento);
+  }
 
-  // resetForm() {
-  //   this.cnpjBuscar = '';
-  //   this.qtdEquipamentos = 0;
-  //   this.valorTotalContrato = 0;
-  //   this.initContratoForm();
-  // }
+  getEquipamentoEdit = equipamento => this.equipamento = equipamento;
 
-  // calculaValorTotalContrato(index, equipamentos) {
-  //   this.valorTotalContrato = equipamentos.reduce((total, equipamento) => {
-  //     return total + equipamento.valor;
-  //   }, 0);
-  // }
+  resetForm() {
+    this.initContratoForm();
+  }
 
-  // cadastrarContrato() {
-  //   const contratoFormatado = this.replaceFieldsContrato(this.novoContratoForm.value);
-  //   this.contratoService.novoContrato(contratoFormatado)
-  //   .subscribe(
-  //     () => {},
-  //     erro => this.notificarFalhaCadastro(),
-  //       () => {
-  //         this.resetForm();
-  //         this.notificarSucesso();
-  //       }
-  //   );
-  // }
+
+  cadastrarContrato() {
+    const contratoFormatado = this.replaceFieldsContrato(this.novoContratoForm.value);
+    this.contratoService.novoContrato(contratoFormatado)
+    .subscribe(
+      () => {},
+      erro => this.notificarFalhaCadastro(),
+        () => {
+          this.resetForm();
+          this.notificarSucesso();
+        }
+    );
+  }
 
   replaceFieldsContrato(contrato) {
 

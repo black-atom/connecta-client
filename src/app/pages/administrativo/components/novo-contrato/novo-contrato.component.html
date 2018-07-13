@@ -1,4 +1,3 @@
-<pre>{{ novoContratoForm.value | json }}</pre>
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
@@ -26,25 +25,24 @@
     <div *ngFor="let proposta of propostas.controls; let i = index">
         <app-form-equip
           [contrato]="novoContratoForm"
+          [equipamento]="equipamento"
           [indexEquipamento]="indexEquipamento"
-          (sendEquipamento)="addEquipamento($event)">
+          (sendEquipamento)="actionsEquipamentoForm($event)">
         </app-form-equip>
 
-      <!-- <div class="col-12">
+      <div class="col-12">
         <app-relacao-equipamentos
           [indexProposta]="i"
           [contrato]="novoContratoForm"
-          [isNovoContrato]="true"
-          [formProposta]="proposta"
-          [valorTotal]="valorTotalContrato"
-          [qtdEquipamentos]="qtdEquipamentos">
+          [formProposta]="proposta.value.equipamentos"
+          (actionEquipamento)="actionsEquipamento($event)">
         </app-relacao-equipamentos>
-      </div> -->
+      </div>
 
     </div>
   </div>
 
-  <!-- <div class="col-12">
+  <div class="col-12">
     <ba-card>
       <div class="row">
 
@@ -52,7 +50,8 @@
           <button
             type="submit"
             class="btn btn-primary btn-with-icon p-2"
-            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0">
+            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
+            (click)="cadastrarContrato()">
             <i class="ion-android-checkmark-circle"></i>
             Cadastrar
           </button>
@@ -62,7 +61,8 @@
           <button
             type="reset"
             class="btn btn-danger btn-with-icon p-2"
-            [disabled]="novoContratoForm.pristine">
+            [disabled]="novoContratoForm.pristine"
+            (click)="resetForm()">
             <i class="fa fa-trash"></i>
             Limpar
           </button>
@@ -70,6 +70,6 @@
 
       </div>
     </ba-card>
-  </div> -->
+  </div>
 </div>
 

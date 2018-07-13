@@ -1,23 +1,44 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  OnChanges,
+  EventEmitter
+} from '@angular/core';
+import {
+  Validators,
+  FormGroup,
+  FormBuilder,
+  FormControl
+} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProdutoService, CepService, NotificacaoService } from 'app/shared/services';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 
-import { DadosEndereco, Produto, Cliente } from 'app/models';
-import { ModalEdicaoComponent } from '../modal-edicao/modal-edicao.component';
+import {
+  ProdutoService,
+  CepService,
+  NotificacaoService
+} from 'app/shared/services';
+
+import {
+  DadosEndereco,
+  Produto,
+  Cliente
+} from 'app/models';
 
 @Component({
   selector: 'app-form-equip',
   templateUrl: './equipamento-form.component.html',
   styleUrls: ['./equipamento-form.component.scss']
 })
-export class EquipamentoFormComponent implements OnInit {
+export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   @Input()
   public contrato: FormGroup;
+
+  @Input() equipamento;
 
   @Input()
   public indexEquipamento: number;
@@ -30,12 +51,7 @@ export class EquipamentoFormComponent implements OnInit {
 
   public produtos$: Observable<any[]>;
   public formEquipamento: FormGroup;
-  public formPesquisa: FormGroup;
-  public pesquisaControl: FormControl;
-  public carregando: boolean = true;
-  public primeiroGet: boolean = true;
   public buttonEditar: boolean = false;
-  public equipamentoSelecionado: boolean = false;
   public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
 
@@ -44,17 +60,21 @@ export class EquipamentoFormComponent implements OnInit {
     private cepService: CepService,
     private produtoService: ProdutoService,
     private notificacaoService: NotificacaoService,
-    // private modalService: NgbModal
   ) { }
 
   ngOnInit() {
-    // this.buttonEditar = false;
-    // this.equipamentoSelecionado = false;
     this.equipamentoForm();
-    // this.atualizaProdutosLazy();
     this.getProdutos();
   }
 
+  ngOnChanges(changes) {
+    this.equipamentoForm();
+    const equipamento = changes.equipamento.currentValue;
+    if (equipamento) {
+      this.buttonEditar = true;
+      this.formEquipamento.patchValue(equipamento);
+    }
+  }
 
   loadProdutosLazy = (event) => {
     const query = { descricao: event };
@@ -69,24 +89,23 @@ export class EquipamentoFormComponent implements OnInit {
       .map(({ produtos }) => produtos);
   }
 
+  sendEquipamentoForm(equipamento, type) {
+    return type === 'add'
+      ? this.add({ equipamento, type })
+      : this.edit({ equipamento: { ...equipamento, indexEquipamento: this.equipamento.indexEquipamento }, type });
+  }
 
-  salvarEquipamento(equipamento) {
-    this.sendEquipamento.emit({ equipamento, indexProposta: 0 });
+  add(equipamento) {
+    this.sendEquipamento.emit(equipamento);
     this.resetForm();
     this.notificarAdicionadoSucesso();
   }
 
-  // editarEquipamento(equipamento) {
-  //   this.buttonEditar = false;
-  //   this.equipamentoSelecionado = false;
-  //   this.editEquipamento.emit({
-  //     equipamento,
-  //     indexEquipamento: this.indexEquipamento,
-  //     indexProposta: this.indexProposta
-  //   });
-  //   this.resetForm();
-  //   this.notificarEditadoSucesso();
-  // }
+  edit(equipamento) {
+    this.sendEquipamento.emit(equipamento);
+    this.resetForm();
+    this.notificarEditadoSucesso();
+  }
 
   resetForm() {
     this.equipamentoForm();
@@ -117,17 +136,12 @@ export class EquipamentoFormComponent implements OnInit {
     }
   }
 
-  // filterTodosClientes(): Cliente[] {
-  //   const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
-  //   const cliente = this.contrato.get('cliente').value;
-  //   return [cliente, ...cnpjAssociados];
-  // }
-
-  // returnRazaoSocial(cnpj: string): string {
-  //   const clientesDoContrato: Cliente[] = this.filterTodosClientes();
-  //   const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
-  //   return nomeCliente.nome_razao_social;
-  // }
+  returnRazaoSocial(cnpj) {
+    const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
+    const cliente = this.contrato.get('cliente').value;
+    const clientes = [cliente, ...cnpjAssociados];
+    return clientes.find(c => c.cnpj_cpf === cnpj).nome_razao_social;
+  }
 
   equipamentoForm(): void {
     this.formEquipamento = this.fb.group({
@@ -157,36 +171,8 @@ export class EquipamentoFormComponent implements OnInit {
     this.notificacaoService.notificarSucesso('Produto adicionado com sucesso!', '');
   }
 
-  // notificarCepNaoEncontrado() {
-  //   this.notificacaoService.notificarAviso('O Cep não encontrado!', 'Tente novamento.');
-  // }
-
-  // notificarEditadoSucesso() {
-  //   this.notificacaoService.notificarSucesso('Produto editado com sucesso!', '');
-  // }
-
-  // pathMotivo(equipamento) {
-  //   this.formEquipamento.value.patchValue(equipamento);
-  // }
-
-  // openModalEdicao(equipamento) {
-  //   switch (this.isNovoContrato) {
-  //     case false:
-  //       const referenciaModal = this.modalService.open(
-  //         ModalEdicaoComponent
-  //       );
-  //       referenciaModal.componentInstance.equipamento = equipamento;
-  //       referenciaModal.componentInstance.showEncerradoEm = false;
-  //       referenciaModal.result.then(resultadoDaModal => {
-  //         if (resultadoDaModal) {
-  //           this.editarEquipamento(resultadoDaModal);
-  //         }
-  //       }).catch(error => error);
-  //       break;
-  //     case true: {
-  //       this.editarEquipamento(this.formEquipamento.value);
-  //     }
-  //   }
-  // }
+  notificarEditadoSucesso() {
+    this.notificacaoService.notificarSucesso('Produto editado com sucesso!', '');
+  }
 
 }

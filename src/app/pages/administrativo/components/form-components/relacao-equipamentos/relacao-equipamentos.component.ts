@@ -19,9 +19,6 @@ export class RelacaoEquipamentosComponent implements OnInit {
   formProposta = [];
 
   @Input()
-  indexProposta: number;
-
-  @Input()
   qtdEquipamentos: number;
 
   @Output()
@@ -30,13 +27,9 @@ export class RelacaoEquipamentosComponent implements OnInit {
   @Output()
   removeEquipamento = new EventEmitter();
 
-  constructor(
-    private modalService: NgbModal
-  ) { }
-
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() { }
-
 
   returnRazaoSocial(cnpj) {
     const cnpjAssociados = this.contrato.get('cnpjAssociados').value;

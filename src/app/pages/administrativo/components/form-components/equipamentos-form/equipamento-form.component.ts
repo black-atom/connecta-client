@@ -40,20 +40,19 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
 
   @Input() equipamento;
 
-  @Input()
-  public indexEquipamento: number;
-
   @Output()
   editEquipamento = new EventEmitter();
 
   @Output()
   sendEquipamento = new EventEmitter();
 
+  @Input()
+  novoContrato;
+
   public produtos$: Observable<any[]>;
   public formEquipamento: FormGroup;
   public buttonEditar: boolean = false;
   public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
-
 
   constructor(
     private fb: FormBuilder,
@@ -72,6 +71,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     const equipamento = changes.equipamento.currentValue;
     if (equipamento) {
       this.buttonEditar = true;
+      this.formEquipamento.get('motivo').enable();
       this.formEquipamento.patchValue(equipamento);
     }
   }
@@ -154,6 +154,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
       numeroSerie: '',
       imagemPath: '',
       cnpjCliente: ['', Validators.required],
+      motivo: [''],
       endereco: this.fb.group({
         cep: [''],
         rua: [''],

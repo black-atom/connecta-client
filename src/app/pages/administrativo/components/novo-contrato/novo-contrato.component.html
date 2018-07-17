@@ -1,3 +1,4 @@
+{{ novoContratoForm.value | json }}
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
@@ -26,13 +27,12 @@
         <app-form-equip
           [contrato]="novoContratoForm"
           [equipamento]="equipamento"
-          [indexEquipamento]="indexEquipamento"
+          [novoContrato]="true"
           (sendEquipamento)="actionsEquipamentoForm($event)">
         </app-form-equip>
 
       <div class="col-12">
         <app-relacao-equipamentos
-          [indexProposta]="i"
           [contrato]="novoContratoForm"
           [formProposta]="proposta.value.equipamentos"
           (actionEquipamento)="actionsEquipamento($event)">
@@ -50,7 +50,7 @@
           <button
             type="submit"
             class="btn btn-primary btn-with-icon p-2"
-            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
+            [disabled]="!novoContratoForm.valid"
             (click)="cadastrarContrato()">
             <i class="ion-android-checkmark-circle"></i>
             Cadastrar

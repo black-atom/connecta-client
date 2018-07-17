@@ -16,9 +16,7 @@ import { Cliente } from 'app/models';
 export class NovoContratoComponent implements OnInit {
 
   public equipamento = null;
-  public qtdEquipamentos;
-  public valorTotalContrato;
-  public indexEquipamento;
+  public qtdEquipamentos = 0;
   public novoContratoForm: FormGroup;
 
   constructor(
@@ -97,7 +95,7 @@ export class NovoContratoComponent implements OnInit {
 
   propostaForm = (): FormGroup => {
     return this.fb.group({
-      valor: 0,
+      valor: [0],
       equipamentos: this.fb.array([]),
       ativo: true
     });
@@ -167,13 +165,14 @@ export class NovoContratoComponent implements OnInit {
     return type === 'add' ? this.addEquipamento(equipamento) : this.editarEquipamento(equipamento);
   }
 
-  addEquipamento = (equipamento, index = 0) => {
+  addEquipamento = (equipamento) => {
     const equipamentoAlterado = equipamento;
     delete equipamentoAlterado.indexEquipamento;
 
-    const equipamentos = (<FormArray>this.propostas.at(index).get('equipamentos')) as FormArray;
+    const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
     equipamentos.push(this.fb.group(equipamentoAlterado));
-    (<FormArray>this.propostas.at(index).get('valor')).setValue(this.valorTotalContrato);
+    this.qtdEquipamentos = equipamentos.length;
+    this.propostas.at(0).get('valor').patchValue(this.valueTotal());
   }
 
   actionsEquipamento({ indexEquipamento = null, type, equipamento }) {
@@ -183,14 +182,16 @@ export class NovoContratoComponent implements OnInit {
     return this.getEquipamentoEdit({ indexEquipamento, ...equipamento });
   }
 
-  editarEquipamento(equipamento, indexProposta = 0 ) {
-    const equipamentos = (<FormArray>this.propostas.at(indexProposta).get('equipamentos')) as FormArray;
+  editarEquipamento(equipamento ) {
+    const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
     equipamentos.at(equipamento.indexEquipamento).patchValue(equipamento);
+    this.propostas.at(0).get('valor').patchValue(this.valueTotal());
   }
 
-  removeEquipamento(indexEquipamento, indexProposta = 0) {
+  removeEquipamento(indexEquipamento) {
     const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
     equipamentos.removeAt(indexEquipamento);
+    this.propostas.at(0).get('valor').patchValue(this.valueTotal());
   }
 
   getEquipamentoEdit = equipamento => this.equipamento = equipamento;
@@ -199,6 +200,15 @@ export class NovoContratoComponent implements OnInit {
     this.initContratoForm();
   }
 
+  mascaraData(rawValue: string) {
+    const value = rawValue.replace(/\D+/g, '');
+    if (value.length > 10) {
+      return [/\d/, /\d/, '/', /\d/, /\d/, '/' , /\d/, /\d/, /\d/, /\d/];
+    }
+  }
+
+  valueTotal = () =>
+    this.novoContratoForm.value.propostas[0].equipamentos.reduce((prev, { valor }) => prev + valor, 0)
 
   cadastrarContrato() {
     const contratoFormatado = this.replaceFieldsContrato(this.novoContratoForm.value);
@@ -240,7 +250,7 @@ export class NovoContratoComponent implements OnInit {
         ponto_referencia: contrato.endereco.ponto_referencia
       },
       dataAdesao: this.parseData(contrato.dataAdesao),
-      valor: this.valorTotalContrato,
+      valor: this.valueTotal(),
       diaVencimento: this.novoContratoForm.get('diaVencimento').value,
       resumoContrato: this.novoContratoForm.get('resumoContrato').value
     };

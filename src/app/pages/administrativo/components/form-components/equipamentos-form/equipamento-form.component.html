@@ -204,6 +204,14 @@
             <input type="text" formControlName="complemento" class="form-control" autocomplete="false" id="complemento">
           </div>
 
+          <div class="form-group col-md-8 col-sm-8 col-lg-7"
+            *ngIf="!novoContrato"
+            [class.has-success]="formEquipamento.get('motivo').value"
+            [formGroup]="formEquipamento">
+            <label for="motivo">Motivo Alteração</label>
+            <input type="text" formControlName="motivo" class="form-control" autocomplete="false" id="motivo">
+          </div>
+
            <div class="col-md-6 col-sm-6 col-lg-4">
             <button
               class="btn btn-success mt-4 p-2"
@@ -216,7 +224,7 @@
             <button
               class="btn btn-outline-success mt-4 p-2"
               *ngIf="buttonEditar"
-              [disabled]="!formEquipamento.valid"
+              [disabled]="formEquipamento.value.motivo === '' && !novoContrato"
               (click)="sendEquipamentoForm(formEquipamento.value, 'edit')">
               <i class="fa fa-edit"></i>
               Editar Produto

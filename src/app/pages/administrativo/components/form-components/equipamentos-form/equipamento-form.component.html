@@ -1,4 +1,4 @@
-<ba-card cardTitle="protuto">
+<ba-card cardTitle="produto">
   <div class="row">
 
     <div class="form-group col-md-12 col-sm-12 col-xs-12 col-lg-4" [formGroup]="formPesquisa">
@@ -33,6 +33,9 @@
             <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/image.png'" width="65" height="65" alt="" *ngIf="equipamentoSelecionado">
             <div class="p-2" *ngIf="equipamentoSelecionado">
               <h6>{{ formEquipamento.value.descricao }} - {{ formEquipamento.value.modelo }}</h6>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('cnpjCliente').value && formEquipamento.get('cnpjCliente').value">
+                {{ returnRazaoSocial(formEquipamento.value?.cnpjCliente)  }} - {{ formEquipamento.value?.cnpjCliente | rgCnpjCpf }}
+              </p>
               <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.rua').value && formEquipamento.get('endereco.numero').value">
                 {{ formEquipamento.value?.endereco?.rua + ',
                 ' + formEquipamento.value?.endereco?.numero + ',
@@ -40,6 +43,12 @@
                 ' + formEquipamento.value?.endereco?.cidade+ ' -
                 ' + formEquipamento.value?.endereco?.uf + '-
                 ' + formEquipamento.value?.endereco?.cep }}</p>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.ponto_referencia').value && formEquipamento.get('endereco.ponto_referencia').value">
+                {{ 'ponto de referência: ' + formEquipamento.value?.endereco?.ponto_referencia }}
+              </p>
+              <p class="text-uppercase" *ngIf="formEquipamento.get('endereco.complemento').value && formEquipamento.get('endereco.complemento').value">
+                {{ 'complemento: ' + formEquipamento.value?.endereco?.complemento }}
+              </p>
               <p *ngIf="equipamentoSelecionado">
                 <span class="badge badge-success p-2" *ngIf="formEquipamento.get('valor').dirty || formEquipamento?.value.valor || formEquipamento?.value.valor === 0">
                   {{ formEquipamento.value.valor | currency: 'BRL': true }}
@@ -87,6 +96,24 @@
             <input type="number" class="form-control" formControlName="valor" id="valor">
           </div>
           <span class="text-danger small" *ngIf="formEquipamento.get('valor').hasError('required') && formEquipamento.get('valor').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-12"
+          [class.has-error]="formEquipamento.get('cnpjCliente').hasError('required') && formEquipamento.get('cnpjCliente').touched"
+          [class.has-success]="formEquipamento.get('cnpjCliente').valid">
+          <label for="cnpjCliente">Cliente</label>
+          <select class="form-control" formControlName="cnpjCliente" id="cnpjCliente">
+            <option [value]="contrato.get('cliente.cnpj_cpf').value">
+              {{ contrato.get('cliente.nome_razao_social').value + ' - ' }} {{ contrato.get('cliente.cnpj_cpf').value | rgCnpjCpf }}
+            </option>
+            <option [value]="cnpj.cnpj_cpf" *ngFor="let cnpj of contrato?.get('cnpjAssociados').value">
+              {{ cnpj.nome_razao_social + ' - ' }} {{ cnpj.cnpj_cpf | rgCnpjCpf }}
+            </option>
+          </select>
+          <span class="text-danger small mt-0" *ngIf="formEquipamento.get('cnpjCliente').hasError('required') && formEquipamento.get('cnpjCliente').touched">
             <i class="fa fa-remove text-danger"></i>
             Requerido!
           </span>
@@ -195,7 +222,7 @@
             class="btn btn-outline-success mt-4 p-2"
             *ngIf="buttonEditar"
             [disabled]="!formEquipamento.valid"
-            (click)="editarEquipamento()">
+            (click)="openModalEdicao(formEquipamento.value)">
             <i class="fa fa-edit"></i>
             Editar Produto
           </button>

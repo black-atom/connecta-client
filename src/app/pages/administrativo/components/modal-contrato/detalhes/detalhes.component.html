@@ -1,0 +1,121 @@
+<div class="card m-1 p-2 mb-3" *ngIf="(contrato?.cnpjAssociados).length > 0">
+  <div class="row mb-2">
+
+    <div class="col-12 mb-3">
+      <strong>CNPJ Associados</strong>
+    </div>
+
+    <div class="col-12 mb-1" *ngFor="let cliente of contrato?.cnpjAssociados">
+      <div class="small">
+        {{ cliente?.nome_razao_social }} <span class="pull-right">{{ cliente?.cnpj_cpf | rgCnpjCpf }}</span>
+      </div>
+      <div class="text-center">
+        <a class="btn-more animated pulse pointer" (click)="changeExpanded(cliente?.cnpj_cpf)">
+          <img *ngIf="expandedRowIndex === ''" src="assets/icons/collapse.png" alt="more">
+          <img *ngIf="expandedRowIndex === cliente?.cnpj_cpf" src="assets/icons/collapse-out.png"  alt="more">
+        </a>
+      </div>
+      <div class="small" [ngbCollapse]="(expandedRowIndex !== cliente?.cnpj_cpf)">
+        <div *ngFor="let equipamento of filterEquipamentosByCnpj(cliente?.cnpj_cpf)">
+          - {{ equipamento.descricao }}
+          <span class="pull-right">{{ equipamento.valor | currency: 'BRL': true }}</span>
+        </div>
+        <div *ngIf="cliente?.cnpj_cpf">
+          <span class="pull-right">TOTAL: {{ calcTotalEquipamentos(cliente?.cnpj_cpf) | currency: 'BRL': true }}</span>
+        </div>
+      </div>
+      <hr class="mt-4 mb-2" *ngIf="(contrato?.cnpjAssociados).length > 1">
+    </div>
+
+  </div>
+</div>
+
+<div class="card m-1 p-2 mb-3">
+
+    <div class="row mb-2">
+
+      <div class="col-12">
+        <strong>Detalhes</strong>
+      </div>
+
+      <div class="col-6"  *ngIf="contrato?.dataAdesao">
+        Data Adessão: {{ contrato?.dataAdesao | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6"  *ngIf="contrato?.numeroContrato">
+        Nº do Contrato: {{ contrato?.numeroContrato }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.dataEncerramento">
+        Data Encerramento: {{ contrato?.dataEncerramento | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.diaVencimento">
+        Dia de Vencimento: {{ contrato?.diaVencimento }}
+      </div>
+
+      <div class="col-12" *ngIf="contrato?.resumoContrato">
+        Resumo do Contrato: {{ contrato?.resumoContrato }}
+      </div>
+
+    </div>
+
+    <div class="row mb-2">
+
+      <div class="col-12">
+        <strong>Endereço</strong>
+      </div>
+
+      <div class="col-12">
+        {{ contrato?.endereco.rua }},
+        {{ contrato?.endereco.numero }} -
+        {{ contrato?.endereco.bairro }},
+        {{ contrato?.endereco.cidade }},
+        {{ contrato?.endereco.uf }} -
+        {{ contrato?.endereco.cep | cep }}
+      </div>
+
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12">
+        <strong>Contato</strong>
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.dataEncerramento">
+        Data Encerramento: {{ contrato?.dataEncerramento | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.nome">
+        {{ contrato?.contato.nome }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.telefone">
+        Telefone: ({{ contrato?.contato.telefone | slice: 0:2 }})
+        {{ contrato?.contato.telefone| slice: 2:6 }} -
+        {{ contrato?.contato.telefone | slice: 6:10 }}
+      </div>
+
+      <div class="col-6 " *ngIf="contrato?.contato.celular">
+        celular: ({{ contrato?.contato.celular | slice: 0:2 }})
+        {{ contrato?.contato.celular | slice: 2:6 }} -
+        {{ contrato?.contato.celular | slice: 6:10 }}
+      </div>
+
+      <div class="col-6" *ngIf="contrato?.contato.email">
+        Email: {{ contrato?.contato.email }}
+      </div>
+    </div>
+</div>
+
+<div class="row card m-1 p-2">
+  <div class="row">
+    <div class="col-12">
+      <strong class="mb-4 text-center">Produtos</strong>
+      <app-equipamentos-modal
+        [contrato]="contrato"
+        [equipamentos]="equipamentos">
+      </app-equipamentos-modal>
+    </div>
+  </div>
+</div>

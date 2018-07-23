@@ -8,7 +8,7 @@ import { DetalhesAtendimentoComponent } from './components/detalhes-atendimento'
 import { DadosInteracaoAppComponent } from './components/dados-interacao-app/dados-interacao-app.component';
 import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.guard';
 import { AtendimentosConcluidosComponent } from './components/atendimentos-concluidos/atendimentos-concluidos.component';
-
+import { AssociarMapComponent } from './components/associar-map';
 
 const routes: Routes = [
   {
@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'gerenciar-concluidos', component: AtendimentosConcluidosComponent },
       { path: 'detalhes/:id', component: DetalhesAtendimentoComponent,  canDeactivate: [FormCanDeactivateGuard] },
       { path: 'dados-app/:id', component: DadosInteracaoAppComponent },
+      { path: 'associar-map', component: AssociarMapComponent }
     ]
   }
 ];

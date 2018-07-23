@@ -1,0 +1,76 @@
+<ba-card cardTitle="inativar contrato" [formGroup]="proposta">
+  <div class="row">
+
+    <div class="col-12" *ngIf="showCard">
+      <div class="row">
+
+        <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6"
+          [class.has-error]="proposta?.get('descricao').hasError('required') && proposta?.get('descricao').touched"
+          [class.has-success]="proposta?.get('descricao').valid">
+          <label class="control-label" for="descricao">Descrição</label>
+          <textarea class="form-control" formControlName="descricao" rows="15" id="descricao"></textarea>
+          <span class="text-danger small mt-0" *ngIf="proposta?.get('descricao').hasError('required') && proposta?.get('descricao').touched">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4" [formGroup]="contrato"
+          [class.has-error]="contrato?.get('dataEncerramento').touched && !contrato?.get('dataEncerramento').value"
+          [class.has-success]="contrato?.get('dataEncerramento').valid">
+          <label for="param_busca">Data de Encerramento</label>
+          <div class="input-group">
+            <input class="form-control p-2" formControlName="dataEncerramento" name="dp" ngbDatepicker #a="ngbDatepicker" name="busca_data" id="param_busca">
+            <button class="input-group-addon p-2" (click)="a.toggle()" type="button">
+              <i class="ion-calendar"></i>
+            </button>
+          </div>
+          <span class="text-danger small mt-0" *ngIf="contrato?.get('dataEncerramento').touched && !contrato?.get('dataEncerramento').value">
+            <i class="fa fa-remove text-danger"></i>
+            Requerido!
+          </span>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+          <button class="btn btn-danger text-center mt-4 p-2"
+            (click)="openModal(content)"
+            [disabled]="!contrato.get('dataEncerramento').valid || !proposta.get('descricao').valid">
+            INATIVAR
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <button class="btn btn-danger p-2"
+        *ngIf="!showCard"
+        (click)="collapseCard()">
+        INATIVAR CONTRATO
+      </button>
+      <button class="btn btn-info mt-4 p-2"
+        *ngIf="showCard"
+        (click)="collapseCard()">
+        CANCELAR
+      </button>
+    </div>
+
+  </div>
+
+</ba-card>
+
+<ng-template #content let-close="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Inativar o Contrato</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mt-3">
+    Todas as informações não poderão ser mais editadas, tem certeza que deseja Encerrar o Contrato?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="inativarContrato(close)">Sim</button>
+    <button type="button" class="btn btn-danger" (click)="closeModal()" data-dismiss="modal">Não</button>
+  </div>
+</ng-template>

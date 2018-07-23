@@ -1,0 +1,15 @@
+<div class="col-12" [formGroup]="proposta" *ngIf="showMotivo">
+  <ba-card cardTitle="motivo">
+    <div class="form-group"
+      [class.has-error]="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched"
+      [class.has-success]="proposta.get('descricao').valid && proposta.get('descricao').value">
+      <label for="descricao">Adicione o motivo da alteração:</label>
+      <textarea class="form-control" formControlName="descricao" rows="8" id="descricao">
+    </textarea>
+    <span class="text-danger small" *ngIf="proposta.get('descricao').hasError('required') && proposta.get('descricao').touched">
+      <i class="fa fa-remove text-danger"></i>
+      Requerido!
+    </span>
+    </div>
+  </ba-card>
+</div>

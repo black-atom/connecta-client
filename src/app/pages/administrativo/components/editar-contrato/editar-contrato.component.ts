@@ -285,6 +285,10 @@ export class EditarContratoComponent implements OnInit {
       dataEncerramento: parseDataBR(contrato.dataEncerramento),
       valor: this.valueTotal()
     };
+
+    if (contrato.dataEncerramento) {
+      return { ...contrato, ...novoContrato, ativo: false };
+    }
     return { ...contrato, ...novoContrato };
   }
 

@@ -35,7 +35,12 @@ export class RelacaoEquipamentosComponent implements OnInit {
     const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
     const cliente = this.contrato.get('cliente').value;
     const clientes = [cliente, ...cnpjAssociados];
-    return clientes.find(c => c.cnpj_cpf === cnpj).nome_razao_social;
+
+    const razaoSocial = clientes.find(c => c.cnpj_cpf === cnpj)
+      ? clientes.find(c => c.cnpj_cpf === cnpj).nome_razao_social
+      : '';
+
+    return razaoSocial;
   }
 
   actionsEquipamento = (indexEquipamento, type, equipamento = {}) =>

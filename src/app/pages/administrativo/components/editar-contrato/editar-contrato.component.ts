@@ -282,12 +282,12 @@ export class EditarContratoComponent implements OnInit {
         ponto_referencia: contrato.endereco.ponto_referencia
       },
       dataAdesao: this.parseData(contrato.dataAdesao),
-      dataEncerramento: parseDataBR(contrato.dataEncerramento),
+      dataEncerramento: '',
       valor: this.valueTotal()
     };
 
     if (contrato.dataEncerramento) {
-      return { ...contrato, ...novoContrato, ativo: false };
+      return { ...contrato, ...novoContrato, ativo: false, dataEncerramento: parseDataBR(contrato.dataEncerramento) };
     }
     return { ...contrato, ...novoContrato };
   }

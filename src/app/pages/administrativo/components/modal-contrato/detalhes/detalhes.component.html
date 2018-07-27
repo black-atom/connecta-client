@@ -17,8 +17,8 @@
       </div>
       <div class="small" [ngbCollapse]="(expandedRowIndex !== cliente?.cnpj_cpf)">
         <div *ngFor="let equipamento of filterEquipamentosByCnpj(cliente?.cnpj_cpf)">
-          - {{ equipamento.descricao }}
-          <span class="pull-right">{{ equipamento.valor | currency: 'BRL': true }}</span>
+          - {{ equipamento?.descricao }}
+          <span class="pull-right">{{ equipamento?.valor | currency: 'BRL': true }}</span>
         </div>
         <div *ngIf="cliente?.cnpj_cpf">
           <span class="pull-right">TOTAL: {{ calcTotalEquipamentos(cliente?.cnpj_cpf) | currency: 'BRL': true }}</span>

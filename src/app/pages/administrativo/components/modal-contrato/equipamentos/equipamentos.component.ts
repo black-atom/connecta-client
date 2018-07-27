@@ -23,9 +23,10 @@ export class EquipamentosModalComponent {
   }
 
   returnRazaoSocial(cnpj: string): string {
-    const clientesDoContrato: Cliente[] = this.filterTodosClientes();
-    const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
-    return nomeCliente.nome_razao_social;
+    const clientes: Cliente[] = this.filterTodosClientes();
+    return clientes.find(c => c.cnpj_cpf === cnpj)
+    ? clientes.find(c => c.cnpj_cpf === cnpj).nome_razao_social
+    : '';
   }
 
 }

@@ -2,23 +2,23 @@
   <div class="row card m-1 mb-3">
 
     <div class="col-12 mb-3 mt-3">
-      <span *ngIf="proposta.valor" class="badge badge-success p-2">{{ proposta?.valor | currency: 'BRL': true }}</span>
-      <span *ngIf="proposta.criadoEm" class="badge badge-info p-2">início: {{ proposta.criadoEm | date: 'dd/MM/yyyy' }}</span>
-      <span *ngIf="proposta.encerradoEm" class="badge badge-info p-2">editado: {{ + proposta.encerradoEm | date: 'dd/MM/yyyy' }}</span>
-      <span *ngIf="proposta.ativo" class="badge badge-success pull-right p-2 ml-1">ATUAL</span>
-      <span *ngIf="!proposta.ativo" class="badge badge-danger pull-right p-2 ml-1">EDITADO</span>
-      <span *ngIf="proposta.equipamentos" class="badge badge-warning pull-right p-2"> Qtd. Produtos: {{ totalEquipamentos(proposta) }}</span>
+      <span *ngIf="proposta?.valor" class="badge badge-success p-2">{{ proposta?.valor | currency: 'BRL': true }}</span>
+      <span *ngIf="proposta?.criadoEm" class="badge badge-info p-2">início: {{ proposta?.criadoEm | date: 'dd/MM/yyyy' }}</span>
+      <span *ngIf="proposta?.encerradoEm" class="badge badge-info p-2">editado: {{ + proposta?.encerradoEm | date: 'dd/MM/yyyy' }}</span>
+      <span *ngIf="proposta?.ativo" class="badge badge-success pull-right p-2 ml-1">ATUAL</span>
+      <span *ngIf="!proposta?.ativo" class="badge badge-danger pull-right p-2 ml-1">EDITADO</span>
+      <span *ngIf="proposta?.equipamentos" class="badge badge-warning pull-right p-2"> Qtd. Produtos: {{ totalEquipamentos(proposta) }}</span>
     </div>
 
     <div class="col-12 border mb-3">
       <app-equipamentos-modal
         [contrato]="contrato"
-        [equipamentos]="proposta.equipamentos">
+        [equipamentos]="proposta?.equipamentos">
       </app-equipamentos-modal>
     </div>
 
     <div class="col-12">
-      <p *ngIf="proposta.descricao" class="mt-1"><strong>Motivo da edição: </strong>{{ proposta.descricao }}</p>
+      <p *ngIf="proposta?.descricao" class="mt-1"><strong>Motivo da edição: </strong>{{ proposta?.descricao }}</p>
     </div>
 
   </div>

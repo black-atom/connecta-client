@@ -6,6 +6,7 @@ export const TIPOATENDIMENTOMOCK: String[] = [
   'Contrato garantia venda',
   'Contrato locação',
   'Contrato',
+  'Correio',
   'Contrato novo',
   'Garantia externa',
   'Garantia laboratório',

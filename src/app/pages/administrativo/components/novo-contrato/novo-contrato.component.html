@@ -1,62 +1,40 @@
-<!-- <pre>{{ novoContratoForm.value | json }}</pre> -->
-
 <div class="row" [formGroup]="novoContratoForm">
 
   <div class="col-12">
     <app-dados-principais-cliente
       [parentForm]="novoContratoForm"
       (buscarCliente)="getCliente($event)"
-      (buscarClienteEhVincular)="getClienteEhVincular($event)"
-      (removeCnpjAssociado)="removerCnpj($event)"
-      (sendCnpjAssociado)="adicionarCampoVincularCnpj()">
+      (actionsForm)="actionsForm($event)">
     </app-dados-principais-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-contato-cliente
-      [contatoControl]="novoContratoForm.get('contato')"
-      [clienteEncontrado]="cliente$">
-    </app-contato-cliente>
+    <app-contato-cliente [contatoControl]="novoContratoForm.get('contato')"></app-contato-cliente>
   </div>
 
   <div class="col-md-12 col-sm-12 col-lg-6">
-    <app-endereco-cliente
-      [enderecoControl]="novoContratoForm.get('endereco')"
-      [clienteEncontrado]="cliente$">
-    </app-endereco-cliente>
+    <app-endereco-cliente [enderecoControl]="novoContratoForm.get('endereco')"></app-endereco-cliente>
   </div>
 
   <div class="col-12">
-    <app-detalhes-contrato
-      [contratoControl]="novoContratoForm">
-    </app-detalhes-contrato>
+    <app-detalhes-contrato [contratoControl]="novoContratoForm"></app-detalhes-contrato>
   </div>
 
-  <div formArrayName="propostas">
-    <div *ngFor="let proposta of propostas.controls; let i = index">
 
-      <div class="col-12">
+  <div class="col-12" formArrayName="propostas">
+    <div *ngFor="let proposta of propostas.controls; let i = index">
         <app-form-equip
-          [indexProposta]="i"
-          [equipamento]="equipamento"
           [contrato]="novoContratoForm"
-          [isNovoContrato]="true"
-          [indexEquipamento]="indexEquipamento"
-          (sendEquipamento)="addEquipamento($event)"
-          (editEquipamento)="editarEquipamento($event)">
+          [equipamento]="equipamento"
+          [novoContrato]="true"
+          (sendEquipamento)="actionsEquipamentoForm($event)">
         </app-form-equip>
-      </div>
 
       <div class="col-12">
         <app-relacao-equipamentos
-          [indexProposta]="i"
           [contrato]="novoContratoForm"
-          [isNovoContrato]="true"
-          [formProposta]="proposta"
-          [valorTotal]="valorTotalContrato"
-          [qtdEquipamentos]="qtdEquipamentos"
-          (editEquipamento)="getEquipamentoEdit($event)"
-          (removeEquipamento)="removeEquipamento($event)">
+          [formProposta]="proposta.value.equipamentos"
+          (actionEquipamento)="actionsEquipamento($event)">
         </app-relacao-equipamentos>
       </div>
 
@@ -71,7 +49,7 @@
           <button
             type="submit"
             class="btn btn-primary btn-with-icon p-2"
-            [disabled]="!novoContratoForm.valid || qtdEquipamentos === 0"
+            [disabled]="!novoContratoForm.valid"
             (click)="cadastrarContrato()">
             <i class="ion-android-checkmark-circle"></i>
             Cadastrar
@@ -92,6 +70,5 @@
       </div>
     </ba-card>
   </div>
-
 </div>
 

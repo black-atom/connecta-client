@@ -9,38 +9,24 @@ import { FormGroup } from '@angular/forms';
 export class DadosPrincipaisClienteComponent implements OnInit {
 
   @Input()
-  public parentForm: FormGroup;
+  parentForm: FormGroup;
 
   @Output()
   buscarCliente = new EventEmitter();
 
   @Output()
-  buscarClienteEhVincular = new EventEmitter();
-
-  @Output()
-  sendCnpjAssociado = new EventEmitter();
-
-  @Output()
-  removeCnpjAssociado = new EventEmitter();
+  actionsForm = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() { }
 
-  vincularCnpj() {
-    this.sendCnpjAssociado.emit();
+  actionFormEvent = (actionType, index = null) => {
+    return this.actionsForm.emit({ actionType, index });
   }
 
-  removerCnpj(cnpj) {
-    this.removeCnpjAssociado.emit(cnpj);
-  }
-
-  pesquisarCliente(cnpj) {
-    this.buscarCliente.emit(cnpj);
-  }
-
-  pesquisarClienteEhVincular(index, cnpj) {
-    this.buscarClienteEhVincular.emit({ cnpj, index });
+  pesquisarCliente = (cnpj, tipo, index = null) => {
+    return this.buscarCliente.emit({ cnpj: cnpj.replace(/\D+/g, ''), tipo, index });
   }
 
   mask(valorDaLinha: string) {

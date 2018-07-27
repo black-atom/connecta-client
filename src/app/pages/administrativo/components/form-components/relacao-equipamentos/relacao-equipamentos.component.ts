@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,71 +10,59 @@ import { ModalEdicaoComponent } from '../modal-edicao/modal-edicao.component';
   templateUrl: './relacao-equipamentos.component.html',
   styleUrls: ['./relacao-equipamentos.component.scss']
 })
-export class RelacaoEquipamentosComponent {
+export class RelacaoEquipamentosComponent implements OnInit {
 
   @Input()
   contrato: FormGroup;
 
   @Input()
-  formProposta: FormGroup;
-
-  @Input()
-  valorTotal: number;
-
-  @Input()
-  indexProposta: number;
+  formProposta = [];
 
   @Input()
   qtdEquipamentos: number;
 
-  @Input()
-  isNovoContrato: boolean;
-
   @Output()
-  editEquipamento = new EventEmitter();
+  actionEquipamento = new EventEmitter();
 
   @Output()
   removeEquipamento = new EventEmitter();
 
-  constructor(
-    private modalService: NgbModal
-  ) { }
+  constructor(private modalService: NgbModal) { }
 
-  retirarEquipamento(equipamento, index: number): void {
-    const indexProposta = this.indexProposta;
-    this.removeEquipamento.emit({ equipamento, indexProposta, index });
-  }
+  ngOnInit() { }
 
-  editarEquipamento(equipamento, index: number): void {
-    this.editEquipamento.emit({ equipamento, index });
-  }
-
-  filterTodosClientes(): Cliente[] {
+  returnRazaoSocial(cnpj) {
     const cnpjAssociados = this.contrato.get('cnpjAssociados').value;
     const cliente = this.contrato.get('cliente').value;
-    return [cliente, ...cnpjAssociados];
+    const clientes = [cliente, ...cnpjAssociados];
+
+    const razaoSocial = clientes.find(c => c.cnpj_cpf === cnpj)
+      ? clientes.find(c => c.cnpj_cpf === cnpj).nome_razao_social
+      : '';
+
+    return razaoSocial;
   }
 
-  returnRazaoSocial(cnpj: string): string {
-    const clientesDoContrato: Cliente[] = this.filterTodosClientes();
-    const nomeCliente = clientesDoContrato.filter(cliente => cliente.cnpj_cpf === cnpj)[0];
-    return nomeCliente.nome_razao_social;
-  }
+  actionsEquipamento = (indexEquipamento, type, equipamento = {}) =>
+    this.actionEquipamento.emit({ indexEquipamento, type, equipamento })
 
-  openModalEdicao(equipamento, index) {
-    if (!this.isNovoContrato) {
-      const referenciaModal = this.modalService.open(
-        ModalEdicaoComponent
-      );
-      referenciaModal.componentInstance.equipamento = equipamento;
-      referenciaModal.componentInstance.showEncerradoEm = true;
-      referenciaModal.result.then(resultadoDaModal => {
-        if (resultadoDaModal) {
-          this.retirarEquipamento(resultadoDaModal, index);
-        }
-      }).catch(error => error);
-    }
-    this.retirarEquipamento(equipamento, index);
-  }
+  valueTotal = () =>
+    this.formProposta.reduce((prev, { valor }) => prev + valor, 0)
+
+  // openModalEdicao(equipamento, index) {
+  //   if (!this.isNovoContrato) {
+  //     const referenciaModal = this.modalService.open(
+  //       ModalEdicaoComponent
+  //     );
+  //     referenciaModal.componentInstance.equipamento = equipamento;
+  //     referenciaModal.componentInstance.showEncerradoEm = true;
+  //     referenciaModal.result.then(resultadoDaModal => {
+  //       if (resultadoDaModal) {
+  //         this.retirarEquipamento(resultadoDaModal, index);
+  //       }
+  //     }).catch(error => error);
+  //   }
+  //   this.retirarEquipamento(equipamento, index);
+  // }
 
 }

@@ -52,6 +52,7 @@ export interface Contrato {
   valor: number;
   propostas: Proposta[];
   ativo: boolean;
+  isDebit: boolean;
   financeiro: Financeiro[];
   cnpjAssociados: Cliente[];
 }

@@ -53,6 +53,48 @@ ul li.atived {
   background-color: #707070;
 }
 
+span.button-span-custom {
+  padding: 2px 4px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+span.button-span-custom-danger {
+  background: #ee0e37;
+  border: 1px solid #96001B;
+}
+
+span.button-span-custom-success {
+  background: #5EB663;
+  border: 1px solid #37963D;
+}
+
+span.button-span-custom-danger:hover {
+  opacity: .9;
+}
+
+span.button-span-custom-success:hover {
+  opacity: .9;
+}
+
+span.button-span-custom-danger:active {
+  background: #96001B;
+  opacity: 1;
+}
+
+span.button-span-custom-success:active {
+  background: #37963D;
+  opacity: 1;
+}
+
+
+
+
+
+
+
 
 .scrollbar-panel-list {
   padding: 15px;

@@ -77,7 +77,17 @@
       </ng-template>
     </p-column>
 
-  <p-column styleClass="col-button" [style]="{'width':'30px'}">
+  <p-column field="isViewed" header="Visto" [style]="{'width':'40px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body" >
+    <div class="text-center">
+      <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="atendimento?.isViewed"></i>
+      <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="atendimento?.faturamento?.status"></i>
+      <i class="fa fa-exclamation" aria-hidden="true" *ngIf="!atendimento?.isViewed"></i>
+    </div>
+    </ng-template>
+  </p-column>
+
+  <p-column styleClass="col-button text-center" [style]="{'width':'30px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       <button type="button" class="info" pButton icon="fa fa-print"(click)="print(atendimento._id)"></button>
     </ng-template>

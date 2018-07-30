@@ -1,6 +1,15 @@
 <div class="no-print" *ngIf="bloqueados$ | async; let bloqueados">
   <div class="row mb-4">
-    <div class="col-6">
+    <div class="col-4">
+        <div class="card-custom ">
+          <div class="content-info-card text-center">
+            <div class="value">{{ totalRecords || 0 }}</div>
+            <div class="title">TOTAL ATENDIMENTOS</div>
+          </div>
+        </div>
+      </div>
+
+    <div class="col-4">
       <div class="card-custom ">
         <div class="content-info-card text-center">
           <div class="value bloqueado">{{ bloqueados.total || 0 }}</div>
@@ -9,7 +18,7 @@
       </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-4">
       <div class="card-custom">
         <div class="content-info-card text-center">
           <div class="value bloqueado">{{ bloqueados.hoje || 0 }}</div>
@@ -40,6 +49,12 @@
  styleClass="borderless"
  class="no-print mt-4">
  <!-- [rowTrackBy]="rowTrackBy" -->
+ <p-column field="createdAt" header="Criado Em" [filter]="true" [style]="{'width':'70px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento?.createdAt | date: 'dd/MM/yyyy'}}
+    </ng-template>
+  </p-column>
+
   <p-column field="data_atendimento" header="Data" [filter]="true" [style]="{'width':'70px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.data_atendimento | date: 'dd/MM/yyyy'}}

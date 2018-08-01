@@ -12,6 +12,7 @@ import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactiva
 import { TIPOATENDIMENTOMOCK } from '../../../../utils/mocks';
 import { removeMaskFromProp } from 'app/shared/utils/StringUtils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-novo-atendimento',
@@ -33,6 +34,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   constructor(private _fb: FormBuilder,
               private _atendimentoServiceService: AtendimentoService,
               private _notificacaoService: NotificacaoService,
+              private _notificationsService: NotificationsService,
               private _clienteService: ClienteService,
               private _ngbDateParserFormatter: NgbDateParserFormatter,
               private _servicoModal: NgbModal) { }
@@ -233,6 +235,19 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     }
   }
 
+  // tslint:disable-next-line:variable-name
+  salveNewNotification(nome_razao_social, data_atendimento, createdBy, _id) {
+    const notification = {
+      title: 'Criado atendimento',
+      message: `${nome_razao_social}`,
+      user_created: createdBy,
+      date: new Date(),
+      id_data: _id,
+      groups: ['5b28114b24d87b7014c29d4b']
+    };
+    return this._notificationsService.postNotification(notification).subscribe(res => console.log(res));
+  }
+
   cadastrarAtendimento(atendimento: Atendimento) {
     const atendimentoFormatado = this.replaceFieldsAtendimento(atendimento);
     atendimentoFormatado.data_atendimento = this.parseData(atendimentoFormatado.data_atendimento);
@@ -240,10 +255,11 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
     const updateTipoAtendimento = this.tipoAtendimentoSelecionado(atendimentoFormatado);
 
     this.subscription = this._atendimentoServiceService.novoAtendimento(updateTipoAtendimento).subscribe(
-      ({ cliente: { nome_razao_social } }) => {
+      ({ cliente: { nome_razao_social }, data_atendimento, createdBy, _id }) => {
 
         // tslint:disable-next-line:no-unused-expression
         this.atendimentosCount > 3 ? this.abrirModalDeConfirmacao(nome_razao_social, this.atendimentosCount) : nome_razao_social;
+        this.salveNewNotification(nome_razao_social, data_atendimento, createdBy, _id);
       },
           erro => this.notificarFalhaCadastro(),
             () => {

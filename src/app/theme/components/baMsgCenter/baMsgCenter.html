@@ -1,8 +1,7 @@
 <ul class="al-msg-center clearfix">
   <li class="dropdown">
     <a href class="dropdown-toggle" id="msg-dd1" data-toggle="dropdown" aria-expanded="false">
-      <i class="fa fa-bell-o"></i><span>{{ notifications.length }}</span>
-
+      <i class="fa fa-bell-o"></i><span>{{ notifications?.length || 0 }}</span>
       <div class="notification-ring"></div>
     </a>
 
@@ -11,45 +10,20 @@
 
       <div class="header clearfix">
         <strong>Notificações</strong>
-        <a href>Marcar tudo como lido</a>
-        <a href>Configurações</a>
+        <a>Marcar tudo como lido</a>
       </div>
       <div class="msg-list">
-        <a *ngFor="let msg of notifications" href class="clearfix">
-          <div class="img-area"><img [ngClass]="{'photo-msg-item': !msg.image}"
-                                     src="{{ ( msg.image ||  (msg.name | baProfilePicture)) }}"></div>
+        <a *ngFor="let msg of notifications" class="clearfix">
+          <!-- <div class="img-area">
+            <img [ngClass]="{'photo-msg-item': !msg.image}" src="/assets/icons/check.png">
+          </div> -->
           <div class="msg-area">
-            <div>{{ msg.text }}</div>
-            <span>{{ msg.time }}</span>
+            <div><strong>{{ msg.title }}</strong> - {{ msg.message }}</div>
+            <span>{{ msg?.user_created | uppercase }} - {{ msg.date | date: 'dd/MM/yyyy HH:mm' }}</span>
           </div>
         </a>
       </div>
       <a href>Ver todas as notificações</a>
-    </div>
-  </li>
-  <li class="dropdown">
-    <a href class="msg dropdown-toggle" id="msg-dd2" data-toggle="dropdown" aria-expanded="false">
-      <i class="fa fa-envelope-o"></i><span>{{ messages.length }}</span>
-      <div class="notification-ring"></div>
-    </a>
-    <div class="top-dropdown-menu dropdown-menu" aria-labelledby="msg-dd2">
-      <i class="dropdown-arr"></i>
-      <div class="header clearfix">
-        <strong>Mensagens</strong>
-        <a href>Marcar tudo como lido</a>
-        <a href>Configurações</a>
-      </div>
-      <div class="msg-list">
-        <a *ngFor="let msg of messages" href class="clearfix">
-          <div class="img-area"><img [ngClass]="{'photo-msg-item': !msg.image}"
-                                     src="{{ ( msg.image ||  (msg.name | baProfilePicture)) }}"></div>
-          <div class="msg-area">
-            <div>{{ msg.text }}</div>
-            <span>{{ msg.time }}</span>
-          </div>
-        </a>
-      </div>
-      <a href>Ver todas as mensagens</a>
     </div>
   </li>
 </ul>

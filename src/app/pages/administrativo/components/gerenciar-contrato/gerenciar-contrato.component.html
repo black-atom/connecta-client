@@ -1,3 +1,28 @@
+<div class="no-print" *ngIf="average$ | async; let averageContrato">
+  <div class="row mb-4">
+    <div class="col-6">
+      <div class="card-custom ">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.total || 0 | currency: 'BRL': true }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">TOTAL ATIVOS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card-custom">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.count || 0 }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">QUANTIDADE ATIVO</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <p-dataTable
 [value]="contratos$ | async"
 [lazy]="true"

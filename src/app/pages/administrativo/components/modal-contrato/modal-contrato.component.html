@@ -17,8 +17,8 @@
   <ul class="nav-tabs">
     <li class="tab {{ tabActived === 'detalhes' ? 'atived': ''}}" (click)="getTab('detalhes')">Detalhes</li>
     <li class="tab {{ tabActived === 'historico' ? 'atived': ''}}" (click)="getTab('historico')">Histórico</li>
-    <li class="tab {{ tabActived === 'anexos' ? 'atived': ''}}" (click)="getTab('anexos')">Anexos</li>
-    <li class="tab {{ tabActived == 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li>
+    <!-- <li class="tab {{ tabActived === 'anexos' ? 'atived': ''}}" (click)="getTab('anexos')">Anexos</li> -->
+    <!-- <li class="tab {{ tabActived == 'financeiro' ? 'atived': ''}}" (click)="getTab('financeiro')">Financeiro</li> -->
   </ul>
 
   <div class="m-2">
@@ -33,8 +33,12 @@
       <span class="badge badge-success p-2 m-1" *ngIf="contratoSelecionado?.valor">{{ contratoSelecionado?.valor | currency: 'BRL': true }}</span>
       <span class="badge badge-info p-2 m-1" *ngIf="contratoSelecionado?.subsequente === true">SUBSEQUENTE</span>
       <span class="badge badge-info p-2 m-1">{{ contratoSelecionado?.tipo | uppercase }}</span>
-      <span class="badge badge-primary pull-right p-2 m-1" *ngIf="contratoSelecionado?.ativo">ATIVO</span>
-      <span class="badge badge-danger pull-right p-2 m-1" *ngIf="!contratoSelecionado?.ativo">INATIVO</span>
+      <!-- <span class="badge badge-primary p-2 m-1" *ngIf="contratoSelecionado?.ativo">ATIVO</span>
+      <span class="badge badge-danger p-2 m-1" *ngIf="!contratoSelecionado?.ativo">INATIVO</span> -->
+      <!-- <span class="pull-right m-1">Situação: -->
+        <!-- <span class="pull-right button-span-custom button-span-custom-success" *ngIf="!contratoSelecionado?.isDebit"> Ok</span> -->
+        <!-- <span clas;s="pull-right button-span-custom button-span-custom-danger" *ngIf="contratoSelecionado?.isDebit"> Pendência</span> -->
+      <!-- </span> -->
     </div>
   </div>
 

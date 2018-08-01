@@ -49,20 +49,4 @@ export class RelacaoEquipamentosComponent implements OnInit {
   valueTotal = () =>
     this.formProposta.reduce((prev, { valor }) => prev + valor, 0)
 
-  // openModalEdicao(equipamento, index) {
-  //   if (!this.isNovoContrato) {
-  //     const referenciaModal = this.modalService.open(
-  //       ModalEdicaoComponent
-  //     );
-  //     referenciaModal.componentInstance.equipamento = equipamento;
-  //     referenciaModal.componentInstance.showEncerradoEm = true;
-  //     referenciaModal.result.then(resultadoDaModal => {
-  //       if (resultadoDaModal) {
-  //         this.retirarEquipamento(resultadoDaModal, index);
-  //       }
-  //     }).catch(error => error);
-  //   }
-  //   this.retirarEquipamento(equipamento, index);
-  // }
-
 }

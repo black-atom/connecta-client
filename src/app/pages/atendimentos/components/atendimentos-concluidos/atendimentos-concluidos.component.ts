@@ -95,6 +95,22 @@ export class AtendimentosConcluidosComponent implements OnInit, OnDestroy {
               return !atividadeFound ?
                 ({ ...atendimento, monitoramento: { status: 'PENDENTE' } }) :
                 ({ ...atendimento, monitoramento: atividadeFound });
+          })
+          .sort((a, b) => {
+            if (a.monitoramento.status > b.monitoramento.status) {
+              return -1;
+            }if (a.monitoramento.status < b.monitoramento.status) {
+              return 1;
+            }
+            return 0;
+          })
+          .sort((a, b) => {
+            if (a.tecnico.nome > b.tecnico.nome) {
+              return 1;
+            }if (a.tecnico.nome < b.tecnico.nome) {
+              return -1;
+            }
+            return 0;
           });
         });
       })

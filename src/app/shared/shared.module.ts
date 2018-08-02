@@ -34,6 +34,7 @@ import { DataTableModule, SharedModule, ButtonModule, TreeTableModule } from 'pr
 import { CnpjCpfPipe } from './pipes/cnpj-cpf.pipe';
 import { SplitPipe } from './pipes/split.pipe';
 import { CepPipe } from './pipes/cep.pipe';
+import { ConfirmationModal } from './components/confirmation-modal/confirmation-modal.component';
 
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -66,7 +67,8 @@ export function formatacaoDaData () {
     PrincipaisInfoComponent,
     CnpjCpfPipe,
     SplitPipe,
-    CepPipe
+    CepPipe,
+    ConfirmationModal
   ],
   providers: [
     AtividadeService,
@@ -95,7 +97,11 @@ export function formatacaoDaData () {
       useClass: CustomDatepickerI18n
     }
   ],
+  entryComponents: [
+    ConfirmationModal
+  ],
   exports: [
+    ConfirmationModal,
     EnderecoComponent,
     ContatoComponent,
     PrincipaisInfoComponent,

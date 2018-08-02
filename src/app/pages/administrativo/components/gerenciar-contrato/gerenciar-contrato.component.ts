@@ -9,6 +9,7 @@ import { Contrato } from 'app/models';
 import { ContratoService } from 'app/shared/services/contrato-service/contrato.service';
 import { ModalContratoComponent } from './../modal-contrato/modal-contrato.component';
 import { NotificationsService } from 'angular2-notifications';
+import { ConfirmationModal } from '../../../../shared/components/confirmation-modal/confirmation-modal.component';
 
 
 @Component({
@@ -81,17 +82,35 @@ export class GerenciarContratoComponent implements OnInit {
     });
   }
 
+  showConfirDeleteModal(contratoID) {
+    this.contratoService.getContrato(contratoID)
+    .subscribe(res => {
+      const referenciaModal = this._servicoModal.open(
+        ModalContratoComponent,
+        this.opcoesModal
+      );
+      referenciaModal.componentInstance.contratoSelecionado = res;
+    });
+  }
+
   deleteContrato(contratoID) {
     if (!this.isUserAllowed) { return; }
 
-    this.contratoService.deleteContrato(contratoID)
-      .toPromise()
-      .then(() => this._notificacaoService.info('Successo', `Atendimento ${contratoID} excluido com sucesso`))
-      .then(() => this.contratosSubject$.next())
-      .then(() => this.getAverange())
-      .catch((error) => {
-        console.log(error)
-        this._notificacaoService.error('Erro', `Nao foi possivel excluir o atendimento ${contratoID}`);
+    const modalInstance = this._servicoModal.open(ConfirmationModal);
+    modalInstance.componentInstance.message = `Voce deseja realmente excluir o contrato ${contratoID}?`;
+    modalInstance
+      .result
+      .then((isPasswordValid) => {
+        if (!isPasswordValid) { return; }
+
+        return this.contratoService.deleteContrato(contratoID)
+          .toPromise()
+          .then(() => this._notificacaoService.info('Successo', `Contrato ${contratoID} excluido com sucesso`))
+          .then(() => this.contratosSubject$.next())
+          .then(() => this.getAverange())
+          .catch((error) => {
+            this._notificacaoService.error('Erro', `Nao foi possivel excluir o contrato ${contratoID}`);
+          });
       });
   }
 

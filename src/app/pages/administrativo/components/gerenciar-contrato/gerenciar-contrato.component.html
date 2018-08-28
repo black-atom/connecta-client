@@ -77,6 +77,12 @@ sortField="createdAt" styleClass="borderless">
     </ng-template>
   </p-column>
 
+  <p-column *ngIf="isUserAllowed" styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-contrato="rowData" pTemplate="body">
+      <button type="button" class="trash" pButton icon="fa fa-trash" (click)="deleteContrato(contrato._id)"></button>
+    </ng-template>
+  </p-column>  
+
   <ng-template pTemplate="emptymessage">
       <p *ngIf="carregando" >Buscando contratos...</p>
       <p *ngIf="!carregando">Nenhum contrato foi encontrado</p>

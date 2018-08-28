@@ -25,6 +25,12 @@ export class ContratoService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
+  deleteContrato(id): Observable <any> {
+    return this.http.delete(`${environment.API_ENDPOINT}/api/contratos/${id}`)
+      .map(res => res.json() as any)
+      .catch(ManipuladorErro.lidaComErro);
+  }
+
   contratosLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}): Observable <any> {
     return this.http.get(`${environment.API_ENDPOINT}/api/contratos?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
       .map((res) => res.json() as any)

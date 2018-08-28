@@ -24,9 +24,11 @@ export class DetalhesContratoModalComponent implements OnInit {
   }
 
   filterPropostaAtiva() {
-    const propostas = this.contrato.propostas;
-    const propostaAtiva = propostas.filter(proposta => proposta.ativo) as Proposta[];
-    propostaAtiva.map(res => this.equipamentos = res.equipamentos);
+    const { propostas } = this.contrato;
+    const getPropostaAtiva = (proposta: Proposta) => Boolean(proposta.ativo);
+    const propostaAtiva = propostas.find(getPropostaAtiva);
+
+    this.equipamentos = propostaAtiva.equipamentos;
   }
 
   filterEquipamentosByCnpj(cnpj: string) {

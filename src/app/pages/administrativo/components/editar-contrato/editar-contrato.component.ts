@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { equals } from 'ramda';
+import { equals, sort, descend, prop } from 'ramda';
 
 import { ClienteService, NotificacaoService, ContratoService } from 'app/shared/services';
 import { removeMaskFromProp, parseDataBR } from 'app/shared/utils/StringUtils';
@@ -135,12 +135,14 @@ export class EditarContratoComponent implements OnInit {
   getContrato() {
    this.subscription = this.contratoService.getContrato(this.idContrato).subscribe(contrato => {
       this.editarContratoForm.patchValue(contrato);
-      const propostaAtiva = contrato.propostas.filter(proposta => proposta.ativo);
-      this.propostas.patchValue(propostaAtiva);
+      const propostaAtivas = contrato.propostas.filter(proposta => proposta.ativo);
+      const propostaAtivasSorted = sort(descend(prop('criadoEm')), propostaAtivas);
+
+      this.propostas.patchValue([propostaAtivasSorted[0]]);
       const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
-      propostaAtiva[0].equipamentos.map(equipamento => equipamentos.push(this.equipamentoForm()));
-      equipamentos.patchValue(propostaAtiva[0].equipamentos);
-      this.qtdEquipamentos = propostaAtiva[0].equipamentos.length;
+      propostaAtivasSorted[0].equipamentos.map(equipamento => equipamentos.push(this.equipamentoForm()));
+      equipamentos.patchValue(propostaAtivasSorted[0].equipamentos);
+      this.qtdEquipamentos = propostaAtivasSorted[0].equipamentos.length;
       this.editarContratoForm.get('dataAdesao').patchValue(this.parseDataPick(contrato.dataAdesao));
       this.contratoRecebido = contrato;
     });
@@ -242,10 +244,11 @@ export class EditarContratoComponent implements OnInit {
 
   atualizarContrato(contrato) {
     const contratoParse = this.replaceFieldsContrato(contrato);
-    const propostas = this.contratoRecebido.propostas.map(proposta =>
-      proposta._id === contrato.propostas[0]._id ? contrato.propostas[0] : proposta);
-
-    const contratoAlterado = { ...this.contratoRecebido, ...contratoParse, propostas };
+    const contratoAlterado = {
+      ...this.contratoRecebido,
+      ...contratoParse,
+      propostas: contrato.propostas
+    };
 
     this.contratoService
       .atualizarContrato(contratoAlterado)

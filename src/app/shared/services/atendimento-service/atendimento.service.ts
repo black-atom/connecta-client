@@ -37,9 +37,10 @@ export class AtendimentoService {
                      .catch(ManipuladorErro.lidaComErro);
   }
 
-  atualizarAtendimento(atendimento): Observable <Atendimento> {
+  atualizarAtendimento(atendimento: Atendimento): Observable <Atendimento> {
     const headers = new Headers({ 'Content-Type' : 'application/json' });
     const options = new RequestOptions({ headers });
+    delete atendimento.imagens
 
     return this._http.put(`${environment.API_ENDPOINT}/api/atendimentos/${atendimento._id}/`, atendimento, options)
                      .map(res => res.json() as Atendimento)

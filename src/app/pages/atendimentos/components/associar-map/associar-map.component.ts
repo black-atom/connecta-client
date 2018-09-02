@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AtendimentoService, FuncionarioService } from 'app/shared/services';
-import { Subject } from 'rxjs/Subject';
+import { Subject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-associar-map',
@@ -15,7 +15,7 @@ export class AssociarMapComponent implements OnInit {
 
   public totalyAtendimentos;
   public atendimentos$: Observable<any[]>;
-  public tecnicos$: Observable<any[]>;
+  public tecnicos$: Subject<any[]>;
   private date = new Date();
   public inputDate: any;
   public atentimentoSubject$: Subject<any>;
@@ -44,6 +44,7 @@ export class AssociarMapComponent implements OnInit {
     private funcionarioService: FuncionarioService
   ) {
     this.atentimentoSubject$ = new Subject();
+    this.tecnicos$ = new ReplaySubject();
 
     this.atendimentos$ = this.atentimentoSubject$.switchMap(
       () => {
@@ -63,11 +64,18 @@ export class AssociarMapComponent implements OnInit {
       month: this.date.getMonth() + 1
     };
 
-    this.tecnicos$ = this.funcionarioService
+    this.funcionarioService
       .retornarFuncionarioPorFuncao({ 'login.tipo': 'tecnico' })
-      .map(({ funcionarios }) => funcionarios );
+      .map(({ funcionarios }) => funcionarios )
+      .toPromise()
+      .then(funcionarios => this.tecnicos$.next(funcionarios));
 
     setTimeout(() => this.atentimentoSubject$.next(), 0);
+  }
+
+  getAllAtendimentos () {
+    console.log('update map');
+    this.atentimentoSubject$.next();
   }
 
    dataPassadoPeloUsuario(dataSelecionada) {

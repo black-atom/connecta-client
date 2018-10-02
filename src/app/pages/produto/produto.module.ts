@@ -7,11 +7,11 @@ import { NgaModule } from '../../theme/nga.module';
 import { ModuloCompartilhado } from './../../shared/shared.module';
 
 
-import { EstoqueComponent } from './estoque.component';
+import { ProdutoComponent } from './produto.component';
 import { NovoComponent } from './components/novo/novo.component';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
 import { EditarComponent } from './components/editar/editar.component';
-import { routing } from './estoque.routing';
+import { routing } from './produto.routing';
 import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.component';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.com
     routing
   ],
   declarations: [
-    EstoqueComponent,
+    ProdutoComponent,
     NovoComponent,
     GerenciarComponent,
     EditarComponent,
@@ -37,4 +37,4 @@ import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.com
     ModuloCompartilhado,
   ]
 })
-export class EstoqueModule { }
+export class ProdutoModule { }

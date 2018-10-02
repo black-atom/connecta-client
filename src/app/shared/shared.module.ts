@@ -18,7 +18,8 @@ import {
   MonitoramentoService,
   AvaliacoesService,
   ProdutoService,
-  ContratoService
+  ContratoService,
+  OrdemCompraService
 } from './services';
 
 
@@ -82,6 +83,7 @@ export function formatacaoDaData () {
     MonitoramentoService,
     AvaliacoesService,
     ProdutoService,
+    OrdemCompraService,
     I18n,
     {
       provide: AuthHttp,

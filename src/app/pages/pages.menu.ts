@@ -108,10 +108,42 @@ export const PAGES_MENU = [{
       ]
     },
     {
-      path: 'estoque',
+      path: 'compra',
       data: {
         menu: {
-          title: 'Estoque',
+          title: 'Compra',
+          icon: 'fa fa-shopping-cart',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
+        {
+          path: 'novo',
+          data: {
+            menu: {
+              title: 'Nova',
+              icon: 'ion-plus'
+            }
+          }
+        },
+        {
+          path: 'gerenciar',
+          data: {
+            menu: {
+              title: 'Gerenciar',
+              icon: 'ion-clipboard'
+            }
+          }
+        }
+      ]
+    },
+    {
+      path: 'produto',
+      data: {
+        menu: {
+          title: 'Produto',
           icon: 'fa fa fa-archive',
           selected: false,
           expanded: false,

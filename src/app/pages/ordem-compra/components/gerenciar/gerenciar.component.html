@@ -1,0 +1,43 @@
+<p-dataTable
+[value]="orderBuys$ | async"
+[lazy]="true"
+[rows]="25"
+[paginator]="true"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadProdutosLazy($event)"
+[pageLinks]="5"
+[responsive]="true"
+[sortOrder]="-1"
+[loading]="carregando"
+ loadingIcon="ion-load-a"
+ rowHover="true"
+ sortField="createdAt" styleClass="borderless">
+
+<p-column field="createdAt" header="Data"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.createdAt | date: 'dd/MM/yyyy'}}</ng-template>
+</p-column>
+
+<p-column field="description" header="Descrição da Compra"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.description | uppercase }}</ng-template>
+</p-column>
+
+<p-column field="createdBy" header="Criado Por"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.createdBy | uppercase }}</ng-template>
+</p-column>
+
+<p-column field="status" header="Status"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.status | uppercase }}</ng-template>
+</p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-orderBuy="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/compra/editar-compra/{{ orderBuy._id }}"></button>
+    </ng-template>
+  </p-column>
+
+  <ng-template pTemplate="emptymessage">
+      <p *ngIf="carregando" >Buscando orders de compra...</p>
+      <p *ngIf="!carregando">Nenhum order encontrada</p>
+  </ng-template>
+
+</p-dataTable>

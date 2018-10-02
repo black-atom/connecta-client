@@ -1,0 +1,73 @@
+<form [formGroup]="orderBuyForm" novalidate>
+  <ba-card cardTitle="Dados da Compra">
+    <div class="row">
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="idBuy">Cod.</label>
+        <input type="text" class="form-control" formControlName="idBuy">
+        <small class="ion-close text text-danger" *ngIf="orderBuyForm.get('idBuy').hasError('required') && orderBuyForm.get('idBuy').touched"> Obrigatório!</small>
+      </div>
+
+      <div class="form-group col-md-10 col-sm-12 col-xs-12 col-lg-10">
+        <label class="control-label" for="description">Descrição Compra</label>
+        <input type="text" class="form-control" formControlName="description">
+        <small class="ion-close text text-danger" *ngIf="orderBuyForm.get('description').hasError('required') && orderBuyForm.get('description').touched"> Obrigatório!</small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 title-item mt-4">
+        <h6>Itens da Compra</h6>
+      </div>
+    </div>
+
+    <div class="row" formArrayName="products" *ngFor="let product of orderBuyForm.get('products').controls; let i = index">
+      <div [formGroupName]="i" class="col-12">
+        <div class="row">
+          <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
+              <label class="control-label" for="descricao">Descrição Produto</label>
+              <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(product.value.description)">
+              <ul  *ngIf="orderBuyForm.controls['products'].at(i).get('description')?.value?.length <= 10">
+                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product, i)">{{ product?.descricao | uppercase }} - {{ product?.modelo }}</li>
+              </ul>
+            </div>
+
+            <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+              <label for="quantity">Qtd.</label>
+              <input type="number" class="form-control" id="quantity" placeholder="" formControlName="quantity">
+            </div>
+
+            <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+              <label for="action">Ação</label>
+              <div class="buttonActionForm">
+                <button type="button" class="btn btn-danger buttonRemoveForm" (click)="removeProduct(i)"
+                  style="width: 40px;"
+                  *ngIf="products?.controls.length > 1">x</button>
+                <button type="button" class="btn btn-primary " (click)="addProduct()"
+                  style="width: 40px;"
+                  *ngIf="orderBuyForm.controls['products'].length -1 === i" [disabled]="product.value.description.length === 0">+</button>
+              </div>
+            </div>
+        </div>
+      </div>
+   </div>
+
+  </ba-card>
+
+  <div class="row">
+    <div class="col-12">
+      <ba-card>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <button type="submit" class="btn btn-primary btn-with-icon" [disabled]="orderBuyForm.invalid" (click)="saveOrderBuy(orderBuyForm.value)">
+              <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <button class="btn btn-danger btn-with-icon" (click)="initForm()" [disabled]="orderBuyForm.pristine">
+              <i class="ion-trash-a"></i>Limpar</button>
+          </div>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+
+</form>

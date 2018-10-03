@@ -31,7 +31,7 @@ export class NovoComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.orderBuyForm = this.fb.group({
-      idBuy: [this.generateSKU(), Validators.required],
+      buyID: [this.generateSKU(), Validators.required],
       description: ['', Validators.required],
       products: this.fb.array([])
     });
@@ -42,7 +42,7 @@ export class NovoComponent implements OnInit, OnDestroy {
     return this.fb.group({
       description: ['', Validators.required],
       quantity: [1, Validators.required],
-      idProduct: ['', Validators.required]
+      productID: ['', Validators.required]
     });
   }
 
@@ -58,7 +58,7 @@ export class NovoComponent implements OnInit, OnDestroy {
   pecaSelecionada({ descricao, modelo, _id }, index) {
     const productsForm = this.products.at(index);
       productsForm.get('description').patchValue(`${descricao} ${modelo}`);
-      productsForm.get('idProduct').patchValue(_id);
+      productsForm.get('productID').patchValue(_id);
     return this.productsSearch$ = Observable.of([]);
   }
 

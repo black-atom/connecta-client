@@ -10,7 +10,7 @@ export class NotificacaoService {
     this._notificacaoService.success(
       titulo, mensagem,
       {
-        timeOut: 1000,
+        timeOut: 1800,
         showProgressBar: false,
         pauseOnHover: false,
         clickToClose: false,
@@ -36,7 +36,7 @@ export class NotificacaoService {
     this._notificacaoService.warn(
       titulo, mensagem,
       {
-        timeOut: 1000,
+        timeOut: 1800,
         showProgressBar: false,
         pauseOnHover: false,
         clickToClose: false,

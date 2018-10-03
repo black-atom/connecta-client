@@ -140,11 +140,34 @@ export const PAGES_MENU = [{
       ]
     },
     {
+      path: 'estoque',
+      data: {
+        menu: {
+          title: 'Estoque',
+          icon: 'fa fa-archive',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
+        {
+          path: 'gerenciar',
+          data: {
+            menu: {
+              title: 'Gerenciar',
+              icon: 'ion-clipboard'
+            }
+          }
+        }
+      ]
+    },
+    {
       path: 'produto',
       data: {
         menu: {
           title: 'Produto',
-          icon: 'fa fa fa-archive',
+          icon: 'fa fa-archive',
           selected: false,
           expanded: false,
           order: 300

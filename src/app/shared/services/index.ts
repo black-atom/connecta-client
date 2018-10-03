@@ -5,6 +5,7 @@ export * from './avaliacoes/avaliacoes.service';
 export * from './cep-service';
 export * from './contrato-service/contrato.service';
 export * from './cliente-service';
+export * from './estoque-service/estoque.service';
 export * from './funcionario-service';
 export * from './login-service';
 export * from './monitoramento-service';

@@ -21,6 +21,7 @@ export const routes: Routes = [
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },
       { path: 'administrativo', loadChildren: './administrativo/administrativo.module#AdministrativoModule' },
       { path: 'produto', loadChildren: './produto/produto.module#ProdutoModule' },
+      { path: 'estoque', loadChildren: './estoque/estoque.module#EstoqueModule' },
       { path: 'compra', loadChildren: './ordem-compra/ordem-compra.module#OrdemCompraModule' },
       { path: 'relatorios', loadChildren: './relatorios/relatorios.module#RelatoriosModule' },
       { path: 'sac', loadChildren: './sac/sac.module#SacModule' }

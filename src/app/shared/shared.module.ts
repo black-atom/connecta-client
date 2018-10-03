@@ -13,6 +13,7 @@ import {
   FuncionarioService,
   ClienteService,
   CepService,
+  EstoqueService,
   LoginService,
   NotificacaoService,
   MonitoramentoService,
@@ -84,6 +85,7 @@ export function formatacaoDaData () {
     AvaliacoesService,
     ProdutoService,
     OrdemCompraService,
+    EstoqueService,
     I18n,
     {
       provide: AuthHttp,

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Rx';
@@ -11,12 +11,12 @@ import { NotificacaoService } from './../../../../shared/services/notificacao-se
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.scss']
 })
-export class EditarComponent implements OnInit, OnDestroy {
+export class EditarComponent implements OnInit {
 
   public id;
   public reason;
   private subscription: Subscription;
-
+  public eventClick = false;
   public orderBuy$: Observable<any>;
 
   constructor(
@@ -54,17 +54,20 @@ export class EditarComponent implements OnInit, OnDestroy {
   }
 
   editOrderBuy() {
-    console.log(this.reason)
-    this.subscription = this.ordemCompraService
+    if (!this.eventClick) {
+      this.eventClick = true;
+      this.orderBuy$ = this.ordemCompraService
       .updateOrderBuy(this.id, this.reason)
-      .subscribe(res => console.log(res));
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+      .map(res => {
+        if (res) {
+          this.sucessoNotification();
+        } else {
+          this.falhaNotification();
+          this.eventClick = false;
+        }
+        return res;
+      });
     }
   }
-
 
 }

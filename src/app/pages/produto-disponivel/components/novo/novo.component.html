@@ -1,0 +1,73 @@
+<div *ngIf="orderBuy$ | async; let order">
+<form [formGroup]="produtoDisponivelForm" novalidate>
+  <ba-card cardTitle="Inserir Número de Serie">
+    <div class="col-12" >
+      <div class="row">
+        <div class="col-12">
+          <h6 class="card-title">Data: {{ order?.createdAt | date: "dd/MM/yyyy HH:mm" }}</h6>
+          <h6 class="card-title">Descricao: {{ order?.description | uppercase }}</h6>
+          <h6 class="card-title mt-4">Criado Por: {{ order?.createdBy | uppercase }}</h6>
+          <h6 class="card-title mt-4">Status: {{ order?.status | uppercase }}</h6>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div formArrayName="productsAvailables" *ngFor="let product of productsFormArray.controls; let i = index">
+      <div [formGroupName]="i" class="col-12">
+          <div class="row">
+
+            <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
+              <label class="control-label" for="descricao">Descrição Produto</label>
+              <input type="text" class="form-control" formControlName="description" disabled="true">
+            </div>
+
+            <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+              <label class="control-label" for="descricao">N. Serial</label>
+              <input type="text" class="form-control" formControlName="serialNumber">
+            </div>
+
+          </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <table class="table table-hover text-left mt-4">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left"><strong>Descrição do Produto</strong></th>
+            <th scope="col" class="text-left"><strong>N. Serial</strong></th>
+            <th scope="col" class="text-left"><strong>Disponível</strong></th>
+            <th scope="col" class="text-left"><strong>Base</strong></th>
+            <th scope="col" class="text-center"><strong>Ação</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productsAvailables$ | async ">
+            <td class="text-left">{{ item?.description | uppercase }}</td>
+            <td class="text-left">{{ item?.serialNumber }}</td>
+            <td class="text-left">{{ item?.available ? 'SIM' : 'NÃO' }}</td>
+            <td class="text-left">{{ item?.baseStock | uppercase }}</td>
+            <td class="text-center">
+              <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/produto-disponivel/editar-produto-disponivel/{{ item._id }}"></button>
+            </td>
+          </tr>
+      </table>
+    </div>
+
+  </ba-card>
+</form>
+
+
+<ba-card  *ngIf="order?.status === 'ABERTO'" >
+  <div class="row" >
+    <div class="col-md-6 col-sm-12" >
+      <button type="submit" class="btn btn-primary btn-with-icon" (click)="saveSerialNumberProducts(produtoDisponivelForm.value)">
+        <i class="ion-android-checkmark-circle"></i>Cadastrar</button>
+    </div>
+    <!-- <div class="col-md-6 col-sm-12">
+      <button class="btn btn-danger btn-with-icon" (click)="rebuildForm()" [disabled]="formProduto.pristine">
+        <i class="ion-trash-a"></i>Limpar</button>
+    </div> -->
+  </div>
+</ba-card>
+
+</div>

@@ -1,0 +1,7 @@
+@media print {
+	hr { display: block; page-break-before: avoid; }
+}
+
+input[type="text"]:disabled {
+  color: rgb(90, 90, 90);
+}

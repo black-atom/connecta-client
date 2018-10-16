@@ -58,7 +58,7 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private cepService: CepService,
     private produtoService: ProdutoService,
-    private notificacaoService: NotificacaoService,
+    private notificacaoService: NotificacaoService
   ) { }
 
   ngOnInit() {
@@ -76,10 +76,9 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     }
   }
 
-  loadProdutosLazy = (event) => {
-    const query = { descricao: event };
+  loadProdutosLazy = (description) => {
     return this.produtos$ = this.produtoService
-      .produtosLazyLoad(0, 10, query)
+      .produtosLazyLoad(0, 10, { description })
       .map(({ produtos }) => produtos);
   }
 
@@ -113,11 +112,9 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
   }
 
   selecionarEquipamento(equipamento: Produto): void {
-    this.formEquipamento.get('descricao').patchValue(equipamento.descricao);
-    this.formEquipamento.get('categoria').patchValue(equipamento.categoria);
-    this.formEquipamento.get('modelo').patchValue(equipamento.modelo);
-    this.formEquipamento.get('fabricante').patchValue(equipamento.marca);
-    this.formEquipamento.get('imagemPath').patchValue(equipamento.imagemURL);
+    this.formEquipamento.get('descricao').patchValue(equipamento.description);
+    this.formEquipamento.get('categoria').patchValue(equipamento.category);
+    this.formEquipamento.get('fabricante').patchValue(equipamento.brand);
     this.formEquipamento.markAsDirty();
   }
 
@@ -147,12 +144,10 @@ export class EquipamentoFormComponent implements OnInit, OnChanges {
     this.formEquipamento = this.fb.group({
       descricao: ['', Validators.required],
       categoria: ['', Validators.required],
-      modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
       visita: ['', Validators.required],
       valor: ['', Validators.required],
-      numeroSerie: '',
-      imagemPath: '',
+      numeroSerie: [''],
       cnpjCliente: ['', Validators.required],
       motivo: [''],
       endereco: this.fb.group({

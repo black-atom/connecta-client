@@ -7,7 +7,7 @@
       </div>
 
       <div class="p-2">
-        <h6>{{ equipamento?.descricao | uppercase }} - {{ equipamento?.modelo | uppercase }}</h6>
+        <h6>{{ equipamento?.descricao | uppercase }}</h6>
         <p class="text-uppercase">
           {{ returnRazaoSocial(equipamento?.cnpjCliente) | uppercase }} -
           {{ equipamento?.cnpjCliente | rgCnpjCpf }}

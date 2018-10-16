@@ -6,13 +6,11 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { ModuloCompartilhado } from './../../shared/shared.module';
 
-
 import { ProdutoComponent } from './produto.component';
 import { NovoComponent } from './components/novo/novo.component';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
 import { EditarComponent } from './components/editar/editar.component';
 import { routing } from './produto.routing';
-import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.component';
 
 @NgModule({
   imports: [
@@ -27,14 +25,10 @@ import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.com
     ProdutoComponent,
     NovoComponent,
     GerenciarComponent,
-    EditarComponent,
-    ModalImagemComponent
-  ],
-  entryComponents: [
-    ModalImagemComponent
+    EditarComponent
   ],
   providers: [
-    ModuloCompartilhado,
+    ModuloCompartilhado
   ]
 })
 export class ProdutoModule { }

@@ -30,10 +30,9 @@ export class GerenciarComponent implements OnInit {
   filterEvents({ filters, first, rows }) {
     const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
-      ...queryFormatter('descricao'),
-      ...queryFormatter('marca'),
-      ...queryFormatter('modelo'),
-      ...queryFormatter('categoria')
+      ...queryFormatter('description'),
+      ...queryFormatter('brand'),
+      ...queryFormatter('category')
     };
     return newQuery;
   }

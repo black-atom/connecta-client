@@ -32,25 +32,28 @@ export class GerenciarComponent implements OnInit {
     const newQuery: any = {
       ...queryFormatter('createdAt'),
       ...queryFormatter('description'),
+      ...queryFormatter('baseStock'),
       ...queryFormatter('createdBy'),
-      ...queryFormatter('status')
+      ...queryFormatter('status'),
+      ...queryFormatter('origin'),
+      ...queryFormatter('type')
     };
     return newQuery;
   }
 
   loadProdutosLazy(event) {
-    // const query = formatQuery('createdAt')(this.filterEvents(event));
+    const query = formatQuery('createdAt')(this.filterEvents(event));
 
-    // const skip = event.first;
-    // const limit = event.rows;
+    const skip = event.first;
+    const limit = event.rows;
 
-    // this.orderBuys$ = this.ordemCompraService
-    //   .produtosLazyLoad(skip, limit, query)
-    //     .map(({ orderBuys, count }) => {
-    //       this.totalRecords = count;
-    //       this.carregando = false;
-    //       return orderBuys;
-    //     });
+       this.stockTransactions$ = this.estoqueService
+       .getAllTransactionsStock(skip, limit, query)
+        .map(({ stockTransactions, count }) => {
+          this.totalRecords = count;
+          this.carregando = false;
+          return stockTransactions;
+        });
   }
 
 }

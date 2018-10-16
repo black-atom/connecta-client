@@ -10,6 +10,7 @@ import { ModuloCompartilhado } from './../../shared/shared.module';
 import { EstoqueComponent } from './estoque.component';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
 import { routing } from './estoque.routing';
+import { LiberarProdutoComponent } from './components/liberar-produto/liberar-produto.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { routing } from './estoque.routing';
   ],
   declarations: [
     EstoqueComponent,
-    GerenciarComponent
+    GerenciarComponent,
+    LiberarProdutoComponent
   ],
   providers: [
     ModuloCompartilhado

@@ -38,14 +38,14 @@ export class GerenciarComponent implements OnInit {
     return newQuery;
   }
 
-  loadProdutosLazy(event) {
+  loadOrdersLazy(event) {
     const query = formatQuery('createdAt')(this.filterEvents(event));
 
     const skip = event.first;
     const limit = event.rows;
 
     this.orderBuys$ = this.ordemCompraService
-      .produtosLazyLoad(skip, limit, query)
+      .orderLazyLoad(skip, limit, query)
         .map(({ orderBuys, count }) => {
           this.totalRecords = count;
           this.carregando = false;

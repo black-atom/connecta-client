@@ -3,7 +3,8 @@
     <div class="content mt-4">
 
       <h6 class="card-title">Data: {{ order?.createdAt | date: "dd/MM/yyyy HH:mm" }}</h6>
-      <h6 class="card-title">Descricao: {{ order?.description | uppercase }}</h6>
+      <h6 class="card-title">Descricao: {{ order?.description | uppercase }} </h6>
+      <h6 class="card-title">Estoque Base: {{ order?.baseStock | uppercase }} </h6>
       <h6 class="card-title mt-4">Criado Por: {{ order?.createdBy | uppercase }}</h6>
       <h6 class="card-title mt-4">Status: {{ order?.status | uppercase }}</h6>
       <h6 class="card-title">Motivo: {{ order?.reason | uppercase }}</h6>
@@ -22,7 +23,7 @@
           </tr>
       </table>
 
-      <div class="form-group mt-4 no-print" *ngIf="order?.status !== 'cancelado'">
+      <div class="form-group mt-4 no-print" *ngIf="order?.status !== 'CANCELADO'">
         <label for="reason cancel">Cancelar Ordem de Compra</label>
         <input class="form-control" [(ngModel)]="reason" />
         <button class="btn btn-success mt-4" [disabled]="!reason && !eventClick" (click)="editOrderBuy()">Salvar</button>

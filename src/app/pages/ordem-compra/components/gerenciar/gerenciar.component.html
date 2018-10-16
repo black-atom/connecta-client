@@ -4,7 +4,7 @@
 [rows]="25"
 [paginator]="true"
 [totalRecords]="totalRecords"
-(onLazyLoad)="loadProdutosLazy($event)"
+(onLazyLoad)="loadOrdersLazy($event)"
 [pageLinks]="5"
 [responsive]="true"
 [sortOrder]="-1"
@@ -25,19 +25,20 @@
   <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.createdBy | uppercase }}</ng-template>
 </p-column>
 
-<p-column field="status" header="Status"  [filter]="true" [style]="{'width':'100px'}">
+<p-column field="status" header="Status"  [filter]="true" [style]="{'width':'80px'}">
   <ng-template let-orderBuy="rowData" pTemplate="body">  {{ orderBuy?.status | uppercase }}</ng-template>
 </p-column>
 
-  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+  <p-column styleClass="col-button" [style]="{'width':'60px', 'text-align': 'center'}">
     <ng-template let-orderBuy="rowData" pTemplate="body">
+      <button class="warning" type="button" pButton icon="fa fa-shopping-bag" *ngIf="orderBuy.status === 'ABERTO'" routerLink="/pages/produto-disponivel/novo/{{ orderBuy._id }}"></button>
       <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/compra/editar-compra/{{ orderBuy._id }}"></button>
     </ng-template>
   </p-column>
 
   <ng-template pTemplate="emptymessage">
-      <p *ngIf="carregando" >Buscando orders de compra...</p>
-      <p *ngIf="!carregando">Nenhum order encontrada</p>
+      <p *ngIf="carregando" >Buscando ordem de compra...</p>
+      <p *ngIf="!carregando">Nenhum ordem de compra encontrada</p>
   </ng-template>
 
 </p-dataTable>

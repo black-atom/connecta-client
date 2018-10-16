@@ -33,6 +33,7 @@ export class NovoComponent implements OnInit, OnDestroy {
     this.orderBuyForm = this.fb.group({
       buyID: [this.generateSKU(), Validators.required],
       description: ['', Validators.required],
+      baseStock: ['', Validators.required],
       products: this.fb.array([])
     });
     this.addProduct();
@@ -42,23 +43,26 @@ export class NovoComponent implements OnInit, OnDestroy {
     return this.fb.group({
       description: ['', Validators.required],
       quantity: [1, Validators.required],
-      productID: ['', Validators.required]
+      productID: ['', Validators.required],
+      serialControl: [false, Validators.required],
+      baseStock: [false, Validators.required]
     });
   }
 
-
-  searchProduct(value) {
-    if (value.length > 4) {
+  searchProduct(description) {
+    if (description.length > 4) {
       this.productsSearch$ = this.produtoService
-        .produtosLazyLoad(0, 10, { descricao: value })
+        .produtosLazyLoad(0, 10, { description })
         .map(({ produtos }) => produtos);
     }
   }
 
-  pecaSelecionada({ descricao, modelo, _id }, index) {
+  pecaSelecionada({ description, serialControl, _id }, index) {
     const productsForm = this.products.at(index);
-      productsForm.get('description').patchValue(`${descricao} ${modelo}`);
+      productsForm.get('description').patchValue(description);
       productsForm.get('productID').patchValue(_id);
+      productsForm.get('serialControl').patchValue(serialControl);
+      productsForm.get('baseStock').patchValue(this.orderBuyForm.get('baseStock').value);
     return this.productsSearch$ = Observable.of([]);
   }
 
@@ -88,13 +92,11 @@ export class NovoComponent implements OnInit, OnDestroy {
     this.products.removeAt(index);
   }
 
-
   saveOrderBuy(orderBuy: Produto) {
     this.subscription =
       this.ordemCompraService.createOrderBuy(orderBuy)
         .subscribe(res => res ? this.sucessoNotification() : this.falhaNotification());
     this.productsSearch$ = Observable.of([]);
-    this.initForm();
   }
 
   sucessoNotification() {
@@ -111,7 +113,6 @@ export class NovoComponent implements OnInit, OnDestroy {
       ''
     );
   }
-
 
   ngOnDestroy() {
     if (this.subscription) {

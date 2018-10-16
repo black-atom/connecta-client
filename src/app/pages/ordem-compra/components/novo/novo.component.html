@@ -7,11 +7,26 @@
         <small class="ion-close text text-danger" *ngIf="orderBuyForm.get('buyID').hasError('required') && orderBuyForm.get('buyID').touched"> Obrigatório!</small>
       </div>
 
-      <div class="form-group col-md-10 col-sm-12 col-xs-12 col-lg-10">
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
         <label class="control-label" for="description">Descrição Compra</label>
         <input type="text" class="form-control" formControlName="description">
         <small class="ion-close text text-danger" *ngIf="orderBuyForm.get('description').hasError('required') && orderBuyForm.get('description').touched"> Obrigatório!</small>
       </div>
+
+
+      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+        <div class="form-group">
+          <label for="estoque base">Estoque Base</label>
+          <select class="form-control" name="estoquebase" formControlName="baseStock">
+            <option value="" selected>Selecione</option>
+            <option value="realponto">RealPonto</option>
+            <option value="pontoreal">PontoReal</option>
+            <option value="novareal">NovaReal</option>
+          </select>
+          <small class="ion-close text text-danger" *ngIf="orderBuyForm.get('baseStock').hasError('required') && orderBuyForm.get('baseStock').touched"> Obrigatório!</small>
+        </div>
+      </div>
+
     </div>
 
     <div class="row">
@@ -26,8 +41,8 @@
           <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
               <label class="control-label" for="descricao">Descrição Produto</label>
               <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(product.value.description)">
-              <ul  *ngIf="orderBuyForm.controls['products'].at(i).get('description')?.value?.length <= 10">
-                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product, i)">{{ product?.descricao | uppercase }} - {{ product?.modelo }}</li>
+              <ul  *ngIf="orderBuyForm.controls['products'].at(i).get('description')?.value?.length <= 6">
+                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product, i)">{{ product?.description }} - {{ product?.brand }}</li>
               </ul>
             </div>
 

@@ -44,7 +44,7 @@ export class OrdemCompraService {
       .catch(ManipuladorErro.lidaComErro);
   }
 
-  produtosLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}) {
+  orderLazyLoad(skip: number = 0, limit: number = 25, searchAll = {}) {
     return this._http.get(`${environment.API_ENDPOINT}/api/order-compras?skip=${skip}&limit=${limit}`, { params: { search: searchAll } })
       .map((res) => res.json())
       .catch(ManipuladorErro.lidaComErro);

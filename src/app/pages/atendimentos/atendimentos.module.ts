@@ -33,6 +33,7 @@ import { DesbloquearModalComponent } from './components/desbloquear-modal/desblo
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
 import { AssociarMapComponent } from './components/associar-map';
 import { AgmCoreModule } from '@agm/core';
+import { AssociarProdutosComponent } from './components/associar-produtos/associar-produtos.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AgmCoreModule } from '@agm/core';
     AtendimentoConcluidoDetalhesComponent,
     VisualizacaoModalComponent,
     DesbloquearModalComponent,
-    ModalAlertComponent
+    ModalAlertComponent,
+    AssociarProdutosComponent
   ],
   declarations: [
     AtendimentosComponent,
@@ -77,7 +79,8 @@ import { AgmCoreModule } from '@agm/core';
     AtendimentoPrintComponent,
     DesbloquearModalComponent,
     ModalAlertComponent,
-    AssociarMapComponent
+    AssociarMapComponent,
+    AssociarProdutosComponent
   ],
   providers: [
     ModuloCompartilhado,

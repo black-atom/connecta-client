@@ -16,11 +16,27 @@ export class EstoqueService {
 
   constructor(private _http: AuthHttp) { }
 
-  getAllTransactionsStock() {
+  getAllTransactionsStock(skip = 0, limit = 0, query = {}) {
     return this._http
-      .get(`${environment.API_ENDPOINT}/api/estoque`)
+      .get(`${environment.API_ENDPOINT}/api/estoque?skip=${skip}&limit=${limit}`, { params: { search: query } })
         .map(res => res.json())
         .catch(ManipuladorErro.lidaComErro);
   }
+
+  getAllTransactionStockByIDOrder(originID) {
+    return this._http
+      .get(`${environment.API_ENDPOINT}/api/estoque/${originID}`)
+        .map(res => res.json())
+        .catch(ManipuladorErro.lidaComErro);
+  }
+
+
+  postTransactionsStock(products) {
+    return this._http
+      .post(`${environment.API_ENDPOINT}/api/estoque`, products)
+        .map(res => res.json())
+        .catch(ManipuladorErro.lidaComErro);
+  }
+
 
 }

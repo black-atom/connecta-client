@@ -20,7 +20,9 @@ import {
   AvaliacoesService,
   ProdutoService,
   ContratoService,
-  OrdemCompraService
+  OrdemCompraService,
+  ProdutoDisponivelService,
+  ProdutoReservadoService
 } from './services';
 
 
@@ -84,6 +86,8 @@ export function formatacaoDaData () {
     MonitoramentoService,
     AvaliacoesService,
     ProdutoService,
+    ProdutoDisponivelService,
+    ProdutoReservadoService,
     OrdemCompraService,
     EstoqueService,
     I18n,

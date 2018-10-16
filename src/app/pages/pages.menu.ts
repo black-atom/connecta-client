@@ -144,7 +144,7 @@ export const PAGES_MENU = [{
       data: {
         menu: {
           title: 'Estoque',
-          icon: 'fa fa-archive',
+          icon: 'fa fa-random',
           selected: false,
           expanded: false,
           order: 300
@@ -157,6 +157,15 @@ export const PAGES_MENU = [{
             menu: {
               title: 'Gerenciar',
               icon: 'ion-clipboard'
+            }
+          }
+        },
+        {
+          path: 'liberar-produto',
+          data: {
+            menu: {
+              title: 'Liberar',
+              icon: 'fa fa-arrows-h'
             }
           }
         }
@@ -182,6 +191,29 @@ export const PAGES_MENU = [{
           }
         }
       },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+    {
+      path: 'produto-disponivel',
+      data: {
+        menu: {
+          title: 'Produto Disponível',
+          icon: 'fa fa-shopping-bag',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [
       {
         path: 'gerenciar',
         data: {

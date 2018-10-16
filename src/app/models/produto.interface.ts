@@ -1,12 +1,11 @@
 export interface Produto {
   _id: string;
-  categoria: string;
-  descricao: string;
-  marca: string;
-  modelo: string;
-  imagemURL: string;
-  valor: number;
-  pecas: Peca[];
+  category: string;
+  description: string;
+  brand: string;
+  serialControl: boolean;
+  buyPrice: number;
+  sellPrice: number;
   createdBy: string;
   createdAt: string;
   updatedAt: string;

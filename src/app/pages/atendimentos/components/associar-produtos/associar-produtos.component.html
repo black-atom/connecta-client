@@ -1,0 +1,21 @@
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th scope="col" class="text-left"><strong>Descrição Produto</strong></th>
+      <th scope="col" class="text-left"><strong>N. Serial</strong></th>
+      <th scope="col" class="text-center"><strong>Qtd</strong></th>
+      <th scope="col" class="text-left"><strong>Status</strong></th>
+      <th scope="col" class="text-center"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td class="text-left"> {{ product?.description | uppercase }}</td>
+      <td class="text-left">{{ product?.serialNumber }}</td>
+      <td class="text-center">{{ product?.quantity }}</td>
+      <td class="text-left">{{ product?.status | uppercase }}</td>
+      <td class="text-center">
+        <button class="btn btn-danger btn-sm" (click)="removeItem(product)"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
+  </table>

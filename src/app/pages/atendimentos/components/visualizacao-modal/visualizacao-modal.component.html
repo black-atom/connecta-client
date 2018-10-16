@@ -8,6 +8,7 @@
 <div class="content-modal">
   <ul class="nav-tabs">
     <li class="tab {{ tabActived === 'atendimento' ? 'atived': ''}}" (click)="getTab('atendimento')">Atendimento</li>
+    <li class="tab {{ tabActived === 'associarPecas' ? 'atived': ''}}" (click)="getTab('associarPecas')">Associar Peça</li>
     <li class="tab {{ tabActived === 'relatorio' ? 'atived': ''}}" (click)="getTab('relatorio')">Relatório</li>
     <li class="tab {{ tabActived === 'faturamento' ? 'atived': ''}}" (click)="getTab('faturamento')">Faturamento</li>
     <li class="tab {{ tabActived === 'fotos' ? 'atived': ''}}" (click)="getTab('fotos')">Fotos</li>
@@ -15,12 +16,67 @@
   </ul>
 
   <div class="name-of-client">
-    <h5 class="mb-1">
-      {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
-      {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
-    </h5>
-    <h5 *ngIf="atendimentoSelecionado?.liberacao?.nome_supervisor">Visita autorizada por: {{ atendimentoSelecionado?.liberacao?.nome_supervisor | uppercase }}</h5>
+
+    <div class="row" [formGroup]="productForm">
+
+      <div class="col-12">
+        <h5 class="mb-1">
+          {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
+          {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
+          {{ productForm.value.baseStock}}
+        </h5>
+      </div>
+
+      <div class="col-12" *ngIf="atendimentoSelecionado?.liberacao?.nome_supervisor">
+        <h5 >
+          Visita autorizada por: {{ atendimentoSelecionado?.liberacao?.nome_supervisor | uppercase }} 
+        </h5>
+      </div>
+
+      <div class="form-group col-12" *ngIf="tabActived === 'associarPecas'">
+        <div class="form-group col-4">
+          <label for="estoque base">Estoque Base</label>
+          <select class="form-control" name="estoquebase" formControlName="baseStock">
+            <option value="" selected>Selecione</option>
+            <option value="realponto">RealPonto</option>
+            <option value="pontoreal">PontoReal</option>
+            <option value="novareal">NovaReal</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col-md-5 col-sm-12 col-xs-12 col-lg-5" *ngIf="productForm.value.baseStock !== '' " >
+        <label class="control-label" for="descricao">Descrição Produto</label>
+        <input type="text" class="form-control" formControlName="description"  (keyup)="searchProduct(productForm.value.description)">
+        <ul>
+          <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="productSelected(product)">
+            {{ product?.description }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4" *ngIf="productForm.value.baseStock !== '' " >
+        <label class="control-label" for="brand">N. Serie</label>
+        <input type="text" class="form-control"  disabled="true" formControlName="serialNumber">
+      </div>
+
+        <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2" *ngIf="productForm.value.baseStock !== '' " >
+          <label class="control-label" for="brand">Qtd</label>
+          <input type="number" class="form-control" formControlName="quantity">
+        </div>
+
+        <div class="form-group col-1" *ngIf="productForm.value.baseStock !== '' " >
+          <label class="control-label" for="brand"> Adicionar </label>
+          <button
+            type="button"
+            class="btn btn-primary btn-with-icon"
+            title="Associar Peça"
+            (click)="addProduct(productForm.value)">+</button>
+        </div>
+
+        </div>
   </div>
+
   <div class="situacao">
      <p class="text-green" *ngIf="atendimentoSelecionado?.faturamento?.status">
         {{ atendimentoSelecionado?.faturamento?.status ? 'Faturado' : '' }}
@@ -55,6 +111,11 @@
     <div *ngIf="tabActived === 'assinatura'">
       <app-assinatura [assinaturaDetail]="atendimentoSelecionado?.assinatura"></app-assinatura>
     </div>
+
+    <div *ngIf="tabActived === 'associarPecas'">
+      <app-associar-produtos (removeProductReserved)="updatedProductReservad($event)" [products]="productsReserved$ | async "></app-associar-produtos>
+    </div>
+
   </div>
 
 </div>
@@ -75,7 +136,7 @@
   <button type="button"
     class="btn btn-info"
     (click)="fecharModal()"
-    *ngIf="!atendimentoSelecionado.tecnico.nome && atendimentoSelecionado.estado !== 'bloqueado'"
+    *ngIf="!atendimentoSelecionado.tecnico.nome && atendimentoSelecionado.estado !== 'bloqueado' && tabActived !== 'associarPecas'"
     routerLink="/pages/atendimentos/detalhes/{{ atendimentoSelecionado._id }}"
     title="Edite informações do atendimento">
     <i class="fa fa-pencil"></i>

@@ -1,7 +1,14 @@
 <form [formGroup]="formProduto" novalidate>
   <ba-card cardTitle="Dados do Produto">
     <div class="row">
-      <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="productCode">Cód. Produto</label>
+        <input type="text" class="form-control" formControlName="productCode">
+        <small class="ion-close text text-danger" *ngIf="formProduto.get('productCode').hasError('required') && formProduto.get('productCode').touched"> Obrigatório!</small>
+      </div>
+
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
         <label class="control-label" for="description">Descrição do Produto</label>
         <input type="text" class="form-control" formControlName="description">
         <small class="ion-close text text-danger" *ngIf="formProduto.get('description').hasError('required') && formProduto.get('description').touched"> Obrigatório!</small>
@@ -13,7 +20,7 @@
         <small class="ion-close text text-danger" *ngIf="formProduto.get('brand').hasError('required') && formProduto.get('brand').touched"> Obrigatório!</small>
       </div>
 
-      <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+      <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
         <div class="form-group">
           <label for="categoria">Categoria</label>
           <select class="form-control" name="category" formControlName="category">
@@ -24,7 +31,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+      <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
         <div class="form-group">
             <label for="serialControl">Controle Serial</label>
             <select class="form-control" name="serialControl" formControlName="serialControl">
@@ -35,7 +42,7 @@
           </div>
       </div>
 
-      <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+      <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
         <label for="buyPrice">Preço Custo</label>
         <div class="input-group">
           <label class="input-group-addon">R$</label>
@@ -44,7 +51,7 @@
         <small class="ion-close text text-danger" *ngIf="formProduto.get('buyPrice').hasError('required') && formProduto.get('buyPrice').touched"> Obrigatório!</small>
       </div>
 
-      <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+      <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
         <label for="sellPrice">Preço Venda</label>
         <div class="input-group">
           <label class="input-group-addon">R$</label>

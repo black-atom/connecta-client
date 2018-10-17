@@ -1,6 +1,13 @@
 <form [formGroup]="formProduto" novalidate>
     <ba-card cardTitle="Dados do Produto">
       <div class="row">
+
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label class="control-label" for="productCode">Cód. Produto</label>
+            <input type="text" class="form-control" formControlName="productCode">
+            <small class="ion-close text text-danger" *ngIf="formProduto.get('productCode').hasError('required') && formProduto.get('productCode').touched"> Obrigatório!</small>
+          </div>
+
         <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
           <label class="control-label" for="description">Descrição do Produto</label>
           <input type="text" class="form-control" formControlName="description">

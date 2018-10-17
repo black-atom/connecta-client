@@ -32,6 +32,7 @@ export class NovoComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       category: ['', Validators.required],
       brand: ['', Validators.required],
+      productCode: ['', Validators.required],
       serialControl: [false, Validators.required],
       buyPrice: [''],
       sellPrice: ['']

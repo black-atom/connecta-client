@@ -10,6 +10,7 @@ export interface Produto {
   createdAt: string;
   updatedAt: string;
   updatedBy: string;
+  productCode: string;
 }
 
 export interface Peca {

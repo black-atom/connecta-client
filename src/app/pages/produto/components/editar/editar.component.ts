@@ -45,6 +45,7 @@ export class EditarComponent implements OnInit, OnDestroy {
       category: ['', Validators.required],
       brand: ['', Validators.required],
       serialControl: [false, Validators.required],
+      productCode: ['', Validators.required],
       buyPrice: [''],
       sellPrice: ['']
     });
@@ -59,11 +60,12 @@ export class EditarComponent implements OnInit, OnDestroy {
 
   getProduto() {
     this.subscription = this.produtoService.getProduto(this.id).subscribe(produto => {
-      const { description, brand, category, serialControl, sellPrice, buyPrice } = produto;
+      const { description, brand, category, serialControl, sellPrice, buyPrice, productCode } = produto;
       this.formProduto.get('description').patchValue(description);
       this.formProduto.get('brand').patchValue(brand);
       this.formProduto.get('category').patchValue(category);
       this.formProduto.get('serialControl').patchValue(serialControl);
+      this.formProduto.get('productCode').patchValue(productCode);
       this.formProduto.get('sellPrice').patchValue(sellPrice);
       this.formProduto.get('buyPrice').patchValue(buyPrice);
       this.produtoRecebido = produto;
@@ -84,7 +86,8 @@ export class EditarComponent implements OnInit, OnDestroy {
       description: produto.description.toUpperCase(),
       category: produto.category.toUpperCase(),
       brand: produto.brand.toUpperCase(),
-      serialControl: this.parserBoolean(produto.serialControl)
+      serialControl: this.parserBoolean(produto.serialControl),
+      productCode: produto.productCode
     };
     this.subscription = this.produtoService.editarProduto(parseProduct)
       .subscribe(res => res ? this.sucessoNotification() : this.falhaNotification());

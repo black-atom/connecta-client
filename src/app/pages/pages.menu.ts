@@ -299,7 +299,7 @@ export const PAGES_MENU = [{
         data: {
           menu: {
             title: 'Associar Map',
-            icon: 'ion-locate'
+            icon: 'fa fa-map-marker'
           }
         }
       },

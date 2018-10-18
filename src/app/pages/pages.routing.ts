@@ -16,6 +16,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'monitoramento', pathMatch: 'full' },
       { path: 'monitoramento', loadChildren: './monitoramento/monitoramento.module#MonitoramentoModule' },
+      { path: 'mercado-livre', loadChildren: './mercado-livre/mercado-livre.module#MercadoLivreModule' },
       { path: 'clientes', loadChildren: './clientes/clientes.module#ClientesModule' },
       { path: 'funcionarios', loadChildren: './funcionarios/funcionarios.module#FuncionariosModule' },
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },

@@ -108,6 +108,38 @@ export const PAGES_MENU = [{
       ]
     },
     {
+      path: 'mercado-livre',
+      data: {
+        menu: {
+          title: 'Mercado Livre',
+          icon: 'fa fa-archive',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [{
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
+          }
+        }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+
+    {
       path: 'compra',
       data: {
         menu: {

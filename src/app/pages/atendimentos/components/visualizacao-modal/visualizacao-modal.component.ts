@@ -54,10 +54,14 @@ public tabActived = 'atendimento';
                 return {
                   ...produto,
                   serialNumber: productsAvaiables[0].serialNumber,
-                  _id: productsAvaiables[0]._id
+                  _id: productsAvaiables[0]._id,
+                  status: productsAvaiables[0].status
                 };
               }
-              return { ...produto, serialNumber: '' };
+              if (produto.serialControl) {
+                return { ...produto, status: 'Produto Indisponível' };
+              }
+              return { ...produto, serialNumber: '', status: 'Disponível' };
             });
           });
         });
@@ -65,6 +69,7 @@ public tabActived = 'atendimento';
   }
 
   productSelected(product) {
+   if (product.status !== 'Produto Indisponível') {
     this.productForm.get('description').patchValue(product.description);
     this.productForm.get('serialNumber').patchValue(product.serialNumber);
     this.productForm.get('serialControl').patchValue(product.serialControl);
@@ -79,6 +84,10 @@ public tabActived = 'atendimento';
     }
 
     return this.productsSearch$ = Observable.of([]);
+   }
+
+   this.productForm.get('description').patchValue('');
+   return this.productsSearch$ = Observable.of([]);
   }
 
   fecharModal() {

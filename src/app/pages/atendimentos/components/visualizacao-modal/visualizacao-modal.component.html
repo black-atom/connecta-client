@@ -23,13 +23,12 @@
         <h5 class="mb-1">
           {{ atendimentoSelecionado?.cliente.nome_razao_social }} -
           {{ atendimentoSelecionado?.cliente.cnpj_cpf | rgCnpjCpf }}
-          {{ productForm.value.baseStock}}
         </h5>
       </div>
 
       <div class="col-12" *ngIf="atendimentoSelecionado?.liberacao?.nome_supervisor">
         <h5 >
-          Visita autorizada por: {{ atendimentoSelecionado?.liberacao?.nome_supervisor | uppercase }} 
+          Visita autorizada por: {{ atendimentoSelecionado?.liberacao?.nome_supervisor | uppercase }}
         </h5>
       </div>
 
@@ -50,7 +49,7 @@
         <input type="text" class="form-control" formControlName="description"  (keyup)="searchProduct(productForm.value.description)">
         <ul>
           <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="productSelected(product)">
-            {{ product?.description }}
+            {{ product?.description }} - <strong>{{ product?.status }}</strong>
           </li>
         </ul>
       </div>

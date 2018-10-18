@@ -83,7 +83,7 @@ export class LiberarProdutoComponent implements OnInit {
       _id: product._id,
       serialControl: product.serialControl,
       serialNumber: product.serialNumber,
-      statusProductReserved: 'liberado',
+      status: 'liberado',
       statusProductAvailable: 'baixado'
     };
 
@@ -98,7 +98,7 @@ export class LiberarProdutoComponent implements OnInit {
       _id: product._id,
       serialControl: product.serialControl,
       serialNumber: product.serialNumber,
-      statusProductReserved: 'estorno',
+      status: 'estorno',
       statusProductAvailable: 'disponivel'
     };
 
@@ -106,4 +106,24 @@ export class LiberarProdutoComponent implements OnInit {
       .putProductReserved(productReserved)
       .subscribe(res => this.getReservedProducts());
   }
+
+  funcionarioEvent(product, status) {
+    const tecnicoAtual = this.tecnicoSelecionado;
+    let productReserved = {
+      _id: product._id,
+      status: 'técnico perdeu o item'
+    };
+
+    if (status === 'quebrou') {
+      productReserved = {
+        _id: product._id,
+        status: 'técnico quebrou o item'
+      };
+    }
+
+    this.produtoReservadoService
+      .putProductReserved(productReserved)
+      .subscribe(res => this.getReservedProducts());
+  }
+
 }

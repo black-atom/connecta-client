@@ -19,7 +19,8 @@ export class GerenciarComponent implements OnInit {
   constructor(private estoqueService: EstoqueService) { }
 
   ngOnInit() {
-    this.stockTransactions$ = this.estoqueService.getAllTransactionsStock()
+    this.stockTransactions$ = this.estoqueService
+      .getAllTransactionsStock()
       .map(({ stockTransactions, count }) => {
         this.totalRecords = count;
         this.carregando = false;
@@ -47,13 +48,13 @@ export class GerenciarComponent implements OnInit {
     const skip = event.first;
     const limit = event.rows;
 
-       this.stockTransactions$ = this.estoqueService
-       .getAllTransactionsStock(skip, limit, query)
-        .map(({ stockTransactions, count }) => {
-          this.totalRecords = count;
-          this.carregando = false;
-          return stockTransactions;
-        });
+    this.stockTransactions$ = this.estoqueService
+      .getAllTransactionsStock(skip, limit, query)
+      .map(({ stockTransactions, count }) => {
+        this.totalRecords = count;
+        this.carregando = false;
+        return stockTransactions;
+      });
   }
 
 }

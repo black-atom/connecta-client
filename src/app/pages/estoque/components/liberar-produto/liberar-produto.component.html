@@ -53,8 +53,50 @@
             <td class="text-center">{{ item?.quantity }}</td>
             <td class="text-left">{{ item?.status | uppercase }}</td>
             <td class="text-left">
-              <button type="button" *ngIf="item?.status !== 'liberado'" pButton title="Liberar" icon="fa fa-check" (click)="liberarProduct(item)"></button>
-              <button type="button" *ngIf="item?.status === 'liberado'" pButton title="Estornar" icon="fa fa-arrow-left" (click)="retornarProduct(item)"></button>
+              <div class="row">
+                <div class="col-3" *ngIf="item?.status === 'reservado'">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    pButton title="Liberar" icon="fa fa-check"
+                    (click)="liberarProduct(item)"
+                  >
+                  </button>
+                </div>
+
+                <div class="col-3" *ngIf="item?.status === 'liberado'">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    pButton title="Perdeu"
+                    icon="fa fa-window-close"
+                    (click)="funcionarioEvent(item, 'perdeu')"
+                  >
+                  </button>
+                </div>
+
+                <div class="col-3" *ngIf="item?.status === 'liberado'">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-warning"
+                    pButton title="Quebrou"
+                    icon="fa fa-arrow-left"
+                    (click)="funcionarioEvent(item, 'quebrou')"
+                  >
+                  </button>
+                </div>
+
+                <div class="col-3" *ngIf="item?.status === 'liberado'">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info"
+                    pButton title="Estornar"
+                    icon="fa  fa-reply-all"
+                    (click)="retornarProduct(item)"
+                  >
+                  </button>
+                </div>
+              </div>
             </td>
 
           </tr>

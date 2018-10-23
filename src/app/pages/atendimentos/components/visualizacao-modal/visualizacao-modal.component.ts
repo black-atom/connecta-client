@@ -42,30 +42,7 @@ public tabActived = 'atendimento';
   }
 
   searchProduct(description) {
-    const baseStock = this.productForm.get('baseStock').value;
-    if (description.length > 4) {
-      this.productsSearch$ = this.estoqueService
-      .getAllTransactionsStock(0, 1, { description, baseStock })
-        .switchMap(({ stockTransactions }) => {
-          return this.productsAvailablesService.getProdutosAvailables(0, 1, { description, status: 'disponivel', baseStock })
-          .map(({ productsAvaiables }) => {
-            return stockTransactions.map(produto => {
-              if (productsAvaiables.length > 0 && produto.productID === productsAvaiables[0].productID) {
-                return {
-                  ...produto,
-                  serialNumber: productsAvaiables[0].serialNumber,
-                  _id: productsAvaiables[0]._id,
-                  status: productsAvaiables[0].status
-                };
-              }
-              if (produto.serialControl) {
-                return { ...produto, status: 'Produto Indisponível' };
-              }
-              return { ...produto, serialNumber: '', status: 'Disponível' };
-            });
-          });
-        });
-    }
+
   }
 
   productSelected(product) {

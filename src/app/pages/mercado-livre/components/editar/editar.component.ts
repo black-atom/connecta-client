@@ -40,7 +40,7 @@ export class EditarComponent implements OnInit {
       .getMercadoLivreByID(this.id)
       .subscribe(orderMercadoLivre => {
         this.products = orderMercadoLivre.productsSell;
-        this.orderSellForm.get('dateSell').patchValue(orderMercadoLivre.dateSell);
+        this.orderSellForm.get('dateSell').patchValue(this.parseDataPick(orderMercadoLivre.dateSell));
         this.orderSellForm.get('documentID').patchValue(orderMercadoLivre.documentID);
         this.orderSellForm.get('customerName').patchValue(orderMercadoLivre.customerName);
         this.orderSellForm.get('status').patchValue(orderMercadoLivre.status);
@@ -63,6 +63,27 @@ export class EditarComponent implements OnInit {
   get productsSell(): FormArray {
     return this.orderSellForm.get('productsSell') as FormArray;
   }
+
+  parseDataPick(data) {
+    const date = new Date(data);
+    const formatoData = { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() };
+    return formatoData;
+  }
+
+  mask(valorDaLinha: string) {
+    let valor = '';
+    if (valorDaLinha !== undefined) {
+      valor = valorDaLinha.replace(/\D+/g, '');
+    }
+
+    if (valor.length > 11) {
+      return [/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/];
+    }
+
+    return [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/];
+
+  }
+
 
   initProductForm() {
     this.productForm = this.fb.group({

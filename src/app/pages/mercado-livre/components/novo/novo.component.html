@@ -109,10 +109,10 @@
           <td class="text-left">{{ product?.description | uppercase }}</td>
           <td class="text-left">{{ product?.serialNumber }}</td>
           <td class="text-center">{{ product?.quantity }}</td>
-          <td class="text-center">{{ product?.buyPrice }}</td>
-          <td class="text-center">{{ product?.tarifMercadoLivre }}</td>
-          <td class="text-center">{{ product?.deliveryPrice }}</td>
-          <td class="text-center">{{ product?.sellPrice }}</td>
+          <td class="text-center">{{ product?.buyPrice | currency: 'BRL': true }}</td>
+          <td class="text-center">{{ product?.tarifMercadoLivre | currency: 'BRL': true }}</td>
+          <td class="text-center">{{ product?.deliveryPrice | currency: 'BRL': true }}</td>
+          <td class="text-center">{{ product?.sellPrice | currency: 'BRL': true }}</td>
           <td class="text-center">
             <button class="btn btn-danger btn-sm" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
           </td>

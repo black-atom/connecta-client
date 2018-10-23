@@ -15,9 +15,13 @@ import { categoriaProdutos } from './../../../../utils/mocks/equipamentos';
 export class NovoComponent implements OnInit, OnDestroy {
 
   public orderBuyForm: FormGroup;
+  public productForm: FormGroup;
   public categoriaProdutos = categoriaProdutos;
   private subscription: Subscription;
   public productsSearch$: Observable<Produto[]>;
+  products = [];
+
+
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutoService,
@@ -27,6 +31,7 @@ export class NovoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    this.initProductForm();
   }
 
   initForm() {
@@ -36,33 +41,32 @@ export class NovoComponent implements OnInit, OnDestroy {
       baseStock: ['', Validators.required],
       products: this.fb.array([])
     });
-    this.addProduct();
   }
 
-  productForm() {
-    return this.fb.group({
+  initProductForm() {
+    this.productForm = this.fb.group({
       description: ['', Validators.required],
       quantity: [1, Validators.required],
       productID: ['', Validators.required],
       serialControl: [false, Validators.required],
-      baseStock: [false, Validators.required]
+      baseStock: ['', Validators.required]
     });
   }
 
   searchProduct(description) {
-    if (description.length > 4) {
+    if (description) {
       this.productsSearch$ = this.produtoService
         .produtosLazyLoad(0, 10, { description })
         .map(({ produtos }) => produtos);
     }
   }
 
-  pecaSelecionada({ description, serialControl, _id }, index) {
-    const productsForm = this.products.at(index);
-      productsForm.get('description').patchValue(description);
-      productsForm.get('productID').patchValue(_id);
-      productsForm.get('serialControl').patchValue(serialControl);
-      productsForm.get('baseStock').patchValue(this.orderBuyForm.get('baseStock').value);
+  pecaSelecionada({ description, serialControl, _id }) {
+    const formProduct = this.productForm;
+    formProduct.get('description').patchValue(description);
+    formProduct.get('productID').patchValue(_id);
+    formProduct.get('serialControl').patchValue(serialControl);
+    formProduct.get('baseStock').patchValue(this.orderBuyForm.get('baseStock').value);
     return this.productsSearch$ = Observable.of([]);
   }
 
@@ -79,17 +83,21 @@ export class NovoComponent implements OnInit, OnDestroy {
     return sku;
   }
 
-  get products(): FormArray {
+  get productsFormArray(): FormArray {
     return this.orderBuyForm.get('products') as FormArray;
   }
 
-  addProduct() {
-    const products: FormArray = <FormArray>this.orderBuyForm.get('products');
-    products.push(this.productForm());
+  addProduct(product) {
+    const products = this.productsFormArray;
+    products.push(this.fb.group(product));
+    this.products = products.value;
+    this.initProductForm();
   }
 
-  removeProduct(index) {
-    this.products.removeAt(index);
+  removeItem(index) {
+    const products = this.productsFormArray;
+    products.removeAt(index);
+    this.products = products.value;
   }
 
   saveOrderBuy(orderBuy: Produto) {

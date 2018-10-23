@@ -1,6 +1,6 @@
-<form [formGroup]="orderBuyForm" novalidate>
+<form novalidate>
   <ba-card cardTitle="Dados da Compra">
-    <div class="row">
+    <div class="row" [formGroup]="orderBuyForm">
       <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
         <label class="control-label" for="buyID">Cod.</label>
         <input type="text" class="form-control" formControlName="buyID">
@@ -35,14 +35,14 @@
       </div>
     </div>
 
-    <div class="row" formArrayName="products" *ngFor="let product of orderBuyForm.get('products').controls; let i = index">
-      <div [formGroupName]="i" class="col-12">
+    <div class="row" [formGroup]="productForm">
+      <div class="col-12">
         <div class="row">
           <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
               <label class="control-label" for="descricao">Descrição Produto</label>
-              <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(product.value.description)">
-              <ul  *ngIf="orderBuyForm.controls['products'].at(i).get('description')?.value?.length <= 6">
-                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product, i)">{{ product?.description }} - {{ product?.brand }}</li>
+              <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(productForm.value.description)">
+              <ul>
+                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product)">{{ product?.description }} - {{ product?.brand }}</li>
               </ul>
             </div>
 
@@ -54,18 +54,32 @@
             <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
               <label for="action">Ação</label>
               <div class="buttonActionForm">
-                <button type="button" class="btn btn-danger buttonRemoveForm" (click)="removeProduct(i)"
-                  style="width: 40px;"
-                  *ngIf="products?.controls.length > 1">x</button>
-                <button type="button" class="btn btn-primary " (click)="addProduct()"
-                  style="width: 40px;"
-                  *ngIf="orderBuyForm.controls['products'].length -1 === i" [disabled]="product.value.description.length === 0">+</button>
+                <button type="button" class="btn btn-primary " [disabled]="productForm.invalid" (click)="addProduct(productForm.value)" style="width: 40px;">+</button>
               </div>
             </div>
         </div>
       </div>
    </div>
 
+  <div class="row">
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th scope="col" class="text-left"><strong>Descrição Produto</strong></th>
+          <th scope="col" class="text-center"><strong>Qtd</strong></th>
+          <th scope="col" class="text-center"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; let i = index">
+          <td class="text-left">{{ product?.description | uppercase }}</td>
+          <td class="text-center">{{ product?.quantity }}</td>
+          <td class="text-center">
+            <button class="btn btn-danger btn-sm" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </table>
+  </div>
   </ba-card>
 
   <div class="row">
@@ -86,3 +100,4 @@
   </div>
 
 </form>
+

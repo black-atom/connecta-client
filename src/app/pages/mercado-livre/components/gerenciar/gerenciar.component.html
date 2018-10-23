@@ -1,3 +1,39 @@
-<p>
-  gerenciar works!
-</p>
+<p-dataTable
+[value]="orderSell$ | async"
+[lazy]="true"
+[rows]="25"
+[paginator]="true"
+[totalRecords]="totalRecords"
+(onLazyLoad)="loadorderSellLazy($event)"
+[pageLinks]="5"
+[responsive]="true"
+[sortOrder]="-1"
+[loading]="carregando"
+ loadingIcon="ion-load-a"
+ rowHover="true"
+ sortField="createdAt" styleClass="borderless">
+
+ <p-column field="buyPrice" header="Data Compra" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.dateSell }}</ng-template>
+ </p-column>
+
+ <p-column field="buyPrice" header="Cliente" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.customerName | uppercase }}</ng-template>
+ </p-column>
+
+ <p-column field="sellPrice" header="Status" [filter]="true" [style]="{'width':'100px'}">
+    <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.status | uppercase }}</ng-template>
+ </p-column>
+
+  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+    <ng-template let-orderSell="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/mercado-livre/editar-mercado-livre/{{ orderSell._id }}"></button>
+    </ng-template>
+  </p-column>
+
+  <ng-template pTemplate="emptymessage">
+      <p *ngIf="carregando" >Buscando clientes...</p>
+      <p *ngIf="!carregando">Nenhum cliente foi encontrado</p>
+  </ng-template>
+
+</p-dataTable>

@@ -22,7 +22,8 @@ import {
   ContratoService,
   OrdemCompraService,
   ProdutoDisponivelService,
-  ProdutoReservadoService
+  ProdutoReservadoService,
+  MercadoLivreServiceService
 } from './services';
 
 
@@ -88,6 +89,7 @@ export function formatacaoDaData () {
     ProdutoService,
     ProdutoDisponivelService,
     ProdutoReservadoService,
+    MercadoLivreServiceService,
     OrdemCompraService,
     EstoqueService,
     I18n,

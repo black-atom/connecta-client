@@ -1,4 +1,4 @@
-import { propNameQuery } from 'app/shared/utils/StringUtils';
+import { propNameQuery, formatQuery } from 'app/shared/utils/StringUtils';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { MercadoLivreServiceService } from 'app/shared/services';
@@ -36,8 +36,10 @@ export class GerenciarComponent implements OnInit {
     return newQuery;
   }
 
-  loadorderSellLazy(event) {
-    const query = this.filterEvents(event);
+  loadOrderSellLazy(event) {
+    const eventParse = this.filterEvents(event);
+    const query = formatQuery('dateSell')(eventParse);
+
     const skip = event.first;
     const limit = event.rows;
 

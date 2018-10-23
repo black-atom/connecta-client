@@ -13,15 +13,15 @@
  rowHover="true"
  sortField="createdAt" styleClass="borderless">
 
- <p-column field="buyPrice" header="Data Compra" [filter]="true" [style]="{'width':'100px'}">
+ <p-column field="dateSell" header="Data Compra" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.dateSell }}</ng-template>
  </p-column>
 
- <p-column field="buyPrice" header="Cliente" [filter]="true" [style]="{'width':'100px'}">
+ <p-column field="customerName" header="Cliente" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.customerName | uppercase }}</ng-template>
  </p-column>
 
- <p-column field="sellPrice" header="Status" [filter]="true" [style]="{'width':'100px'}">
+ <p-column field="status" header="Status" [filter]="true" [style]="{'width':'100px'}">
     <ng-template let-orderSell="rowData" pTemplate="body">  {{ orderSell?.status | uppercase }}</ng-template>
  </p-column>
 

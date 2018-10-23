@@ -14,3 +14,4 @@ export * from './ordem-compra-service/ordem-compra.service';
 export * from './produto-service/produto.service';
 export * from './produto-disponivel-service/produto-disponivel.service';
 export * from './produto-reservado-service/produto-reservado.service';
+export * from './mercado-livre-service/mercado-livre-service.service';

@@ -61,7 +61,8 @@ export class LiberarProdutoComponent implements OnInit {
         ).map(productsReserved => {
           const funcionariosFormatted =
           funcionarios.map(funcionario => {
-            const findProductFunc = productsReserved.filter(product => product.tecnico._id === funcionario._id);
+            const findProductFunc = productsReserved
+              .filter(product => product.tecnico && product.tecnico._id && product.tecnico._id === funcionario._id);
             if (findProductFunc.length > 0) {
               return { ...funcionario, productsReserved: findProductFunc };
             }

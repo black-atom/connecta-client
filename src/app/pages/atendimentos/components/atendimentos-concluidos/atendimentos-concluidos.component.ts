@@ -137,7 +137,7 @@ export class AtendimentosConcluidosComponent implements OnInit, OnDestroy {
           ...atendimento,
           imagens: atendimento.imagens.map(imagem => ({
             ...imagem,
-            url: `${imagem.url.slice(48)}`
+            url: `https://storage.googleapis.com/blackatom-images/${imagem.url}`
           }))
         };
       }

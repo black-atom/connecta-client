@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs/Rx';
+import { Subscription, Observable, Subject } from 'rxjs/Rx';
 
 import { NotificacaoService, OrdemCompraService, ProdutoService } from './../../../../shared/services';
 
@@ -19,6 +19,8 @@ export class NovoComponent implements OnInit, OnDestroy {
   public categoriaProdutos = categoriaProdutos;
   private subscription: Subscription;
   public productsSearch$: Observable<Produto[]>;
+  public productDescription$ = new Subject()
+  public isSearchSelected = true
   products = [];
 
 
@@ -32,6 +34,18 @@ export class NovoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
     this.initProductForm();
+
+    this.productsSearch$ = this.productDescription$
+      .filter(Boolean)
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .flatMap(description => {
+        this.isSearchSelected = false
+
+        return this.produtoService
+          .produtosLazyLoad(0, 10, { description })
+          .map(({ produtos }) => produtos)
+      })
   }
 
   initForm() {
@@ -49,16 +63,7 @@ export class NovoComponent implements OnInit, OnDestroy {
       quantity: [1, Validators.required],
       productID: ['', Validators.required],
       serialControl: [false, Validators.required],
-      baseStock: ['', Validators.required]
     });
-  }
-
-  searchProduct(description) {
-    if (description) {
-      this.productsSearch$ = this.produtoService
-        .produtosLazyLoad(0, 10, { description })
-        .map(({ produtos }) => produtos);
-    }
   }
 
   pecaSelecionada({ description, serialControl, _id }) {
@@ -66,8 +71,12 @@ export class NovoComponent implements OnInit, OnDestroy {
     formProduct.get('description').patchValue(description);
     formProduct.get('productID').patchValue(_id);
     formProduct.get('serialControl').patchValue(serialControl);
-    formProduct.get('baseStock').patchValue(this.orderBuyForm.get('baseStock').value);
-    return this.productsSearch$ = Observable.of([]);
+
+    this.isSearchSelected = true
+  }
+
+  searchProduct(description) {
+    this.productDescription$.next(description)
   }
 
   generateSKU = () => {
@@ -100,11 +109,19 @@ export class NovoComponent implements OnInit, OnDestroy {
     this.products = products.value;
   }
 
-  saveOrderBuy(orderBuy: Produto) {
+  saveOrderBuy(orderBuy: any) {
+    const formattedOrder = {
+      ...orderBuy,
+      products: orderBuy.products
+        .map(product => ({
+          ...product,
+          baseStock: orderBuy.baseStock,
+        }))
+    }
+
     this.subscription =
-      this.ordemCompraService.createOrderBuy(orderBuy)
+      this.ordemCompraService.createOrderBuy(formattedOrder)
         .subscribe(res => res ? this.sucessoNotification() : this.falhaNotification());
-    this.productsSearch$ = Observable.of([]);
   }
 
   sucessoNotification() {

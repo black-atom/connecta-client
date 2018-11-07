@@ -40,10 +40,12 @@
         <div class="row">
           <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-8">
               <label class="control-label" for="descricao">Descrição Produto</label>
-              <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(productForm.value.description)">
-              <ul>
-                <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product)">{{ product?.description }} - {{ product?.brand }}</li>
-              </ul>
+              <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(productForm.value.description)" />
+              <div *ngIf="productsSearch$ | async as products" >
+                <ul *ngIf="!isSearchSelected">
+                  <li class="autocomplete-item" *ngFor="let product of products" (click)="pecaSelecionada(product)">{{ product?.description }} - {{ product?.brand }}</li>
+                </ul>
+              </div>
             </div>
 
             <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
@@ -99,5 +101,12 @@
     </div>
   </div>
 
+  <pre>
+    {{ orderBuyForm.value | json }}
+  </pre>
+  <pre>
+    {{ productForm.value | json }}
+  </pre>
 </form>
+
 

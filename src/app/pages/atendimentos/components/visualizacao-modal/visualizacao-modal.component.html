@@ -49,7 +49,7 @@
         <input type="text" class="form-control" formControlName="description"  (keyup)="searchProduct(productForm.value.description)">
         <ul>
           <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="productSelected(product)">
-            {{ product?.description }} - <strong>Qtd: {{ product?.quantity }} </strong>
+            {{ product?.description }} - <strong>{{ product?.status }}</strong>
           </li>
         </ul>
       </div>
@@ -72,11 +72,7 @@
             title="Associar Peça"
             (click)="addProduct(productForm.value)">+</button>
         </div>
-        <div class="col-12">
-          <div class="alert alert-danger" role="alert">
-            Produto não está disponível!
-          </div>
-        </div>
+
         </div>
   </div>
 

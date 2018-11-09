@@ -38,7 +38,7 @@ export class LiberarProdutoComponent implements OnInit {
   }
 
   getReservedProducts() {
-    const parseDate = `${this.inputDate.year}-${this.inputDate.month}-${this.inputDate.day}T03:00:00.000Z`;
+    const parseDate = `${this.inputDate.year}-${this.inputDate.month}-${this.inputDate.day}`;
 
     this.productsAvailables$ =
     this.funcionarioService

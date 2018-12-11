@@ -18,6 +18,9 @@ export class PrincipaisInfoComponent implements OnInit {
   @Input()
   editarCampoFormulario: Boolean = false;
 
+  @Input()
+  isClientInDebt: boolean = false;
+
   @Output()
   enviaCnpj = new EventEmitter();
 

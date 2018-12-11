@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs/Rx';
 
-import { Atendimento, Cliente, ContatoCliente, EnderecoCliente } from './../../../../models';
-import { AtendimentoService, ClienteService } from './../../../../shared/services';
+import { Atendimento, Cliente, ContatoCliente, EnderecoCliente, Contrato } from './../../../../models';
+import { AtendimentoService, ClienteService, ContratoService } from './../../../../shared/services';
 import { NotificacaoService } from './../../../../shared/services/notificacao-service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import { IFormCanDeactivate } from './../../../../shared/guards/form-candeactivate.interface';
@@ -26,6 +26,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
   public contatoEscolhido: ContatoCliente;
   public enderecoEscolhido: EnderecoCliente;
   public atendimentosCount;
+  public isClientInDebt: boolean = false;
 
   public formAtendimento: FormGroup;
   public novoAtendimentoEditarCampos: Boolean = true;
@@ -35,6 +36,7 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
               private _notificacaoService: NotificacaoService,
               private _clienteService: ClienteService,
               private _ngbDateParserFormatter: NgbDateParserFormatter,
+              private _contratoService: ContratoService,
               private _servicoModal: NgbModal) { }
 
   ngOnInit() {
@@ -91,17 +93,28 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
           this.formAtendimento.get('cliente.nome_fantasia').patchValue(cliente.nome_fantasia);
          }
           return cliente;
-      }).switchMap(cliente => {
-        if (cliente) {
-          return this._atendimentoServiceService.getLatestAtendimento(cliente.cnpj_cpf)
+      })
+      .filter(Boolean)
+      .switchMap((cliente) => {
+        return this._atendimentoServiceService.getLatestAtendimento(cliente.cnpj_cpf)
           .map((atendimentos) => {
             this.atendimentosCount = atendimentos.length;
             return cliente;
           });
-        }
-      });
+      })
+      .switchMap((cliente) => {
+        return this._contratoService
+          .contratosLazyLoad(0, 25, {
+            'cliente.cnpj_cpf': cliente.cnpj_cpf
+          })
+          .map(response => response.contratos)
+          .map((contratos: [Contrato]) => contratos.some(contrato => contrato.isInDebt))
+          .do(isInDebt => this.isClientInDebt = isInDebt)
+          .map(() => cliente)
+      })
     }
   }
+
 
   contatoSelecionado(contato) {
     this.formAtendimento.get('contato.nome').patchValue(contato.nome);

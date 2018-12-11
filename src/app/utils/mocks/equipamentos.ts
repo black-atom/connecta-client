@@ -66,10 +66,8 @@ export const EQUIPAMENTOS: String[] = [
 
 export const categoriaProdutos: String[] = [
   'acessório',
-  'acionador',
-  'controle de acesso',
-  'catraca',
-  'relógio',
+  'equipamento',
   'peça',
-  'software'
+  'software',
+  'serviço'
 ];

@@ -12,9 +12,9 @@
             <img class="d-flex mr-3" [src]="produto?.imagemURL || 'assets/img/image.png'" width="45" height="45" alt="">
             <div class="media">
               <div class="media-body">
-                <strong>{{ produto?.descricao }} - {{ produto?.modelo }}</strong>
-                <p><small>{{ produto?.marca }}</small></p>
-                <span class="badge badge-info text-uppercase p-2" *ngIf="produto?.categoria">{{ produto?.categoria }}</span>
+                <strong>{{ produto?.description }}</strong>
+                <p><small>{{ produto?.brand }}</small></p>
+                <span class="badge badge-info text-uppercase p-2" *ngIf="produto?.category">{{ produto?.category }}</span>
               </div>
             </div>
           </div>
@@ -26,14 +26,12 @@
     <div class="form-group col-8">
       <div class="row pt-2">
 
-        <div class="col-12 mb-2" *ngIf="formEquipamento.get('modelo').value">
+        <div class="col-12 mb-2">
           <div class="media list-group-item">
-            <img class="d-flex mr-3" [src]="formEquipamento.get('imagemPath').value || 'assets/img/image.png'" width="65" height="65" alt="" *ngIf="formEquipamento.get('imagemPath').value">
+            <img *ngIf="formEquipamento.get('descricao').value" class="d-flex mr-3" src="assets/img/image.png" width="65" height="65" alt="">
             <div class="p-2">
               <h6>
-                {{ formEquipamento.get('descricao').value }} -
-                {{ formEquipamento.get('modelo').value }}
-              </h6>
+                {{ formEquipamento.get('descricao').value }} </h6>
               <p class="text-uppercase" *ngIf="formEquipamento.get('cnpjCliente').value">
                   {{ returnRazaoSocial(formEquipamento.get('cnpjCliente').value) | uppercase }} -
                   {{ formEquipamento.get('cnpjCliente').value }}  </p>
@@ -57,7 +55,7 @@
           </div>
         </div>
 
-        <div class="col-12 mb-2" *ngIf="!formEquipamento.get('modelo').value">
+        <div class="col-12 mb-2" *ngIf="!formEquipamento.get('descricao').value">
           <div class="media list-group-item">
             <h6 class="mb-4 mt-4 text-center">Selecione um Produto!</h6>
           </div>
@@ -108,8 +106,8 @@
             <option [value]="contrato.get('cliente.cnpj_cpf').value">
               {{ contrato.get('cliente.nome_razao_social').value + ' - ' }} {{ contrato.get('cliente.cnpj_cpf').value | rgCnpjCpf }}
             </option>
-            <option [value]="cnpj.cnpj_cpf" *ngFor="let cnpj of contrato?.get('cnpjAssociados').value">
-              {{ cnpj.nome_razao_social + ' - ' }} {{ cnpj.cnpj_cpf | rgCnpjCpf }}
+            <option [value]="cnpj?.cnpj_cpf" *ngFor="let cnpj of contrato?.get('cnpjAssociados').value">
+              {{ cnpj?.nome_razao_social + ' - ' }} {{ cnpj?.cnpj_cpf | rgCnpjCpf }}
             </option>
           </select>
           <span class="text-danger small mt-0" *ngIf="formEquipamento.get('cnpjCliente').hasError('required') && formEquipamento.get('cnpjCliente').touched">

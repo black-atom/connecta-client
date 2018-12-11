@@ -13,12 +13,17 @@ import {
   FuncionarioService,
   ClienteService,
   CepService,
+  EstoqueService,
   LoginService,
   NotificacaoService,
   MonitoramentoService,
   AvaliacoesService,
   ProdutoService,
-  ContratoService
+  ContratoService,
+  OrdemCompraService,
+  ProdutoDisponivelService,
+  ProdutoReservadoService,
+  MercadoLivreServiceService
 } from './services';
 
 
@@ -82,6 +87,11 @@ export function formatacaoDaData () {
     MonitoramentoService,
     AvaliacoesService,
     ProdutoService,
+    ProdutoDisponivelService,
+    ProdutoReservadoService,
+    MercadoLivreServiceService,
+    OrdemCompraService,
+    EstoqueService,
     I18n,
     {
       provide: AuthHttp,

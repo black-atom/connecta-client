@@ -2,17 +2,16 @@ import { FormCanDeactivateGuard } from './../../shared/guards/form-deactivate.gu
 import { Routes, RouterModule } from '@angular/router';
 
 import { EstoqueComponent } from './estoque.component';
-import { NovoComponent } from './components/novo';
 import { GerenciarComponent } from './components/gerenciar';
-import { EditarComponent } from './components/editar';
+import { LiberarProdutoComponent } from './components/liberar-produto/liberar-produto.component';
+
 const routes: Routes = [
   {
     path: '',
     component: EstoqueComponent,
     children: [
-      { path: 'novo', component: NovoComponent },
       { path: 'gerenciar', component: GerenciarComponent },
-      { path: 'editar-produto/:id', component: EditarComponent }
+      { path: 'liberar-produto', component: LiberarProdutoComponent }
     ]
   }
 ];

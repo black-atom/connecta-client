@@ -46,17 +46,17 @@
     <div formArrayName="cnpjAssociados" *ngFor="let cnpj of parentForm.controls['cnpjAssociados'].controls; let i = index">
       <div class="row" formGroupName="{{ i }}">
 
-        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.cnpj_cpf">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj?.value.cnpj_cpf">
           <label>CNPJ ou CPF</label>
           <input type="text" class="form-control" [textMask]="{mask: mask}" formControlName="cnpj_cpf" (change)="pesquisarCliente($event.target.value, 'associar', i)">
         </div>
 
-        <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.nome_razao_social">
+        <div class="form-group col-md-8 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj?.value.nome_razao_social">
           <label>Razão social ou nome</label>
           <input type="text" class="form-control" readonly="true" formControlName="nome_razao_social">
         </div>
 
-        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj.value.inscricao_estadual">
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-3" [class.has-success]="cnpj?.value.inscricao_estadual">
           <label>Inscrição estadual</label>
           <input type="text" class="form-control" readonly="true" formControlName="inscricao_estadual">
         </div>

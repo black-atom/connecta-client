@@ -8,11 +8,9 @@ import { ModuloCompartilhado } from './../../shared/shared.module';
 
 
 import { EstoqueComponent } from './estoque.component';
-import { NovoComponent } from './components/novo/novo.component';
 import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
-import { EditarComponent } from './components/editar/editar.component';
 import { routing } from './estoque.routing';
-import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.component';
+import { LiberarProdutoComponent } from './components/liberar-produto/liberar-produto.component';
 
 @NgModule({
   imports: [
@@ -25,16 +23,11 @@ import { ModalImagemComponent } from './components/modal-imagem/modal-imagem.com
   ],
   declarations: [
     EstoqueComponent,
-    NovoComponent,
     GerenciarComponent,
-    EditarComponent,
-    ModalImagemComponent
-  ],
-  entryComponents: [
-    ModalImagemComponent
+    LiberarProdutoComponent
   ],
   providers: [
-    ModuloCompartilhado,
+    ModuloCompartilhado
   ]
 })
 export class EstoqueModule { }

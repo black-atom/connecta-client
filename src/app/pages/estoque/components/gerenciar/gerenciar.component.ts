@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { ProdutoService } from './../../../../shared/services';
-import { propNameQuery } from 'app/shared/utils/StringUtils';
+import { propNameQuery, formatQuery } from 'app/shared/utils/StringUtils';
+import { EstoqueService } from './../../../../shared/services/';
 
 @Component({
   selector: 'app-gerenciar',
@@ -11,45 +11,50 @@ import { propNameQuery } from 'app/shared/utils/StringUtils';
 })
 export class GerenciarComponent implements OnInit {
 
-  public produtos$: Observable<any[]>;
+  public stockTransactions$: Observable<any[]>;
   public carregando: boolean = true;
 
   public totalRecords;
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(private estoqueService: EstoqueService) { }
 
   ngOnInit() {
-    this.produtos$ = this.produtoService.produtosLazyLoad()
-      .map(({ produtos, count }) => {
+    this.stockTransactions$ = this.estoqueService
+      .getAllTransactionsStock()
+      .map(({ stockTransactions, count }) => {
         this.totalRecords = count;
         this.carregando = false;
-        return produtos;
+        return stockTransactions;
       });
   }
 
   filterEvents({ filters, first, rows }) {
     const queryFormatter = propNameQuery(filters);
     const newQuery: any = {
-      ...queryFormatter('descricao'),
-      ...queryFormatter('marca'),
-      ...queryFormatter('modelo'),
-      ...queryFormatter('categoria')
+      ...queryFormatter('createdAt'),
+      ...queryFormatter('description'),
+      ...queryFormatter('baseStock'),
+      ...queryFormatter('createdBy'),
+      ...queryFormatter('status'),
+      ...queryFormatter('origin'),
+      ...queryFormatter('type')
     };
     return newQuery;
   }
 
   loadProdutosLazy(event) {
-    const query = this.filterEvents(event);
+    const query = formatQuery('createdAt')(this.filterEvents(event));
+
     const skip = event.first;
     const limit = event.rows;
 
-    this.produtos$ = this.produtoService
-      .produtosLazyLoad(skip, limit, query)
-        .map(({ produtos, count }) => {
-          this.totalRecords = count;
-          this.carregando = false;
-          return produtos;
-        });
+    this.stockTransactions$ = this.estoqueService
+      .getAllTransactionsStock(skip, limit, query)
+      .map(({ stockTransactions, count }) => {
+        this.totalRecords = count;
+        this.carregando = false;
+        return stockTransactions;
+      });
   }
 
 }

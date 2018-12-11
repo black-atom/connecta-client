@@ -99,7 +99,6 @@ export class EditarContratoComponent implements OnInit {
       descricao: ['', Validators.required],
       cnpjCliente: ['', Validators.required],
       categoria: ['', Validators.required],
-      modelo: ['', Validators.required],
       fabricante: ['', Validators.required],
       numeroSerie: [''],
       visita: ['', Validators.required],
@@ -137,7 +136,12 @@ export class EditarContratoComponent implements OnInit {
       this.editarContratoForm.patchValue(contrato);
       const propostaAtivas = contrato.propostas.filter(proposta => proposta.ativo);
       const propostaAtivasSorted = sort(descend(prop('criadoEm')), propostaAtivas);
-
+      contrato.cnpjAssociados.map(cnpjAssociado => this.cnpjAssociados.push(this.fb.group({
+        nome_razao_social: [cnpjAssociado.nome_razao_social, Validators.required],
+        cnpj_cpf: [cnpjAssociado.cnpj_cpf, [Validators.required, Validators.minLength(11)]],
+        inscricao_estadual: [cnpjAssociado.inscricao_estadual],
+        nome_fantasia: [cnpjAssociado.nome_fantasia]
+      })));
       this.propostas.patchValue([propostaAtivasSorted[0]]);
       const equipamentos = (<FormArray>this.propostas.at(0).get('equipamentos')) as FormArray;
       propostaAtivasSorted[0].equipamentos.map(equipamento => equipamentos.push(this.equipamentoForm()));

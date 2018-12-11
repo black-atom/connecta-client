@@ -1,0 +1,136 @@
+<ba-card cardTitle="Dados da solicitação Mercado Livre">
+    <div class="row no-print" [formGroup]="orderSellForm">
+
+        <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+            <label for="param_busca">Data Venda</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                name="dp"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                name="busca_data"
+                [(ngModel)]="inputDate"
+                id="param_busca"
+                formControlName="dateSell"
+              >
+              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                <i class="ion-calendar"></i>
+              </button>
+            </div>
+          </div>
+
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="cnpj/cpf">Cnpj/cpf</label>
+        <input type="text" class="form-control" [textMask]="{mask: mask}"  formControlName="documentID">
+      </div>
+
+      <div class="form-group col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label class="control-label" for="socialName">Razao Social/Nome</label>
+        <input type="text" class="form-control" formControlName="customerName">
+      </div>
+
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="socialName">Nota Fiscal</label>
+        <select type="text" class="form-control" formControlName="nf">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row no-print" [formGroup]="productForm">
+      <div class="col-12">
+        <br><br>
+        <h4>Produtos</h4>
+        <hr>
+      </div>
+
+      <div class="form-group  col-md-6 col-sm-12 col-xs-12 col-lg-6">
+        <label class="control-label" for="descricao">Descrição Produto</label>
+        <input type="text" class="form-control" formControlName="description" (keyup)="searchProduct(productForm.value.description)">
+        <ul>
+          <li class="autocomplete-item" *ngFor="let product of productsSearch$ | async " (click)="pecaSelecionada(product)">{{ product?.description }} - {{ product?.brand }}</li>
+        </ul>
+      </div>
+
+      <div class="form-group col-md-1 col-sm-12 col-xs-12 col-lg-1">
+        <label class="control-label" for="socialName">Qtd</label>
+        <input type="number" class="form-control" formControlName="quantity">
+      </div>
+
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="socialName">Custo R$</label>
+        <input type="number" class="form-control" formControlName="buyPrice">
+      </div>
+
+      <div class="form-group col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="socialName">Taxa M.</label>
+        <input type="number" class="form-control" formControlName="tarifMercadoLivre">
+      </div>
+
+      <div class="form-group  col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="socialName">Frete</label>
+        <input type="number" class="form-control" formControlName="deliveryPrice">
+      </div>
+
+      <div class="form-group  col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="socialName">Preço R$</label>
+        <input type="number" class="form-control" formControlName="sellPrice">
+      </div>
+
+      <div class="form-group  col-md-2 col-sm-12 col-xs-12 col-lg-2">
+        <label class="control-label" for="action"></label>
+        <button
+          type="button"
+          class="btn btn-primary btn-with-icon" (click)="addProduct(productForm)"
+        >+
+        </button>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left"><strong>Descrição Produto</strong></th>
+            <th scope="col" class="text-left"><strong>N. Serial</strong></th>
+            <th scope="col" class="text-center"><strong>Qtd</strong></th>
+            <th scope="col" class="text-center"><strong>Custo R$</strong></th>
+            <th scope="col" class="text-center"><strong>Taxa M.</strong></th>
+            <th scope="col" class="text-center"><strong>Frete</strong></th>
+            <th scope="col" class="text-center"><strong>Preço R$</strong></th>
+            <th scope="col" class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products; let i = index">
+            <td class="text-left">{{ product?.description | uppercase }}</td>
+            <td class="text-left">{{ product?.serialNumber }}</td>
+            <td class="text-center">{{ product?.quantity }}</td>
+            <td class="text-center">{{ product?.buyPrice | currency: 'BRL': true }}</td>
+            <td class="text-center">{{ product?.tarifMercadoLivre | currency: 'BRL': true }}</td>
+            <td class="text-center">{{ product?.deliveryPrice | currency: 'BRL': true }}</td>
+            <td class="text-center">{{ product?.sellPrice | currency: 'BRL': true }}</td>
+            <td class="text-center">
+              <button class="btn btn-danger btn-sm" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </table>
+    </div>
+
+  </ba-card>
+
+  <ba-card class="no-print">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <button class="btn btn-primary btn-with-icon" (click)="saveOrderSell(orderSellForm.value)">
+        <i class="ion-android-checkmark-circle"></i>Salvar</button>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <button class="btn btn-danger btn-with-icon">
+        <i class="ion-trash-a"></i>Limpar</button>
+      </div>
+    </div>
+  </ba-card>

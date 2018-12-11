@@ -1,5 +1,5 @@
 <p-dataTable
-[value]="produtos$ | async"
+[value]="stockTransactions$ | async"
 [lazy]="true"
 [rows]="25"
 [paginator]="true"
@@ -13,23 +13,74 @@
  rowHover="true"
  sortField="createdAt" styleClass="borderless">
 
- <p-column field="descricao" header="Descrição Produto" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="modelo" header="Modelo" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="marca" header="Marca" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="categoria" header="Categoria" [filter]="true" [style]="{'width':'100px'}"></p-column>
- <p-column field="valor" header="Valor" [style]="{'width':'100px'}">
-    <ng-template let-produto="rowData" pTemplate="body">  {{ produto?.valor | currency: 'BRL': true }}</ng-template>
+
+
+ <p-column field="createdAt" header="Data"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+    </span>
+    </ng-template>
  </p-column>
 
-  <p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
-    <ng-template let-produto="rowData" pTemplate="body">
-      <button type="button" pButton icon="fa fa-pencil" routerLink="/pages/estoque/editar-produto/{{ produto._id }}"></button>
-    </ng-template>
+<p-column field="createdBy" header="Criado por"  [filter]="true" [style]="{'width':'100px'}">
+<ng-template let-transaction="rowData" pTemplate="body">
+  <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+    {{ transaction?.createdBy | uppercase }}
+  </span>
+</ng-template>
+</p-column>
+
+
+<p-column field="origin" header="Origem"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.origin | uppercase }}
+    </span>
+  </ng-template>
+</p-column>
+
+<p-column field="baseStock" header="Base"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.baseStock | uppercase }}
+    </span>
+  </ng-template>
+</p-column>
+
+<p-column field="type" header="Tipo Evento"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.type | uppercase }}
+    </span>
+  </ng-template>
+</p-column>
+
+<p-column field="description" header="Descrição do produto"  [filter]="true" [style]="{'width':'100px'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.description | uppercase }}
+    </span>
+  </ng-template>
+</p-column>
+
+<p-column field="quantity" header="Qtd."  [style]="{'width':'100px', 'text-align': 'center'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <span [class]="transaction?.quantity <= 0 ? 'text-danger' : ''">
+      {{ transaction?.quantity  }}
+    </span>
+  </ng-template>
+</p-column>
+
+<p-column styleClass="col-button" [style]="{'width':'20px', 'text-align': 'center'}">
+  <ng-template let-transaction="rowData" pTemplate="body">
+    <button type="button" pButton icon="fa fa-pencil" *ngIf="transaction?.origin !== 'atendimento'" routerLink="/pages/compra/editar-compra/{{ transaction?.originID }}"></button>
+  </ng-template>
   </p-column>
 
-  <ng-template pTemplate="emptymessage">
-      <p *ngIf="carregando" >Buscando clientes...</p>
-      <p *ngIf="!carregando">Nenhum cliente foi encontrado</p>
-  </ng-template>
+<ng-template pTemplate="emptymessage">
+    <p *ngIf="carregando" >Buscando transações de estoque...</p>
+    <p *ngIf="!carregando">Nenhum transação encontrada</p>
+</ng-template>
 
 </p-dataTable>

@@ -47,7 +47,6 @@ export class PrincipaisInfoComponent implements OnInit {
   }
 
   onInput(input) {
-     this.formMudou = true;
-     console.log('mudou');
+    this.formMudou = true;
   }
 }

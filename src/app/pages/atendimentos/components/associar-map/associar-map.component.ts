@@ -53,7 +53,8 @@ export class AssociarMapComponent implements OnInit {
           .map(({ atendimentos, count }) => {
             this.totalyAtendimentos = count;
             return atendimentos;
-          });
+          })
+          .map(atendimentos => atendimentos.filter(({ estado }) => estado !== 'cancelado'))
       });
   }
 

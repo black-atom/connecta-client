@@ -55,6 +55,7 @@ export interface Contrato {
   isDebit: boolean;
   financeiro: Financeiro[];
   cnpjAssociados: Cliente[];
+  isInDebt: boolean;
 }
 
 export interface Financeiro {

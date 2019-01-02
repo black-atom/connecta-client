@@ -59,7 +59,8 @@ export class EditarContratoComponent implements OnInit {
       ativo: [true, Validators.required],
       resumoContrato: [''],
       motivo: ['', Validators.required],
-      dataEncerramento: ['']
+      dataEncerramento: [''],
+      isInDebt: [false, Validators.required],
     });
   }
 

@@ -1,4 +1,4 @@
-<form [formGroup]="formDadosPrincipais">
+<form [formGroup]="formDadosPrincipais" [ngClass]="{'clientInDebt': isClientInDebt}">
 
   <div class="row">
 
@@ -39,7 +39,9 @@
       <input type="text" class="form-control"
       formControlName="nome_fantasia" id="nome_fantasia" [readonly]="editarCampoFormulario">
     </div>
+  </div>
 
-
+  <div class="debt-message" *ngIf="isClientInDebt">
+    CLIENTE POSSUI RESTRIÇÃO POR CONTA DE UM DÉBITO
   </div>
 </form>

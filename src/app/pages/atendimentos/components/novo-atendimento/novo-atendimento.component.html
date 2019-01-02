@@ -6,6 +6,7 @@
     <ba-card cardTitle="Dados principais">
       <app-principais-info-cliente
       [editarCampoFormulario]="novoAtendimentoEditarCampos"
+      [isClientInDebt]="isClientInDebt"
       (enviaCnpj)="buscarCliente($event)"
       [formDadosPrincipais]="formAtendimento.controls.cliente">
     </app-principais-info-cliente>

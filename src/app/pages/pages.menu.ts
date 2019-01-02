@@ -377,6 +377,20 @@ export const PAGES_MENU = [{
           }
         }
       ]
+    },
+    {
+      path: '', // just leave the path empty
+      data: {
+
+        // and define your menu item
+        menu: {
+          title: 'Ir para novo estoque',
+          url: `http://159.65.231.233/#/auth?token=${localStorage.getItem('token')}`,
+          icon: 'ion-android-exit',
+          order: 800,
+          target: '_blank' // target property of <a> tag (_self, _blank, etc)
+        }
+      }
     }
     // {
     //   path: 'sac',

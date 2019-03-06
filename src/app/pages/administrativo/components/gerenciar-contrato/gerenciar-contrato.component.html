@@ -1,7 +1,7 @@
 <div class="no-print" *ngIf="average$ | async; let averageContrato">
   <div class="row mb-4">
     <div class="col-6">
-      <div class="card-custom ">
+      <div class="card-custom" [ngClass]="{'blurredCard': !isTotalVisible }" (click)="handleTotalCardPress()">
         <div class="content-info-card text-center">
           <div class="value" *ngIf="isShow">{{ averageContrato?.total || 0 | currency: 'BRL': true }}</div>
           <div class="value" *ngIf="!isShow">******</div>
@@ -81,7 +81,7 @@ sortField="createdAt" styleClass="borderless">
     <ng-template let-contrato="rowData" pTemplate="body">
       <button type="button" class="trash" pButton icon="fa fa-trash" (click)="deleteContrato(contrato._id)"></button>
     </ng-template>
-  </p-column>  
+  </p-column>
 
   <ng-template pTemplate="emptymessage">
       <p *ngIf="carregando" >Buscando contratos...</p>

@@ -33,6 +33,7 @@ export class GerenciarContratoComponent implements OnInit {
   };
   private skip = 0;
   private defaultSearchQuery: any = { };
+  public isTotalVisible = false
 
   dateFrom = null;
   constructor(
@@ -40,6 +41,10 @@ export class GerenciarContratoComponent implements OnInit {
     private _servicoModal: NgbModal,
     private _notificacaoService: NotificationsService,
   ) { }
+
+  handleTotalCardPress () {
+    this.isTotalVisible = !this.isTotalVisible
+  }
 
   getAverange() {
     if (this.isUserAllowed) {

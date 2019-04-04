@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { EQUIPAMENTOS } from './../../../../../utils/mocks/equipamentos';
 import { TIPOATENDIMENTOMOCK } from './../../../../../utils/mocks';
 import { TIPOESTACIONAMENTO } from '../../../../../utils/mocks';
+import { path } from 'ramda';
 
 @Component({
   selector: 'app-informacoes-atendimento',
@@ -70,10 +71,15 @@ export class InformacoesAtendimentoComponent implements OnInit {
       'Retorno Conserto': { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' },
       null: { valor: false, autorizado: false, garantia: false, estilo: 'col-lg-4' }
     };
-    this.estilo = desativaCampo[tipoAtendimento].estilo;
-    this.desabilitaValor = desativaCampo[tipoAtendimento].valor;
-    this.desabilitaAutorizado = desativaCampo[tipoAtendimento].autorizado;
-    this.desabilitaGarantia = desativaCampo[tipoAtendimento].garantia;
+
+    const getPropFromObj = obj => (prop) => path([tipoAtendimento, prop], obj)
+    const getPropDesativaCampo = getPropFromObj(desativaCampo)
+
+    this.estilo = getPropDesativaCampo('estilo')
+
+    this.desabilitaValor = getPropDesativaCampo('valor')
+    this.desabilitaAutorizado = getPropDesativaCampo('autorizado')
+    this.desabilitaGarantia = getPropDesativaCampo('garantia')
     this.tipoAtendimentoEmitter.emit(tipoAtendimento);
   }
 

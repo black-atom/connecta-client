@@ -144,10 +144,10 @@ export class GerenciarContratoComponent implements OnInit {
   }
 
   changeColorText(contrato) {
+    if (!contrato.ativo) { return 'text-danger'; }
+
     if(contrato.isInDebt){
       return 'is-in-debt'
     }
-
-    if (!contrato.ativo) { return 'text-danger'; }
   }
 }

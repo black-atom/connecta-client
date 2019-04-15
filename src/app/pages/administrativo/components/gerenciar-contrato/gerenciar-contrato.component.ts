@@ -65,10 +65,24 @@ export class GerenciarContratoComponent implements OnInit {
         const { skip = this.skip, limit = 25 } = lazyLoadParams || {};
         return this.contratoService.contratosLazyLoad(skip, limit, this.defaultSearchQuery);
       })
-      .map(({ contratos, count }) => {
+      .map(({ contratos = [], count }) => {
         this.totalRecords = count;
         this.carregando = false;
-        return contratos;
+
+
+        return contratos.map((contrato) => {
+          let status = 'ATIVO'
+          if (!contrato.ativo){
+            status = 'CANCELADO'
+          } else if (contrato.isInDebt) {
+            status = 'DEBITO'
+          }
+
+          return ({
+            ...contrato,
+            status,
+          })
+        });
       });
 
     setTimeout(() => this.contratosSubject$.next({}), 100);
@@ -125,8 +139,24 @@ export class GerenciarContratoComponent implements OnInit {
       ...queryFormatter('numeroContrato'),
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
-      ...queryFormatter('tipo')
+      ...queryFormatter('tipo'),
     };
+
+    const { status: statusQuery = '' } = <any>queryFormatter('status') || {}
+    const status = statusQuery.toUpperCase()
+
+    if (status && status.length > 0) {
+      if ('DEBITO'.includes(status)) {
+        newQuery['isInDebt'] = true
+      } else if ('CANCELADO'.includes(status)) {
+        newQuery['ativo'] = false
+      } else if('ATIVO') {
+        newQuery['ativo'] = true
+      }
+    }
+
+    console.log(status)
+
     return newQuery;
   }
 

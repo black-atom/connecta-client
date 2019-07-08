@@ -28,6 +28,7 @@ export class GerenciarContratoComponent implements OnInit {
   public average$: Observable<any>;
   public isShow = false;
   public isUserAllowed = false;
+  public canUserSeeContractTotal = false
   private opcoesModal: NgbModalOptions = {
     size: 'lg'
   };
@@ -56,7 +57,8 @@ export class GerenciarContratoComponent implements OnInit {
   ngOnInit() {
     const token = localStorage.getItem('token');
     const { login: { tipo } } = this.jwtHelper.decodeToken(token)._doc;
-    const permission = tipo.some(t => t === 'administrador' || t === 'contrato');
+    const permission = tipo.some(t => t === 'administrador' || t === 'contrato' || t === 'contrato_escrita');
+    this.canUserSeeContractTotal = tipo.some(t => t === 'administrador' || t === 'contrato');
     this.isUserAllowed = permission;
 
     this.contratosSubject$ = new Subject();

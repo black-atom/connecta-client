@@ -5,5 +5,6 @@ export const TIPOFUNCIONARIOMOCK: string[] = [
     'contrato',
     'tecnico',
     'tecnica',
-    'suporte'
+    'suporte',
+    'contrato_escrita'
 ];

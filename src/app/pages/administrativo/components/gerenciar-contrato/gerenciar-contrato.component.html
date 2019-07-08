@@ -1,5 +1,5 @@
 <div class="no-print" *ngIf="average$ | async; let averageContrato">
-  <div class="row mb-4">
+  <div class="row mb-4" *ngIf="canUserSeeContractTotal">
     <div class="col-6">
       <div class="card-custom" [ngClass]="{'blurredCard': !isTotalVisible }" (click)="handleTotalCardPress()">
         <div class="content-info-card text-center">
@@ -59,7 +59,9 @@ sortField="createdAt" styleClass="borderless">
 
 <p-column field="tipo" header="TIPO" [filter]="true" [style]="{'width':'70px'}"></p-column>
 
-<p-column field="valor" header="VALOR" [style]="{'width':'70px'}">
+<p-column field="status" header="Status" [filter]="true" [style]="{'width':'70px'}"></p-column>
+
+<p-column field="valor" header="VALOR" [style]="{'width':'70px'}" *ngIf="canUserSeeContractTotal">
   <ng-template let-contrato="rowData" pTemplate="body">
     {{ contrato?.valor | currency: 'BRL': true }}
   </ng-template>

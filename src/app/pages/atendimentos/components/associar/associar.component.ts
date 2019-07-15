@@ -107,12 +107,19 @@ export class AssociarComponent implements OnInit, OnDestroy {
               nome: funcionarioSelecionado.nome,
               _id: funcionarioSelecionado._id
             };
-            const estado = 'associado';
-            return { ...atendimento, tecnico, estado };
+
+            return { ...atendimento, tecnico };
           });
-          this.subscription = this._atendimentoService
-            .atualizarTodosAtendimentos(arrayDeAtendimentos)
-            .subscribe(() => this.getFuncionariosEAtendimentos());
+
+          this.subscription = Observable.fromPromise(
+            Promise.all(
+              arrayDeAtendimentos.map(
+                atendimento => this._atendimentoService
+                  .associarAtendimento(atendimento._id, atendimento.tecnico)
+                  .toPromise()
+              )
+            )
+          ).subscribe(() => this.getFuncionariosEAtendimentos());
         }
       })
       .catch(() => {});

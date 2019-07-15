@@ -16,5 +16,6 @@ export const TIPOATENDIMENTOMOCK: String[] = [
   'NF - Registro de sistema',
   'Venda',
   'Retorno',
-  'Retorno Conserto'
+  'Retorno Conserto',
+  'Modulo'
 ];

@@ -91,7 +91,7 @@
       <ng-template let-atendimento="rowData" pTemplate="body">
         {{ atendimento?.endereco?.cep | cep }}
       </ng-template>
-    </p-column>
+  </p-column>
 
 
 
@@ -113,6 +113,12 @@
   <p-column field="tipo" header="Tipo" [filter]="true" [style]="{'width':'90px'}">
     <ng-template let-atendimento="rowData" pTemplate="body">
       {{ atendimento?.tipo }}
+    </ng-template>
+  </p-column>
+
+  <p-column field="numero_equipamento" header="N. Equipamento" [filter]="true" [style]="{'width':'120px'}">
+    <ng-template let-atendimento="rowData" pTemplate="body">
+      {{ atendimento?.numero_equipamento }}
     </ng-template>
   </p-column>
 

@@ -127,6 +127,7 @@ export class GerenciarComponent implements OnInit, OnDestroy {
       ...queryFormatter('tecnico.nome'),
       ...queryFormatter('estado'),
       ...queryFormatter('createdBy'),
+      ...queryFormatter('numero_equipamento'),
       skip : first,
       limit : rows
     };

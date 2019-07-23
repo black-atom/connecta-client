@@ -1,0 +1,82 @@
+<form [formGroup]="formProduto" novalidate>
+    <ba-card cardTitle="Dados do Produto">
+      <div class="row">
+
+          <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+            <label class="control-label" for="productCode">Cód. Produto</label>
+            <input type="text" class="form-control" formControlName="productCode">
+            <small class="ion-close text text-danger" *ngIf="formProduto.get('productCode').hasError('required') && formProduto.get('productCode').touched"> Obrigatório!</small>
+          </div>
+
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <label class="control-label" for="description">Descrição do Produto</label>
+          <input type="text" class="form-control" formControlName="description">
+          <small class="ion-close text text-danger" *ngIf="formProduto.get('description').hasError('required') && formProduto.get('description').touched"> Obrigatório!</small>
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <label class="control-label" for="brand">Marca/Fabricante</label>
+          <input type="text" class="form-control" formControlName="brand">
+          <small class="ion-close text text-danger" *ngIf="formProduto.get('brand').hasError('required') && formProduto.get('brand').touched"> Obrigatório!</small>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <div class="form-group">
+            <label for="categoria">Categoria</label>
+            <select class="form-control" name="category" formControlName="category">
+              <option value="" selected>Selecione</option>
+              <option *ngFor="let category of categoryProducts">{{ category | uppercase }}</option>
+            </select>
+            <small class="ion-close text text-danger" *ngIf="formProduto.get('category').hasError('required') && formProduto.get('category').touched"> Obrigatório!</small>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <div class="form-group">
+              <label for="serialControl">Controle Serial</label>
+              <select class="form-control" name="serialControl" formControlName="serialControl">
+                <option value="false" selected>Não</option>
+                <option value="true" selected>Sim</option>
+              </select>
+              <small class="ion-close text text-danger" *ngIf="formProduto.get('serialControl').hasError('required') && formProduto.get('serialControl').touched"> Obrigatório!</small>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <label for="buyPrice">Preço Custo</label>
+          <div class="input-group">
+            <label class="input-group-addon">R$</label>
+            <input type="number" class="form-control" formControlName="buyPrice" id="buyPrice">
+          </div>
+          <small class="ion-close text text-danger" *ngIf="formProduto.get('buyPrice').hasError('required') && formProduto.get('buyPrice').touched"> Obrigatório!</small>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+          <label for="sellPrice">Preço Venda</label>
+          <div class="input-group">
+            <label class="input-group-addon">R$</label>
+            <input type="number" class="form-control" formControlName="sellPrice" id="sellPrice">
+          </div>
+          <small class="ion-close text text-danger" *ngIf="formProduto.get('sellPrice').hasError('required') && formProduto.get('sellPrice').touched"> Obrigatório!</small>
+        </div>
+
+      </div>
+    </ba-card>
+
+    <div class="row">
+      <div class="col-12">
+        <ba-card>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <button type="submit" class="btn btn-primary btn-with-icon" [disabled]="formProduto.invalid" (click)="editarProduto(formProduto.value)">
+                <i class="ion-android-checkmark-circle"></i>Salvar</button>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <button class="btn btn-danger btn-with-icon" (click)="rebuildForm()" [disabled]="formProduto.pristine">
+                <i class="ion-trash-a"></i>Limpar</button>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+  </form>

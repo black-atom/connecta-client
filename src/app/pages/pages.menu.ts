@@ -108,6 +108,37 @@ export const PAGES_MENU = [{
       ]
     },
     {
+      path: 'produto',
+      data: {
+        menu: {
+          title: 'Produto',
+          icon: 'fa fa-archive',
+          selected: false,
+          expanded: false,
+          order: 300
+        }
+      },
+      children: [{
+        path: 'novo',
+        data: {
+          menu: {
+            title: 'Novo',
+            icon: 'ion-plus'
+          }
+        }
+      },
+      {
+        path: 'gerenciar',
+        data: {
+          menu: {
+            title: 'Gerenciar',
+            icon: 'ion-clipboard'
+          }
+        }
+      }
+      ]
+    },
+    {
       path: 'funcionarios',
       data: {
         menu: {

@@ -21,6 +21,7 @@ export const routes: Routes = [
       { path: 'atendimentos', loadChildren: './atendimentos/atendimentos.module#AtendimentosModule' },
       { path: 'administrativo', loadChildren: './administrativo/administrativo.module#AdministrativoModule' },
       { path: 'relatorios', loadChildren: './relatorios/relatorios.module#RelatoriosModule' },
+      { path: 'produto', loadChildren: './produto/produto.module#ProdutoModule' },
       { path: 'sac', loadChildren: './sac/sac.module#SacModule' }
     ]
   }

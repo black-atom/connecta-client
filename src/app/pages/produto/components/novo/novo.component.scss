@@ -1,0 +1,36 @@
+// input.ng-valid {
+//   border: 1px solid green
+// }
+input.ng-invalid.ng-touched {
+  border: 1px solid red
+}
+
+// select.ng-valid {
+//   border: 1px solid green
+// }
+
+select.ng-invalid.ng-touched {
+  border: 1px solid red
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.autocomplete-item {
+  border: 1px solid #d4d4d4;
+  background-color: #fff;
+  padding: 2.5%;
+  cursor: pointer;
+}
+
+.autocomplete-item:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete-item:active {
+  background-color: #0093D7 !important;
+  color: #ffffff;
+}

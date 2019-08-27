@@ -279,7 +279,7 @@
   </div>
   <div class="col-12 mt-4" *ngIf="atendimentoSelecionado?.assinatura?.documento_id">
     <img
-    [src]="atendimentoSelecionado?.assinatura?.url ? 'http://165.227.78.113:3000/atendimentoimagens/'+atendimentoSelecionado?.assinatura?.url : '/assets/img/img-default.png'"
+    [src]="atendimentoSelecionado?.assinatura?.url ? 'http://200.196.235.175:3000/atendimentoimagens/'+atendimentoSelecionado?.assinatura?.url : '/assets/img/img-default.png'"
     onerror="this.src='/assets/img/img-default.png'">
     <p>
       Autorizado por: {{ atendimentoSelecionado?.assinatura?.nome | uppercase }} <br>

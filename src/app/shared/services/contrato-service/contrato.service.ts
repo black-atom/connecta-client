@@ -46,8 +46,17 @@ export class ContratoService {
                     .catch(ManipuladorErro.lidaComErro);
   }
 
-  summaryContract(dateFrom = null, dateTo = null, ativo = true): Observable <any> {
-    return this.http.get(`${environment.API_ENDPOINT}/api/contratos/summary`, { params: { ativo } })
+  summaryContract(tipo?: string): Observable <any> {
+    let params: any = { ativo: true }
+
+    if (tipo) {
+      params = {
+        ativo: true,
+        tipo,
+      }
+    }
+
+    return this.http.get(`${environment.API_ENDPOINT}/api/contratos/summary`, { params })
                     .map(res => res.json() as any)
                     .catch(ManipuladorErro.lidaComErro);
   }

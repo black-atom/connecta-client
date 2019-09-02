@@ -26,6 +26,8 @@ export class GerenciarContratoComponent implements OnInit {
   public totalRecords;
   private jwtHelper: JwtHelper = new JwtHelper();
   public average$: Observable<any>;
+  public mensalAverage$: Observable<any>;
+  public anualAverage$: Observable<any>;
   public isShow = false;
   public isUserAllowed = false;
   public canUserSeeContractTotal = false
@@ -50,6 +52,8 @@ export class GerenciarContratoComponent implements OnInit {
   getAverange() {
     if (this.isUserAllowed) {
       this.average$ = this.contratoService.summaryContract();
+      this.mensalAverage$ = this.contratoService.summaryContract('Mensal');
+      this.anualAverage$ = this.contratoService.summaryContract('Anual');
       return this.isShow = true;
     }
   }

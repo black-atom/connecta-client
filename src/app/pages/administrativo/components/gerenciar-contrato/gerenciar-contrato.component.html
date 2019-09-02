@@ -23,6 +23,56 @@
   </div>
 </div>
 
+<div class="no-print" *ngIf="mensalAverage$ | async; let averageContrato">
+  <div class="row mb-4" *ngIf="canUserSeeContractTotal">
+    <div class="col-6">
+      <div class="card-custom" [ngClass]="{'blurredCard': !isTotalVisible }" (click)="handleTotalCardPress()">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.total || 0 | currency: 'BRL': true }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">TOTAL ATIVOS - MENSAL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card-custom">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.count || 0 }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">QUANTIDADE ATIVO - MENSAL</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="no-print" *ngIf="anualAverage$ | async; let averageContrato">
+  <div class="row mb-4" *ngIf="canUserSeeContractTotal">
+    <div class="col-6">
+      <div class="card-custom" [ngClass]="{'blurredCard': !isTotalVisible }" (click)="handleTotalCardPress()">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.total || 0 | currency: 'BRL': true }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">TOTAL ATIVOS - ANUAL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card-custom">
+        <div class="content-info-card text-center">
+          <div class="value" *ngIf="isShow">{{ averageContrato?.count || 0 }}</div>
+          <div class="value" *ngIf="!isShow">******</div>
+          <div class="title">QUANTIDADE ATIVO - ANUAL</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <p-dataTable
 [value]="contratos$ | async"
 [lazy]="true"

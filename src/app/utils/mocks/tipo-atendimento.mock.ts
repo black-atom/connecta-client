@@ -17,5 +17,6 @@ export const TIPOATENDIMENTOMOCK: String[] = [
   'Venda',
   'Retorno',
   'Retorno Conserto',
-  'Modulo'
+  'Modulo',
+  'Garantia E-COMMERCE'
 ];

@@ -56,6 +56,7 @@ export class InformacoesAtendimentoComponent implements OnInit {
       'Garantia externa': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
       'Garantia laboratório': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
       'Garantia venda': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
+      'Garantia E-COMMERCE': { valor: false, autorizado: false, garantia: true, estilo: 'col-lg-2' },
       'NF - Avulso local': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },
       'NF - Avulso online/telefone': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },
       'NF - Registro de sistema': { valor: true, autorizado: false, garantia: false, estilo: 'col-lg-2' },

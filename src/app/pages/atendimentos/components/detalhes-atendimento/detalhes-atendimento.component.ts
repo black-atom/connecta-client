@@ -234,6 +234,12 @@ export class DetalhesAtendimentoComponent implements OnInit, OnDestroy, IFormCan
         this.formEdicaoAtendimento.get('garantia').enable();
         break;
       }
+      case 'Garantia E-COMMERCE': {
+        this.formEdicaoAtendimento.get('valor').disable();
+        this.formEdicaoAtendimento.get('autorizado').disable();
+        this.formEdicaoAtendimento.get('garantia').enable();
+        break;
+      }
       case 'Garantia laboratório': {
         this.formEdicaoAtendimento.get('valor').disable();
         this.formEdicaoAtendimento.get('autorizado').disable();

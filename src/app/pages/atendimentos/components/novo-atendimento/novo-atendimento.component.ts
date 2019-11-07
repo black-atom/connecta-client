@@ -238,6 +238,12 @@ export class NovoAtendimentoComponent implements OnInit, OnDestroy, IFormCanDeac
         this.formAtendimento.get('garantia').disable();
         break;
       }
+      case 'Garantia E-COMMERCE': {
+        this.formAtendimento.get('valor').disable();
+        this.formAtendimento.get('autorizado').disable();
+        this.formAtendimento.get('garantia').enable();
+        break;
+      }
       default: {
         this.formAtendimento.get('valor').disable();
         this.formAtendimento.get('autorizado').disable();

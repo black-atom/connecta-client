@@ -146,6 +146,7 @@ export class GerenciarContratoComponent implements OnInit {
       ...queryFormatter('cliente.nome_razao_social'),
       ...queryFormatter('cliente.cnpj_cpf'),
       ...queryFormatter('tipo'),
+      ...queryFormatter('valor'),
     };
 
     const { status: statusQuery = '' } = <any>queryFormatter('status') || {}

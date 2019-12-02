@@ -111,7 +111,7 @@ sortField="createdAt" styleClass="borderless">
 
 <p-column field="status" header="Status" [filter]="true" [style]="{'width':'70px'}"></p-column>
 
-<p-column field="valor" header="VALOR" [style]="{'width':'70px'}" *ngIf="canUserSeeContractTotal">
+<p-column field="valor" header="VALOR" [filter]="true" [style]="{'width':'70px'}" *ngIf="canUserSeeContractTotal">
   <ng-template let-contrato="rowData" pTemplate="body">
     {{ contrato?.valor | currency: 'BRL': true }}
   </ng-template>
